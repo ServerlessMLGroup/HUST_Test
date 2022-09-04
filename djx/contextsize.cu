@@ -75,6 +75,10 @@ int main()
     cout<<"getDeviceCount"<<endl;
     int count;
     int err = cudaGetDeviceCount(&count);
+    if(err){
+        cout<<"cuCtxGetDevice error:"<<err<<endl;
+        return 0;
+    }
     cout<<"getDeviceCount Fininshed"<<endl;
 
     // cout<<"after new context1:"<<endl;
