@@ -71,17 +71,19 @@ int main()
     CUcontext pctx;
     CUdevice dev;
     // getMem();
-
+    /*
     cout<<"getDeviceCount"<<endl;
     int count;
     int err = cudaGetDeviceCount(&count);
     if(err){
-        cout<<"cuCtxGetDevice error:"<<err<<endl;
+        cout<<"getDeviceCount error:"<<err<<endl;
         return 0;
     }
     cout<<"getDeviceCount Fininshed"<<endl;
 
     // cout<<"after new context1:"<<endl;
+    */
+    cout<<"cuCtxGetDevice"<<endl;
     err = cuCtxGetDevice(&dev);
     if(err){
         cout<<"cuCtxGetDevice error:"<<err<<endl;
