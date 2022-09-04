@@ -9,13 +9,15 @@ batch_size = args.batch_size
 mps_percentage = args.mps
 gpu_no = args.gpu_no
 
+import sys
+sys.path.append("..")
+
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
 import numpy as np
 import torch
 import time
-import sys
-sys.path.append("..")
-import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
 def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
@@ -49,17 +51,6 @@ def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nru
 
 if __name__ == '__main__':
     # os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
-    # args parse
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--resnet_times', type=int, default=1)
-    parser.add_argument('--gpu_no', type=int, default=0)
-    parser.add_argument('--batch_size', type=int, default=1)
-    parser.add_argument('--mps', type=int, default=100)
-    args = parser.parse_args()
-
-    batch_size = args.batch_size
-    mps_percentage = args.mps
-    gpu_no = args.gpu_no
 
     # mps_controller.openMPS(gpu_no, mps_percentage)
     # torch.cuda.set_device(args.cuda_device)
