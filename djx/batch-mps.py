@@ -18,7 +18,7 @@ import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
-def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100, device):
+def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
     input_data = torch.randn(input_shape)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_data = input_data.to(device)
