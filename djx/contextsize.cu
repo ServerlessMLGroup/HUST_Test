@@ -84,7 +84,7 @@ int main()
     // cout<<"after new context1:"<<endl;
     */
     cout<<"cuCtxGetDevice"<<endl;
-    err = cuCtxGetDevice(&dev);
+    int err = cuCtxGetDevice(&dev);
     if(err){
         cout<<"cuCtxGetDevice error:"<<err<<endl;
         return 0;
