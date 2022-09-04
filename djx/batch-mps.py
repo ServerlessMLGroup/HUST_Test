@@ -57,8 +57,9 @@ if __name__ == '__main__':
     device = torch.device("cuda:%d" % args.cuda_device if torch.cuda.is_available() else "cpu")
     print("device = ", device)
     # resnet stage
-    model = torch.hub.load('/root/.cache/torch/hub/pytorch_vision_v0.10.0', 'resnet152', source="local",
-                           pretrained=True)
+    # model = torch.hub.load('/root/.cache/torch/hub/pytorch_vision_v0.10.0', 'resnet152', source="local",
+    #                       pretrained=True)
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
     # print("resnet model load cost:%s" % ((resnet_load)))
     # model = model.eval().to(device)
     model.to(device)
