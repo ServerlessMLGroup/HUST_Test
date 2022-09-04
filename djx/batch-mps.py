@@ -1,4 +1,14 @@
 import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--gpu_no', type=int, default=0)
+parser.add_argument('--batch_size', type=int, default=1)
+parser.add_argument('--mps', type=int, default=100)
+args = parser.parse_args()
+
+batch_size = args.batch_size
+mps_percentage = args.mps
+gpu_no = args.gpu_no
+
 import numpy as np
 import torch
 import time
@@ -8,9 +18,9 @@ import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
-def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
+def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100, device):
     input_data = torch.randn(input_shape)
-    device = torch.device("cuda:%d" % args.cuda_device if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     input_data = input_data.to(device)
     if dtype == 'fp16':
         input_data = input_data.half()
@@ -54,7 +64,7 @@ if __name__ == '__main__':
     # mps_controller.openMPS(gpu_no, mps_percentage)
     # torch.cuda.set_device(args.cuda_device)
     # os.environ["CUDA_VISIBLE_DEVICES"] = "%d" % args.cuda_device
-    device = torch.device("cuda:%d" % args.cuda_device if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print("device = ", device)
     # resnet stage
     # model = torch.hub.load('/root/.cache/torch/hub/pytorch_vision_v0.10.0', 'resnet152', source="local",
