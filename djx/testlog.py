@@ -1,19 +1,13 @@
 import sys
+
 sys.path.append("..")
 
-from util import log
+from util.log import Log
 
-def test_info():
-    log.CtxInfo("testlog", "this is info")
-    print("end")
-
-def test_error():
-    log.CtxError("testlog", "this is error")
-
-def test_info_func():
-    log.CtxInfo("func_name", "this is info")
 
 if __name__ == '__main__':
-    test_info()
-    test_error()
-    test_info_func()
+    Log.debug("log-test", "this is debug")
+    Log.info("log-test", "this is info")
+    Log.warning("log-test", "this is warning")
+    Log.error("log-test", "this is error")
+    Log.critical("log-test", "this is critical")
