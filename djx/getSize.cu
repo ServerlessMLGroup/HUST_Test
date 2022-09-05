@@ -45,36 +45,6 @@ void getMem() {
     printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
 }
 
-void getMembycu() {
-    size_t free, total;
-    int err = cuMemGetInfo(&free, &total);
-    if (err) {
-        cout<<"getMembycu error:"<<err<<endl;
-    }
-    else {
-        printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
-    }
-}
+int main() {
 
-
-__global__ void VecAdd(float* A, float* B, float* C, int N)
-{
-    int i = blockDim.x * blockIdx.x + threadIdx.x;
-    if (i < N)
-        C[i] = A[i] + B[i];
-}
-
-
-int main(int argc, char** argv)
-{
-    int device_no = 0;
-    if (argc <= 1) {
-        printf("not enough args! default set device cuda:0");
-    }
-    else {
-        device_no = argv[1];
-    }
-    cudaSetDevice(device_no);
-    getMem();
-    return 0;
 }
