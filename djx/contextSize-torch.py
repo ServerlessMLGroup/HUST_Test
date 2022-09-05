@@ -11,7 +11,7 @@ sys.path.append("..")
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 
-os.system("nvcc ./getSize.cu -o getSize -lcuda")
+os.system("nvcc getSize.cu -o getSize -lcuda")
 print("before import torch:")
 os.system("./getSize")
 
@@ -19,6 +19,8 @@ import torch
 
 if __name__ == '__main__':
     device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
+    torch.randn(1,device='cuda');
     print("device = ", device)
     print("after import torch:")
+    
     os.system("./getSize")
