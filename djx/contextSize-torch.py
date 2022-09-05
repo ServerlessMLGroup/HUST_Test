@@ -11,7 +11,7 @@ sys.path.append("..")
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 
-os.system("nvcc ./getSize.cu -o getSize -lcuda")
+os.system("nvcc getSize.cu -o getSize -lcuda")
 print("before import torch:")
 os.system("./getSize")
 

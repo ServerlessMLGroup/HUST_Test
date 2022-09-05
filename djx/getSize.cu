@@ -41,10 +41,15 @@ double convert(double size, Unit unit)
 
 void getMem() {
     size_t free, total;
-    cudaMemGetInfo(&free, &total);
+    int err=cudaMemGetInfo(&free, &total);
+    if(err){
+       cout<<"cudaMemGetInfo error:"<<err<<endl;
+       return;
+    }
     printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
 }
 
 int main() {
-
+    getMem();
+    return 0;
 }
