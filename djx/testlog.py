@@ -2,12 +2,13 @@ import sys
 
 sys.path.append("..")
 
-from util.log import Log
+from util import log
 
 
 if __name__ == '__main__':
-    Log.debug("log-test", "this is debug")
-    Log.info("log-test", "this is info")
-    Log.warning("log-test", "this is warning")
-    Log.error("log-test", "this is error")
-    Log.critical("log-test", "this is critical")
+    logger = log.get_logger("log-test")
+    logger.debug("this is debug")
+    logger.info("this is info")
+    logger.warning("this is warning")
+    logger.error("this is error")
+    logger.critical("this is critical")
