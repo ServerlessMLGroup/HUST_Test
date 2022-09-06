@@ -1,4 +1,5 @@
 import argparse
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu_no', type=int, default=0)
 parser.add_argument('--batch_size', type=int, default=1)
@@ -10,9 +11,11 @@ mps_percentage = args.mps
 gpu_no = args.gpu_no
 
 import sys
+
 sys.path.append("..")
 
 import os
+
 os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 
 import numpy as np

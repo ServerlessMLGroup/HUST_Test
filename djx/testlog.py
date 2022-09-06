@@ -4,7 +4,6 @@ sys.path.append("..")
 
 from util import log
 
-
 if __name__ == '__main__':
     logger = log.get_logger("log-test")
     logger.debug("this is debug")
