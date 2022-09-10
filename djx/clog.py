@@ -12,12 +12,13 @@ import sys
 
 sys.path.append("..")
 
-# import os
+import os
 
-# os.environ['CUDA_VISIBLE_DEVICES'] = ("%d" % 1)
+os.environ['CUDA_VISIBLE_DEVICES'] = ("%d" % args.gpu_no)
 
 import numpy as np
 import torch
+torch.cuda.set_device(args.gpu_no)
 import time
 
 
