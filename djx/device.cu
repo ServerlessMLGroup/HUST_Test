@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
     }
-    cudaSetDevice(argv[1]);
+    cudaSetDevice(int(argv[1]));
     while(1) {
         getMem();
         std::this_thread::sleep_for(std::chrono:: milliseconds (50));
