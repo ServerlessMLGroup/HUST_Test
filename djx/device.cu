@@ -59,6 +59,13 @@ int main(int argc, char** argv) {
        cout<<"cudaSetDevice error:"<<err<<endl;
        return;
     }
+    int current_device;
+    err=cudaGetDevice(&current_device);
+    if(err){
+       cout<<"cudaGetDevice error:"<<err<<endl;
+       return;
+    }
+    cout<<"current_device:"<<current_device<<endl;
     while(1) {
         getMem();
         std::this_thread::sleep_for(std::chrono:: milliseconds (50));
