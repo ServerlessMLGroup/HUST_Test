@@ -14,8 +14,7 @@ enum class Unit{
 };
 
 
-double convert(double size, Unit unit)
-{
+double convert(double size, Unit unit) {
     double result = size;
     switch (unit)
     {
