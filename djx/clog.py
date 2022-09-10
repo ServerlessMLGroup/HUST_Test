@@ -12,9 +12,9 @@ import sys
 
 sys.path.append("..")
 
-import os
+# import os
 
-os.environ['CUDA_VISIBLE_DEVICES'] = ("%d" % 1)
+# os.environ['CUDA_VISIBLE_DEVICES'] = ("%d" % 1)
 
 import numpy as np
 import torch
