@@ -51,7 +51,7 @@ def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nru
 
 
 if __name__ == '__main__':
-
+    print("torch.cuda.device_count():%v", torch.cuda.device_count())
     device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
     print("device =", device)
     model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
