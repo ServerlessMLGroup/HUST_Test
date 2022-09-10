@@ -2,10 +2,10 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu_no', type=int, default=0)
-parser.add_argument('--mps', type=int, default=100)
+parser.add_argument('--batch_size', type=int, default=1)
 args = parser.parse_args()
 
-mps_percentage = args.mps
+batch_size = args.batch_size
 gpu_no = args.gpu_no
 
 import sys
