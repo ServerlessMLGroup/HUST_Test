@@ -22,7 +22,7 @@ import torch
 
 if __name__ == '__main__':
     device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
-    torch.randn(1, device='cuda');
+    torch.randn(1, device='cuda')
     print("device = ", device)
     print("after import torch:")
 
