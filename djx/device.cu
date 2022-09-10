@@ -54,7 +54,11 @@ int main(int argc, char** argv) {
         printf("args num error! argc:%d", argc);
     }
     int gpu_no = atoi(argv[1]);
-    cudaSetDevice(gpu_no);
+    int err=cudaSetDevice(gpu_no);
+    if(err){
+       cout<<"cudaSetDevice error:"<<err<<endl;
+       return;
+    }
     while(1) {
         getMem();
         std::this_thread::sleep_for(std::chrono:: milliseconds (50));
