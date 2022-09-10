@@ -49,7 +49,7 @@ void getMem() {
     printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
 }
 
-int main(int argc，char** argv) {
+int main(int argc, char** argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
     }
