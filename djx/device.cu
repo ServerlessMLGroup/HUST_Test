@@ -14,7 +14,8 @@ enum class Unit{
 };
 
 
-double convert(double size, Unit unit) {
+double convert(double size, Unit unit)
+{
     double result = size;
     switch (unit)
     {
@@ -40,45 +41,13 @@ double convert(double size, Unit unit) {
 
 void getMem() {
     size_t free, total;
-    cudaMemGetInfo(&free, &total);
+    int err=cudaMemGetInfo(&free, &total);
+    if(err){
+       cout<<"cudaMemGetInfo error:"<<err<<endl;
+       return;
+    }
     printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
 }
-
-void getMembycu() {
-    size_t free, total;
-    int err = cuMemGetInfo(&free, &total);
-    if (err) {
-        cout<<"getMembycu error:"<<err<<endl;
-    }
-    else {
-        printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
-    }
-}
-
-void getLimit() {
-    size_t value;
-    int err = cuCtxGetLimit(&value, CU_LIMIT_STACK_SIZE);
-    if(err) {
-        printf("[getLimit]:[CU_LIMIT_STACK_SIZE]:%d", err);
-        exit(1);
-    }
-    //printf("getLimit:stack_size = %.4f MB\n", convert(value, Unit::MB));
-
-    err = cuCtxGetLimit(&value, CU_LIMIT_PRINTF_FIFO_SIZE);
-    if(err) {
-        printf("[getLimit]:[CU_LIMIT_PRINTF_FIFO_SIZE]:%d", err);
-        exit(1);
-    }
-    //printf("getLimit:printf_fifo_size = %.4f MB\n", convert(value, Unit::MB));
-
-    err = cuCtxGetLimit(&value, CU_LIMIT_MALLOC_HEAP_SIZE);
-    if(err) {
-        printf("[getLimit]:[CU_LIMIT_MALLOC_HEAP_SIZE]:%d", err);
-        exit(1);
-    }
-    //printf("getLimit:malloc_heap_size = %.4f MB\n", convert(value, Unit::MB));
-}
-
 
 int main(int argc，char** argv) {
     if (argc < 2) {
