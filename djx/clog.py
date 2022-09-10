@@ -14,7 +14,7 @@ sys.path.append("..")
 
 import os
 
-os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
+os.environ['CUDA_VISIBLE_DEVICES'] = ("%d" % 1)
 
 import numpy as np
 import torch
