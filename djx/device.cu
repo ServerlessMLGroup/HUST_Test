@@ -49,11 +49,12 @@ void getMem() {
     printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
 }
 
-int main(int argc, void** argv) {
+int main(int argc, char** argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
     }
-    cudaSetDevice(int(argv[1]));
+    int gpu_no = atoi(argv[1])
+    cudaSetDevice(gpu_no);
     while(1) {
         getMem();
         std::this_thread::sleep_for(std::chrono:: milliseconds (50));
