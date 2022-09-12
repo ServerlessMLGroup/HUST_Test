@@ -1,5 +1,10 @@
+#include <cuda.h>
+#include "cuda_runtime.h"
+#include <iostream>
 void crContext(int dev) {
-     // Get handle for device 0
+	
+    cuInit(0);
+    // Get handle for device 0
     CUdevice cuDevice;
     cuDeviceGet(&cuDevice, dev);
 

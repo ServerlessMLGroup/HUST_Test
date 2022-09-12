@@ -6,7 +6,7 @@ void torch_launch_crContext(int dev) {
 }
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
-    m.def("torch_launch_",crContext
+    m.def("torch_launch_crContext",
           &torch_launch_crContext,
           "crContext kernel warpper");
 }
