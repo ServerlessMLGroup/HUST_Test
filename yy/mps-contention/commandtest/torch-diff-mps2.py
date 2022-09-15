@@ -76,6 +76,7 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
     # print("Output features size:", features.size())
 
 
+
 class WorkerProc(Process):
     def __init__(self, name, start_pipe, mps_percentage, batch_size=32):
         super(WorkerProc, self).__init__()
@@ -87,10 +88,13 @@ class WorkerProc(Process):
         self.log_file = init_file("torch-diff-mps-%s" % name)
 
     def run(self):
-        begin_meg = self.start_pipe.recv()
-        if begin_meg != 'BEGIN':
+        pid = 4854
+        cmd = "echo set_active_thread_percentage " + str(pid) + " "+ str(self.mps_percentage)+" | nvidia-cuda-mps-control"
+        print(str(self.name) + ": " + cmd)
+        os.system(cmd)
+        #if begin_meg != 'BEGIN':
             # self.logger.error('%s do not receive BEGIN!' % self.name)
-            print('%s do not receive BEGIN!' % self.name)
+        #   print('%s do not receive BEGIN!' % self.name)
         # cmd = 'echo set_active_thread_percentage 213 %d | nvidia-cuda-mps-control' % self.mps_percentage
         # os.system(cmd)
         # self.logger.info(cmd)
@@ -101,6 +105,7 @@ class WorkerProc(Process):
         model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
         model.to(device)
         model.eval()
+        begin_meg = self.start_pipe.recv()
         benchmark(log_file_name=self.log_file, worker_name=self.name, device=device, model=model,
                   input_shape=(self.batch_size, 3, 224, 224))
 
@@ -108,22 +113,36 @@ class WorkerProc(Process):
 def main():
     worker_list = []
     p_parent_worker1, p_child_worker1 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "10"
-    worker1 = WorkerProc(("worker%d" % 1), p_child_worker1, 10, 32)
+    worker1 = WorkerProc(("worker%d" % 1), p_child_worker1, 30, 32)
     worker1.start()
-    worker_list.append((("worker%d" % 1), p_parent_worker1))
+    worker_list.append((("worker%d" % 1), p_parent_worker1, 30, 32))
+    time.sleep(1)
 
     p_parent_worker2, p_child_worker2 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "90"
-    worker2 = WorkerProc(("worker%d" % 2), p_child_worker2, 90, 32)
+    worker2 = WorkerProc(("worker%d" % 2), p_child_worker2, 10, 32)
     worker2.start()
-    worker_list.append((("worker%d" % 2), p_parent_worker2))
+    worker_list.append((("worker%d" % 2), p_parent_worker2, 10, 32))
+    time.sleep(1)
+
+    p_parent_worker3, p_child_worker3 = mp.Pipe()
+    worker3 = WorkerProc(("worker%d" % 3), p_child_worker3, 30, 32)
+    worker3.start()
+    worker_list.append((("worker%d" % 3), p_parent_worker3, 30, 32))
+    time.sleep(1)
+
+    p_parent_worker4, p_child_worker4 = mp.Pipe()
+    worker4 = WorkerProc(("worker%d" % 4), p_child_worker4, 30, 32)
+    worker4.start()
+    worker_list.append((("worker%d" % 4), p_parent_worker4, 30, 32))
+    time.sleep(1)
 
     for worker in worker_list:
         worker[1].send('BEGIN')
 
     worker1.join()
     worker2.join()
+    worker3.join()
+    worker4.join()
 
 
 if __name__ == '__main__':
