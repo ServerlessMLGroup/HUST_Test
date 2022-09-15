@@ -21,10 +21,10 @@ from util import log
 
 
 class WorkerProc(Process):
-    def __init__(self, name, start_pipe, mps_percentage, batch_size=32):
+    def __init__(self, name, start_pipe, mps_percentage, main_stdout, batch_size=32):
         super(WorkerProc, self).__init__()
         self.name = name
-        # self.logger = log.get_logger(name, "test-multi-log", main_stdout)
+        self.logger = log.get_logger(name, "test-multi-log", main_stdout)
         self.start_pipe = start_pipe
         self.mps_percentage = mps_percentage
         self.batch_size = batch_size
@@ -32,9 +32,9 @@ class WorkerProc(Process):
     def run(self):
         begin_meg = self.start_pipe.recv()
         if begin_meg != 'BEGIN':
-            print('%s do not receive BEGIN!' % self.name)
+            self.logger.error('%s do not receive BEGIN!' % self.name)
         cmd = 'echo set_active_thread_percentage 213 %d | nvidia-cuda-mps-control' % self.mps_percentage
-        print(cmd)
+        self.logger.info(cmd)
 
 
 def main():
