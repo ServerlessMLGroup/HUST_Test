@@ -107,5 +107,6 @@ def main():
     worker4.join()
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
+    mp.set_start_method('spawn')
     main()
