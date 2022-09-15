@@ -37,7 +37,7 @@ def init_file(func_file_name):
 
 def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50,
               nruns=100):
-    log_file_handler = open(log_file_name, 'a+', encoding='utf-8')
+    #log_file_handler = open(log_file_name, 'a+', encoding='utf-8')
     input_data = torch.randn(input_shape)
     input_data = input_data.to(device)
     if dtype == 'fp16':
@@ -62,11 +62,11 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
                 # np.mean(timings) * 1000))
                 print('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
                     worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
-                log_file_handler.write('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
-                    worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
+                # log_file_handler.write('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
+                #    worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
                 timings.clear()
-    print("%s:End!--------")
-    log_file_handler.close()
+    print("%s:End!--------" % worker_name)
+    #log_file_handler.close()
     # logger.info("Input shape:", input_data.size())
     # print("Input shape:", input_data.size())
     # logger.info("Output features size:", features.size())
