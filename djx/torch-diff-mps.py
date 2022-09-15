@@ -39,7 +39,7 @@ def init_file(func_file_name):
 
 
 def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50,
-              nruns=100):
+              nruns=500):
     log_file_handler = open(log_file_name, 'a+', encoding='utf-8')
     input_data = torch.randn(input_shape)
     input_data = input_data.to(device)
@@ -51,7 +51,7 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
         for _ in range(nwarmup):
             features = model(input_data)
     torch.cuda.synchronize()
-    print("%s:Start timing ..." % worker_name)
+    print("[%s]%s:Start timing ..." % (time.time(), worker_name))
     timings = []
     with torch.no_grad():
         for i in range(1, nruns + 1):
@@ -65,10 +65,10 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
                 # np.mean(timings) * 1000))
                 print('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
                     worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
-                log_file_handler.write('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms\n' % (
-                     worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
+                log_file_handler.write('[%s] %s:Iteration %d/%d, %d-%d ave batch time %.2f ms\n' % (
+                     time.time(), worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
                 timings.clear()
-    print("%s:End!--------" % worker_name)
+    print("[%s]%s:End!--------" % (time.time(), worker_name))
     log_file_handler.close()
     # logger.info("Input shape:", input_data.size())
     # print("Input shape:", input_data.size())
