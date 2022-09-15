@@ -1,6 +1,6 @@
 docker run --name mps_1body -it --gpus all -d -v ~/HUST_Test:/workspace/HUST_Test -v /tmp/nvidia-mps:/tmp/nvidia-mps --ipc container:mps-daemon pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel /bin/bash
 
-docker run --name mps-daemon --ipc shareable --runtime nvidia -it --gpus all -d -v /tmp/nvidia-mps:/tmp/nvidia-mps pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel /bin/bash
+docker run --name mps-daemon --runtime nvidia -it --gpus all -d -v /tmp/nvidia-mps:/tmp/nvidia-mps -v ~/HUST_Test:/workspace/HUST_Test pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel /bin/bash
 
 docker run --name pytorch -d -it --gpus all -v ~/HUST_Test:/workspace/HUST_Test pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel /bin/bash
 

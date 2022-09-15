@@ -1,7 +1,5 @@
 import argparse
-import threading
 import time
-from queue import Queue
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu_no', type=int, default=0)
