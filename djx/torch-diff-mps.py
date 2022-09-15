@@ -99,6 +99,7 @@ class WorkerProc(Process):
         model.eval()
         benchmark(file_handler=self.log_file_handler, worker_name=self.name, device=device, model=model,
                   input_shape=(self.batch_size, 3, 224, 224))
+        self.log_file_handler.close()
 
 
 def main():
