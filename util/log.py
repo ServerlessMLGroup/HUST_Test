@@ -31,7 +31,7 @@ def init_file(func_file_name):
     return file_full_name
 
 
-def get_logger(name=None):
+def get_logger(name=None, func_name=None):
     """
     get logger by name
 
@@ -58,7 +58,7 @@ def get_logger(name=None):
 
     # 输出到文件
     if LOG_ENABLED and LOG_TO_FILE:
-        file_full_name = init_file(name)
+        file_full_name = init_file(func_name)
         # 添加 FileHandler
         file_handler = logging.FileHandler(file_full_name, encoding='utf-8')
         file_handler.setLevel(level=LOG_LEVEL)
