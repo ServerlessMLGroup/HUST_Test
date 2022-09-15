@@ -31,6 +31,32 @@ void Command0(void){
         cout << line ;
     }
     pclose(fp);
+
+    cout<<"Parent set sm 40%: "<<endl;
+    int err=cudaSetDevice(0);
+    int result = 0;
+    if(err){
+       cout<<"cudaSetDevice error:"<<err<<endl;
+       return 0;
+    }
+    CUcontext pctx;
+    CUdevice dev;
+    err=cuCtxGetDevice(&dev);
+    if(err){
+       cout<<"cudaGetDevice error:"<<err<<endl;
+       return 0;
+    }
+    err = cuCtxCreate(&pctx,CU_CTX_SCHED_YIELD,dev);
+    if(err){
+       cout<<"cudaGetDevice error:"<<err<<endl;
+       return 0;
+    }
+    err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
+    if(err){
+       cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
+       return 0;
+    }
+    cout<< "Parent : cudaDevAttrMultiProcessorCount is: "<<result<<endl;
 }
 
 void Command1(void){
@@ -48,6 +74,32 @@ void Command1(void){
         cout << line ;
     }
     pclose(fp);
+
+     cout<<"set sm 20%: "<<endl;
+    int err=cudaSetDevice(0);
+    int result = 0;
+    if(err){
+       cout<<"cudaSetDevice error:"<<err<<endl;
+       return 0;
+    }
+    CUcontext pctx;
+    CUdevice dev;
+    err=cuCtxGetDevice(&dev);
+    if(err){
+       cout<<"cudaGetDevice error:"<<err<<endl;
+       return 0;
+    }
+    err = cuCtxCreate(&pctx,CU_CTX_SCHED_YIELD,dev);
+    if(err){
+       cout<<"cudaGetDevice error:"<<err<<endl;
+       return 0;
+    }
+    err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
+    if(err){
+       cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
+       return 0;
+    }
+    cout<< "Child: cudaDevAttrMultiProcessorCount is: "<<result<<endl;
 }
 
 enum class Unit{
@@ -91,46 +143,29 @@ void getMem() {
 }
 
 int main(void) {
-    Command0();
-    cout<<"set sm 40%: "<<endl;
-    int err=cudaSetDevice(0);
-    int result = 0;
-    if(err){
-       cout<<"cudaSetDevice error:"<<err<<endl;
-       return 0;
+    int num=3
+    pid_t pid = 0;
+    pid = fork();           //创建一个子进程,fork()函数没有参数。
+    printf("pid is %d\n",getpid());     //获取进程的pid
+    if (0 < pid)        //父进程得到的pid大于0,这段代码是父进程中执行的
+    {
+        Command0()
+        num++;
+        printf("I am parent!,num is %d\n",num);
     }
-    CUcontext pctx;
-    CUdevice dev;
-    err=cuCtxGetDevice(&dev);
-    if(err){
-       cout<<"cudaGetDevice error:"<<err<<endl;
-       return 0;
+    else if(0 == pid)   //子进程得到的返回值是0，这段代码在子进程中执行
+    {
+        Command1()
+        num--;
+        printf("I am son!,num is %d\n",num);
     }
-    err = cuCtxCreate(&pctx,CU_CTX_SCHED_YIELD,dev);
-    if(err){
-       cout<<"cudaGetDevice error:"<<err<<endl;
-       return 0;
-    }
-    err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
-    if(err){
-       cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
-       return 0;
-    }
-    cout<< "cudaDevAttrMultiProcessorCount is: "<<result<<endl;
-
-    Command1();
-    cout<<"set sm 20%: "<<endl;
-    CUcontext pctx2;
-    err = cuCtxCreate(&pctx2,CU_CTX_SCHED_YIELD,dev);
-    if(err){
-       cout<<"cudaGetDevice error:"<<err<<endl;
-       return 0;
-    }
-    err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
-    if(err){
-       cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
-       return 0;
-    }
-    cout<< "cudaDevAttrMultiProcessorCount is: "<<result<<endl;
+   else                 //创建进程失败
+   {
+       //有两种情况会失败：
+       //1.进程数目达到OS的最大值
+       //2.进程创建时内存不够了。
+       printf("fork error!\n");
+       exit(-1);
+   }
 
 }
