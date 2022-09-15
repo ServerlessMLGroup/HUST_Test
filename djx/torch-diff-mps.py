@@ -21,7 +21,7 @@ import numpy as np
 import torch.multiprocessing as mp
 
 
-def benchmark(device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
+def benchmark(worker_name, device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
     input_data = torch.randn(input_shape)
     input_data = input_data.to(device)
     if dtype == 'fp16':
@@ -44,13 +44,13 @@ def benchmark(device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup
             if i % 10 == 0:
                 # logger.info('Iteration %d/%d, %d-%d ave batch time %.2f ms' % (i, nruns, i, i - 10,
                 # np.mean(timings) * 1000))
-                print('Iteration %d/%d, %d-%d ave batch time %.2f ms' % (i, nruns, i, i - 10, np.mean(timings) * 1000))
+                print('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
                 timings.clear()
 
     # logger.info("Input shape:", input_data.size())
-    print("Input shape:", input_data.size())
+    # print("Input shape:", input_data.size())
     # logger.info("Output features size:", features.size())
-    print("Output features size:", features.size())
+    # print("Output features size:", features.size())
 
 
 class WorkerProc(Process):
@@ -77,7 +77,7 @@ class WorkerProc(Process):
         model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
         model.to(device)
         model.eval()
-        benchmark(device=device, model=model, input_shape=(self.batch_size, 3, 224, 224))
+        benchmark(worker_name=self.name, device=device, model=model, input_shape=(self.batch_size, 3, 224, 224))
 
 
 def main():
