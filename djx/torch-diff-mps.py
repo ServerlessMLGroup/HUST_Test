@@ -32,12 +32,12 @@ def init_file(func_file_name):
         os.mkdir(log_file_path)
 
     file_full_name = log_file_path + "/" + log_file_name
-    f = open(file_full_name, "a+", encoding='utf-8')
-    return f
+    return file_full_name
 
 
-def benchmark(file_handler, worker_name, device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50,
+def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50,
               nruns=100):
+    log_file_handler = open(log_file_name, 'a+', encoding='utf-8')
     input_data = torch.randn(input_shape)
     input_data = input_data.to(device)
     if dtype == 'fp16':
@@ -62,10 +62,11 @@ def benchmark(file_handler, worker_name, device, model, input_shape=(8, 3, 224, 
                 # np.mean(timings) * 1000))
                 print('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
                     worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
-                file_handler.write('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
+                log_file_handler.write('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
                     worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
                 timings.clear()
     print("%s:End!--------")
+    log_file_handler.close()
     # logger.info("Input shape:", input_data.size())
     # print("Input shape:", input_data.size())
     # logger.info("Output features size:", features.size())
@@ -80,7 +81,7 @@ class WorkerProc(Process):
         self.start_pipe = start_pipe
         self.mps_percentage = mps_percentage
         self.batch_size = batch_size
-        self.log_file_handler = init_file("torch-diff-mps-%s" % name)
+        self.log_file = init_file("torch-diff-mps-%s" % name)
 
     def run(self):
         begin_meg = self.start_pipe.recv()
@@ -97,9 +98,8 @@ class WorkerProc(Process):
         model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
         model.to(device)
         model.eval()
-        benchmark(file_handler=self.log_file_handler, worker_name=self.name, device=device, model=model,
+        benchmark(log_file_name=self.log_file, worker_name=self.name, device=device, model=model,
                   input_shape=(self.batch_size, 3, 224, 224))
-        self.log_file_handler.close()
 
 
 def main():
