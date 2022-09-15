@@ -20,21 +20,19 @@ import torch
 import numpy as np
 import torch.multiprocessing as mp
 
-from util import log
 
-
-def benchmark(device, model, logger, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
+def benchmark(device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
     input_data = torch.randn(input_shape)
     input_data = input_data.to(device)
     if dtype == 'fp16':
         input_data = input_data.half()
 
-    logger.info("Warm up ...")
+    print("Warm up ...")
     with torch.no_grad():
         for _ in range(nwarmup):
             features = model(input_data)
     torch.cuda.synchronize()
-    logger.info("Start timing ...")
+    print("Start timing ...")
     timings = []
     with torch.no_grad():
         for i in range(1, nruns + 1):
@@ -44,19 +42,22 @@ def benchmark(device, model, logger, input_shape=(8, 3, 224, 224), dtype='fp32',
             end_time = time.time()
             timings.append(end_time - start_time)
             if i % 10 == 0:
-                logger.info(
-                    'Iteration %d/%d, %d-%d ave batch time %.2f ms' % (i, nruns, i, i - 10, np.mean(timings) * 1000))
+                # logger.info('Iteration %d/%d, %d-%d ave batch time %.2f ms' % (i, nruns, i, i - 10,
+                # np.mean(timings) * 1000))
+                print('Iteration %d/%d, %d-%d ave batch time %.2f ms' % (i, nruns, i, i - 10, np.mean(timings) * 1000))
                 timings.clear()
 
-    logger.info("Input shape:", input_data.size())
-    logger.info("Output features size:", features.size())
+    # logger.info("Input shape:", input_data.size())
+    print("Input shape:", input_data.size())
+    # logger.info("Output features size:", features.size())
+    print("Output features size:", features.size())
 
 
 class WorkerProc(Process):
     def __init__(self, name, start_pipe, mps_percentage, batch_size=32):
         super(WorkerProc, self).__init__()
         self.name = name
-        self.logger = log.get_logger(name, "torch-diff-mps")
+        # self.logger = log.get_logger(name, "torch-diff-mps")
         self.start_pipe = start_pipe
         self.mps_percentage = mps_percentage
         self.batch_size = batch_size
@@ -64,19 +65,19 @@ class WorkerProc(Process):
     def run(self):
         begin_meg = self.start_pipe.recv()
         if begin_meg != 'BEGIN':
-            self.logger.error('%s do not receive BEGIN!' % self.name)
+            # self.logger.error('%s do not receive BEGIN!' % self.name)
             print('%s do not receive BEGIN!' % self.name)
-        cmd = 'echo set_active_thread_percentage %d %d | nvidia-cuda-mps-control' % (os.getpid(), self.mps_percentage)
+        cmd = 'echo set_active_thread_percentage 213 %d | nvidia-cuda-mps-control' % self.mps_percentage
         os.system(cmd)
-        self.logger.info(cmd)
+        # self.logger.info(cmd)
         print(cmd)
         device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
-        self.logger.info("torch.cuda.current_device():", torch.cuda.current_device())
+        # self.logger.info("torch.cuda.current_device():", torch.cuda.current_device())
         print("torch.cuda.current_device():", torch.cuda.current_device())
         model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
         model.to(device)
         model.eval()
-        benchmark(device=device, model=model, logger=self.logger, input_shape=(self.batch_size, 3, 224, 224))
+        benchmark(device=device, model=model, input_shape=(self.batch_size, 3, 224, 224))
 
 
 def main():

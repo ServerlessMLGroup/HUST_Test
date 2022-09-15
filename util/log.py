@@ -8,12 +8,10 @@ loggers = {}
 LOG_ENABLED = True  # 是否开启日志
 LOG_TO_CONSOLE = True  # 是否输出到控制台
 LOG_TO_FILE = True  # 是否输出到文件
-LOG_TO_ES = False  # 是否输出到 Elasticsearch
 
 LOG_LEVEL = 'DEBUG'  # 日志级别
 LOG_FORMAT = '[%(levelname)s %(asctime)s] - test:%(name)s - process:%(process)d - file:%(filename)s - line:%(lineno)d ' \
              '- %(message)s'  # 每条日志输出格式
-APP_ENVIRONMENT = 'dev'  # 运行环境，如测试环境还是生产环境
 
 
 def init_file(func_file_name):
@@ -26,12 +24,13 @@ def init_file(func_file_name):
         os.mkdir(log_file_path)
 
     file_full_name = log_file_path + "/" + log_file_name
-    f = open(file_full_name, "a+")
-    f.close()
+    if os.path.exists(file_full_name):
+        f = open(file_full_name, "a+")
+        f.close()
     return file_full_name
 
 
-def get_logger(name=None, func_name=None):
+def get_logger(name=None, func_name=None, main_stdout=None):
     """
     get logger by name
 
