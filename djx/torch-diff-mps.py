@@ -105,3 +105,7 @@ def main():
     worker2.join()
     worker3.join()
     worker4.join()
+
+
+if __name__ == 'main':
+    main()
