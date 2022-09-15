@@ -67,10 +67,10 @@ class WorkerProc(Process):
         if begin_meg != 'BEGIN':
             # self.logger.error('%s do not receive BEGIN!' % self.name)
             print('%s do not receive BEGIN!' % self.name)
-        cmd = 'echo set_active_thread_percentage 213 %d | nvidia-cuda-mps-control' % self.mps_percentage
-        os.system(cmd)
+        # cmd = 'echo set_active_thread_percentage 213 %d | nvidia-cuda-mps-control' % self.mps_percentage
+        # os.system(cmd)
         # self.logger.info(cmd)
-        print(cmd)
+        # print(cmd)
         device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
         # self.logger.info("torch.cuda.current_device():", torch.cuda.current_device())
         print("torch.cuda.current_device():", torch.cuda.current_device())
@@ -83,21 +83,25 @@ class WorkerProc(Process):
 def main():
     worker_list = []
     p_parent_worker1, p_child_worker1 = mp.Pipe()
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
     worker1 = WorkerProc(("worker%d" % 1), p_child_worker1, 30, 32)
     worker1.start()
     worker_list.append((("worker%d" % 1), p_parent_worker1, 30, 32))
 
     p_parent_worker2, p_child_worker2 = mp.Pipe()
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
     worker2 = WorkerProc(("worker%d" % 2), p_child_worker2, 30, 32)
     worker2.start()
     worker_list.append((("worker%d" % 2), p_parent_worker2, 30, 32))
 
     p_parent_worker3, p_child_worker3 = mp.Pipe()
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
     worker3 = WorkerProc(("worker%d" % 3), p_child_worker3, 30, 32)
     worker3.start()
     worker_list.append((("worker%d" % 3), p_parent_worker3, 30, 32))
 
     p_parent_worker4, p_child_worker4 = mp.Pipe()
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "10"
     worker4 = WorkerProc(("worker%d" % 4), p_child_worker4, 10, 32)
     worker4.start()
     worker_list.append((("worker%d" % 4), p_parent_worker4, 10, 32))
