@@ -12,6 +12,10 @@
 #include<cstdio>
 #include<cstring>
 #include<algorithm>
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+
 using namespace std;
 
 const int N = 300;
@@ -19,7 +23,7 @@ const int N = 300;
 void Command0(void){
     char line[N];
     FILE *fp;
-    string cmd = "echo set_active_thread_percentage 849 40 | nvidia-cuda-mps-control";
+    string cmd = "echo set_active_thread_percentage 947 40 | nvidia-cuda-mps-control";
     //引号内是你的linux指令
     // 系统调用
     const char *sysCommand = cmd.data();
@@ -37,24 +41,24 @@ void Command0(void){
     int result = 0;
     if(err){
        cout<<"cudaSetDevice error:"<<err<<endl;
-       return 0;
+       return;
     }
     CUcontext pctx;
     CUdevice dev;
     err=cuCtxGetDevice(&dev);
     if(err){
        cout<<"cudaGetDevice error:"<<err<<endl;
-       return 0;
+       return;
     }
     err = cuCtxCreate(&pctx,CU_CTX_SCHED_YIELD,dev);
     if(err){
        cout<<"cudaGetDevice error:"<<err<<endl;
-       return 0;
+       return;
     }
     err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
     if(err){
        cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
-       return 0;
+       return;
     }
     cout<< "Parent : cudaDevAttrMultiProcessorCount is: "<<result<<endl;
 }
@@ -62,7 +66,7 @@ void Command0(void){
 void Command1(void){
     char line[N];
     FILE *fp;
-    string cmd = "echo set_active_thread_percentage 849 20 | nvidia-cuda-mps-control";
+    string cmd = "echo set_active_thread_percentage 947 20 | nvidia-cuda-mps-control";
     //引号内是你的linux指令
     // 系统调用
     const char *sysCommand = cmd.data();
@@ -80,24 +84,24 @@ void Command1(void){
     int result = 0;
     if(err){
        cout<<"cudaSetDevice error:"<<err<<endl;
-       return 0;
+       return;
     }
     CUcontext pctx;
     CUdevice dev;
     err=cuCtxGetDevice(&dev);
     if(err){
        cout<<"cudaGetDevice error:"<<err<<endl;
-       return 0;
+       return;
     }
     err = cuCtxCreate(&pctx,CU_CTX_SCHED_YIELD,dev);
     if(err){
        cout<<"cudaGetDevice error:"<<err<<endl;
-       return 0;
+       return;
     }
     err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
     if(err){
        cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
-       return 0;
+       return;
     }
     cout<< "Child: cudaDevAttrMultiProcessorCount is: "<<result<<endl;
 }
@@ -143,19 +147,19 @@ void getMem() {
 }
 
 int main(void) {
-    int num=3
+    int num=3;
     pid_t pid = 0;
     pid = fork();           //创建一个子进程,fork()函数没有参数。
     printf("pid is %d\n",getpid());     //获取进程的pid
     if (0 < pid)        //父进程得到的pid大于0,这段代码是父进程中执行的
     {
-        Command0()
+        Command0();
         num++;
         printf("I am parent!,num is %d\n",num);
     }
     else if(0 == pid)   //子进程得到的返回值是0，这段代码在子进程中执行
     {
-        Command1()
+        Command1();
         num--;
         printf("I am son!,num is %d\n",num);
     }
@@ -167,5 +171,5 @@ int main(void) {
        printf("fork error!\n");
        exit(-1);
    }
-
+   return 0;
 }
