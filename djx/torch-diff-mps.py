@@ -32,9 +32,6 @@ def init_file(func_file_name):
         os.mkdir(log_file_path)
 
     file_full_name = log_file_path + "/" + log_file_name
-    if os.path.exists(file_full_name):
-        f = open(file_full_name, "a+")
-        f.close()
     return file_full_name
 
 
@@ -114,22 +111,34 @@ def main():
     worker_list.append(p_parent_worker1)
 
     p_parent_worker2, p_child_worker2 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
-    worker2 = WorkerProc("worker-30%-1", p_child_worker2, 30, 32)
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "10"
+    worker2 = WorkerProc("worker-10%-2", p_child_worker2, 10, 32)
     worker2.start()
     worker_list.append(p_parent_worker2)
 
     p_parent_worker3, p_child_worker3 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
-    worker3 = WorkerProc("worker-30%-2", p_child_worker3, 30, 32)
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "20"
+    worker3 = WorkerProc("worker-20%-1", p_child_worker3, 20, 32)
     worker3.start()
     worker_list.append(p_parent_worker3)
 
     p_parent_worker4, p_child_worker4 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
-    worker4 = WorkerProc("worker-30%-3", p_child_worker4, 30, 32)
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "20"
+    worker4 = WorkerProc("worker-20%-2", p_child_worker4, 20, 32)
     worker4.start()
     worker_list.append(p_parent_worker4)
+
+    p_parent_worker5, p_child_worker5 = mp.Pipe()
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "20"
+    worker5 = WorkerProc("worker-20%-3", p_child_worker5, 20, 32)
+    worker5.start()
+    worker_list.append(p_parent_worker5)
+
+    p_parent_worker6, p_child_worker6 = mp.Pipe()
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "20"
+    worker6 = WorkerProc("worker-20%-4", p_child_worker6, 20, 32)
+    worker6.start()
+    worker_list.append(p_parent_worker6)
 
     for worker in worker_list:
         worker.send('BEGIN')
