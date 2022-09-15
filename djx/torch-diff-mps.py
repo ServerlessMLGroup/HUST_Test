@@ -5,10 +5,8 @@ from queue import Queue
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu_no', type=int, default=0)
-parser.add_argument('--batch_size', type=int, default=1)
 args = parser.parse_args()
 
-batch_size = args.batch_size
 gpu_no = args.gpu_no
 
 import sys
@@ -83,24 +81,29 @@ class WorkerProc(Process):
 def main():
     worker_list = []
     p_parent_worker1, p_child_worker1 = mp.Pipe()
-    worker = WorkerProc(("worker%d" % 1), p_child_worker1, 30, 32)
-    worker.start()
-    worker_list.append((("worker%d" % 1), p_child_worker1, 30, 32))
+    worker1 = WorkerProc(("worker%d" % 1), p_child_worker1, 30, 32)
+    worker1.start()
+    worker_list.append((("worker%d" % 1), p_parent_worker1, 30, 32))
 
     p_parent_worker2, p_child_worker2 = mp.Pipe()
-    worker = WorkerProc(("worker%d" % 2), p_child_worker2, 30, 32)
-    worker.start()
-    worker_list.append((("worker%d" % 2), p_child_worker2, 30, 32))
+    worker2 = WorkerProc(("worker%d" % 2), p_child_worker2, 30, 32)
+    worker2.start()
+    worker_list.append((("worker%d" % 2), p_parent_worker2, 30, 32))
 
     p_parent_worker3, p_child_worker3 = mp.Pipe()
-    worker = WorkerProc(("worker%d" % 3), p_child_worker3, 30, 32)
-    worker.start()
-    worker_list.append((("worker%d" % 3), p_child_worker3, 30, 32))
+    worker3 = WorkerProc(("worker%d" % 3), p_child_worker3, 30, 32)
+    worker3.start()
+    worker_list.append((("worker%d" % 3), p_parent_worker3, 30, 32))
 
     p_parent_worker4, p_child_worker4 = mp.Pipe()
-    worker = WorkerProc(("worker%d" % 4), p_child_worker4, 10, 32)
-    worker.start()
-    worker_list.append((("worker%d" % 4), p_child_worker4, 10, 32))
+    worker4 = WorkerProc(("worker%d" % 4), p_child_worker4, 10, 32)
+    worker4.start()
+    worker_list.append((("worker%d" % 4), p_parent_worker4, 10, 32))
 
     for worker in worker_list:
         worker[1].send('BEGIN')
+
+    worker1.join()
+    worker2.join()
+    worker3.join()
+    worker4.join()
