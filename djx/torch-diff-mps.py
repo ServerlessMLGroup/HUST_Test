@@ -65,11 +65,11 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
                 # np.mean(timings) * 1000))
                 print('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
                     worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
-                log_file_handler.write('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
+                log_file_handler.write('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms\n' % (
                      worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
                 timings.clear()
     print("%s:End!--------" % worker_name)
-    # log_file_handler.close()
+    log_file_handler.close()
     # logger.info("Input shape:", input_data.size())
     # print("Input shape:", input_data.size())
     # logger.info("Output features size:", features.size())
