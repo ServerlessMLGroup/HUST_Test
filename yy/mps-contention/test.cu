@@ -19,8 +19,8 @@ const int N = 300;
 void Command0(void){
     char line[N];
     FILE *fp;
-    string cmd = "echo set_active_thread_percentage 359 10 | nvidia-cuda-mps-control";
-    引号内是你的linux指令
+    string cmd = "echo set_active_thread_percentage 849 40 | nvidia-cuda-mps-control";
+    //引号内是你的linux指令
     // 系统调用
     const char *sysCommand = cmd.data();
     if ((fp = popen(sysCommand, "r")) == NULL) {
@@ -36,8 +36,8 @@ void Command0(void){
 void Command1(void){
     char line[N];
     FILE *fp;
-    string cmd = "echo set_active_thread_percentage 359 20 | nvidia-cuda-mps-control";
-    引号内是你的linux指令
+    string cmd = "echo set_active_thread_percentage 849 20 | nvidia-cuda-mps-control";
+    //引号内是你的linux指令
     // 系统调用
     const char *sysCommand = cmd.data();
     if ((fp = popen(sysCommand, "r")) == NULL) {
@@ -92,29 +92,29 @@ void getMem() {
 
 int main(void) {
     Command0();
-    cout<<"set sm 10%: "<<endl;
+    cout<<"set sm 40%: "<<endl;
     int err=cudaSetDevice(0);
     int result = 0;
     if(err){
        cout<<"cudaSetDevice error:"<<err<<endl;
-       return;
+       return 0;
     }
     CUcontext pctx;
     CUdevice dev;
     err=cuCtxGetDevice(&dev);
     if(err){
        cout<<"cudaGetDevice error:"<<err<<endl;
-       return;
+       return 0;
     }
     err = cuCtxCreate(&pctx,CU_CTX_SCHED_YIELD,dev);
     if(err){
        cout<<"cudaGetDevice error:"<<err<<endl;
-       return;
+       return 0;
     }
     err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
     if(err){
        cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
-       return;
+       return 0;
     }
     cout<< "cudaDevAttrMultiProcessorCount is: "<<result<<endl;
 
@@ -124,12 +124,12 @@ int main(void) {
     err = cuCtxCreate(&pctx2,CU_CTX_SCHED_YIELD,dev);
     if(err){
        cout<<"cudaGetDevice error:"<<err<<endl;
-       return;
+       return 0;
     }
     err = cudaDeviceGetAttribute(&result,cudaDevAttrMultiProcessorCount,0);
     if(err){
        cout<<"cudaDeviceGetAttribute error:"<<err<<endl;
-       return;
+       return 0;
     }
     cout<< "cudaDevAttrMultiProcessorCount is: "<<result<<endl;
 
