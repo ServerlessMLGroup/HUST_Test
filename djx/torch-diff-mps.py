@@ -109,18 +109,24 @@ def main():
     worker_list = []
     p_parent_worker1, p_child_worker1 = mp.Pipe()
     os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "10"
-    worker1 = WorkerProc(("worker%d" % 1), p_child_worker1, 10, 32)
+    worker1 = WorkerProc("worker-10%", p_child_worker1, 10, 32)
     worker1.start()
-    worker_list.append((("worker%d" % 1), p_parent_worker1))
+    worker_list.append(p_parent_worker1)
 
     p_parent_worker2, p_child_worker2 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "90"
-    worker2 = WorkerProc(("worker%d" % 2), p_child_worker2, 90, 32)
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "40"
+    worker2 = WorkerProc("worker-40%", p_child_worker2, 40, 32)
     worker2.start()
-    worker_list.append((("worker%d" % 2), p_parent_worker2))
+    worker_list.append(p_parent_worker2)
+
+    p_parent_worker3, p_child_worker3 = mp.Pipe()
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "50"
+    worker3 = WorkerProc("worker-50%", p_child_worker3, 50, 32)
+    worker3.start()
+    worker_list.append(p_parent_worker3)
 
     for worker in worker_list:
-        worker[1].send('BEGIN')
+        worker.send('BEGIN')
 
     worker1.join()
     worker2.join()
