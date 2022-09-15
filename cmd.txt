@@ -6,7 +6,7 @@ docker run --name pytorch -d -it --gpus all -v ~/HUST_Test:/workspace/HUST_Test 
 
 ssh wuhao@222.20.94.68 -p 50011
 
-docker exec -ti mps_1body /bin/bash
+ docker exec -ti mps-daemon /bin/bash
 
 export CUDA_VISIBLE_DEVICES=0
 
@@ -17,6 +17,8 @@ docker cp ~/HUST_Test pytorch:/workspace
 python djx/batch-mps.py --batch_size=1 --gpu_no=0
 
 ps -ef | grep mps
+
+sudo nvidia-smi -i 0 -c EXCLUSIVE_PROCESS
 
 // 容器内执行
 echo quit | nvidia-cuda-mps-control
