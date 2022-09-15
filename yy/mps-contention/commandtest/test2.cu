@@ -22,9 +22,8 @@ const int N = 300;
 
 void Command0(void){
 
-    std::string env = "40";
-    std::string newEnv = "CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=" + env;
-	putenv(newEnv.c_str());
+    std::string command = "CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=40";
+    putenv("CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=40");
 
     cout<<"Parent set sm 40%: "<<endl;
     int err=cudaSetDevice(0);
@@ -55,9 +54,7 @@ void Command0(void){
 
 void Command1(void){
 
-    std::string env = "20";
-    std::string newEnv = "CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=" + env;
-	putenv(newEnv.c_str());
+    putenv("CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=20");
 
     cout<<"set sm 20%: "<<endl;
     int err=cudaSetDevice(0);
