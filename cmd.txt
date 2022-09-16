@@ -6,7 +6,7 @@ docker run --name pytorch -d -it --gpus all -v ~/HUST_Test:/workspace/HUST_Test 
 
 ssh wuhao@222.20.94.68 -p 50011
 
- docker exec -ti mps-daemon /bin/bash
+docker exec -ti mps-daemon /bin/bash
 
 export CUDA_VISIBLE_DEVICES=0
 

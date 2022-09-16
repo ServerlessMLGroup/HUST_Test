@@ -74,7 +74,7 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
 
 
 class WorkerProc(Process):
-    def __init__(self, name, start_pipe, mps_percentage, batch_size=32):
+    def __init__(self, name, start_pipe, mps_percentage, batch_size=32, nruns=500):
         super(WorkerProc, self).__init__()
         self.name = name
         # self.logger = log.get_logger(name, "torch-diff-mps")
@@ -82,6 +82,7 @@ class WorkerProc(Process):
         self.mps_percentage = mps_percentage
         self.batch_size = batch_size
         self.log_file = init_file("torch-diff-mps-%s" % name)
+        self.nruns = nruns
 
     def run(self):
         begin_meg = self.start_pipe.recv()
@@ -99,7 +100,7 @@ class WorkerProc(Process):
         model.to(device)
         model.eval()
         benchmark(log_file_name=self.log_file, worker_name=self.name, device=device, model=model,
-                  input_shape=(self.batch_size, 3, 224, 224))
+                  input_shape=(self.batch_size, 3, 224, 224), nruns=self.nruns)
 
 
 def main():
@@ -108,7 +109,7 @@ def main():
     for i in range(1, 11):
         p_parent_worker, p_child_worker = mp.Pipe()
         os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "10"
-        worker = WorkerProc("worker-10%-1", p_child_worker, 10, 32)
+        worker = WorkerProc("worker-10%-%d" % i, p_child_worker, 10, 8, 200)
         worker.start()
         worker_meg_list.append(p_parent_worker)
         worker_list.append(worker)
