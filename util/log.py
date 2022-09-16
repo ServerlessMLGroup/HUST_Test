@@ -19,7 +19,7 @@ def init_file(func_file_name):
     dir_name, _ = os.path.split(os.path.abspath(__file__))
     log_file_path = os.path.dirname(dir_name) + '/logs'
     log_file_name = ('%s_%s_%s_%s.txt' %
-                     (func_file_name, current_time.month, current_time.day, current_time.hour))
+                     (func_file_name, current_time.month, current_time.day, (current_time.hour + 8) % 24))
     if not os.path.exists(log_file_path):
         os.mkdir(log_file_path)
 
