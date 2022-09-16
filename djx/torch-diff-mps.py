@@ -106,34 +106,20 @@ class WorkerProc(Process):
 def main():
     worker_list = []
     worker_meg_list = []
+    for i in range(1, 2):
+        p_parent_worker, p_child_worker = mp.Pipe()
+        os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "10"
+        worker = WorkerProc(("worker-10-%d" % i), p_child_worker, mps_percentage=10, batch_size=8, nruns=300)
+        worker.start()
+        worker_meg_list.append(p_parent_worker)
+        worker_list.append(worker)
 
     p_parent_worker, p_child_worker = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "10"
-    worker = WorkerProc("worker-10", p_child_worker, mps_percentage=10, batch_size=8, nruns=300)
+    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "90"
+    worker = WorkerProc(("worker-90-%d" % 1), p_child_worker, mps_percentage=90, batch_size=64, nruns=300)
     worker.start()
     worker_meg_list.append(p_parent_worker)
     worker_list.append(worker)
-
-    p_parent_worker1, p_child_worker1 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "20"
-    worker1 = WorkerProc("worker-20", p_child_worker1, mps_percentage=20, batch_size=16, nruns=300)
-    worker1.start()
-    worker_meg_list.append(p_parent_worker1)
-    worker_list.append(worker1)
-
-    p_parent_worker2, p_child_worker2 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
-    worker2 = WorkerProc("worker-30", p_child_worker2, mps_percentage=30, batch_size=32, nruns=300)
-    worker2.start()
-    worker_meg_list.append(p_parent_worker2)
-    worker_list.append(worker2)
-
-    p_parent_worker3, p_child_worker3 = mp.Pipe()
-    os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "40"
-    worker3 = WorkerProc("worker-40", p_child_worker3, mps_percentage=40, batch_size=32, nruns=300)
-    worker3.start()
-    worker_meg_list.append(p_parent_worker3)
-    worker_list.append(worker3)
 
     for worker_channel in worker_meg_list:
         worker_channel.send('BEGIN')
