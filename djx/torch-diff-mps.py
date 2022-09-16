@@ -27,7 +27,7 @@ def init_file(func_file_name):
     dir_name, _ = os.path.split(os.path.abspath(__file__))
     log_file_path = os.path.dirname(dir_name) + '/logs'
     log_file_name = ('%s_%s_%s_%s.txt' %
-                     (func_file_name, current_time.month, current_time.day, current_time.hour))
+                     (func_file_name, current_time.month, current_time.day, (current_time.hour + 8) % 24))
     if not os.path.exists(log_file_path):
         os.mkdir(log_file_path)
 
@@ -109,19 +109,19 @@ def main():
 
     for i in range(1, 3):
         p_parent_worker, p_child_worker = mp.Pipe()
-        os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "40"
-        worker = WorkerProc(("worker-40-%d" % i), p_child_worker, mps_percentage=40, batch_size=32, nruns=300)
+        os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "60"
+        worker = WorkerProc(("worker-60-%d" % i), p_child_worker, mps_percentage=60, batch_size=64, nruns=300)
         worker.start()
         worker_meg_list.append(p_parent_worker)
         worker_list.append(worker)
 
-    for i in range(1, 2):
-        p_parent_worker, p_child_worker = mp.Pipe()
-        os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "20"
-        worker = WorkerProc(("worker-20-%d" % i), p_child_worker, mps_percentage=20, batch_size=16, nruns=300)
-        worker.start()
-        worker_meg_list.append(p_parent_worker)
-        worker_list.append(worker)
+    # for i in range(1, 2):
+    #     p_parent_worker, p_child_worker = mp.Pipe()
+    #     os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "20"
+    #     worker = WorkerProc(("worker-20-%d" % i), p_child_worker, mps_percentage=20, batch_size=16, nruns=300)
+    #     worker.start()
+    #     worker_meg_list.append(p_parent_worker)
+    #     worker_list.append(worker)
 
     for worker_channel in worker_meg_list:
         worker_channel.send('BEGIN')
