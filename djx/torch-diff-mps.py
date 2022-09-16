@@ -114,6 +114,7 @@ def main():
         worker.start()
         worker_meg_list.append(p_parent_worker)
         worker_list.append(worker)
+
     for i in range(1, 4):
         p_parent_worker, p_child_worker = mp.Pipe()
         os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
