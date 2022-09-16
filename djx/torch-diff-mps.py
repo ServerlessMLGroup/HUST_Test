@@ -123,7 +123,7 @@ def main():
 
     p_parent_worker2, p_child_worker2 = mp.Pipe()
     os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE'] = "30"
-    worker2 = WorkerProc("worker-30", p_child_worker2, mps_percentage=30, batch_size=32, nruns=300)
+    worker2 = WorkerProc("worker-30", p_child_worker2, mps_percentage=30, batch_size=16, nruns=300)
     worker2.start()
     worker_meg_list.append(p_parent_worker2)
     worker_list.append(worker2)
