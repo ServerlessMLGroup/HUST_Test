@@ -1,4 +1,6 @@
-from tvm.driver import tvmc
+import tvm.relay as relay
+import tvm
+from tvm.contrib import graph_executor
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -24,4 +26,13 @@ if __name__ == '__main__':
     print("device =", device)
     model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
     model.eval()
-    package = tvmc.compile(model, target="cuda", package_path="./")
+    target = "cuda"
+    input_name = "data"
+    shape_dict = {input_name: (1, 3, 224, 224)}
+    mod, params = tvm.relay.frontend.from_pytorch(model, shape_dict)
+    with tvm.transform.PassContext(opt_level=3):
+        lib = relay.build(mod, target=target, params=params)
+
+    dev = tvm.device(str(target), 0)
+    module = graph_executor.GraphModule(lib["default"](dev))
+    # package = tvmc.compile(model, target="cuda", package_path="./")
