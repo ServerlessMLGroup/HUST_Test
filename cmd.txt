@@ -8,6 +8,9 @@ docker run --name tvm-gpu -it -d --gpus all -v ~/HUST_Test:/workspace/HUST_Test 
 
 docker pull tlcpack/ci-gpu:20220908-060034-62bdc91b1
 
+export TVM_HOME=/tvm
+export PYTHONPATH=$TVM_HOME/python:${PYTHONPATH}
+
 ssh wuhao@222.20.94.68 -p 50011
 
 docker exec -ti mps-daemon /bin/bash
