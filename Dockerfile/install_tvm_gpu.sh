@@ -23,6 +23,7 @@ cd /usr
 git clone https://github.com/apache/tvm tvm --recursive
 cd /usr/tvm
 
+touch config.cmake
 echo set\(USE_LLVM ON\) >> config.cmake
 echo set\(USE_CUDA ON\) >> config.cmake
 echo set\(USE_CUDNN ON\) >> config.cmake
@@ -30,7 +31,7 @@ echo set\(USE_BLAS openblas\) >> config.cmake
 echo set\(USE_CUBLAS ON\) >> config.cmake
 echo set\(USE_MPS ON\) >> config.cmake
 mkdir build
-cp cmake/config.cmake build
+cp config.cmake build
 
 cd build
 cmake ..

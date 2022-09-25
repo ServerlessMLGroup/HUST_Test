@@ -4,7 +4,7 @@ docker run --name mps-daemon --runtime nvidia -it --gpus all -d -v /tmp/nvidia-m
 
 docker run --name pytorch -d -it --gpus all -v ~/HUST_Test:/workspace/HUST_Test pytorch/pytorch:1.11.0-cuda11.3-cudnn8-devel /bin/bash
 
-docker run --name tvm-gpu -it -d --gpus all --runtime nvidia -v ~/HUST_Test:/workspace/HUST_Test mytvm:v2 /bin/bash
+docker run --name tvm-gpu -it -d --gpus all --runtime nvidia -v ~/HUST_Test:/workspace/HUST_Test mytvm:v3 /bin/bash
 
 docker build -t mytvm:v2 -f ./Dockerfile.tvm .
 
