@@ -31,7 +31,7 @@ if __name__ == '__main__':
     model_path = download_testdata(model_url, "resnet50-v2-7.onnx", module="onnx")
     onnx_model = onnx.load(model_path)
 
-    img_url = "https://s3.amazonaws.com/model-server/inputs/kitten.jpg"a
+    img_url = "https://s3.amazonaws.com/model-server/inputs/kitten.jpg"
     img_path = download_testdata(img_url, "imagenet_cat.png", module="data")
 
     # Resize it to 224x224
