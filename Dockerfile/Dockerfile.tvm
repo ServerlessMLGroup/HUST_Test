@@ -3,6 +3,7 @@ FROM tlcpack/ci-gpu:20220908-060034-62bdc91b1
 COPY /install_tvm_gpu.sh /install/install_tvm_gpu.sh
 RUN bash /install/install_tvm_gpu.sh
 
+# Environment variables
 ENV PYTHONPATH=/usr/tvm/python:/usr/tvm/vta/python:${PYTHONPATH}
 ENV PATH=/usr/local/nvidia/bin:${PATH}
 ENV PATH=/usr/local/cuda/bin:${PATH}
