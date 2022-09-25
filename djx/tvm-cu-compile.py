@@ -49,8 +49,7 @@ if __name__ == '__main__':
     # Add the batch dimension, as we are expecting 4-dimensional input: NCHW.
     img_data = np.expand_dims(norm_img_data, axis=0)
 
-    target = tvm.target.cuda()
-
+    target = "cuda"
     # The input name may vary across model types. You can use a tool
     # like Netron to check input names
     input_name = "data"
