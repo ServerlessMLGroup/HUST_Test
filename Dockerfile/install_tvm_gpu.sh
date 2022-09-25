@@ -16,21 +16,21 @@
 # specific language governing permissions and limitations
 # under the License.
 
-set -e
-set -u
-set -o pipefail
+sudo apt-get update
+sudo apt-get install -y python3 python3-dev python3-setuptools gcc libtinfo-dev zlib1g-dev build-essential cmake libedit-dev libxml2-dev
 
-cd /usr
+cd /
 git clone https://github.com/apache/tvm tvm --recursive
-cd /usr/tvm
-# checkout a hash-tag
-git checkout 4b13bf668edc7099b38d463e5db94ebc96c80470
+cd /tvm
 
-# echo set\(USE_LLVM llvm-config-8\) >> config.cmake
+echo set\(USE_LLVM llvm-config-8\) >> config.cmake
 echo set\(USE_CUDA ON\) >> config.cmake
 echo set\(USE_CUDNN ON\) >> config.cmake
 echo set\(USE_BLAS openblas\) >> config.cmake
-mkdir -p build
+echo set\(USE_CUBLAS ON\)
+mkdir build
+cp cmake/config.cmake build
+
 cd build
 cmake ..
-make -j10
+make -j4
