@@ -17,5 +17,5 @@ os.environ['CUDA_VISIBLE_DEVICES'] = ("%d" % args.gpu_no)
 
 if __name__ == '__main__':
     model = tvmc.load("/model/resnet50-v2-7.onnx") #Step 1: Load
-
+    tvmc.tune(model, target="cuda")
     package = tvmc.compile(model, target="cuda", package_path="/cu")
