@@ -28,6 +28,7 @@ echo set\(USE_CUDA ON\) >> config.cmake
 echo set\(USE_CUDNN ON\) >> config.cmake
 echo set\(USE_BLAS openblas\) >> config.cmake
 echo set\(USE_CUBLAS ON\) >> config.cmake
+echo set\(USE_MPS ON\) >> config.cmake
 mkdir build
 cp cmake/config.cmake build
 
