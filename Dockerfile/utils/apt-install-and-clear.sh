@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -16,23 +16,5 @@
 # specific language governing permissions and limitations
 # under the License.
 
-apt-get update
-apt-get install -y python3 python3-dev python3-setuptools gcc libtinfo-dev zlib1g-dev build-essential cmake libedit-dev libxml2-dev
+apt-get install $@ && apt-get clean
 
-cd /usr
-git clone https://github.com/apache/tvm tvm --recursive
-cd /usr/tvm
-
-touch config.cmake
-echo set\(USE_LLVM ON\) >> config.cmake
-echo set\(USE_CUDA ON\) >> config.cmake
-echo set\(USE_CUDNN ON\) >> config.cmake
-echo set\(USE_BLAS openblas\) >> config.cmake
-echo set\(USE_CUBLAS ON\) >> config.cmake
-echo set\(USE_MPS ON\) >> config.cmake
-mkdir build
-cp config.cmake build
-
-cd build
-cmake ..
-make -j4
