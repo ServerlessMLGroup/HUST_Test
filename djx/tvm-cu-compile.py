@@ -50,16 +50,15 @@ if __name__ == '__main__':
     img_data = np.expand_dims(norm_img_data, axis=0)
 
     target = tvm.target.cuda()
-    target_host = "llvm"
     # The input name may vary across model types. You can use a tool
     # like Netron to check input names
     input_name = "data"
-    shape_dict = {input_name: img_data.shape}
+    shape_dict = {input_name: (1, 3, 224, 224)}
     print("shape_dict", shape_dict)
     mod, params = relay.frontend.from_onnx(onnx_model, shape_dict)
 
     with tvm.transform.PassContext(opt_level=-1):
-        lib = relay.build(mod, target=target, target_host=target_host, params=params)
+        lib = relay.build(mod, target=target, params=params)
 
     dev = tvm.device(str(target), 0)
     module = graph_executor.GraphModule(lib["default"](dev))
