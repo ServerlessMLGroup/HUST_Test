@@ -16,12 +16,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-sudo apt-get update
-sudo apt-get install -y python3 python3-dev python3-setuptools gcc libtinfo-dev zlib1g-dev build-essential cmake libedit-dev libxml2-dev
+apt-get update
+apt-get install -y python3 python3-dev python3-setuptools gcc libtinfo-dev zlib1g-dev build-essential cmake libedit-dev libxml2-dev
+apt-get install git
 
-cd /usr
+cd /workspace
 git clone https://github.com/apache/tvm tvm --recursive
-cd /usr/tvm
+cd /workspace/tvm
 
 touch config.cmake
 echo set\(USE_LLVM ON\) >> config.cmake
