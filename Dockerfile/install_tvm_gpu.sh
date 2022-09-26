@@ -36,3 +36,5 @@ cp config.cmake build
 cd build
 cmake ..
 make -j4
+
+pip3 install --user numpy decorator attrs
