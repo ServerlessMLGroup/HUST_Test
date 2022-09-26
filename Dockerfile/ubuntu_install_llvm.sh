@@ -18,7 +18,7 @@
 
 set -euxo pipefail
 
-apt-get update --fix-missing
+apt update --fix-missing
 apt-install-and-clear -y gnupg
 
 echo deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main\
