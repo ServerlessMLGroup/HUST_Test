@@ -19,7 +19,7 @@
 # tag: v0.60
 FROM nvidia/cuda:11.0.3-cudnn8-devel-ubuntu18.04
 
-COPY utils/apt-install-and-clear.sh /usr/local/bin/apt-install-and-clear
+COPY utils/apt-install-and-clear.sh /usr/local/bin/apt-install-and-clear.sh
 
 # Per https://forums.developer.nvidia.com/t/notice-cuda-linux-repository-key-rotation/212772
 # we need to add a new GPG key before running apt update.
