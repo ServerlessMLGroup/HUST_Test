@@ -6,7 +6,7 @@ docker run --name pytorch -d -it --gpus all --runtime nvidia -v ~/HUST_Test:/wor
 
 docker run --name tvm-gpu -it -d --gpus all --runtime nvidia -v ~/HUST_Test:/workspace/HUST_Test mytvm:v5 /bin/bash
 
-docker build -t mytvm:v7 -f ./Dockerfile.tvm .
+docker build -t mytvm:v8 -f ./Dockerfile.tvm .
 
 ssh wuhao@222.20.94.68 -p 50011
 

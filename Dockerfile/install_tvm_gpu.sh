@@ -18,7 +18,7 @@
 
 apt-get update
 apt-get install -y python3 python3-dev python3-setuptools gcc libtinfo-dev zlib1g-dev build-essential cmake libedit-dev libxml2-dev
-
+apt-get install -y git wget pip3
 bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 
 cd /usr
