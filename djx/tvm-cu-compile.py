@@ -29,8 +29,9 @@ if __name__ == '__main__':
     )
 
     model_path = download_testdata(model_url, "resnet50-v2-7.onnx", module="onnx")
+    print("download_testdata finish!")
     onnx_model = onnx.load(model_path)
-
+    print("onnx.load finish!")
     target = tvm.target.cuda()
     # The input name may vary across model types. You can use a tool
     # like Netron to check input names
