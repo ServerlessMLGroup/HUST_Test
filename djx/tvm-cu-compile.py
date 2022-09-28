@@ -40,8 +40,11 @@ if __name__ == '__main__':
     print("shape_dict", shape_dict)
     mod, params = relay.frontend.from_onnx(onnx_model, shape_dict)
 
-    with tvm.transform.PassContext(opt_level=0):
+    opt_level = 0
+    with tvm.transform.PassContext(opt_level=opt_level):
+        print("begin build...")
         lib = relay.build(mod, target=target, params=params)
+        print("build end!")
 
     dev = tvm.device(str(target), 0)
     module = graph_executor.GraphModule(lib["default"](dev))
@@ -50,5 +53,5 @@ if __name__ == '__main__':
 
     source_code = source_module.get_source()
 
-    with open("resnet50_source_code_cuda_base.txt", "a") as f:
+    with open(("resnet50_source_code_cuda_base_opt%d.txt" % opt_level), "a") as f:
         print(source_code, file=f)
