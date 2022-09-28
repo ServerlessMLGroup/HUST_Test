@@ -40,7 +40,7 @@ if __name__ == '__main__':
     print("shape_dict", shape_dict)
     mod, params = relay.frontend.from_onnx(onnx_model, shape_dict)
 
-    with tvm.transform.PassContext(opt_level=-1):
+    with tvm.transform.PassContext(opt_level=3):
         lib = relay.build(mod, target=target, params=params)
 
     dev = tvm.device(str(target), 0)
