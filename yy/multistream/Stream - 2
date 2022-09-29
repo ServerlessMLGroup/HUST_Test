@@ -28,3 +28,15 @@
 [1664414491.248204] Stream-2:Iteration 280/300, 280-270 ave batch time 117.24 ms
 [1664414492.4778607] Stream-2:Iteration 290/300, 290-280 ave batch time 122.95 ms
 [1664414493.4057055] Stream-2:Iteration 300/300, 300-290 ave batch time 92.77 ms
+[1664421000.9244564] Stream-2:Iteration 10/300, 10-0 ave batch time 68.37 ms
+[1664421001.6088731] Stream-2:Iteration 20/300, 20-10 ave batch time 68.42 ms
+[1664421003.1024458] Stream-2:Iteration 30/300, 30-20 ave batch time 149.33 ms
+[1664421003.7868824] Stream-2:Iteration 40/300, 40-30 ave batch time 68.42 ms
+[1664421004.471594] Stream-2:Iteration 50/300, 50-40 ave batch time 68.45 ms
+[1664443175.1436238] Stream-2:Iteration 10/300, 10-0 ave batch time 105.37 ms
+[1664443176.3989654] Stream-2:Iteration 20/300, 20-10 ave batch time 125.51 ms
+[1664443177.3697624] Stream-2:Iteration 30/300, 30-20 ave batch time 97.05 ms
+[1664443178.4119527] Stream-2:Iteration 40/300, 40-30 ave batch time 104.19 ms
+[1664443179.692932] Stream-2:Iteration 50/300, 50-40 ave batch time 128.07 ms
+[1664443180.6651783] Stream-2:Iteration 60/300, 60-50 ave batch time 97.20 ms
+[1664443181.6605072] Stream-2:Iteration 70/300, 70-60 ave batch time 99.50 ms

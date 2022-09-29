@@ -47,14 +47,14 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
     with torch.no_grad():
         for _ in range(nwarmup):
             features = model(input_data)
-    torch.cuda.synchronize()
+    #torch.cuda.synchronize()
     print("[%s]%s:Start timing ..." % (time.time(), worker_name))
     timings = []
     with torch.no_grad():
         for i in range(1, nruns + 1):
             start_time = time.time()
             features = model(input_data)
-            torch.cuda.synchronize()
+            #torch.cuda.synchronize()
             end_time = time.time()
             timings.append(end_time - start_time)
             if i % 10 == 0:
@@ -136,6 +136,7 @@ if __name__ == '__main__':
 
     with torch.cuda.stream(s1):
         print("current stream: {}".format(torch.cuda.current_stream()))
+        time.sleep(10)
         benchmark(log_file_name="Stream-1", worker_name="Stream-1", device=device, model=model1,
               input_shape=(batch_size, 3, 224, 224), nruns= 300)
 
