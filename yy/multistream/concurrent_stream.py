@@ -109,10 +109,21 @@ if __name__ == '__main__':
 
     batch_size=32
 
-    model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
+    model1 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
+    model1.to(device)
+    model1.eval()
 
-    model.to(device)
-    model.eval()
+    model2 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
+    model2.to(device)
+    model2.eval()
+
+    model3 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
+    model3.to(device)
+    model3.eval()
+
+    model4 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
+    model4.to(device)
+    model4.eval()
 
     s1 = torch.cuda.Stream()
     s2 = torch.cuda.Stream()
@@ -125,22 +136,22 @@ if __name__ == '__main__':
 
     with torch.cuda.stream(s1):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name="Stream-1", worker_name="Stream-1", device=device, model=model,
+        benchmark(log_file_name="Stream-1", worker_name="Stream-1", device=device, model=model1,
               input_shape=(batch_size, 3, 224, 224), nruns= 300)
 
     with torch.cuda.stream(s2):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name="Stream - 2", worker_name ="Stream-2", device = device, model = model,
+        benchmark(log_file_name="Stream - 2", worker_name ="Stream-2", device = device, model = model2,
               input_shape = (batch_size,3, 224,224), nruns =300)
 
     with torch.cuda.stream(s3):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name="Stream-3", worker_name= "Stream-3", device=device, model=model,
+        benchmark(log_file_name="Stream-3", worker_name= "Stream-3", device=device, model=model3,
               input_shape=(batch_size, 3, 224, 224), nruns =300)
 
     with torch.cuda.stream(s4):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name="Stream-4", worker_name="Stream-4", device=device, model=model,
+        benchmark(log_file_name="Stream-4", worker_name="Stream-4", device=device, model=model4,
               input_shape=(batch_size, 3, 224, 224), nruns= 300)
 
 
