@@ -1,0 +1,4 @@
+[1664414971.7519445] worker-100-3:Iteration 10/300, 10-0 ave batch time 307.12 ms
+[1664414974.9144492] worker-100-3:Iteration 20/300, 20-10 ave batch time 316.21 ms
+[1664414978.0474434] worker-100-3:Iteration 30/300, 30-20 ave batch time 313.26 ms
+[1664414980.9440284] worker-100-3:Iteration 40/300, 40-30 ave batch time 289.63 ms

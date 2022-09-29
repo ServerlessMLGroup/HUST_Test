@@ -125,23 +125,23 @@ if __name__ == '__main__':
 
     with torch.cuda.stream(s1):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name=“Stream-1”, worker_name=“Stream-1”, device=device, model=model,
-              input_shape=(batch_size, 3, 224, 224), nruns=self.nruns)
+        benchmark(log_file_name="Stream-1", worker_name="Stream-1", device=device, model=model,
+              input_shape=(batch_size, 3, 224, 224), nruns= 300)
 
     with torch.cuda.stream(s2):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name=“Stream - 2”, worker_name =“Stream-2”, device = device, model = model,
-              input_shape = (batch_size,3, 224,224), nruns = self.nruns)
+        benchmark(log_file_name="Stream - 2", worker_name ="Stream-2", device = device, model = model,
+              input_shape = (batch_size,3, 224,224), nruns =300)
 
     with torch.cuda.stream(s3):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name=“Stream-3”, worker_name=“Stream-3”, device=device, model=model,
-              input_shape=(batch_size, 3, 224, 224), nruns=self.nruns)
+        benchmark(log_file_name="Stream-3", worker_name= "Stream-3", device=device, model=model,
+              input_shape=(batch_size, 3, 224, 224), nruns =300)
 
     with torch.cuda.stream(s4):
         print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name=“Stream-4”, worker_name=“Stream-4”, device=device, model=model,
-              input_shape=(batch_size, 3, 224, 224), nruns=self.nruns)
+        benchmark(log_file_name="Stream-4", worker_name="Stream-4", device=device, model=model,
+              input_shape=(batch_size, 3, 224, 224), nruns= 300)
 
 
 
