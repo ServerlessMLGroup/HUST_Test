@@ -35,7 +35,7 @@ def init_file(func_file_name):
     return file_full_name
 
 
-def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50,
+def benchmark(log_file_name, worker_name, device, model, Stream, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50,
               nruns=500):
     log_file_handler = open(log_file_name, 'a+', encoding='utf-8')
     input_data = torch.randn(input_shape)
@@ -44,6 +44,7 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
         input_data = input_data.half()
 
     print("%s:Warm up ..." % worker_name)
+<<<<<<< HEAD
     with torch.no_grad():
         for _ in range(nwarmup):
             features = model(input_data)
@@ -76,51 +77,76 @@ def benchmark(log_file_name, worker_name, device, model, input_shape=(8, 3, 224,
 class WorkerProc(Process):
     def __init__(self, name, start_pipe, mps_percentage, batch_size=32, nruns=500):
         super(WorkerProc, self).__init__()
+=======
+
+    with torch.cuda.stream(Stream):
+        print("current stream: {}".format(torch.cuda.current_stream()))
+        with torch.no_grad():
+            for _ in range(nwarmup):
+                features = model(input_data)
+        torch.cuda.synchronize()
+        print("[%s]%s:Start timing ..." % (time.time(), worker_name))
+        timings = []
+        with torch.no_grad():
+            for i in range(1, nruns + 1):
+                start_time = time.time()
+                features = model(input_data)
+                torch.cuda.synchronize()
+                end_time = time.time()
+                timings.append(end_time - start_time)
+                if i % 10 == 0:
+                    # logger.info('Iteration %d/%d, %d-%d ave batch time %.2f ms' % (i, nruns, i, i - 10,
+                    # np.mean(timings) * 1000))
+                    print('%s:Iteration %d/%d, %d-%d ave batch time %.2f ms' % (
+                        worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
+                    log_file_handler.write('[%s] %s:Iteration %d/%d, %d-%d ave batch time %.2f ms\n' % (
+                        time.time(), worker_name, i, nruns, i, i - 10, np.mean(timings) * 1000))
+                    timings.clear()
+        print("[%s]%s:End!--------" % (time.time(), worker_name))
+        log_file_handler.close()
+        # logger.info("Input shape:", input_data.size())
+        # print("Input shape:", input_data.size())
+        # logger.info("Output features size:", features.size())
+        # print("Output features size:", features.size())
+
+class WorkerThre(threading.Thread):
+    def __init__(self, name, Stream,batch_size=32, nruns=500):
+        super(WorkerThre, self).__init__()
+>>>>>>> 0515e2d88d72f6a7624cb57a39b449295d4517d0
         self.name = name
+        self.Stream = Stream
         # self.logger = log.get_logger(name, "torch-diff-mps")
-        self.start_pipe = start_pipe
-        self.mps_percentage = mps_percentage
         self.batch_size = batch_size
-        self.log_file = init_file("torch-diff-mps-%s" % name)
+        self.log_file = init_file("torch-diff-stream-%s" % name)
         self.nruns = nruns
 
     def run(self):
-        begin_meg = self.start_pipe.recv()
-        if begin_meg != 'BEGIN':
-            # self.logger.error('%s do not receive BEGIN!' % self.name)
-            print('%s do not receive BEGIN!' % self.name)
-        # cmd = 'echo set_active_thread_percentage 213 %d | nvidia-cuda-mps-control' % self.mps_percentage
-        # os.system(cmd)
-        # self.logger.info(cmd)
-        # print(cmd)
         device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
         # self.logger.info("torch.cuda.current_device():", torch.cuda.current_device())
         print("torch.cuda.current_device():", torch.cuda.current_device())
         model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
-        model.to(device)
-        model.eval()
-        benchmark(log_file_name=self.log_file, worker_name=self.name, device=device, model=model,
-                  input_shape=(self.batch_size, 3, 224, 224), nruns=self.nruns)
+        with torch.cuda.stream(self.Stream):
+            model.to(device)
+            model.eval()
+        benchmark(log_file_name=("Stream-%d" % self.name), worker_name=("Worker-Stream-%d" % self.name), device=device, model=model,
+                  Stream=self.Stream, input_shape=(self.batch_size, 3, 224, 224), nruns=self.nruns)
 
 
-if __name__ == '__main__':
-    device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
-    print("device = ", device)
+    def main():
+        torch.randn(1024, device='cuda')
+        s1 = torch.cuda.Stream()
+        s2 = torch.cuda.Stream()
+        s3 = torch.cuda.Stream()
+        s4 = torch.cuda.Stream()
 
-    batch_size=32
+        worker1 = WorkerThre(("worker-Stream-%d" % 1), s1, batch_size=32, nruns=300)
+        worker2 = WorkerThre(("worker-Stream-%d" % 2), s2, batch_size=32, nruns=300)
+        worker3 = WorkerThre(("worker-Stream-%d" % 3), s3, batch_size=32, nruns=300)
+        worker4 = WorkerThre(("worker-Stream-%d" % 4), s4, batch_size=32, nruns=300)
 
-    model1 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
-    model1.to(device)
-    model1.eval()
 
-    model2 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
-    model2.to(device)
-    model2.eval()
 
-    model3 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
-    model3.to(device)
-    model3.eval()
-
+<<<<<<< HEAD
     model4 = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
     model4.to(device)
     model4.eval()
@@ -139,22 +165,20 @@ if __name__ == '__main__':
         time.sleep(10)
         benchmark(log_file_name="Stream-1", worker_name="Stream-1", device=device, model=model1,
               input_shape=(batch_size, 3, 224, 224), nruns= 300)
-
-    with torch.cuda.stream(s2):
-        print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name="Stream - 2", worker_name ="Stream-2", device = device, model = model2,
-              input_shape = (batch_size,3, 224,224), nruns =300)
-
-    with torch.cuda.stream(s3):
-        print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name="Stream-3", worker_name= "Stream-3", device=device, model=model3,
-              input_shape=(batch_size, 3, 224, 224), nruns =300)
-
-    with torch.cuda.stream(s4):
-        print("current stream: {}".format(torch.cuda.current_stream()))
-        benchmark(log_file_name="Stream-4", worker_name="Stream-4", device=device, model=model4,
-              input_shape=(batch_size, 3, 224, 224), nruns= 300)
+=======
+        worker1.start()
+        timestamp('Worker-1', 'start_compution')
+        worker2.start()
+        timestamp('Worker-2', 'start_compution')
+        worker3.start()
+        timestamp('Worker-3', 'start_compution')
+        worker4.start()
+        timestamp('Worker-4', 'start_compution')
+>>>>>>> 0515e2d88d72f6a7624cb57a39b449295d4517d0
 
 
+
+    if __name__ == '__main__':
+        main()
 
     # mps_controller.closeMPS(gpu_no)
