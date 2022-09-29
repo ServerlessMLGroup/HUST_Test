@@ -125,14 +125,14 @@ void getMem() {
 
 int main(void) {
     putenv("CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=40");
-
+tDevice error:"<<err<<endl;
+       return;
+    }
     cout<<"set sm 40%: "<<endl;
     int err=cudaSetDevice(0);
     int result = 0;
     if(err){
-       cout<<"cudaSetDevice error:"<<err<<endl;
-       return;
-    }
+       cout<<"cudaSe
     CUcontext pctx;
     CUdevice dev;
     err=cuCtxGetDevice(&dev);
