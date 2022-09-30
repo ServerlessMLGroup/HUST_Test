@@ -43,15 +43,18 @@ if __name__ == '__main__':
     opt_level = 0
     with tvm.transform.PassContext(opt_level=opt_level):
         print("begin build...")
-        lib = relay.build(mod, target=target, params=params)
+        lib = relay.build(mod, target=target, params=params)  # 返回一個_executor_factory.GraphExecutorFactoryModule
+        json_file = lib.get_graph_json()
         print("build end!")
+        with open(("./json/resnet50_graph_opt%d.json" % opt_level), "w+") as f:
+            print(json_file, file=f)
 
-    dev = tvm.device(str(target), 0)
-    module = graph_executor.GraphModule(lib["default"](dev))
+    # dev = tvm.device(str(target), 0)
+    # module = graph_executor.GraphModule(lib["default"](dev))
 
-    source_module = lib.get_lib().imported_modules[0]
+    # source_module = lib.get_lib().imported_modules[0]
 
-    source_code = source_module.get_source()
+    # source_code = source_module.get_source()
 
-    with open(("resnet50_source_code_cuda_base_opt%d.txt" % opt_level), "a") as f:
-        print(source_code, file=f)
+    # with open(("resnet50_source_code_cuda_base_opt%d.txt" % opt_level), "a") as f:
+    #    print(source_code, file=f)

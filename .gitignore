@@ -1,2 +1,3 @@
 logs/*
-djx/tared_model
+djx/tared_model/*.params
+djx/tared_model/*.so
