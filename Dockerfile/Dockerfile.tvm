@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.0.3-cudnn8-devel-ubuntu18.04
+FROM tlcpack/ci-gpu:v0.87
 
 # COPY /ubuntu1804_install_llvm.sh /install/ubuntu1804_install_llvm.sh
 # RUN bash /install/1804ubuntu_install_llvm.sh
