@@ -46,7 +46,10 @@ if __name__ == '__main__':
         lib = relay.build(mod, target=target, params=params)  # 返回一個_executor_factory.GraphExecutorFactoryModule
         json_file = lib.get_graph_json()
         print("build end!")
-        with open(("json/resnet50_graph_opt%d.json" % opt_level), "w+") as f:
+        file_path = os.path.dirname(os.path.abspath(__file__)) + '/json'
+        if not os.path.exists(file_path):
+            os.mkdir(file_path)
+        with open((file_path + ("resnet50_graph_opt%d.json" % opt_level)), "w+") as f:
             print(json_file, file=f)
         f.close()
 
