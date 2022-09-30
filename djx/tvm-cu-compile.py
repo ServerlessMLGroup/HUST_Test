@@ -40,7 +40,7 @@ if __name__ == '__main__':
     print("shape_dict", shape_dict)
     mod, params = relay.frontend.from_onnx(onnx_model, shape_dict)
 
-    opt_level = 0
+    opt_level = 3
     with tvm.transform.PassContext(opt_level=opt_level):
         print("begin build...")
         lib = relay.build(mod, target=target, params=params)  # 返回一個_executor_factory.GraphExecutorFactoryModule
