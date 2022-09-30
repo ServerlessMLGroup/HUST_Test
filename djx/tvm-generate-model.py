@@ -63,7 +63,7 @@ device_source_file.close()
 graph_json_file.write(lib.get_graph_json())
 graph_json_file.close()
 
-raw_schedule_file.write(module.module["get_schedule_json"]())
+# raw_schedule_file.write(module.module["get_schedule_json"]())
 raw_schedule_file.close()
 
 
