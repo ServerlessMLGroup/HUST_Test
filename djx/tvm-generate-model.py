@@ -6,7 +6,7 @@ from tvm import relay
 from tvm.relay import testing
 import tvm
 from tvm import te
-from tvm.contrib import graph_executor
+from tvm.contrib import graph_runtime
 import sys
 import json
 
@@ -15,6 +15,7 @@ import json
 # This is an example of how to generate source code
 # and schedule json from tvm.
 #
+# python3 tvm-generate-model.py resnet18.cu resnet18.schedule.json resnet18.graph.json resnet18.params
 #####################################################
 
 
@@ -49,7 +50,7 @@ with tvm.transform.PassContext(opt_level=opt_level):
     lib = relay.build(mod, target, params=params)
 
 dev = tvm.device(str(target), 0)
-module = graph_executor.GraphModule(lib["default"](dev))
+module = graph_runtime.GraphModule(lib["default"](dev))
 
 data = np.ones(data_shape).astype("float32")
 data = data * 10
@@ -63,7 +64,7 @@ device_source_file.close()
 graph_json_file.write(lib.get_graph_json())
 graph_json_file.close()
 
-# raw_schedule_file.write(module.module["get_schedule_json"]())
+raw_schedule_file.write(module.module["get_schedule_json"]())
 raw_schedule_file.close()
 
 
