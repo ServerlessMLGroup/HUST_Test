@@ -60,7 +60,7 @@ module.run()
 device_source_file.write(lib.get_lib().imported_modules[0].get_source("hip"))
 device_source_file.close()
 
-graph_json_file.write(lib.get_json())
+graph_json_file.write(lib.get_graph_json())
 graph_json_file.close()
 
 raw_schedule_file.write(module.module["get_schedule_json"]())
