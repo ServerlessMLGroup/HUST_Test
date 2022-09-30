@@ -6,7 +6,7 @@ docker run --name pytorch -d -it --gpus all --runtime nvidia -v ~/HUST_Test:/wor
 
 docker run --name tvm-gpu -it -d --gpus all --runtime nvidia -v ~/HUST_Test:/workspace/HUST_Test tlcpack/ci-gpu:v0.87 /bin/bash
 
-docker build -t mytvm:v8 -f ./Dockerfile.tvm .
+docker build -t mytvm:v0.8.0 -f ./Dockerfile.tvm .
 
 ssh wuhao@222.20.94.68 -p 50011
 (mytvmv5是目前可用的)

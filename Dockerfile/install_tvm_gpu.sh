@@ -22,7 +22,7 @@ apt-get install -y git python3-pip lsb-release wget software-properties-common g
 bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 
 cd /usr
-git clone https://github.com/apache/tvm:v0.8.0 --recursive
+git clone -b v0.8.0 https://github.com/apache/tvm --recursive
 cd /usr/tvm
 
 touch config.cmake
@@ -40,6 +40,7 @@ cmake ..
 make -j4
 
 apt-get install -y libprotobuf-dev protobuf-compiler
+pip3 install --upgrade pip3
 pip3 install --user numpy decorator attrs
 pip3 install protobuf
 pip3 install onnx
