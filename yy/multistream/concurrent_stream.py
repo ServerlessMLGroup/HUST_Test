@@ -1,6 +1,8 @@
 import argparse
 import datetime
 import time
+import threading
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu_no', type=int, default=0)
@@ -93,11 +95,10 @@ class WorkerThre(threading.Thread):
         with torch.cuda.stream(self.Stream):
             model.to(device)
             model.eval()
-        benchmark(log_file_name=("Stream-%d" % self.name), worker_name=("Worker-Stream-%d" % self.name), device=device, model=model,
+        benchmark(log_file_name= self.name, worker_name= self.name, device=device, model=model,
                   Stream=self.Stream, input_shape=(self.batch_size, 3, 224, 224), nruns=self.nruns)
 
-
-    def main():
+def main():
         torch.randn(1024, device='cuda')
         s1 = torch.cuda.Stream()
         s2 = torch.cuda.Stream()
@@ -112,17 +113,15 @@ class WorkerThre(threading.Thread):
 
 
         worker1.start()
-        timestamp('Worker-1', 'start_compution')
+        print("Worker-1:start_compution")
         worker2.start()
-        timestamp('Worker-2', 'start_compution')
+        print("Worker-2:start_compution")
         worker3.start()
-        timestamp('Worker-3', 'start_compution')
+        print("Worker-3:start_compution")
         worker4.start()
-        timestamp('Worker-4', 'start_compution')
+        print("Worker-4:start_compution")
 
-
-
-    if __name__ == '__main__':
+if __name__ == '__main__':
         main()
 
     # mps_controller.closeMPS(gpu_no)
