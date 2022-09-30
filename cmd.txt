@@ -9,7 +9,7 @@ docker run --name tvm-gpu -it -d --gpus all --runtime nvidia -v ~/HUST_Test:/wor
 docker build -t mytvm:v8 -f ./Dockerfile.tvm .
 
 ssh wuhao@222.20.94.68 -p 50011
-
+(mytvmv5是目前可用的)
 docker pull tlcpack/ci-gpu:20220908-060034-62bdc91b1
 
 export TVM_HOME=/tvm

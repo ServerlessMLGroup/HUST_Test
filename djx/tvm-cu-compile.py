@@ -46,7 +46,7 @@ if __name__ == '__main__':
         lib = relay.build(mod, target=target, params=params)  # 返回一個_executor_factory.GraphExecutorFactoryModule
         json_file = lib.get_graph_json()
         print("build end!")
-        with open(("./json/resnet50_graph_opt%d.json" % opt_level), "w+") as f:
+        with open(("json/resnet50_graph_opt%d.json" % opt_level), "a") as f:
             print(json_file, file=f)
 
     # dev = tvm.device(str(target), 0)
