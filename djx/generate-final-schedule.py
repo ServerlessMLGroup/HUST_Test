@@ -170,6 +170,6 @@ if __name__ == "__main__":
     file_path = os.path.dirname(os.path.abspath(__file__)) + '/reef'
     if not os.path.exists(file_path):
         os.mkdir(file_path)
-    with open("/reef/resnet18-final.cu", "w+") as f:
+    with open("/reef/resnet18-final.cu", "w") as f:
         print(json.dumps(schedule, indent=4), file=f)
         f.close()
