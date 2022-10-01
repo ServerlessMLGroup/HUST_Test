@@ -23,10 +23,13 @@ if len(sys.argv) != 5:
     print("Usage: device_source_file_name raw_schedule_file graph_json_file param_file")
     exit(0)
 
-source_file = open(sys.argv[1], "w")
-raw_schedule_file = open(sys.argv[2], "w")
-graph_json_file = open(sys.argv[3], "w")
-param_file = open(sys.argv[4], "w+b")
+file_path_dir = os.path.dirname(os.path.abspath(__file__)) + '/reef'
+if not os.path.exists(file_path_dir):
+    os.mkdir(file_path_dir)
+device_source_file = open("reef/"+sys.argv[1], "w")  # cu
+raw_schedule_file = open("reef/"+sys.argv[2], "w")  # json
+graph_json_file = open("reef/"+sys.argv[3], "w")  # json
+param_file = open("reef/"+sys.argv[4], "w+b")  # params
 
 batch_size = 1
 num_class = 1000
