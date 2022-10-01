@@ -45,12 +45,12 @@ mod, params = relay.testing.resnet.get_workload(
 # )
 
 opt_level = 3
-target = tvm.target.rocm()
+target = tvm.target.cuda()
 
 with tvm.transform.PassContext(opt_level=opt_level):
     lib = relay.build(mod, target, params=params)
 
-ctx = tvm.rocm()
+ctx = tvm.device(str(target), 0)
 module = graph_runtime.GraphModule(lib["default"](ctx))
 
 data = np.ones(data_shape).astype("float32")
