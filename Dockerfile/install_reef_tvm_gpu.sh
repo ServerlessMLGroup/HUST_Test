@@ -22,7 +22,7 @@ apt-get install -y git python3-pip lsb-release wget software-properties-common g
 bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 
 cd /usr
-git clone https://github.com/francis0407/tvm.git --recursive
+git clone -b reef https://github.com/francis0407/tvm.git --recursive
 cd /usr/tvm
 
 touch config.cmake
