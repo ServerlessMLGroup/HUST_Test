@@ -22,13 +22,11 @@ import json
 if len(sys.argv) != 5:
     print("Usage: device_source_file_name raw_schedule_file graph_json_file param_file")
     exit(0)
-file_path_dir = os.path.dirname(os.path.abspath(__file__)) + '/reef'
-if not os.path.exists(file_path_dir):
-    os.mkdir(file_path_dir)
-device_source_file = open("reef/"+sys.argv[1], "w")  # cu
-raw_schedule_file = open("reef/"+sys.argv[2], "w")  # json
-graph_json_file = open("reef/"+sys.argv[3], "w")  # json
-param_file = open("reef/"+sys.argv[4], "w+b")  # params
+
+source_file = open(sys.argv[1], "w")
+raw_schedule_file = open(sys.argv[2], "w")
+graph_json_file = open(sys.argv[3], "w")
+param_file = open(sys.argv[4], "w+b")
 
 batch_size = 1
 num_class = 1000
@@ -44,13 +42,13 @@ mod, params = relay.testing.resnet.get_workload(
 # )
 
 opt_level = 3
-target = tvm.target.cuda()
+target = tvm.target.rocm()
 
 with tvm.transform.PassContext(opt_level=opt_level):
     lib = relay.build(mod, target, params=params)
 
-dev = tvm.cuda()
-module = graph_runtime.GraphModule(lib["default"](dev))
+ctx = tvm.rocm()
+module = graph_runtime.GraphModule(lib["default"](ctx))
 
 data = np.ones(data_shape).astype("float32")
 data = data * 10
@@ -58,10 +56,10 @@ module.set_input("data", data)
 
 module.run()
 
-device_source_file.write(lib.get_lib().imported_modules[0].get_source("hip"))
-device_source_file.close()
+source_file.write(lib.get_lib().imported_modules[0].get_source("hip"))
+source_file.close()
 
-graph_json_file.write(lib.get_graph_json())
+graph_json_file.write(lib.get_json())
 graph_json_file.close()
 
 raw_schedule_file.write(module.module["get_schedule_json"]())
