@@ -6,7 +6,7 @@ from tvm import relay
 from tvm.relay import testing
 import tvm
 from tvm import te
-from tvm.contrib import graph_runtime
+from tvm.contrib import graph_runtime, graph_executor
 import sys
 import json
 
@@ -51,7 +51,7 @@ with tvm.transform.PassContext(opt_level=opt_level):
     lib = relay.build(mod, target, params=params)
 
 ctx = tvm.device(str(target), 0)
-module = graph_runtime.GraphModule(lib["default"](ctx))
+module = graph_executor.GraphModule(lib["default"](ctx))
 
 data = np.ones(data_shape).astype("float32")
 data = data * 10
@@ -59,8 +59,8 @@ module.set_input("data", data)
 
 module.run()
 
-source_file.write(lib.get_lib().imported_modules[0].get_source("hip"))
-source_file.close()
+device_source_file.write(lib.get_lib().imported_modules[0].get_source("hip"))
+device_source_file.close()
 
 graph_json_file.write(lib.get_json())
 graph_json_file.close()
