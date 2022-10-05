@@ -50,7 +50,7 @@ target = tvm.target.cuda()
 with tvm.transform.PassContext(opt_level=opt_level):
     lib = relay.build(mod, target, params=params)
 
-ctx = tvm.cuda()
+ctx = tvm.gpu()
 module = graph_runtime.GraphModule(lib["default"](ctx))
 
 data = np.ones(data_shape).astype("float32")
