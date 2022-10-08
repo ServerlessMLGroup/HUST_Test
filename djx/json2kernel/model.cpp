@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <assert.h>
 #include "json.h"
+#include "log.h"
 
 class StorageInfo {
 public:
@@ -35,13 +36,16 @@ public:
 };
 
 Model* Model::from_json(const char* json_file) {
+    log("enter Model::from_json");
     std::ifstream fs(json_file);
+    printf("open file %s status: %d\n", json_file, fs.good());
     std::string tmp, str = "";
-
+    log("ifstream finish");
     while (getline(fs, tmp)) str += tmp;
     fs.close();
-
+    log("getline finish");
     JsonObject* jobj = JsonParser::parse(str);
+    log("JsonParser::parse finish");
 
     Model* m = new Model;
     for (auto sinfo : jobj->mval["storage"]->lval) {
@@ -50,6 +54,7 @@ Model* Model::from_json(const char* json_file) {
             sinfo->mval["size"]->ival,
             sinfo->mval["stype"]->sval
         });
+        printf("name:%s, size:%d, stype:%s\n", sinfo->mval["name"]->sval, sinfo->mval["size"]->ival, sinfo->mval["stype"]->sval);
     }
 
     for (auto kinfo : jobj->mval["kernels"]->lval) {
