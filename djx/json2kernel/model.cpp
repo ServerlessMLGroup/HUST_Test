@@ -54,7 +54,7 @@ Model* Model::from_json(const char* json_file) {
             sinfo->mval["size"]->ival,
             sinfo->mval["stype"]->sval
         });
-        printf("name:%s, size:%d, stype:%s\n", sinfo->mval["name"]->sval, sinfo->mval["size"]->ival, sinfo->mval["stype"]->sval);
+        // printf("name:%s, size:%d, stype:%s\n", sinfo->mval["name"]->sval, sinfo->mval["size"]->ival, sinfo->mval["stype"]->sval);
     }
 
     for (auto kinfo : jobj->mval["kernels"]->lval) {
