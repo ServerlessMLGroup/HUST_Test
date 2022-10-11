@@ -8,6 +8,7 @@
 #include <assert.h>
 #include "json.h"
 #include "log.h"
+#include "model.h"
 
 class StorageInfo {
 public:
@@ -81,4 +82,56 @@ Model* Model::from_json(const char* json_file) {
     delete jobj;
 
     return m;
+}
+
+size_t Model::get_stype_size(std::string &stype) {
+    if (stype == "float32") return 4;
+    if (stype == "int64") return 8;
+    if (stype == "byte") return 1;
+    if (stype == "uint1") return 1;
+    if (stype == "int32") return 4;
+    std::cout << stype << " is undefined" << std::endl;
+    assert(false);
+    return 0;
+}
+
+#define PARAM_MAGIC "TVM_MODEL_PARAMS"
+
+ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
+    FILE* fp;
+    fp = fopen(param_file, "rb"); 
+    char magic[sizeof(PARAM_MAGIC)];
+    size_t res = fread(magic, sizeof(char), sizeof(PARAM_MAGIC), fp);
+    assert(res == sizeof(PARAM_MAGIC));
+    assert(std::string(magic) == PARAM_MAGIC);
+    
+    uint64_t params_size;
+    res = fread(&params_size, sizeof(uint64_t), 1, fp);
+    assert(res == 1);
+    assert(params_size != 0);
+
+    ModelParam* params = new ModelParam(params_size);
+    for (uint64_t i = 0; i < params_size; i++) {
+        char key_buf[256];
+        uint64_t key_len = 0;
+        while(true) {
+            char c;
+            res = fread(&c, sizeof(char), 1, fp);
+            assert(res == 1);
+            key_buf[key_len] = c;
+            key_len++;
+            if (c == '\0') break;
+        }
+        std::string key(key_buf);
+        uint64_t array_size;
+        res = fread(&array_size, sizeof(uint64_t), 1, fp);
+        assert(res == 1);
+        assert(array_size != 0);
+        std::vector<float> array(array_size);
+        array.resize(array_size);
+        res = fread(array.data(), sizeof(float), array_size, fp);
+        assert(res == array_size);
+        params->insert({key, array});
+    }
+    return params;
 }
