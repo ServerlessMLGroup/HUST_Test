@@ -8,4 +8,4 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 aux_source_directory(. DIR_SRCS)
 
 # 指定生成目标
-add_executable(Demo ${DIR_SRCS})
+add_executable(demo ${DIR_SRCS})
