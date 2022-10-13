@@ -3,7 +3,7 @@
 #include <bits/unique_ptr.h>
 #include <cuda.h>
 #include "cuda_runtime.h"
-#include <glog/logging.h>
+// #include <glog/logging.h>
 
 enum Status {
     Succ,
@@ -19,7 +19,7 @@ enum Status {
     if (error != CUDA_SUCCESS) {\
         char** meg_ptr; \
         cuGetErrorString(error, meg_ptr); \
-        LOG(ERROR) << "cuda error: " << meg_ptr << "at " << __FILE__ << ":" << __LINE__; \
+        cout << "cuda error: " << meg_ptr << "at " << __FILE__ << ":" << __LINE__; \
         return Status::Fail;\
     }\
 }
