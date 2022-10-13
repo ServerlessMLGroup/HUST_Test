@@ -96,26 +96,6 @@ int main() {
 //     return s;
 // }
 
-Status execute(CUstream stream, Model* model) {
-    execute_to(model->kernels.size(), stream, model);
-    return Status::Succ;
-}
-
-Status execute_to(int idx, CUstream stream, Model* model) {
-    for (int i = 0; i < idx; i++) {
-        GPU_RETURN_STATUS(launch_kernel(i, stream, model));
-    }  
-    GPU_RETURN_STATUS(cuStreamSynchronize(stream));
-    return Status::Succ;
-}
-
-// Status execute_kernel(int idx, GPUStream_t stream) {
-//     if (idx >= num_kernels()) RETURN_STATUS(Status::OutOfRange);
-//     GPU_RETURN_STATUS(launch_kernel(idx, stream));
-//     GPU_RETURN_STATUS(GPUStreamSynchronize(stream));
-//     return Status::Succ;
-// }
-
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
     std::string& func_name = model->kernels[i].name;
@@ -129,3 +109,24 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     ));
     return Status::Succ;
 }
+
+Status execute_to(int idx, CUstream stream, Model* model) {
+    for (int i = 0; i < idx; i++) {
+        GPU_RETURN_STATUS(launch_kernel(i, stream, model));
+    }  
+    GPU_RETURN_STATUS(cuStreamSynchronize(stream));
+    return Status::Succ;
+}
+
+Status execute(CUstream stream, Model* model) {
+    execute_to(model->kernels.size(), stream, model);
+    return Status::Succ;
+}
+
+
+// Status execute_kernel(int idx, GPUStream_t stream) {
+//     if (idx >= num_kernels()) RETURN_STATUS(Status::OutOfRange);
+//     GPU_RETURN_STATUS(launch_kernel(idx, stream));
+//     GPU_RETURN_STATUS(GPUStreamSynchronize(stream));
+//     return Status::Succ;
+// }
