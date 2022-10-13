@@ -2,6 +2,7 @@ project(json_test)
 cmake_minimum_required(VERSION 3.2)
 
 add_compile_options(-std=c++11)
+include_directories(/usr/local/cuda-11.6/include)
 find_package(CUDA)
 INCLUDE(/opt/cmake-3.24.2/share/cmake-3.24/Modules/FindCUDA.cmake)
 # Cmake find modules
