@@ -17,18 +17,18 @@ enum Status {
 {\
     CUresult error = cmd;\
     if (error != CUDA_SUCCESS) {\
-        char** meg_ptr; \
+        const char** meg_ptr; \
         cuGetErrorString(error, meg_ptr); \
-        cout << "cuda error: " << meg_ptr << "at " << __FILE__ << ":" << __LINE__; \
+        std::cout << "cuda error: " << meg_ptr << "at " << __FILE__ << ":" << __LINE__; \
         return Status::Fail;\
     }\
 }
 
+std::vector<CUdeviceptr> storage;
+std::unordered_map<std::string, CUfunction> kernels;
+std::vector<std::vector<CUdeviceptr*>> raw_args;
+std::unique_ptr<Model> model;
 int main() {
-    std::vector<CUdeviceptr> storage;
-    std::unordered_map<std::string, CUfunction> kernels;
-    std::vector<std::vector<CUdeviceptr*>> raw_args;
-    std::unique_ptr<Model> model;
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/husterdjx/research/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
     // CUcontext ctx;
@@ -69,7 +69,7 @@ int main() {
 
     std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file(param_file_path));
     for (size_t i = 0; i < storage.size(); i++) {
-        StorageInfo& storage_info = this->model->storage[i];
+        StorageInfo& storage_info = model->storage[i];
         if (params->find(storage_info.name) == params->end()) 
             continue;
         auto &array = params->at(storage_info.name);
@@ -116,7 +116,7 @@ Status execute_to(int idx, CUstream stream, Model* model) {
 //     return Status::Succ;
 // }
 
-Status launch_kernel(int kernel_offset, GPUStream_t stream, Model* model) {
+Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
     std::string& func_name = model->kernels[i].name;
     CUfunction func = kernels[func_name];
@@ -125,7 +125,7 @@ Status launch_kernel(int kernel_offset, GPUStream_t stream, Model* model) {
     GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, stream, (void **)this->raw_args[i].data(), 0
+        0, stream, (void **)raw_args[i].data(), 0
     ));
     return Status::Succ;
 }
