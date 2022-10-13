@@ -97,7 +97,7 @@ int main() {
 // }
 
 Status execute(CUstream stream, Model* model) {
-    execute_to(model->kernels.size(), stream);
+    execute_to(model->kernels.size(), stream, model);
     return Status::Succ;
 }
 
