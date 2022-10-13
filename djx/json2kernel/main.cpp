@@ -41,7 +41,7 @@ int main() {
     for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
         GPU_RETURN_STATUS(
-            cudaModuleGetFunction(&kernel, mod, kernel_info.name.c_str())
+            cuModuleGetFunction(&kernel, mod, kernel_info.name.c_str())
         );
         kernels.emplace(kernel_info.name, kernel);
     }
@@ -67,7 +67,7 @@ int main() {
         raw_args.push_back(kernel_arg);
     }
 
-    std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file(param_file_path));
+    std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/husterdjx/research/HUST_Test/djx/json2kernel/resource/resnet18.params"));
     for (size_t i = 0; i < storage.size(); i++) {
         StorageInfo& storage_info = model->storage[i];
         if (params->find(storage_info.name) == params->end()) 
