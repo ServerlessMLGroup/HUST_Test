@@ -3,12 +3,23 @@
 #include <bits/unique_ptr.h>
 #include <cuda.h>
 #include "cuda_runtime.h"
+#include <glog/logging.h>
+
+enum Status {
+    Succ,
+    Fail,
+    NotFound,
+    OutOfRange,
+    Full
+};
 
 #define GPU_RETURN_STATUS(cmd) \
 {\
     CUresult error = cmd;\
     if (error != CUDA_SUCCESS) {\
-        LOG(ERROR) << "cuda error: " << cudaGetErrorString(error) << "at " << __FILE__ << ":" << __LINE__; \
+        char** meg_ptr; \
+        cuGetErrorString(error, meg_ptr); \
+        LOG(ERROR) << "cuda error: " << meg_ptr << "at " << __FILE__ << ":" << __LINE__; \
         return Status::Fail;\
     }\
 }

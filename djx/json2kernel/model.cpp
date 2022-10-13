@@ -10,32 +10,6 @@
 #include "log.h"
 #include "model.h"
 
-class StorageInfo {
-public:
-    std::string name;
-    size_t size;
-    std::string stype;
-};
-
-class KernelInfo {
-public:
-    std::string name;
-    uint32_t launch_params[6];
-    std::vector<size_t> args;
-};
-
-class Model {
-public:
-    std::vector<StorageInfo> storage;
-    std::vector<KernelInfo> kernels;
-    std::vector<uint32_t> args;
-    std::unordered_map<std::string, size_t> shared_memory;
-
-public:
-    static Model* from_json(const char* json_file);
-    static size_t get_stype_size(std::string &stype);
-};
-
 Model* Model::from_json(const char* json_file) {
     log("enter Model::from_json");
     std::ifstream fs(json_file);
