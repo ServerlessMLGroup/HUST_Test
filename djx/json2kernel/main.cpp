@@ -66,7 +66,7 @@ int main() {
             (CUdeviceptr)storage[i], array.data(), 
             array.size() * sizeof(float))); 
     }
-    execute(0, model.get());
+
     model.reset();
     return 0;
 }
