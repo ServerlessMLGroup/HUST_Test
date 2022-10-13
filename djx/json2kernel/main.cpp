@@ -24,6 +24,15 @@ enum Status {
     }\
 }
 
+#define RETURN_STATUS(cmd) \
+{\
+    Status s = cmd;\
+    if (s != Status::Succ) {\
+        std::cout << #cmd " error, " << __FILE__ << ":" << __LINE__; \
+        return s;\
+    }\
+}
+
 std::vector<CUdeviceptr> storage;
 std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args;
@@ -112,7 +121,7 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
 
 Status execute_to(int idx, CUstream stream, Model* model) {
     for (int i = 0; i < idx; i++) {
-        GPU_RETURN_STATUS(launch_kernel(i, stream, model));
+        RETURN_STATUS(launch_kernel(i, stream, model));
     }  
     GPU_RETURN_STATUS(cuStreamSynchronize(stream));
     return Status::Succ;
