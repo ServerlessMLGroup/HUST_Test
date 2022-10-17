@@ -14,14 +14,12 @@ enum Status {
 };
 
 #define GPU_RETURN_STATUS(cmd) \
-{\
-    CUresult error = cmd;\
-    if (error != CUDA_SUCCESS) {\
-        const char** meg_ptr; \
-        cuGetErrorString(error, meg_ptr); \
-        std::cout << "cuda error: " << meg_ptr << "at " << __FILE__ << ":" << __LINE__; \
-        return Status::Fail;\
-    }\
+{ \
+    CUresult = cmd; \
+    if (result != CUDA_SUCCESS) { \
+        std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__; \
+        exit(1); \
+    } \
 }
 
 #define RETURN_STATUS(cmd) \
@@ -44,11 +42,9 @@ int main() {
     CUdevice device;
     // GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
     CUresult result;
-    result = cuDeviceGet(&device, 0);
-    if (result != CUDA_SUCCESS) {
-        printf("cuDeviceGet err:%d", result);
-        exit(1);
-    }
+    // init CUDA driver API
+    GPU_RETURN_STATUS(cuInit(0));
+    GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
     // GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
