@@ -82,7 +82,7 @@ int main() {
     printf("parse params!\n");
     std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.params"));
     for (size_t i = 0; i < storage.size(); i++) {
-        std::cout << i << std::endl;
+        // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         if (params->find(storage_info.name) == params->end()) 
             continue;

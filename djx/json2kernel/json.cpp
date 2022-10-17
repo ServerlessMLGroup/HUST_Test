@@ -76,7 +76,7 @@ std::vector<JsonParser::token> JsonParser::tokenize(std::string& str) {
 
 JsonObject* JsonParser::_parse(std::vector<token> tokens, int& top) {
     JsonObject* cur = new JsonObject;
-    log("enter JsonParser::_parse");
+    // log("enter JsonParser::_parse");
 
     switch (tokens[top].type) {
     case LBRACE:
