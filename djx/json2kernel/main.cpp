@@ -89,7 +89,7 @@ int main() {
             (CUdeviceptr)storage[i], array.data(), 
             array.size() * sizeof(float))); 
     }
-
+    printf("reset model!\n");
     model.reset();
     return 0;
 }
