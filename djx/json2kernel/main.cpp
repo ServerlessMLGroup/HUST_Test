@@ -31,6 +31,90 @@ enum Status {
     }\
 }
 
+Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
+    int i = kernel_offset;
+    std::string& func_name = model->kernels[i].name;
+    CUfunction func = kernels[func_name];
+    uint32_t *launch_params = model->kernels[i].launch_params;
+    // std::cout << func_name << std::endl;
+    GPU_RETURN_STATUS(cuLaunchKernel(func,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, stream, (void **)raw_args[i].data(), 0
+    ));
+    return Status::Succ;
+}
+
+Status execute_to(int idx, CUstream stream, Model* model) {
+    for (int i = 0; i < idx; i++) {
+        RETURN_STATUS(launch_kernel(i, stream, model));
+    }  
+    GPU_RETURN_STATUS(cuStreamSynchronize(stream));
+    return Status::Succ;
+}
+
+Status execute(CUstream stream, Model* model) {
+    execute_to(model->kernels.size(), stream, model);
+    return Status::Succ;
+}
+
+
+// Status execute_kernel(int idx, GPUStream_t stream) {
+//     if (idx >= num_kernels()) RETURN_STATUS(Status::OutOfRange);
+//     GPU_RETURN_STATUS(launch_kernel(idx, stream));
+//     GPU_RETURN_STATUS(GPUStreamSynchronize(stream));
+//     return Status::Succ;
+// }
+
+Status find_storage_idx(const std::string& name, size_t& idx) {
+    // TODO: O(n) -> O(1)
+    for (size_t i = 0; i < storage.size(); i++) {
+        StorageInfo& storage_info = model->storage[i];
+        if (storage_info.name == name) {
+            idx = i;
+            return Status::Succ;
+        }
+    }
+    RETURN_STATUS(Status::NotFound);
+    return Status::NotFound; // otherwise, the compiler thinks no return value.
+}
+
+Status set_input() {
+    std::vector<float> input(3 * 224 * 224);
+    for (size_t i = 0; i < 3*224*224; i++)
+        input[i] = 10.0;
+    size_t input_storage_idx;
+    if (find_storage_idx("data", input_storage_idx) != Status::Succ) RETURN_STATUS(Status::NotFound);
+    StorageInfo& storage_info = model->storage[input_storage_idx];
+    size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
+    if (input.size() * sizeof(float) < storage_size) RETURN_STATUS(Status::OutOfRange);
+    GPU_RETURN_STATUS(cuMemcpyHtoD(
+        (CUdeviceptr)storage[input_storage_idx], (void*)input.data(), 
+        storage_size)
+    );
+    return Status::Succ;
+}
+
+Status get_data(int idx, void* out, size_t len) {
+    if (idx >= storage.size()) RETURN_STATUS(Status::OutOfRange);
+    StorageInfo& storage_info = model->storage[idx];
+    size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
+    if (len < storage_size) RETURN_STATUS(Status::Fail);
+    GPU_RETURN_STATUS(cuMemcpyDtoH(
+        out, (CUdeviceptr)storage[idx], storage_size
+    ));
+    return Status::Succ;
+}
+
+Status get_output(std::vector<float>& out) {
+    size_t input_storage_idx;
+    if (find_storage_idx("output", input_storage_idx) != Status::Succ) RETURN_STATUS(Status::NotFound);
+    StorageInfo& storage_info = model->storage[input_storage_idx];
+    if (Model::get_stype_size(storage_info.stype) != sizeof(float)) RETURN_STATUS(Status::Fail);
+    out.resize(storage_info.size);
+    return get_data(input_storage_idx, (void*)out.data(), storage_info.size * sizeof(float));
+}
+
 std::vector<CUdeviceptr> storage;
 std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args;
@@ -91,56 +175,14 @@ int main() {
             (CUdeviceptr)storage[i], array.data(), 
             array.size() * sizeof(float))); 
     }
+    std::vector<float> output;
+    RETURN_STATUS(set_input());
+    RETURN_STATUS(execute(0, model.get()));
+    RETURN_STATUS(get_output(output));
+    for (float &i : output) {
+        std::cout << i << std::endl;
+    }
     printf("reset model!\n");
     model.reset();
     return 0;
 }
-
-// size_t ExecutorBase::num_kernels() const {
-//     return model->kernels.size();
-// }
-
-
-// void ExecutorBase::set_stream(GPUStream_t stream) {
-//     s = stream;
-// }
-
-
-// GPUStream_t ExecutorBase::stream() const {
-//     return s;
-// }
-
-Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
-    int i = kernel_offset;
-    std::string& func_name = model->kernels[i].name;
-    CUfunction func = kernels[func_name];
-    uint32_t *launch_params = model->kernels[i].launch_params;
-    // std::cout << func_name << std::endl;
-    GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, stream, (void **)raw_args[i].data(), 0
-    ));
-    return Status::Succ;
-}
-
-Status execute_to(int idx, CUstream stream, Model* model) {
-    for (int i = 0; i < idx; i++) {
-        RETURN_STATUS(launch_kernel(i, stream, model));
-    }  
-    GPU_RETURN_STATUS(cuStreamSynchronize(stream));
-    return Status::Succ;
-}
-
-Status execute(CUstream stream, Model* model) {
-    execute_to(model->kernels.size(), stream, model);
-    return Status::Succ;
-}
-
-
-// Status execute_kernel(int idx, GPUStream_t stream) {
-//     if (idx >= num_kernels()) RETURN_STATUS(Status::OutOfRange);
-//     GPU_RETURN_STATUS(launch_kernel(idx, stream));
-//     GPU_RETURN_STATUS(GPUStreamSynchronize(stream));
-//     return Status::Succ;
-// }
