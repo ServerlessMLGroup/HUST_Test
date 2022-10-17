@@ -42,7 +42,7 @@ std::vector<JsonParser::token> JsonParser::tokenize(std::string& str) {
     while (!str.empty()) {
         strip_space(str);
         std::string token = split_by_space(str);
-        std::cout<<token<<std::endl;
+        // std::cout<<token<<std::endl;
         for (size_t i = 0; i < token.length(); i++) {
             switch (token[i]) {
                 TOKENIZE_COUPLED(i, token, STRING, '"', tokens);
@@ -70,7 +70,7 @@ std::vector<JsonParser::token> JsonParser::tokenize(std::string& str) {
         }
     }
     log("finish tokenize!");
-    printf("tokens[0].type:%d\n", tokens[0].type);
+    // printf("tokens[0].type:%d\n", tokens[0].type);
     return tokens;
 }
 
@@ -128,7 +128,7 @@ JsonObject* JsonParser::_parse(std::vector<token> tokens, int& top) {
     default:
         break;
     }
-    log("case defalut");
+    // log("case defalut");
     return cur;
 }
 
