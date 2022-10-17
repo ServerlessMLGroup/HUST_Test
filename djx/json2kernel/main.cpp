@@ -31,6 +31,12 @@ enum Status {
     }\
 }
 
+std::vector<CUdeviceptr> storage;
+std::unordered_map<std::string, CUfunction> kernels;
+std::vector<std::vector<CUdeviceptr*>> raw_args;
+std::unique_ptr<Model> model;
+
+
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
     std::string& func_name = model->kernels[i].name;
@@ -115,10 +121,6 @@ Status get_output(std::vector<float>& out) {
     return get_data(input_storage_idx, (void*)out.data(), storage_info.size * sizeof(float));
 }
 
-std::vector<CUdeviceptr> storage;
-std::unordered_map<std::string, CUfunction> kernels;
-std::vector<std::vector<CUdeviceptr*>> raw_args;
-std::unique_ptr<Model> model;
 int main() {
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
