@@ -56,6 +56,7 @@ int main() {
         );
         kernels.emplace(kernel_info.name, kernel);
     }
+    printf("allocate device storage!\n");
     // 3. allocate device storage
     for (StorageInfo &storage_info : model->storage) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
@@ -67,7 +68,7 @@ int main() {
         GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
         storage.push_back(device_ptr);
     }
-
+    printf("map raw args!\n");
     raw_args.reserve(model->kernels.size());
     for (KernelInfo &kernel_info : model->kernels) {
         std::vector<CUdeviceptr*> kernel_arg;
@@ -77,7 +78,7 @@ int main() {
         }
         raw_args.push_back(kernel_arg);
     }
-
+    printf("parse params!\n");
     std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/husterdjx/research/HUST_Test/djx/json2kernel/resource/resnet18.params"));
     for (size_t i = 0; i < storage.size(); i++) {
         StorageInfo& storage_info = model->storage[i];
