@@ -17,7 +17,9 @@ enum Status {
 {\
     CUresult error = cmd;\
     if (error != CUDA_SUCCESS) {\
-        std::cout << "cuda error: " << cudaGetErrorString(error) << "at " << __FILE__ << ":" << __LINE__; \
+        const char** meg_ptr; \
+        cuGetErrorString(error, meg_ptr); \
+        std::cout << "cuda error: " << meg_ptr << "at " << __FILE__ << ":" << __LINE__; \
         return Status::Fail;\
     }\
 }
