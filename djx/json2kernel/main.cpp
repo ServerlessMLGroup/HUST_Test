@@ -48,7 +48,7 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
         launch_params[3], launch_params[4], launch_params[5],
         0, stream, (void **)raw_args[i].data(), 0
     ));
-    std::cout << "func_name:" << func_name << std::endl;
+    // std::cout << "func_name:" << func_name << std::endl;
     return Status::Succ;
 }
 
@@ -106,6 +106,7 @@ Status get_data(int idx, void* out, size_t len) {
     if (idx >= storage.size()) RETURN_STATUS(Status::OutOfRange);
     StorageInfo& storage_info = model->storage[idx];
     size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
+    std::cout << "storage_size:" << storage_size << std::endl;
     if (len < storage_size) RETURN_STATUS(Status::Fail);
     GPU_RETURN_STATUS(cuMemcpyDtoH(
         out, (CUdeviceptr)storage[idx], storage_size
@@ -119,6 +120,7 @@ Status get_output(std::vector<float>& out) {
     StorageInfo& storage_info = model->storage[input_storage_idx];
     if (Model::get_stype_size(storage_info.stype) != sizeof(float)) RETURN_STATUS(Status::Fail);
     out.resize(storage_info.size);
+    std::cout << "storage_info.size:" << storage_info.size << std::endl;
     return get_data(input_storage_idx, (void*)out.data(), storage_info.size * sizeof(float));
 }
 
