@@ -30,7 +30,7 @@ const char* token_name[] = {"invalid", "string", "number", "[", "]", "{", "}", "
 
 JsonObject* JsonParser::parse(std::string& str) {
     int top = 0;
-    //std::cout<<str<<std::endl;
+    std::cout<<str<<std::endl;
     JsonObject* jobj = _parse(tokenize(str), top);
     return jobj;
 }
