@@ -48,7 +48,7 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
         launch_params[3], launch_params[4], launch_params[5],
         0, stream, (void **)raw_args[i].data(), 0
     ));
-    // std::cout << "func_name:" << func_name << std::endl;
+    std::cout << "func_name:" << func_name << " launch_params:" << launch_params[0] << " " << launch_params[1] << " " << launch_params[2] << " " << launch_params[3] << " " << launch_params[4] << " " << launch_params[5] << " raw_args_ptr:" << (void **)raw_args[i].data() << std::endl;
     return Status::Succ;
 }
 
