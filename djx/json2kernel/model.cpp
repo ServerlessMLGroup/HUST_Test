@@ -47,13 +47,19 @@ Model* Model::from_json(const char* json_file) {
         m->kernels.push_back(k);
     }
 
+    printf("finish parse kernels!\n");
+
     for (auto arg : jobj->mval["args"]->lval) {
         m->args.push_back(arg->ival);
     }
 
+    printf("finish parse args!\n");
+
     for (auto shared_memory : jobj->mval["shared_memory"]->mval) {
         m->shared_memory[shared_memory.first] = shared_memory.second->ival;
     }
+    printf("finish parse shared_memory!\n");
+
     delete jobj;
 
     return m;
