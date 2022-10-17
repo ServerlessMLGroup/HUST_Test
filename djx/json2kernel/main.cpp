@@ -38,14 +38,13 @@ std::unique_ptr<Model> model;
 int main() {
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
-    // CUcontext ctx;
+    CUcontext ctx;
     CUdevice device;
-    // GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
     CUresult result;
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
     GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
-    // GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
+    GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda kernels!\n");
