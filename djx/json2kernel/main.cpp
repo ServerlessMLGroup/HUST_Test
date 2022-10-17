@@ -69,6 +69,7 @@ int main() {
         storage.push_back(device_ptr);
     }
     printf("map raw args!\n");
+    std::cout << "storages.size = " << storage.size() << std::endl;
     raw_args.reserve(model->kernels.size());
     for (KernelInfo &kernel_info : model->kernels) {
         std::vector<CUdeviceptr*> kernel_arg;
@@ -81,6 +82,7 @@ int main() {
     printf("parse params!\n");
     std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/husterdjx/research/HUST_Test/djx/json2kernel/resource/resnet18.params"));
     for (size_t i = 0; i < storage.size(); i++) {
+        std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         if (params->find(storage_info.name) == params->end()) 
             continue;
