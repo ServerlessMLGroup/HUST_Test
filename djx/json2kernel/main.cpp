@@ -42,7 +42,13 @@ int main() {
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
     // CUcontext ctx;
     CUdevice device;
-    GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
+    // GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
+    CUresult result;
+    result = cuDeviceGet(&device, 0);
+    if result != CUDA_SUCCESS {
+        printf("cuDeviceGet err:%d", result);
+        exit(1);
+    }
     // GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
