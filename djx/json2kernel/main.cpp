@@ -17,7 +17,7 @@ enum Status {
 { \
     CUresult result = cmd; \
     if (result != CUDA_SUCCESS) { \
-        std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__ << endl; \
+        std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__ << std::endl; \
         exit(1); \
     } \
 }
@@ -26,7 +26,7 @@ enum Status {
 {\
     Status s = cmd;\
     if (s != Status::Succ) {\
-        std::cout << #cmd " error, " << __FILE__ << ":" << __LINE__ << endl; \
+        std::cout << #cmd " error, " << __FILE__ << ":" << __LINE__ << std::endl; \
         return s;\
     }\
 }
