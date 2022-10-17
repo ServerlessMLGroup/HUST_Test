@@ -187,7 +187,7 @@ int main() {
     for (size_t i = 0; i < ans.size(); i++) {
         // ASSERT_FLOAT_EQ(ans[i], output[i]);
         if (ans[i] != output[i]) {
-            std::cout << "not match" << endl;
+            std::cout << "not match" << std::endl;
             exit(1);
         }
     }
