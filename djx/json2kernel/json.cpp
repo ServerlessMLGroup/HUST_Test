@@ -30,7 +30,7 @@ const char* token_name[] = {"invalid", "string", "number", "[", "]", "{", "}", "
 
 JsonObject* JsonParser::parse(std::string& str) {
     int top = 0;
-    std::cout<<str<<std::endl;
+    // std::cout<<str<<std::endl;
     JsonObject* jobj = _parse(tokenize(str), top);
     return jobj;
 }
@@ -76,7 +76,7 @@ std::vector<JsonParser::token> JsonParser::tokenize(std::string& str) {
 
 JsonObject* JsonParser::_parse(std::vector<token> tokens, int& top) {
     JsonObject* cur = new JsonObject;
-    // log("enter JsonParser::_parse");
+    log("enter JsonParser::_parse");
 
     switch (tokens[top].type) {
     case LBRACE:
