@@ -55,8 +55,8 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
 Status execute_to(int idx, CUstream stream, Model* model) {
     for (int i = 0; i < idx; i++) {
         RETURN_STATUS(launch_kernel(i, stream, model));
+        GPU_RETURN_STATUS(cuStreamSynchronize(stream));
     }  
-    GPU_RETURN_STATUS(cuStreamSynchronize(stream));
     return Status::Succ;
 }
 
