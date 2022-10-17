@@ -45,7 +45,7 @@ int main() {
     // GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
     CUresult result;
     result = cuDeviceGet(&device, 0);
-    if result != CUDA_SUCCESS {
+    if (result != CUDA_SUCCESS) {
         printf("cuDeviceGet err:%d", result);
         exit(1);
     }
