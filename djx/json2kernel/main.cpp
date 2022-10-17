@@ -46,6 +46,7 @@ int main() {
     // GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/husterdjx/research/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    printf("load cuda kernels!\n");
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
