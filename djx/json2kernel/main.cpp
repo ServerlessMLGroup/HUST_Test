@@ -17,7 +17,7 @@ enum Status {
 { \
     CUresult result = cmd; \
     if (result != CUDA_SUCCESS) { \
-        std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__; \
+        std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__ << endl; \
         exit(1); \
     } \
 }
@@ -26,7 +26,7 @@ enum Status {
 {\
     Status s = cmd;\
     if (s != Status::Succ) {\
-        std::cout << #cmd " error, " << __FILE__ << ":" << __LINE__; \
+        std::cout << #cmd " error, " << __FILE__ << ":" << __LINE__ << endl; \
         return s;\
     }\
 }
@@ -43,7 +43,7 @@ int main() {
     CUresult result;
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
-    GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
+    GPU_RETURN_STATUS(cuDeviceGet(&device, 1));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
