@@ -80,7 +80,7 @@ int main() {
         raw_args.push_back(kernel_arg);
     }
     printf("parse params!\n");
-    std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/husterdjx/research/HUST_Test/djx/json2kernel/resource/resnet18.params"));
+    std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.params"));
     for (size_t i = 0; i < storage.size(); i++) {
         std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
