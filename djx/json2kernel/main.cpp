@@ -15,7 +15,7 @@ enum Status {
 
 #define GPU_RETURN_STATUS(cmd) \
 { \
-    CUresult = cmd; \
+    CUresult result = cmd; \
     if (result != CUDA_SUCCESS) { \
         std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__; \
         exit(1); \
