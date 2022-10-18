@@ -178,11 +178,6 @@ int main() {
         if (params->find(storage_info.name) == params->end()) 
             continue;
         auto &array = params->at(storage_info.name);
-        std::cout << i << ":" << storage_info.name << ":" << std::endl;
-        for (auto &it : array) {
-            std::cout << it << " ";
-        }
-        std::cout << std::endl;
         GPU_RETURN_STATUS(cuMemcpyHtoD(
             (CUdeviceptr)storage[i], array.data(), 
             array.size() * sizeof(float))); 
