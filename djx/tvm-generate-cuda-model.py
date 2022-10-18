@@ -75,6 +75,7 @@ def dump_params(params, f):
     f.write(magic)
     f.write(array.array('Q',[len(params)]).tobytes())
     for k in params.keys():
+        print(k)
         param = array.array('f', params[k].asnumpy().flatten().tolist())
         f.write(bytes(k, "ascii"))
         f.write(bytes("\0", "ascii"))
