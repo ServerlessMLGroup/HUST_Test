@@ -116,6 +116,7 @@ ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
         res = fread(array.data(), sizeof(float), array_size, fp);
         assert(res == array_size);
         params->insert({key, array});
+        std::cout << "params key:" << key << std::endl;
     }
     return params;
 }

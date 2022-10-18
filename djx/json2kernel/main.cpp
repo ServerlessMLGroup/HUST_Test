@@ -174,7 +174,7 @@ int main() {
     for (size_t i = 0; i < storage.size(); i++) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
-        std::cout << "storage_info.name:" << storage_info.name << std::endl;
+        // std::cout << "storage_info.name:" << storage_info.name << std::endl;
         if (params->find(storage_info.name) == params->end()) 
             continue;
         auto &array = params->at(storage_info.name);
