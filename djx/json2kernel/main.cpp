@@ -99,6 +99,7 @@ Status set_input() {
         (CUdeviceptr)storage[input_storage_idx], (void*)input.data(), 
         storage_size)
     );
+    // TODO: printf input_storage_idx
     return Status::Succ;
 }
 
@@ -121,7 +122,7 @@ Status get_output(std::vector<float>& out) {
     if (Model::get_stype_size(storage_info.stype) != sizeof(float)) RETURN_STATUS(Status::Fail);
     out.resize(storage_info.size);
     std::cout << "storage_info.size:" << storage_info.size << std::endl;
-    return get_data(input_storage_idx, (void*)out.data(), storage_info.size * sizeof(float));
+    return get_data(input_storage_idx, out.data(), storage_info.size * sizeof(float));
 }
 
 int main() {
@@ -176,6 +177,11 @@ int main() {
         if (params->find(storage_info.name) == params->end()) 
             continue;
         auto &array = params->at(storage_info.name);
+        std::cout << i << ":" << storage_info.name << ":" << std::endl;
+        for (auto &it : array) {
+            std::cout << it << " ";
+        }
+        std::cout << std::endl;
         GPU_RETURN_STATUS(cuMemcpyHtoD(
             (CUdeviceptr)storage[i], array.data(), 
             array.size() * sizeof(float))); 
