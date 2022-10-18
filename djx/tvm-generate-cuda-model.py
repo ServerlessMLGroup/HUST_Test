@@ -15,7 +15,7 @@ import json
 # This is an example of how to generate source code
 # and schedule json from tvm.
 #
-# python3 tvm-generate-model.py resnet18.cu resnet18.schedule.json resnet18.graph.json resnet18.params
+# python3 tvm-generate-cuda-model.py resnet18.cu resnet18.schedule.json resnet18.graph.json resnet18.params
 #####################################################
 
 
@@ -46,9 +46,9 @@ mod, params = relay.testing.resnet.get_workload(
 
 opt_level = 3
 target = tvm.target.cuda()
-
+    
 with tvm.transform.PassContext(opt_level=opt_level):
-    lib = relay.build(mod, target, params=params)
+    graph_json, lib, params = relay.build(mod, target, params=params)
 
 ctx = tvm.gpu()
 module = graph_runtime.GraphModule(lib["default"](ctx))
