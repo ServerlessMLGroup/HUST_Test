@@ -82,16 +82,17 @@ ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
     FILE* fp;
     fp = fopen(param_file, "rb"); 
     char magic[sizeof(PARAM_MAGIC)];
-    std::cout << "fread" << __FILE__ << __LINE__ << std::endl;
+    // std::cout << "fread" << __FILE__ << __LINE__ << std::endl;
     size_t res = fread(magic, sizeof(char), sizeof(PARAM_MAGIC), fp);
     assert(res == sizeof(PARAM_MAGIC));
     assert(std::string(magic) == PARAM_MAGIC);
     
     uint64_t params_size;
-    std::cout << "fread" << __FILE__ << __LINE__ << std::endl;
+    // std::cout << "fread" << __FILE__ << __LINE__ << std::endl;
     res = fread(&params_size, sizeof(uint64_t), 1, fp);
     assert(res == 1);
     assert(params_size != 0);
+    std::cout << "params_size:" << params_size << std::endl;
 
     ModelParam* params = new ModelParam(params_size);
     for (uint64_t i = 0; i < params_size; i++) {
