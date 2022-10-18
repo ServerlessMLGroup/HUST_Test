@@ -43,17 +43,15 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     CUfunction func = kernels[func_name];
     uint32_t *launch_params = model->kernels[i].launch_params;
     // std::cout << func_name << std::endl;
-    auto beginTime = std::chrono::high_resolution_clock::now();
+    clock_t start = clock();
     GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
         0, stream, (void **)raw_args[i].data(), 0 // raw_args是json中指示的storage的下标
     ));
-    auto endTime = std::chrono::high_resolution_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::microseconds>(endTime-beginTime);
-
-    double programTimes = ((double) elapsedTime.count();
-    std::cout << "func_name:" << func_name << " time:" << programTimes << std::endl; 
+    clock_t end = clock();
+    double duration = (double(end - start));
+    std::cout << "func_name:" << func_name << " time:" << duration << std::endl; 
     // std::cout << "func_name:" << func_name << " launch_params:" << launch_params[0] << " " << launch_params[1] << " " << launch_params[2] << " " << launch_params[3] << " " << launch_params[4] << " " << launch_params[5] << " raw_args_ptr:" << (void **)raw_args[i].data() << std::endl;
     return Status::Succ;
 }
