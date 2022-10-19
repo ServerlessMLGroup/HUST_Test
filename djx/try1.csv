@@ -1,4 +1,1 @@
-==326== NVPROF is profiling process 326, command: python batch-mps.py
-==326== Profiling application: python batch-mps.py
-==326== Profiling result:
-No events/metrics were profiled.
+======== Error: Application received signal 2
