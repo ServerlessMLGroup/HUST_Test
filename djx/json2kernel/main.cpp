@@ -43,15 +43,13 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     CUfunction func = kernels[func_name];
     uint32_t *launch_params = model->kernels[i].launch_params;
     // std::cout << func_name << std::endl;
-    clock_t start = clock();
     GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
         0, stream, (void **)raw_args[i].data(), 0 // raw_args是json中指示的storage的下标
     ));
-    clock_t end = clock();
-    double duration = (double(end - start));
-    std::cout << "func_name:" << func_name << " time:" << duration << std::endl; 
+    // double duration = (double(end - start));
+    // std::cout << "func_name:" << func_name << " time:" << duration << std::endl; 
     // std::cout << "func_name:" << func_name << " launch_params:" << launch_params[0] << " " << launch_params[1] << " " << launch_params[2] << " " << launch_params[3] << " " << launch_params[4] << " " << launch_params[5] << " raw_args_ptr:" << (void **)raw_args[i].data() << std::endl;
     return Status::Succ;
 }
@@ -137,7 +135,7 @@ int main() {
     CUresult result;
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
-    GPU_RETURN_STATUS(cuDeviceGet(&device, 1));
+    GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
