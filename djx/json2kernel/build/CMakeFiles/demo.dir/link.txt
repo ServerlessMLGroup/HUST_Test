@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/demo.dir/json.cpp.o CMakeFiles/demo.dir/log.cpp.o CMakeFiles/demo.dir/main.cpp.o CMakeFiles/demo.dir/model.cpp.o -o demo  -lcuda 

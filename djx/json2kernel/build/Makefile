@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/husterdjx/cmake-3.24.2-linux-x86_64/bin/cmake
+CMAKE_COMMAND = /opt/cmake-3.24.2/bin/cmake
 
 # The command to remove a file.
-RM = /home/husterdjx/cmake-3.24.2-linux-x86_64/bin/cmake -E rm -f
+RM = /opt/cmake-3.24.2/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/husterdjx/research/HUST_Test/djx/json2kernel
+CMAKE_SOURCE_DIR = /home/wuhao/HUST_Test/djx/json2kernel
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/husterdjx/research/HUST_Test/djx/json2kernel/build
+CMAKE_BINARY_DIR = /home/wuhao/HUST_Test/djx/json2kernel/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/husterdjx/research/HUST_Test/djx/json2kernel/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/home/husterdjx/cmake-3.24.2-linux-x86_64/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/opt/cmake-3.24.2/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/husterdjx/cmake-3.24.2-linux-x86_64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/opt/cmake-3.24.2/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/husterdjx/research/HUST_Test/djx/json2kernel/build/CMakeFiles /home/husterdjx/research/HUST_Test/djx/json2kernel/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wuhao/HUST_Test/djx/json2kernel/build/CMakeFiles /home/wuhao/HUST_Test/djx/json2kernel/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/husterdjx/research/HUST_Test/djx/json2kernel/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wuhao/HUST_Test/djx/json2kernel/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Demo
+# Target rules for targets named demo
 
 # Build rule for target.
-Demo: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Demo
-.PHONY : Demo
+demo: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 demo
+.PHONY : demo
 
 # fast build rule for target.
-Demo/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/build
-.PHONY : Demo/fast
+demo/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
+.PHONY : demo/fast
 
 json.o: json.cpp.o
 .PHONY : json.o
 
 # target to build an object file
 json.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/json.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/json.cpp.o
 .PHONY : json.cpp.o
 
 json.i: json.cpp.i
@@ -142,7 +142,7 @@ json.i: json.cpp.i
 
 # target to preprocess a source file
 json.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/json.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/json.cpp.i
 .PHONY : json.cpp.i
 
 json.s: json.cpp.s
@@ -150,7 +150,7 @@ json.s: json.cpp.s
 
 # target to generate assembly for a file
 json.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/json.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/json.cpp.s
 .PHONY : json.cpp.s
 
 log.o: log.cpp.o
@@ -158,7 +158,7 @@ log.o: log.cpp.o
 
 # target to build an object file
 log.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/log.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/log.cpp.o
 .PHONY : log.cpp.o
 
 log.i: log.cpp.i
@@ -166,7 +166,7 @@ log.i: log.cpp.i
 
 # target to preprocess a source file
 log.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/log.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/log.cpp.i
 .PHONY : log.cpp.i
 
 log.s: log.cpp.s
@@ -174,7 +174,7 @@ log.s: log.cpp.s
 
 # target to generate assembly for a file
 log.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/log.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/log.cpp.s
 .PHONY : log.cpp.s
 
 main.o: main.cpp.o
@@ -182,7 +182,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -190,7 +190,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -198,7 +198,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 model.o: model.cpp.o
@@ -206,7 +206,7 @@ model.o: model.cpp.o
 
 # target to build an object file
 model.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/model.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/model.cpp.o
 .PHONY : model.cpp.o
 
 model.i: model.cpp.i
@@ -214,7 +214,7 @@ model.i: model.cpp.i
 
 # target to preprocess a source file
 model.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/model.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/model.cpp.i
 .PHONY : model.cpp.i
 
 model.s: model.cpp.s
@@ -222,7 +222,7 @@ model.s: model.cpp.s
 
 # target to generate assembly for a file
 model.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Demo.dir/build.make CMakeFiles/Demo.dir/model.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/model.cpp.s
 .PHONY : model.cpp.s
 
 # Help Target
@@ -233,7 +233,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Demo"
+	@echo "... demo"
 	@echo "... json.o"
 	@echo "... json.i"
 	@echo "... json.s"
