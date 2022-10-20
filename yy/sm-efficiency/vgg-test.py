@@ -27,7 +27,7 @@ def extract_feature(model, imgpath):
     model.eval()  # 必须要有，不然会影响特征提取结果
 
     #img = Image.open(imgpath)  # 读取图片
-    img = torch.randn(64,3,3,3)
+    img = torch.randn(22,224,22,3)
     img = img.resize((TARGET_IMG_SIZE, TARGET_IMG_SIZE))
     tensor = img_to_tensor(img)  # 将图片转化成tensor
     tensor = tensor.cuda()  # 如果只是在cpu上跑的话要将这行去掉
