@@ -44,4 +44,4 @@ if __name__ == "__main__":
     imgpath = '1.jpg'
     tmp = extract_feature(model, imgpath)
     print(tmp.shape)  # 打印出得到的tensor的shape
-    print(tmp)  # 打印出tensor的内容，其实可以换成保存tensor的语句，这里的话就留给读者自由发挥了
+    #print(tmp)  # 打印出tensor的内容，其实可以换成保存tensor的语句，这里的话就留给读者自由发挥了
