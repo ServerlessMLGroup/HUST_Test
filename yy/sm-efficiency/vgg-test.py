@@ -13,7 +13,7 @@ from PIL import Image
 TARGET_IMG_SIZE = 224
 img_to_tensor = transforms.ToTensor()
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 
 def make_model():
     model = models.vgg16(pretrained=True).features[:28]  # 其实就是定位到第28层，对照着上面的key看就可以理解
