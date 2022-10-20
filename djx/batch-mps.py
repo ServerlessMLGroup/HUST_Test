@@ -36,20 +36,20 @@ def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nru
             features = model(input_data)
     torch.cuda.synchronize()
     print("Start timing ...")
-    timings = []
-    with torch.no_grad():
-        for i in range(1, nruns + 1):
-            start_time = time.time()
-            features = model(input_data)
-            torch.cuda.synchronize()
-            end_time = time.time()
-            timings.append(end_time - start_time)
-            if i % 10 == 0:
-                print('Iteration %d/%d, ave batch time %.2f ms' % (i, nruns, np.mean(timings) * 1000))
+    #timings = []
+    #with torch.no_grad():
+     #   for i in range(1, nruns + 1):
+            #start_time = time.time()
+            #features = model(input_data)
+            #torch.cuda.synchronize()
+          #  end_time = time.time()
+           # timings.append(end_time - start_time)
+            #if i % 10 == 0:
+             #   print('Iteration %d/%d, ave batch time %.2f ms' % (i, nruns, np.mean(timings) * 1000))
 
-    print("Input shape:", input_data.size())
-    print("Output features size:", features.size())
-    print('Average batch time: %.2f ms' % (np.mean(timings) * 1000))
+   # print("Input shape:", input_data.size())
+   # print("Output features size:", features.size())
+   # print('Average batch time: %.2f ms' % (np.mean(timings) * 1000))
 
 
 if __name__ == '__main__':
