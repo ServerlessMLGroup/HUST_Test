@@ -28,7 +28,6 @@ def extract_feature(model, imgpath):
 
     img = Image.open(imgpath)  # 读取图片
     img = img.resize((TARGET_IMG_SIZE, TARGET_IMG_SIZE))
-    #img = img.unsqueeze(0)
 
     tensor = img_to_tensor(img)  # 将图片转化成tensor
     tensor = tensor.cuda()  # 如果只是在cpu上跑的话要将这行去掉
@@ -41,7 +40,7 @@ def extract_feature(model, imgpath):
 
 if __name__ == "__main__":
     model = make_model()
-    imgpath = '12.jpg'
+    imgpath = '1.jpg'
     tmp = extract_feature(model, imgpath)
     print(tmp.shape)  # 打印出得到的tensor的shape
     print(tmp)  # 打印出tensor的内容，其实可以换成保存tensor的语句，这里的话就留给读者自由发挥了
