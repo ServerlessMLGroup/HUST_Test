@@ -28,6 +28,8 @@ def extract_feature(model, imgpath):
 
     img = Image.open(imgpath)  # 读取图片
     img = img.resize((TARGET_IMG_SIZE, TARGET_IMG_SIZE))
+    img = img.unsqueeze(0)
+
     tensor = img_to_tensor(img)  # 将图片转化成tensor
     tensor = tensor.cuda()  # 如果只是在cpu上跑的话要将这行去掉
 
