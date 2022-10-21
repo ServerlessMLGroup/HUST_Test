@@ -1,0 +1,12 @@
+==49741== NVPROF is profiling process 49741, command: python3 vgg-test.py
+==49741== Profiling application: python3 vgg-test.py
+==49741== Profiling result:
+==49741== Metric result:
+"Device","Kernel","Invocations","Metric Name","Metric Description","Min","Max","Avg"
+"Tesla V100-SXM2-32GB (0)","_ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_83_GLOBAL__N__59_tmpxft_0000876c_00000000_9_TensorCompare_compute_70_cpp1_ii_d0af11f728clamp_min_scalar_kernel_implERNS_14TensorIteratorEN3c106ScalarEENKUlvE_clEvENKUlvE6_clEvEUlfE_NS_6detail5ArrayIPcLi2EEEEEviT0_T1_",12,"sm_efficiency","Multiprocessor Activity",17.983943%,84.262312%,49.295943%
+"Tesla V100-SXM2-32GB (0)","void at::native::_GLOBAL__N__62_tmpxft_00008e4e_00000000_9_DilatedMaxPool2d_compute_70_cpp1_ii_6258b574::max_pool_forward_nchw<float, float>(int, float const *, int, int, int, int, int, int, int, int, int, int, int, int, int, int, at::native::_GLOBAL__N__62_tmpxft_00008e4e_00000000_9_DilatedMaxPool2d_compute_70_cpp1_ii_6258b574::max_pool_forward_nchw<float, float>*, long*)",4,"sm_efficiency","Multiprocessor Activity",37.945353%,84.595913%,60.919338%
+"Tesla V100-SXM2-32GB (0)","volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1",11,"sm_efficiency","Multiprocessor Activity",38.481563%,95.196792%,78.348318%
+"Tesla V100-SXM2-32GB (0)","cudnn::gemm::computeOffsetsKernel(cudnn::gemm::ComputeOffsetsParams)",1,"sm_efficiency","Multiprocessor Activity",27.455671%,27.455671%,27.455671%
+"Tesla V100-SXM2-32GB (0)","void cudnn::winograd::generateWinogradTilesKernel<int=0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)",11,"sm_efficiency","Multiprocessor Activity",21.206870%,81.425488%,57.505181%
+"Tesla V100-SXM2-32GB (0)","void at::native::unrolled_elementwise_kernel<at::native::BinaryFunctor<float, float, float, at::native::AddFunctor<float>>, at::detail::Array<char*, int=3>, OffsetCalculator<int=2, unsigned int, bool=0>, OffsetCalculator<int=1, unsigned int, bool=0>, at::native::memory::LoadWithoutCast, at::native::memory::StoreWithoutCast>(int, float, float, float, float, at::native::AddFunctor<float>, at::native::BinaryFunctor<float, float, float, at::native::AddFunctor<float>>)",12,"sm_efficiency","Multiprocessor Activity",33.041888%,82.927436%,55.987861%
+"Tesla V100-SXM2-32GB (0)","volta_scudnn_128x64_relu_small_nn_v1",1,"sm_efficiency","Multiprocessor Activity",80.903591%,80.903591%,80.903591%

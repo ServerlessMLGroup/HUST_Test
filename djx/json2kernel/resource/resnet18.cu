@@ -1470,10 +1470,10 @@ extern "C" __global__ void fused_add_nn_relu_3_kernel0(float* __restrict__ T_rel
   T_relu[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
 }
 
-extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict__ r, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
   float compute[1];
   __shared__ float pad_temp_shared[180];
-  __shared__ float placeholder_shared[576];
+  __shared__ float placeholder_shared[576];placeholde
   compute[(0)] = 0.000000e+00f;
   for (int rc_outer = 0; rc_outer < 64; ++rc_outer) {
     __syncthreads();
