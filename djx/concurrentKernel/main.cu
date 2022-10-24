@@ -82,6 +82,10 @@ int main(int argc, char **argv) {
     ))
 
     fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
+
+    vector<float>output(25088);
+    checkCudaErrors(cudaMemcpyAsync(
+      output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
     
     // float *arg53 = 0; 
     // checkCudaErrors(cudaMallocHost((void **)&arg53, 1179648 * sizeof(float)));
@@ -128,6 +132,7 @@ int main(int argc, char **argv) {
 
     // // Wait for the stop event to complete
     // checkCudaErrors(cudaEventSynchronize(stop_event));
+    return 0;
 
 
 }
