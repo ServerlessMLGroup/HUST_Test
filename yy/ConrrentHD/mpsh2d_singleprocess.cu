@@ -16,7 +16,7 @@ using namespace std;
 //Mutex
 mutex mtx1,mtx2;
 
-void thread1(CUcontext ctx,float* d_a,loat* d_b,float* h_a,float* h_b,size_t size)
+void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t size)
 {
     clock_t start,finish;
     double singletime=0.0;
@@ -31,10 +31,9 @@ void thread1(CUcontext ctx,float* d_a,loat* d_b,float* h_a,float* h_b,size_t siz
     start=clock();
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
-    singletime + = (double)(finish-start)/CLOCKS_PER_SEC;
-
-    mtx2.unlock()
-    mtx1.lock()
+    singletime += (double)(finish-start)/CLOCKS_PER_SEC;
+    mtx2.unlock();
+    mtx1.lock();
     start=clock();
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
@@ -56,12 +55,12 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     }
     for(int i=0;i < 10;i++)
     {
-    mtx2.lock()
+    mtx2.lock();
     start=clock();
     cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime + = (double)(finish-start)/CLOCKS_PER_SEC;
-    mtx1.unlock()
+    mtx1.unlock();
     }
     cout<<"cocurrent time2: "<<singletime<<" s"<<endl;
 }
@@ -89,7 +88,7 @@ int main()
         return 0;
     }
 
-    err = cuCtxCreate(&cont1,CU_CTX_SCHED_YIELD,dev)
+    err = cuCtxCreate(&cont1,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
         cout<<"Can't create Context, err" << err << endl;
@@ -100,7 +99,7 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
-    err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev)
+    err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
         cout<<"Can't create Context, err" << err<<endl;
@@ -133,7 +132,7 @@ int main()
     //Free memory
     cudaFree(d_A);
     cudaFree(d_B);
-    cudaFree(d_C)
+    cudaFree(d_C);
 
     return 0;
 }
