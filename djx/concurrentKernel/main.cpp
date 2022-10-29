@@ -13,7 +13,7 @@
 { \
     CUresult result = cmd; \
     if (result != CUDA_SUCCESS) { \
-        std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__ << std::endl; \
+        std::cout << #cmd " error, return code:" << result << " | " << __FILE__ << ":" << __LINE__ << std::endl; \
         exit(1); \
     } \
 }
@@ -104,13 +104,13 @@ int main(int argc, char **argv) {
         input54[i] = 10.0;
     
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)*args[0], (void*)input52.data(), 50176 * sizeof(float)
+      (CUdeviceptr)*args[0], (void*)input52.data(), input52.size() * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)*args[1], (void*)input53.data(), 1179648 * sizeof(float)
+      (CUdeviceptr)*args[1], (void*)input53.data(), input53.size() * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)*args[3], (void*)input54.data(), 512 * sizeof(float)
+      (CUdeviceptr)*args[3], (void*)input54.data(), input54.size() * sizeof(float)
     ))
 
     // fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
