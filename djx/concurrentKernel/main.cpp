@@ -22,7 +22,7 @@
 inline void __checkCudaErrors(cudaError_t err, const char *file, const int line) {
   if (CUDA_SUCCESS != err) {
     const char *errorStr = NULL;
-    cudaGetErrorString(err, &errorStr);
+    errorStr = cudaGetErrorString(err);
     fprintf(stderr,
             "checkCudaErrors() Driver API error = %04d \"%s\" from file <%s>, "
             "line %i.\n",
@@ -63,26 +63,26 @@ int main(int argc, char **argv) {
     CUdeviceptr device_ptr;
     std::vector<char> temp;
     temp.resize(storage_size, 0);
-    checkCudaErrors(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 52
-    checkCudaErrors(cuMemcpyHtoD(device_ptr, temp.data(), storage_size)); 
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 52
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size)); 
     args.push_back(&device_ptr);
 
     storage_size = 1179648 * sizeof(float);
     temp.resize(storage_size, 0);
-    checkCudaErrors(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 53
-    checkCudaErrors(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 53
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
     args.push_back(&device_ptr);
 
     storage_size = 25088 * sizeof(float);
     temp.resize(storage_size, 0);
-    checkCudaErrors(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 55, ouput
-    checkCudaErrors(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 55, ouput
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
     args.push_back(&device_ptr);
 
     storage_size = 512 * sizeof(float);
     temp.resize(storage_size, 0);
-    checkCudaErrors(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 54
-    checkCudaErrors(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 54
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
     args.push_back(&device_ptr);
 
     std::vector<float> input52(50176);
@@ -95,13 +95,13 @@ int main(int argc, char **argv) {
     for (size_t i = 0; i < 512; i++)
         input54[i] = 10.0;
     
-    checkCudaErrors(cuMemcpyHtoD(
+    GPU_RETURN_STATUS(cuMemcpyHtoD(
       (CUdeviceptr)args[0], (void*)input52.data()
     ))
-    checkCudaErrors(cuMemcpyHtoD(
+    GPU_RETURN_STATUS(cuMemcpyHtoD(
       (CUdeviceptr)args[1], (void*)input53.data()
     ))
-    checkCudaErrors(cuMemcpyHtoD(
+    GPU_RETURN_STATUS(cuMemcpyHtoD(
       (CUdeviceptr)args[3], (void*)input54.data()
     ))
 
@@ -128,9 +128,15 @@ int main(int argc, char **argv) {
       7, 1, 16,
       0, stream, (void **)args.data(), 0 // raw_args是json中指示的storage的下标
     ));
-    vector<float>output(25088);
+    std::vector<float>output(25088);
     checkCudaErrors(cudaMemcpyAsync(
       output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
+    
+    for (auto i : output) {
+      std::cout << i << " ";
+    }
+
+    std::cout << std::endl;
     
     // float *arg53 = 0; 
     // checkCudaErrors(cudaMallocHost((void **)&arg53, 1179648 * sizeof(float)));
