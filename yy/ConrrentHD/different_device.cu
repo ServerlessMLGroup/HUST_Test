@@ -40,7 +40,7 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,float* d_b,float* h_b,size_t si
     cotime += (double)(finish-start)/CLOCKS_PER_SEC;
     }
 
-    cout<<"single time: "<<singletime<<" s"<<endl;
+    cout<<"device 3 single time: "<<singletime<<" s"<<endl;
     cout<<"device 3 co_time: "<<cotime<<" s"<<endl;
 }
 
@@ -62,7 +62,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     mtx1.unlock();
     }
-    cout<<"device 2 time: "<<singletime<<" s"<<endl;
+    cout<<"device 2 co_time: "<<singletime<<" s"<<endl;
 }
 
 int main()
@@ -72,7 +72,7 @@ int main()
     //clock for collection
 
     //data size
-    int N = 10485760;
+    int N = 2621440;
     size_t size = N * sizeof(float);
 
 
