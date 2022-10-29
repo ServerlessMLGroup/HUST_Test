@@ -47,6 +47,8 @@ int main(int argc, char **argv) {
     printf("> Detected Compute SM %d.%d hardware with %d multi-processors\n",
            deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
     
+    cudaEvent_t start_event, stop_event;
+
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda mod!\n");
@@ -126,11 +128,18 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuLaunchKernel(func,
       1, 7, 32,
       7, 1, 16,
-      0, stream, (void **)args.data(), 0 // raw_args是json中指示的storage的下标
+      0, 0 // stream
+      , (void **)args.data(), 0 // raw_args是json中指示的storage的下标
     ));
+    checkCudaErrors(cudaEventRecord(stop_event, 0));
+    checkCudaErrors(cudaEventSynchronize(stop_event));
     std::vector<float>output(25088);
-    checkCudaErrors(cudaMemcpyAsync(
-      output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
+    // checkCudaErrors(cudaMemcpyAsync(
+    //   output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
+
+    GPU_RETURN_STATUS(cuMemcpyDtoH(
+        output.data(), (CUdeviceptr)*args[2], sizeof(float) * 25088
+    ));
     
     for (auto i : output) {
       std::cout << i << " ";
