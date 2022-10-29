@@ -1,0 +1,3 @@
+/home/wuhao/HUST_Test/djx/concurrentKernel/bu/CMakeFiles/demo.dir
+/home/wuhao/HUST_Test/djx/concurrentKernel/bu/CMakeFiles/edit_cache.dir
+/home/wuhao/HUST_Test/djx/concurrentKernel/bu/CMakeFiles/rebuild_cache.dir
