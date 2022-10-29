@@ -16,7 +16,7 @@ using namespace std;
 //Mutex
 mutex mtx1,mtx2;
 
-void thread1(CUcontext ctx;float* d_a;float* d_b;float* h_a;float* h_b;size_t size)
+void thread1(CUcontext ctx,float* d_a,loat* d_b,float* h_a,float* h_b,size_t size)
 {
     clock_t start,finish;
     double singletime=0.0;
@@ -45,7 +45,7 @@ void thread1(CUcontext ctx;float* d_a;float* d_b;float* h_a;float* h_b;size_t si
     cout<<"cocurrent time1: "<<cotime<<" s"<<endl;
 }
 
-void thread2(CUcontext ctx;float* d_c;float* h_c;size_t size)
+void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 {
     clock_t start,finish;
     double singletime=0.0;
