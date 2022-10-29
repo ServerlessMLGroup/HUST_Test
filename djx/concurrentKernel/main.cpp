@@ -1,5 +1,12 @@
 #include <cuda.h>
 #include "cuda_runtime.h"
+#include <cstddef>
+#include <string>
+#include <vector>
+#include <map>
+#include <fstream>
+#include <iostream>
+#include
 
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
