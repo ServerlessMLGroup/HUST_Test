@@ -98,13 +98,13 @@ int main(int argc, char **argv) {
         input54[i] = 10.0;
     
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)args[0], (void*)input52.data()
+      (CUdeviceptr)args[0], (void*)input52.data(), 50176 * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)args[1], (void*)input53.data()
+      (CUdeviceptr)args[1], (void*)input53.data(), 1179648 * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)args[3], (void*)input54.data()
+      (CUdeviceptr)args[3], (void*)input54.data(), 512 * sizeof(float)
     ))
 
     // fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
     //         54
     //     ]
     // },
-    GPU_RETURN_STATUS(cuLaunchKernel(func,
+    GPU_RETURN_STATUS(cuLaunchKernel(kernel,
       1, 7, 32,
       7, 1, 16,
       0, 0 // stream
