@@ -48,8 +48,6 @@ int main(int argc, char **argv) {
            deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
     
     cudaEvent_t start_event, stop_event;
-    checkCudaErrors(cudaEventCreate(&start_event));
-    checkCudaErrors(cudaEventCreate(&stop_event));
     CUcontext ctx;
     CUdevice device;
     CUresult result;
@@ -134,6 +132,8 @@ int main(int argc, char **argv) {
     //     ]
     // },
     CUstream stream;
+    checkCudaErrors(cudaEventCreate(&start_event));
+    checkCudaErrors(cudaEventCreate(&stop_event));
     cudaEventRecord(start_event, 0);
     GPU_RETURN_STATUS(cuLaunchKernel(kernel,
       1, 7, 32,
