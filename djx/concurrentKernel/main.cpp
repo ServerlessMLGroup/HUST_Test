@@ -68,30 +68,30 @@ int main(int argc, char **argv) {
     // allocate host memory
     std::vector<CUdeviceptr*> args;
     size_t storage_size = 50176 * sizeof(float);
-    CUdeviceptr device_ptr;
+    CUdeviceptr device_ptr1, device_ptr2, device_ptr3, device_ptr4;
     std::vector<char> temp;
     temp.resize(storage_size, 0);
-    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 52
-    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size)); 
-    args.push_back(&device_ptr);
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr1, storage_size)); // 52
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr1, temp.data(), storage_size)); 
+    //args.push_back(&device_ptr);
 
     storage_size = 1179648 * sizeof(float);
     temp.resize(storage_size, 0);
-    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 53
-    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
-    args.push_back(&device_ptr);
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size)); // 53
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr2, temp.data(), storage_size));
+    //args.push_back(&device_ptr);
 
     storage_size = 25088 * sizeof(float);
     temp.resize(storage_size, 0);
-    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 55, ouput
-    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
-    args.push_back(&device_ptr);
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr3, storage_size)); // 55, ouput
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr3, temp.data(), storage_size));
+    //args.push_back(&device_ptr);
 
     storage_size = 512 * sizeof(float);
     temp.resize(storage_size, 0);
-    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size)); // 54
-    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
-    args.push_back(&device_ptr);
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr4, storage_size)); // 54
+    GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr4, temp.data(), storage_size));
+    //args.push_back(&device_ptr);
 
     std::vector<float> input52(50176);
     for (size_t i = 0; i < 50176; i++)
@@ -104,13 +104,13 @@ int main(int argc, char **argv) {
         input54[i] = 10.0;
     
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)(*(args[0])), input52.data(), input52.size() * sizeof(float)
+      (CUdeviceptr)device_ptr1, input52.data(), input52.size() * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)(*(args[1])), input53.data(), input53.size() * sizeof(float)
+      (CUdeviceptr)device_ptr2, input53.data(), input53.size() * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)(*(args[3])), input54.data(), input54.size() * sizeof(float)
+      (CUdeviceptr)device_ptr4, input54.data(), input54.size() * sizeof(float)
     ))
 
     // fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
