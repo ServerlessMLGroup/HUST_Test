@@ -37,7 +37,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     start=clock();
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
-    cotime + = (double)(finish-start)/CLOCKS_PER_SEC;
+    cotime += (double)(finish-start)/CLOCKS_PER_SEC;
     }
 
     cout<<"single time: "<<singletime<<" s"<<endl;
@@ -59,7 +59,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     start=clock();
     cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
     finish=clock();
-    singletime + = (double)(finish-start)/CLOCKS_PER_SEC;
+    singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     mtx1.unlock();
     }
     cout<<"cocurrent time2: "<<singletime<<" s"<<endl;
@@ -67,7 +67,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 
 int main()
 {
-    cuInit();
+    cuInit(0);
     cudaSetDevice(3);
     //clock for collection
 
