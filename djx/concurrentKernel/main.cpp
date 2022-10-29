@@ -6,7 +6,6 @@
 #include <map>
 #include <fstream>
 #include <iostream>
-#include
 
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
@@ -20,10 +19,10 @@
 }
 
 // These are the inline versions for all of the SDK helper functions
-inline void __checkCudaErrors(CUresult err, const char *file, const int line) {
+inline void __checkCudaErrors(cudaError_t err, const char *file, const int line) {
   if (CUDA_SUCCESS != err) {
     const char *errorStr = NULL;
-    cuGetErrorString(err, &errorStr);
+    cudaGetErrorString(err, &errorStr);
     fprintf(stderr,
             "checkCudaErrors() Driver API error = %04d \"%s\" from file <%s>, "
             "line %i.\n",
