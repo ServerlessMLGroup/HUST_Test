@@ -48,6 +48,8 @@ int main(int argc, char **argv) {
            deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
     
     cudaEvent_t start_event, stop_event;
+    checkCudaErrors(cudaEventCreate(&start_event));
+    checkCudaErrors(cudaEventCreate(&stop_event));
     CUcontext ctx;
     CUdevice device;
     CUresult result;
@@ -132,14 +134,18 @@ int main(int argc, char **argv) {
     //     ]
     // },
     CUstream stream;
+    cudaEventRecord(start_event, 0);
     GPU_RETURN_STATUS(cuLaunchKernel(kernel,
       1, 7, 32,
       7, 1, 16,
       0, 0 // stream
       , (void **)args.data(), 0 // raw_args是json中指示的storage的下标
     ));
+    float elapsed_time;
     checkCudaErrors(cudaEventRecord(stop_event, 0));
-    checkCudaErrors(cudaEventSynchronize(stop_event));
+    checkCudaErrors(cudaEventSynchronize(stop_event)); // Waits until the completion of all work currently captured in event
+    checkCudaErrors(cudaEventElapsedTime(&elapsed_time, start_event, stop_event));
+    std::cout<<"elapsed_time:" << elapsed_time <<std::endl;
     std::vector<float>output(25088);
     // checkCudaErrors(cudaMemcpyAsync(
     //   output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
