@@ -16,7 +16,7 @@ using namespace std;
 //Mutex
 mutex mtx1,mtx2;
 
-void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
+void thread1(CUcontext ctx,float* d_a,float* h_a,float* d_b,float* h_b,size_t size)
 {
     clock_t start,finish;
     double singletime=0.0;
@@ -28,18 +28,23 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
     }
     for(int i=0;i < 10;i++)
     {
+    start=clock();
+    cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
+    finish=clock();
+    singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     mtx2.unlock();
     mtx1.lock();
     start=clock();
-    cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
     cotime += (double)(finish-start)/CLOCKS_PER_SEC;
     }
 
-    cout<<"device 3 time: "<<cotime<<" s"<<endl;
+    cout<<"single time: "<<singletime<<" s"<<endl;
+    cout<<"device 3 co_time: "<<cotime<<" s"<<endl;
 }
 
-void thread2(CUcontext ctx,float* d_b,float* h_b,size_t size)
+void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 {
     clock_t start,finish;
     double singletime=0.0;
@@ -52,7 +57,7 @@ void thread2(CUcontext ctx,float* d_b,float* h_b,size_t size)
     {
     mtx2.lock();
     start=clock();
-    cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     mtx1.unlock();
@@ -91,6 +96,8 @@ int main()
     }
     float* d_A;
     cudaMalloc(&d_A, size);
+    float* d_B;
+    cudaMalloc(&d_B, size);
 
     //device2
     cudaSetDevice(2);
@@ -106,8 +113,6 @@ int main()
         cout<<"Can't create Context, err" << err<<endl;
         return 0;
     }
-    float* d_B;
-    cudaMalloc(&d_B, size);
     float* d_C;
     cudaMalloc(&d_C, size);
 
@@ -128,7 +133,7 @@ int main()
 
     //prepare
     mtx2.lock();
-    thread first=thread(thread1,cont1,d_A,h_A,size);
+    thread first=thread(thread1,cont1,d_A,h_A,d_B,h_B,size);
     thread second=thread(thread2,cont2,d_C,h_C,size);
     second.join();
     first.join();
