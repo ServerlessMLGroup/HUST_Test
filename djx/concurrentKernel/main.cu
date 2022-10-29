@@ -4,6 +4,15 @@
 
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
+#define GPU_RETURN_STATUS(cmd) \
+{ \
+    CUresult result = cmd; \
+    if (result != CUDA_SUCCESS) { \
+        std::cout << #cmd " error, return code:" << result << __FILE__ << ":" << __LINE__ << std::endl; \
+        exit(1); \
+    } \
+}
+
 // These are the inline versions for all of the SDK helper functions
 inline void __checkCudaErrors(CUresult err, const char *file, const int line) {
   if (CUDA_SUCCESS != err) {
@@ -32,6 +41,16 @@ int main(int argc, char **argv) {
   
     printf("> Detected Compute SM %d.%d hardware with %d multi-processors\n",
            deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
+    
+    CUmodule mod;
+    GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    printf("load cuda mod!\n");
+
+    CUfunction kernel;
+    GPU_RETURN_STATUS(
+        cuModuleGetFunction(&kernel, mod, "fused_nn_conv2d_add_nn_relu_kernel0")
+    );
+    printf("load cuda kernels!\n");
     
     // allocate host memory
     std::vector<CUdeviceptr*> args;
@@ -81,8 +100,29 @@ int main(int argc, char **argv) {
       (CUdeviceptr)args[3], (void*)input54.data()
     ))
 
-    fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
-
+    // fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
+    //   {
+    //     "name": "fused_nn_conv2d_add_nn_relu_kernel0",
+    //     "launch_params": [
+    //         1,
+    //         7,
+    //         32,
+    //         7,
+    //         1,
+    //         16
+    //     ],
+    //     "args": [
+    //         52,
+    //         53,
+    //         55,
+    //         54
+    //     ]
+    // },
+    GPU_RETURN_STATUS(cuLaunchKernel(func,
+      1, 7, 32,
+      7, 1, 16,
+      0, stream, (void **)args.data(), 0 // raw_args是json中指示的storage的下标
+    ));
     vector<float>output(25088);
     checkCudaErrors(cudaMemcpyAsync(
       output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
