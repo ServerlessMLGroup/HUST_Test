@@ -21,18 +21,22 @@ void thread1(CUcontext ctx;float d_a;float d_b;float h_a;float h_b;size_t size)
     clock_t start,finish;
     double singletime=0.0;
     double cotime=0.0;
-
+    int err;
+    err=cuCtxPushCurrent(ctx);
+    if(err){
+    cout<<"Push Context ERR! "<<err<<endl;
+    }
     for(int i=0;i < 10;i++)
     {
     start=clock();
-      cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime + = (double)(finish-start)/CLOCKS_PER_SEC;
 
     mtx2.unlock()
     mtx1.lock()
     start=clock();
-      cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
     cotime + = (double)(finish-start)/CLOCKS_PER_SEC;
     }
@@ -45,12 +49,16 @@ void thread2(CUcontext ctx;float d_c;float h_c;size_t size)
 {
     clock_t start,finish;
     double singletime=0.0;
-
+    int err;
+    err=cuCtxPushCurrent(ctx);
+    if(err){
+    cout<<"Push Context ERR! "<<err<<endl;
+    }
     for(int i=0;i < 10;i++)
     {
     mtx2.lock()
     start=clock();
-      cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime + = (double)(finish-start)/CLOCKS_PER_SEC;
     mtx1.unlock()
@@ -60,6 +68,7 @@ void thread2(CUcontext ctx;float d_c;float h_c;size_t size)
 
 int main()
 {
+    cuInit();
     cudaSetDevice(3);
     //clock for collection
 
@@ -110,16 +119,21 @@ int main()
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
     for(int i=0;i < N; ++i){
-        *(h_A + i) = u(e);
+    *(h_A + i) = u(e);
 	*(h_B + i) = u(e);
 	*(h_C + i) = u(e);
     }
 
-
+    //prepare
+    mtx2.lock();
+    thread first=thread(thread1,cont1,d_A,d_B,h_A,h_B,size);
+    thread second=thread(thread2,cont2,d_C,h_C,size);
+    second.join();
+    first.join();
     //Free memory
     cudaFree(d_A);
     cudaFree(d_B);
-    cudaFree(d_C);
+    cudaFree(d_C)
 
     return 0;
 }
