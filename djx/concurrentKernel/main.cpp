@@ -146,12 +146,12 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventSynchronize(stop_event)); // Waits until the completion of all work currently captured in event
     checkCudaErrors(cudaEventElapsedTime(&elapsed_time, start_event, stop_event));
     std::cout<<"elapsed_time:" << elapsed_time <<std::endl;
-    std::vector<float>output(25088);
+    std::vector<float>output(20);
     // checkCudaErrors(cudaMemcpyAsync(
     //   output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
 
     GPU_RETURN_STATUS(cuMemcpyDtoH(
-        output.data(), (CUdeviceptr)*args[2], sizeof(float) * 25088
+        output.data(), (CUdeviceptr)*args[2], sizeof(float) * 20
     ));
     
     for (auto i : output) {
