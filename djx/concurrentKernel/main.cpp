@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventRecord(stop_event, 0));
     checkCudaErrors(cudaEventSynchronize(stop_event)); // Waits until the completion of all work currently captured in event
     checkCudaErrors(cudaEventElapsedTime(&elapsed_time, start_event, stop_event));
-    std::cout<<"elapsed_time:" << elapsed_time <<std::endl;
+    printf("Measured time for sample = %.3fs\n", elapsed_time / 1000.0f);
     std::vector<float>output(20);
     // checkCudaErrors(cudaMemcpyAsync(
     //   output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
@@ -153,12 +153,13 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemcpyDtoH(
         output.data(), (CUdeviceptr)*args[2], sizeof(float) * 20
     ));
-    
-    for (auto i : output) {
-      std::cout << i << " ";
+    vector<float> ans = {102410, 153610, 153610, 153610, 153610, 153610, 153610, 153610, 230410, 230410, 230410, 230410, 230410, 230410,
+     153610, 230410, 230410, 230410, 230410, 230410};
+    for (int i = 0; i < 20; ++i) {
+      if (ans[i] != output[i]) std::cout << "ans:" <<ans[i] << " VS "<<"output:" << output[i] <<std::endl;
     }
 
-    std::cout << std::endl;
+    std::cout << "End!" << std::endl;
     
     // float *arg53 = 0; 
     // checkCudaErrors(cudaMallocHost((void **)&arg53, 1179648 * sizeof(float)));
