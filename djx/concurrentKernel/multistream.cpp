@@ -48,6 +48,7 @@ int main(int argc, char **argv) {
            deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
     
     cudaEvent_t start_event, stop_event;
+
     CUcontext ctx;
     CUdevice device;
     CUresult result;
@@ -59,6 +60,13 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda mod!\n");
 
+    // allocate and initialize an array of stream handles
+    cudaStream_t *streams =
+      (cudaStream_t *)malloc(nstreams * sizeof(cudaStream_t));
+    for (int i = 0; i < nstreams; i++) {
+        checkCudaErrors(cudaStreamCreate(&(streams[i])));
+    }
+    
     CUfunction kernel;
     GPU_RETURN_STATUS(
         cuModuleGetFunction(&kernel, mod, "fused_nn_conv2d_add_nn_relu_kernel0")
@@ -104,7 +112,7 @@ int main(int argc, char **argv) {
         input54[i] = 10.0;
     
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)device_ptr1, input53.data(), input52.size() * sizeof(float)
+      (CUdeviceptr)device_ptr1, input52.data(), input52.size() * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
       (CUdeviceptr)device_ptr2, input53.data(), input53.size() * sizeof(float)
@@ -160,53 +168,5 @@ int main(int argc, char **argv) {
     }
 
     std::cout << "End!" << std::endl;
-    
-    // float *arg53 = 0; 
-    // checkCudaErrors(cudaMallocHost((void **)&arg53, 1179648 * sizeof(float)));
-
-    // float *arg55 = 0; 
-    // checkCudaErrors(cudaMallocHost((void **)&arg55, 25088 * sizeof(float)));
-
-    // float *arg54 = 0; 
-    // checkCudaErrors(cudaMallocHost((void **)&arg54, 512 * sizeof(float)));
-
-
-    // float *d_arg52 = 0; 
-    // checkCudaErrors(cudaMalloc((void **)&arg52, 50176 * sizeof(float)));
-    
-    // float *d_arg53 = 0; 
-    // checkCudaErrors(cudaMalloc((void **)&arg53, 1179648 * sizeof(float)));
-
-    // float *d_arg55 = 0; 
-    // checkCudaErrors(cudaMalloc((void **)&arg55, 25088 * sizeof(float)));
-
-    // float *d_arg54 = 0; 
-    // checkCudaErrors(cudaMalloc((void **)&arg54, 512 * sizeof(float)));
-
-    // allocate and initialize an array of stream handles
-
-
-    // *****
-    // cudaStream_t *streams =
-    //  (cudaStream_t *)malloc(nstreams * sizeof(cudaStream_t));
-    
-    // for (int i = 0; i < nstreams; i++) {
-    //     checkCudaErrors(cudaStreamCreate(&(streams[i])));
-    // }
-
-    // // create CUDA event handles
-    // cudaEvent_t start_event, stop_event;
-    // checkCudaErrors(cudaEventCreate(&start_event));
-    // checkCudaErrors(cudaEventCreate(&stop_event));
-
-    // checkCudaErrors(cudaEventRecord(start_event, streams[0]));
-
-    // // Record the stop event
-    // checkCudaErrors(cudaEventRecord(stop_event, streams[0]));
-
-    // // Wait for the stop event to complete
-    // checkCudaErrors(cudaEventSynchronize(stop_event));
     return 0;
-
-
 }
