@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     printf("> Detected Compute SM %d.%d hardware with %d multi-processors\n",
            deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
     
-    cudaEvent_t start_event, stop_event, all_start_event, all_end_event;
+    cudaEvent_t start_event[nstreams], stop_event[nstreams], all_start_event, all_end_event;
 
     CUcontext ctx;
     CUdevice device;
@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventCreate(&all_end_event));
     checkCudaErrors(cudaEventRecord(all_start_event, 0));
     float elapsed_time[nstreams];
-    for (int times = 0; i < nkernels; ++i) {
+    for (int times = 0; times < nkernels; ++times) {
         cudaStream_t  stream  = streams[times];
 
         // fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
@@ -169,11 +169,11 @@ int main(int argc, char **argv) {
     }
     float elapsed;
     checkCudaErrors(cudaEventElapsedTime(&elapsed, all_start_event, all_end_event));
-    printf("Total GPU Measured time for sample = %.3fms\n", i, elapsed); 
+    printf("Total GPU Measured time for sample = %.3fms\n", elapsed); 
     for (int times = 0; times < nstreams; ++times) {
         std::vector<float>output(20);
         GPU_RETURN_STATUS(cuMemcpyDtoH(
-            output.data(), (CUdeviceptr)*args[2], sizeof(float) * 20
+            output.data(), (CUdeviceptr)*args[times][2], sizeof(float) * 20
         ));
         std::vector<float> ans = {102410, 153610, 153610, 153610, 153610, 153610, 153610, 153610, 230410, 230410, 230410, 230410, 230410, 230410,
         153610, 230410, 230410, 230410, 230410, 230410};
