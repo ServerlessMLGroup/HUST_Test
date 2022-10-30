@@ -26,7 +26,7 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,float* d_b,float* h_b,size_t si
     if(err){
     cout<<"Push Context ERR! "<<err<<endl;
     }
-    for(int i=0;i < 10;i++)
+    for(int i=0;i < 1000;i++)
     {
     start=clock();
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
@@ -53,7 +53,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     if(err){
     cout<<"Push Context ERR! "<<err<<endl;
     }
-    for(int i=0;i < 10;i++)
+    for(int i=0;i < 1000;i++)
     {
     mtx2.lock();
     start=clock();
