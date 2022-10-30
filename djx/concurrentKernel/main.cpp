@@ -93,8 +93,8 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr4, temp.data(), storage_size));
     args.push_back(&device_ptr4);
 
-    std::vector<float> input52(50176);
-    for (size_t i = 0; i < 50176; i++)
+    std::vector<float> input52(50176 - 10000);
+    for (size_t i = 0; i < 50176 - 10000; i++)
         input52[i] = 10.0;
     std::vector<float> input53(1179648);
     for (size_t i = 0; i < 1179648; i++)
@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
         input54[i] = 10.0;
     
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-      (CUdeviceptr)device_ptr1, input53.data(), input52.size() * sizeof(float)
+      (CUdeviceptr)device_ptr1, input52.data(), input52.size() * sizeof(float)
     ))
     GPU_RETURN_STATUS(cuMemcpyHtoD(
       (CUdeviceptr)device_ptr2, input53.data(), input53.size() * sizeof(float)
