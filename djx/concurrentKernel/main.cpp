@@ -153,7 +153,7 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemcpyDtoH(
         output.data(), (CUdeviceptr)*args[2], sizeof(float) * 20
     ));
-    vector<float> ans = {102410, 153610, 153610, 153610, 153610, 153610, 153610, 153610, 230410, 230410, 230410, 230410, 230410, 230410,
+    sdt::vector<float> ans = {102410, 153610, 153610, 153610, 153610, 153610, 153610, 153610, 230410, 230410, 230410, 230410, 230410, 230410,
      153610, 230410, 230410, 230410, 230410, 230410};
     for (int i = 0; i < 20; ++i) {
       if (ans[i] != output[i]) std::cout << "ans:" <<ans[i] << " VS "<<"output:" << output[i] <<std::endl;
