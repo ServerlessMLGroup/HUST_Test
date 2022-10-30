@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventRecord(stop_event, 0));
     checkCudaErrors(cudaEventSynchronize(stop_event)); // Waits until the completion of all work currently captured in event
     checkCudaErrors(cudaEventElapsedTime(&elapsed_time, start_event, stop_event));
-    printf("Measured time for sample = %.3fs\n", elapsed_time / 1000.0f);
+    printf("Measured time for sample = %.3fms\n", elapsed_time);
     std::vector<float>output(20);
     // checkCudaErrors(cudaMemcpyAsync(
     //   output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
