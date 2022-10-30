@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventCreate(&all_end_event));
     checkCudaErrors(cudaEventRecord(all_start_event, 0));
     float elapsed_time[nstreams];
-    for (int times = 0; times < nkernels; ++times) {
+    for (int times = 0; times < nstreams; ++times) {
         cudaStream_t  stream  = streams[times];
 
         // fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
@@ -151,7 +151,7 @@ int main(int argc, char **argv) {
         //     ]
         // },
         cudaEventRecord(start_event[times], stream);
-        GPU_RETURN_STATUS(cuLaunchKernel(kernel,
+        GPU_RETURN_STATUS(cuLaunchKernel(kernel[times],
             1, 7, 32,
             7, 1, 16,
             0, stream // stream
@@ -164,7 +164,7 @@ int main(int argc, char **argv) {
     }
     checkCudaErrors(cudaEventRecord(all_end_event, 0));
     for (int i = 0; i < nstreams; ++i) {
-        checkCudaErrors(cudaEventElapsedTime(&elapsed_time[i], start_evente[i], stop_evente[i]));
+        checkCudaErrors(cudaEventElapsedTime(&elapsed_time[i], start_event[i], stop_event[i]));
         printf("Stream%d Measured time for sample = %.3fms\n", i, elapsed_time[i]);
     }
     float elapsed;
