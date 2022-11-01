@@ -17,7 +17,8 @@ using namespace std;
 mutex mtx1_1;
 mutex mtx1_2;
 mutex mtx2_1;
-mutex workend;
+mutex workend1;
+mutex workend2;
 //mutex test;
 //clock_t
 clock_t start1,finish1;
@@ -56,11 +57,11 @@ void CUDART_CB thread1_4callback(void *data) {
 void CUDART_CB thread1_5callback(void *data) {
     cout<<"single time: "<<singletime<<" s"<<endl;
     cout<<"cocurrent time1111: "<<cotime1<<" s"<<endl;
-    workend.unlock();
+    workend1.unlock();
 }
 
 void CUDART_CB thread2_1callback(void *data) {
-    mtx2_1.lock();
+    //mtx2_1.lock();
     cout<<"In 2"<<endl;
     start2=clock();
 }
@@ -69,12 +70,12 @@ void CUDART_CB thread2_2callback(void *data) {
     finish2=clock();
     cotime2 += (double)(finish2-start2)/CLOCKS_PER_SEC;
     cout<<"This time cocurrent data transfer 2222: "<<((double)(finish2-start2)/CLOCKS_PER_SEC)<<"(s)"<<endl;
-    mtx1_2.unlock();
+    //mtx1_2.unlock();
 }
 
 void CUDART_CB thread2_3callback(void *data) {
     cout<<"cocurrent time2222: "<<cotime2<<" s"<<endl;
-    workend.unlock();
+    workend2.unlock();
 }
 
 
@@ -121,7 +122,8 @@ int main()
 
     //prepare
     mtx2_1.lock();
-    workend.lock();
+    workend1.lock();
+    workend2.lock();
 
     //divide the formal funtion here
     cudaHostFn_t fn1 = thread1_1callback;
@@ -147,7 +149,7 @@ int main()
     //Should i add some code to exit the thread here?
     cudaLaunchHostFunc(firststream, fn5, 0);
 
-   /*
+
     for(int i=0;i < 10;i++)
     {
     cudaLaunchHostFunc(secondstream, fn6, 0);
@@ -155,8 +157,9 @@ int main()
     cudaLaunchHostFunc(secondstream, fn7, 0);
     }
     cudaLaunchHostFunc(secondstream, fn8, 0);
-    */
-    workend.lock();
+
+    workend1.lock();
+    workend2.lock();
     cout<<"It can't be like this"<<endl;
     //Free memory
     cudaFree(d_A);
