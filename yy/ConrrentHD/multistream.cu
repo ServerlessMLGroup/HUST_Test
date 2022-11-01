@@ -14,7 +14,9 @@
 using namespace std;
 
 //Mutex
-mutex mtx1-1,mtx1-2,mtx2-1;
+mutex mtx1-1;
+mutex mtx1-2;
+mutex mtx2-1;
 //clock_t
 clock_t start1,finish1;
 clock_t start2,finish2;
