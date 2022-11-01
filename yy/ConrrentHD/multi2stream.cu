@@ -108,9 +108,10 @@ int main()
     }
 
     //Create Stream
-    cudaStream_t* firststream,secondstream;
-    cudaStreamCreate(firststream);
-    cudaStreamCreate(secondstream);
+    cudaStream_t firststream;
+    cudaStream_t secondstream;
+    cudaStreamCreate(&firststream);
+    cudaStreamCreate(&secondstream);
 
     //prepare
     mtx2_1.lock();
