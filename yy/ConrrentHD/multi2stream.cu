@@ -146,6 +146,7 @@ int main()
     //Should i add some code to exit the thread here?
     cudaLaunchHostFunc(firststream, fn5, 0);
 
+   /*
     for(int i=0;i < 10;i++)
     {
     cudaLaunchHostFunc(secondstream, fn6, 0);
@@ -153,6 +154,7 @@ int main()
     cudaLaunchHostFunc(secondstream, fn7, 0);
     }
     cudaLaunchHostFunc(secondstream, fn8, 0);
+    */
     workend.lock();
     cout<<"It can't be like this"<<endl;
     //Free memory
