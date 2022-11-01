@@ -14,7 +14,8 @@
 using namespace std;
 
 //Mutex
-mutex mtx1,mtx2;
+mutex mtx1;
+mutex mtx2;
 
 void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t size)
 {
