@@ -87,7 +87,7 @@ int main()
     //clock for collection
 
     //data size
-    int N = 52428800;
+    int N = 4*52428800;
     size_t size = N * sizeof(float);
 
     //
