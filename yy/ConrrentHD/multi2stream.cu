@@ -104,7 +104,7 @@ int main()
     float* h_C;
     cudaMallocHost(&h_A, size);
     cudaMallocHost(&h_B, size);
-    cudaSetDevice(3);
+    //cudaSetDevice(3);
     cudaMallocHost(&h_C, size);
 
     uniform_real_distribution<float> u(0,10);
