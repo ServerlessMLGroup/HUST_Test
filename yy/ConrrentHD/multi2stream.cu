@@ -27,6 +27,7 @@ double cotime2=0.0;
 
 void CUDART_CB thread1_1callback(void *data) {
     mtx1_1.lock();
+    cout<<"In"<<endl;
     start1=clock();
 }
 
