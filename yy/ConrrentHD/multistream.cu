@@ -124,9 +124,9 @@ int main()
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
     float* h_A,h_B,h_C;
-    cudaMallocHost(h_A, size);
-    cudaMallocHost(h_B, size);
-    cudaMallocHost(h_C, size);
+    cudaMallocHost(&h_A, size);
+    cudaMallocHost(&h_B, size);
+    cudaMallocHost(&h_C, size);
 
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
