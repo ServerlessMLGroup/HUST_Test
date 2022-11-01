@@ -35,6 +35,7 @@ void CUDART_CB thread1_1callback(void *data) {
 
 
 void CUDART_CB thread1_2callback(void *data) {
+    cout<<"In2"<<endl;
     finish1=clock();
     singletime += (double)(finish1 - start1)/CLOCKS_PER_SEC;
     cout<<"This time single data transfer: "<<((double)(finish1-start1)/CLOCKS_PER_SEC)<<"(s)"<<endl;
