@@ -92,15 +92,7 @@ int main()
 
     //
     double testtime;
-    cout<<"clock funtion test: "<<endl;
-    cout<<"sleep 3 s"<<endl;
-    start1=clock();
-    sleep(3);
-    finish1=clock();
-    testtime= (double)(finish1-start1)/CLOCKS_PER_SEC;
-    cout<<"funtion test: "<<testtime<<" s"<<endl;
-    cout<<"CLOCKS_PER_SEC is:"<<CLOCKS_PER_SEC<<endl;
-    cout<<"start: "<<(double)start1<<"finish: "<<(double)finish1<<endl;
+
     float* d_A;
     cudaMalloc(&d_A, size);
     float* d_B;
@@ -116,7 +108,7 @@ int main()
     float* h_C;
     cudaMallocHost(&h_A, size);
     cudaMallocHost(&h_B, size);
-    cudaSetDevice(3);
+    cudaSetDevice(1);
     cudaMallocHost(&h_C, size);
 
     uniform_real_distribution<float> u(0,10);
