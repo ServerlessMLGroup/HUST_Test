@@ -18,7 +18,7 @@ mutex mtx1_1;
 mutex mtx1_2;
 mutex mtx2_1;
 mutex workend;
-mutex test;
+//mutex test;
 //clock_t
 clock_t start1,finish1;
 clock_t start2,finish2;
@@ -27,10 +27,10 @@ double cotime1=0.0;
 double cotime2=0.0;
 
 void CUDART_CB thread1_1callback(void *data) {
-    mtx1_1.lock();
+    //mtx1_1.lock();
     cout<<"In"<<endl;
     start1=clock();
-    test.unlock();
+    //test.unlock();
 }
 
 
@@ -43,7 +43,7 @@ void CUDART_CB thread1_2callback(void *data) {
 
 void CUDART_CB thread1_3callback(void *data) {
     //mtx2_1.unlock();
-    mtx1_2.lock();
+    //mtx1_2.lock();
     start1=clock();
 }
 
@@ -51,11 +51,12 @@ void CUDART_CB thread1_4callback(void *data) {
     finish1=clock();
     cotime1 += (double)(finish1-start1)/CLOCKS_PER_SEC;
     cout<<"This time cocurrent data transfer 1111: "<<((double)(finish1-start1)/CLOCKS_PER_SEC)<<"(s)"<<endl;
-    mtx1_1.unlock();
+    //mtx1_1.unlock();
 }
 void CUDART_CB thread1_5callback(void *data) {
     cout<<"single time: "<<singletime<<" s"<<endl;
     cout<<"cocurrent time1111: "<<cotime1<<" s"<<endl;
+    workend.unlock();
 }
 
 void CUDART_CB thread2_1callback(void *data) {
@@ -135,8 +136,8 @@ int main()
     for(int i=0;i < 10;i++)
     {
     cudaLaunchHostFunc(firststream, fn1, 0);
-    test.lock();
-    cout<<"Pass the test"<<endl;
+    //test.lock();
+    //cout<<"Pass the test"<<endl;
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
     cudaLaunchHostFunc(firststream, fn2, 0);
     cudaLaunchHostFunc(firststream, fn3, 0);
