@@ -136,6 +136,17 @@ int main()
     cudaHostFn_t fn7 = thread2_2callback;
     cudaHostFn_t fn8 = thread2_3callback;
 
+
+    for(int i=0;i < 10;i++)
+    {
+    cudaLaunchHostFunc(secondstream, fn6, 0);
+    cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
+    cudaLaunchHostFunc(secondstream, fn7, 0);
+    cudaLaunchHostFunc(firststream, fn3, 0);
+    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
+    cudaLaunchHostFunc(firststream, fn4, 0);
+    }
+
     for(int i=0;i < 10;i++)
     {
     cudaLaunchHostFunc(firststream, fn1, 0);
@@ -143,20 +154,14 @@ int main()
     //cout<<"Pass the test"<<endl;
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
     cudaLaunchHostFunc(firststream, fn2, 0);
-    cudaLaunchHostFunc(firststream, fn3, 0);
-    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
-    cudaLaunchHostFunc(firststream, fn4, 0);
+    //cudaLaunchHostFunc(firststream, fn3, 0);
+    //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
+    //cudaLaunchHostFunc(firststream, fn4, 0);
     }
     //Should i add some code to exit the thread here?
     cudaLaunchHostFunc(firststream, fn5, 0);
 
 
-    for(int i=0;i < 10;i++)
-    {
-    cudaLaunchHostFunc(secondstream, fn6, 0);
-    cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
-    cudaLaunchHostFunc(secondstream, fn7, 0);
-    }
     cudaLaunchHostFunc(secondstream, fn8, 0);
 
     workend1.lock();
