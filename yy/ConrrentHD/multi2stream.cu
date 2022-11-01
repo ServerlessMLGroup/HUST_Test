@@ -30,7 +30,7 @@ void CUDART_CB thread1_1callback(void *data) {
     mtx1_1.lock();
     cout<<"In"<<endl;
     start1=clock();
-    //test.unlock();
+    test.unlock();
 }
 
 
@@ -94,7 +94,7 @@ int main()
     float* d_C;
     cudaMalloc(&d_C, size);
 
-    //test.lock();
+    test.lock();
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
     float* h_A;
@@ -135,7 +135,7 @@ int main()
     for(int i=0;i < 10;i++)
     {
     cudaLaunchHostFunc(firststream, fn1, 0);
-    //test.lock();
+    test.lock();
     cout<<"Pass the test"<<endl;
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
     cudaLaunchHostFunc(firststream, fn2, 0);
