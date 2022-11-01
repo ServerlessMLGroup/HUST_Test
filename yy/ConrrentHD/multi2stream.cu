@@ -153,7 +153,7 @@ int main()
     }
     cudaLaunchHostFunc(secondstream, fn8, 0);
     workend.lock();
-
+    cout<<"It can't be like this"<<endl;
     //Free memory
     cudaFree(d_A);
     cudaFree(d_B);
