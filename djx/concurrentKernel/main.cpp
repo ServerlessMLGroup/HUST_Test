@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
-    GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18_sm.ptx"));
     printf("load cuda mod!\n");
 
     CUfunction kernel;

@@ -70,6 +70,7 @@ int main(int argc, char **argv) {
     CUfunction kernel[nstreams];
     std::vector<CUdeviceptr*> args[nstreams];
     CUdeviceptr device_ptr1[nstreams], device_ptr2[nstreams], device_ptr3[nstreams], device_ptr4[nstreams];
+    printf("begin alloc storage....\n");
     for (int i = 0; i < nstreams; ++i) {
         GPU_RETURN_STATUS(
             cuModuleGetFunction(&kernel[i], mod, "fused_nn_conv2d_add_nn_relu_kernel0")
@@ -121,6 +122,7 @@ int main(int argc, char **argv) {
         (CUdeviceptr)device_ptr4[i], input54.data(), input54.size() * sizeof(float)
         ))
     }
+    printf("end alloc storage\n");
     for (int times = 0; times < nstreams; ++times) {
         checkCudaErrors(cudaEventCreate(&start_event[times]));
         checkCudaErrors(cudaEventCreate(&stop_event[times]));
@@ -151,6 +153,7 @@ int main(int argc, char **argv) {
         //     ]
         // },
         cudaEventRecord(start_event[times], stream);
+        // printf("launch kernel %d\n", times);
         GPU_RETURN_STATUS(cuLaunchKernel(kernel[times],
             1, 3, 28,
             7, 1, 16,
