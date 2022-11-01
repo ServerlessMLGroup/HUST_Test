@@ -17,7 +17,7 @@ using namespace std;
 mutex mtx1_1;
 mutex mtx1_2;
 mutex mtx2_1;
-mutex end;
+mutex workend;
 //clock_t
 clock_t start1,finish1;
 clock_t start2,finish2;
@@ -67,7 +67,7 @@ void CUDART_CB thread2_2callback(void *data) {
 
 void CUDART_CB thread2_3callback(void *data) {
     cout<<"cocurrent time2222: "<<cotime2<<" s"<<endl;
-    end.unlock();
+    workend.unlock();
 }
 
 
@@ -112,7 +112,7 @@ int main()
 
     //prepare
     mtx2_1.lock();
-    end.lock();
+    workend.lock();
 
     //divide the formal funtion here
     cudaHostFn_t fn1 = thread1_1callback;
