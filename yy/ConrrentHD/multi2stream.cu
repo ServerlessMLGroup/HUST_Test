@@ -18,7 +18,7 @@ mutex mtx1_1;
 mutex mtx1_2;
 mutex mtx2_1;
 mutex workend;
-//mutex test;
+mutex test;
 //clock_t
 clock_t start1,finish1;
 clock_t start2,finish2;
