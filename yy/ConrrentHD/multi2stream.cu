@@ -56,6 +56,7 @@ void CUDART_CB thread1_5callback(void *data) {
 
 void CUDART_CB thread2_1callback(void *data) {
     mtx2_1.lock();
+    cout<<"In 2"<<endl;
     start2=clock();
 }
 
