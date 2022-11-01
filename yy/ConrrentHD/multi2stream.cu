@@ -98,7 +98,7 @@ int main()
     finish1=clock();
     testtime= (double)(finish1-start1)/CLOCKS_PER_SEC;
     cout<<"funtion test: "<<testtime<<" s"<<endl;
-    float* d_A;>>
+    float* d_A;
     cudaMalloc(&d_A, size);
     float* d_B;
     cudaMalloc(&d_B, size);
