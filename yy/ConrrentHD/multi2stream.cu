@@ -22,6 +22,7 @@ mutex workend2;
 //mutex test;
 //clock_t
 clock_t start1,finish1;
+clock_t start1_2,finish1_2;
 clock_t start2,finish2;
 double singletime = 0.0;
 double cotime1=0.0;
@@ -44,14 +45,14 @@ void CUDART_CB thread1_2callback(void *data) {
 void CUDART_CB thread1_3callback(void *data) {
     //mtx2_1.unlock();
     //mtx1_2.lock();
-    start1=clock();
+    start1_2=clock();
 }
 
 void CUDART_CB thread1_4callback(void *data) {
-    finish1=clock();
-    cotime1 += (double)(finish1-start1)/CLOCKS_PER_SEC;
-    cout<<"This time cocurrent data transfer 1111: "<<((double)(finish1-start1)/CLOCKS_PER_SEC)<<"(s)"<<endl;
-    cout<<"1-2 timeline: "<<(double)(start1)/CLOCKS_PER_SEC<<" to "<<(double)(finish1)/CLOCKS_PER_SEC<<endl;
+    finish1_2=clock();
+    cotime1 += (double)(finish1_2-start1_2)/CLOCKS_PER_SEC;
+    cout<<"This time cocurrent data transfer 1111: "<<((double)(finish1_2-start1_2)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"1-2 timeline: "<<(double)(start1_2)/CLOCKS_PER_SEC<<" to "<<(double)(finish1_2)/CLOCKS_PER_SEC<<endl;
     //mtx1_1.unlock();
 }
 void CUDART_CB thread1_5callback(void *data) {
