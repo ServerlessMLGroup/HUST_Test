@@ -95,7 +95,7 @@ int main()
     float* d_C;
     cudaMalloc(&d_C, size);
 
-    test.lock();
+    //test.lock();
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
     float* h_A;
