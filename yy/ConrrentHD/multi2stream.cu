@@ -87,7 +87,7 @@ int main()
     //clock for collection
 
     //data size
-    int N = 209715200;
+    int N = 52428800;
     size_t size = N * sizeof(float);
 
     //
@@ -143,9 +143,9 @@ int main()
 
     for(int i=0;i < 10;i++)
     {
-    cudaLaunchHostFunc(secondstream, fn6, 0);
+    //cudaLaunchHostFunc(secondstream, fn6, 0);
     cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
-    cudaLaunchHostFunc(secondstream, fn7, 0);
+    //cudaLaunchHostFunc(secondstream, fn7, 0);
     //cudaLaunchHostFunc(firststream, fn3, 0);
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
     //cudaLaunchHostFunc(firststream, fn4, 0);
@@ -153,11 +153,11 @@ int main()
 
     for(int i=0;i < 10;i++)
     {
-    cudaLaunchHostFunc(firststream, fn1, 0);
+    //cudaLaunchHostFunc(firststream, fn1, 0);
     //test.lock();
     //cout<<"Pass the test"<<endl;
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
-    cudaLaunchHostFunc(firststream, fn2, 0);
+    //cudaLaunchHostFunc(firststream, fn2, 0);
     //cudaLaunchHostFunc(firststream, fn3, 0);
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
     //cudaLaunchHostFunc(firststream, fn4, 0);
