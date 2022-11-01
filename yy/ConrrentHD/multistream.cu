@@ -77,15 +77,15 @@ void thread1(cudaStream_t stream,float* d_a,float* d_b,float* h_a,float* h_b,siz
     cudaHostFn_t fn5 = thread1_5callback;
     for(int i=0;i < 10;i++)
     {
-    cudaLaunchHostFunc(stream, fn1, null);
+    cudaLaunchHostFunc(stream, fn1, 0);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    cudaLaunchHostFunc(stream, fn2, null);
-    cudaLaunchHostFunc(stream, fn3, null);
+    cudaLaunchHostFunc(stream, fn2, 0);
+    cudaLaunchHostFunc(stream, fn3, 0);
     cudaMemcpyAsync(d_b, h_b,size, cudaMemcpyHostToDevice, stream);
-    cudaLaunchHostFunc(stream, fn4, null);
+    cudaLaunchHostFunc(stream, fn4, 0);
     }
     //Should i add some code to exit the thread here?
-    cudaLaunchHostFunc(stream, fn5, null);
+    cudaLaunchHostFunc(stream, fn5, 0);
 }
 
 void thread2(cudaStream_t stream,float* d_c,float* h_c,size_t size)
@@ -95,11 +95,11 @@ void thread2(cudaStream_t stream,float* d_c,float* h_c,size_t size)
     cudaHostFn_t fn3 = thread2_3callback;
     for(int i=0;i < 10;i++)
     {
-    cudaLaunchHostFunc(stream, fn1, null);
+    cudaLaunchHostFunc(stream, fn1, 0);
     cudaMemcpyAsync(d_c, h_c,size, cudaMemcpyHostToDevice, stream);
-    cudaLaunchHostFunc(stream, fn2, null);
+    cudaLaunchHostFunc(stream, fn2, 0);
     }
-    cudaLaunchHostFunc(stream, fn3, null);
+    cudaLaunchHostFunc(stream, fn3, 0);
 }
 
 int main()
