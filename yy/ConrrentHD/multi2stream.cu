@@ -29,17 +29,16 @@ double cotime2=0.0;
 
 void CUDART_CB thread1_1callback(void *data) {
     //mtx1_1.lock();
-    cout<<"In"<<endl;
     start1=clock();
     //test.unlock();
 }
 
 
 void CUDART_CB thread1_2callback(void *data) {
-    cout<<"In2"<<endl;
     finish1=clock();
     singletime += (double)(finish1 - start1)/CLOCKS_PER_SEC;
     cout<<"This time single data transfer: "<<((double)(finish1-start1)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"timeline: "<<(double)(start1)<<" to "<<(double)(final1)<<endl;
 }
 
 void CUDART_CB thread1_3callback(void *data) {
@@ -62,7 +61,6 @@ void CUDART_CB thread1_5callback(void *data) {
 
 void CUDART_CB thread2_1callback(void *data) {
     //mtx2_1.lock();
-    cout<<"In 2"<<endl;
     start2=clock();
 }
 
@@ -70,6 +68,7 @@ void CUDART_CB thread2_2callback(void *data) {
     finish2=clock();
     cotime2 += (double)(finish2-start2)/CLOCKS_PER_SEC;
     cout<<"This time cocurrent data transfer 2222: "<<((double)(finish2-start2)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"timeline: "<<(double)(start2)<<" to "<<(double)(final2)<<endl;
     //mtx1_2.unlock();
 }
 
