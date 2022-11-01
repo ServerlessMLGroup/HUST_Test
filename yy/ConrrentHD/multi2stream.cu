@@ -89,7 +89,16 @@ int main()
     int N = 10485760;
     size_t size = N * sizeof(float);
 
-    float* d_A;
+    //
+    double testtime;
+    cout<<"clock funtion test: "<<endl;
+    cout<<"sleep 3 s"<<endl;
+    start1=clock();
+    sleep(3);
+    finish1=clock();
+    testtime= (double)(finish1-start1)/CLOCKS_PER_SEC;
+    cout<<"funtion test: "<<testtime<<" s"<<endl;
+    float* d_A;>>
     cudaMalloc(&d_A, size);
     float* d_B;
     cudaMalloc(&d_B, size);
