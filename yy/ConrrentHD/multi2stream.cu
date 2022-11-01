@@ -135,7 +135,7 @@ int main()
     {
     cudaLaunchHostFunc(firststream, fn1, 0);
     test.lock();
-    cout<<"Pass the test"<<endl;>
+    cout<<"Pass the test"<<endl;
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
     cudaLaunchHostFunc(firststream, fn2, 0);
     cudaLaunchHostFunc(firststream, fn3, 0);
