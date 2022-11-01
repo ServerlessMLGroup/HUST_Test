@@ -42,7 +42,7 @@ void CUDART_CB thread1_2callback(void *data) {
 }
 
 void CUDART_CB thread1_3callback(void *data) {
-    mtx2_1.unlock();
+    //mtx2_1.unlock();
     mtx1_2.lock();
     start1=clock();
 }
