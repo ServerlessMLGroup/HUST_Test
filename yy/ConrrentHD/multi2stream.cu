@@ -18,7 +18,7 @@ mutex mtx1_1;
 mutex mtx1_2;
 mutex mtx2_1;
 mutex workend;
-mutex test;
+//mutex test;
 //clock_t
 clock_t start1,finish1;
 clock_t start2,finish2;
@@ -30,7 +30,7 @@ void CUDART_CB thread1_1callback(void *data) {
     mtx1_1.lock();
     cout<<"In"<<endl;
     start1=clock();
-    test.unlock();
+    //test.unlock();
 }
 
 
@@ -93,7 +93,7 @@ int main()
     float* d_C;
     cudaMalloc(&d_C, size);
 
-    test.lock();
+    //test.lock();
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
     float* h_A;
@@ -134,8 +134,8 @@ int main()
     for(int i=0;i < 10;i++)
     {
     cudaLaunchHostFunc(firststream, fn1, 0);
-    test.lock();
-    cout<<"Pass the test"<<endl;
+    //test.lock();
+    //cout<<"Pass the test"<<endl;
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
     cudaLaunchHostFunc(firststream, fn2, 0);
     cudaLaunchHostFunc(firststream, fn3, 0);
