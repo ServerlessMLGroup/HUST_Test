@@ -80,7 +80,6 @@ int main()
     //data size
     int N = 10485760;
     size_t size = N * sizeof(float);
-    int err;
 
     float* d_A;
     cudaMalloc(&d_A, size);
@@ -146,7 +145,7 @@ int main()
     cudaLaunchHostFunc(secondstream, fn7, 0);
     }
     cudaLaunchHostFunc(secondstream, fn8, 0);
-    end.lock();
+    workend.lock();
 
     //Free memory
     cudaFree(d_A);
