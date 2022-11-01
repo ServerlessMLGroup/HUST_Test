@@ -51,7 +51,11 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
 
     cout<<"single time: "<<singletime<<" s"<<endl;
     cout<<"cocurrent time1: "<<cotime<<" s"<<endl;
-    sleep(180);
+    while(1){
+    sleep(1);
+    cout<<"I'm alive"<<endl;
+    }
+
 }
 
 void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
@@ -80,7 +84,10 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     mtx1.unlock();
     }
     cout<<"cocurrent time2: "<<singletime<<" s"<<endl;
-    sleep(180);
+    while(1){
+    sleep(1);
+    cout<<"I'm alive"<<endl;
+    }
 }
 
 int main()
