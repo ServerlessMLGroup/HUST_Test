@@ -11,6 +11,7 @@
 #include <random>
 #include <ctime>
 #include <time.h>
+#include <stdio.h>
 using namespace std;
 
 //Mutex
@@ -19,6 +20,13 @@ mutex mtx2;
 
 void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t size)
 {
+    //set CPU
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(15, &mask); //指定该线程使用的CPU
+    if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
+            perror("pthread_setaffinity_np");
+    }
     clock_t start,finish;
     double singletime=0.0;
     double cotime=0.0;
@@ -43,10 +51,18 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
 
     cout<<"single time: "<<singletime<<" s"<<endl;
     cout<<"cocurrent time1: "<<cotime<<" s"<<endl;
+    sleep(180);
 }
 
 void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 {
+    //set CPU
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(15, &mask); //指定该线程使用的CPU
+    if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
+            perror("pthread_setaffinity_np");
+    }
     clock_t start,finish;
     double singletime=0.0;
     int err;
@@ -64,6 +80,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     mtx1.unlock();
     }
     cout<<"cocurrent time2: "<<singletime<<" s"<<endl;
+    sleep(180);
 }
 
 int main()
