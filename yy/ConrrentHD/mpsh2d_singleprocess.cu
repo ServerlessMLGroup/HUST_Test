@@ -100,6 +100,12 @@ int main()
     int N = 5242880;
     size_t size = N * sizeof(float);
 
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(10, &mask); //指定该线程使用的CPU
+    if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
+            perror("pthread_setaffinity_np");
+    }
 
     //Context and memory
     cout<<"Create two context and their memory"<<endl;
