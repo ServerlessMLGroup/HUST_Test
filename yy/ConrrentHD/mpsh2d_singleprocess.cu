@@ -123,7 +123,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(2);
+    cudaSetDevice(1);
     //clock for collection
 
     //data size
@@ -163,7 +163,7 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
-    cudaSetDevice(1);
+    cudaSetDevice(2);
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
@@ -199,6 +199,7 @@ int main()
     //prepare
     mtx2.lock();
     thread first=thread(thread1,cont1,d_A,d_B,h_A,h_B,size);
+
     //thread second=thread(thread2,cont2,d_C,h_C,size);
     //second.join();
     first.join();
