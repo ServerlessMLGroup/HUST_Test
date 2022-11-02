@@ -21,12 +21,14 @@ mutex mtx2;
 void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t size)
 {
     //set CPU
+    /*
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(15, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
+    */
     clock_t start,finish;
     double singletime=0.0;
     double cotime=0.0;
@@ -37,6 +39,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     }
     for(int i=0;i < 10;i++)
     {
+    mtx1.lock();
     start=clock();
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
@@ -44,7 +47,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     cout<<"This time single data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
     cout<<"1-1 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
     mtx2.unlock();
-    mtx1.lock();
+
     start=clock();
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
@@ -67,12 +70,14 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
 void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 {
     //set CPU
+    /*
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(15, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
+    */
     clock_t start,finish;
     double singletime=0.0;
     int err;
@@ -110,12 +115,14 @@ int main()
     int N = 209715200;
     size_t size = N * sizeof(float);
 
+    /*
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(15, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
+    */
 
     //Context and memory
     cout<<"Create two context and their memory"<<endl;
