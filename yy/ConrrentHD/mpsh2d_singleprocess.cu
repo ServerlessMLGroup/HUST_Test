@@ -180,7 +180,7 @@ int main()
     float* h_A = (float*)malloc(size);
     float* h_B = (float*)malloc(size);
     float* h_C = (float*)malloc(size);
-    
+
     /*
     float* h_A;
     float* h_B;
