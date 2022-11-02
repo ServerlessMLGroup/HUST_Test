@@ -52,7 +52,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
     cotime += (double)(finish-start)/CLOCKS_PER_SEC;
-    cout<<"This time concurrent data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"This time concurrent data 111 transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
     cout<<"1-2 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
     }
 
@@ -92,7 +92,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
-    cout<<"This time concurrent data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"This time concurrent 222 data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
     cout<<"2-1 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
     mtx1.unlock();
     }
