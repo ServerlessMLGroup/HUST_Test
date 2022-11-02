@@ -182,13 +182,13 @@ int main()
     float* h_A;
     float* h_B;
     float* h_C;
-    cudaMallocHost(&h_A, size/16);
-    cudaMallocHost(&h_B, size/16);
-    cudaMallocHost(&h_C, size/16);
+    cudaMallocHost(&h_A, size);
+    cudaMallocHost(&h_B, size);
+    cudaMallocHost(&h_C, size);
 
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
-    for(int i=0;i < N/16; ++i){
+    for(int i=0;i < N; ++i){
     *(h_A + i) = u(e);
 	*(h_B + i) = u(e);
 	*(h_C + i) = u(e);
