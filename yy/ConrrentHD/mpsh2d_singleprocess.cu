@@ -39,14 +39,14 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     }
     for(int i=0;i < 10;i++)
     {
-    mtx1.lock();
+    //mtx1.lock();
     start=clock();
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time single data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
     cout<<"1-1 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
-    mtx2.unlock();
+    //mtx2.unlock();
 
     start=clock();
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
@@ -172,10 +172,10 @@ int main()
     }
 
     //prepare
-    mtx2.lock();
+    //mtx2.lock();
     thread first=thread(thread1,cont1,d_A,d_B,h_A,h_B,size);
-    thread second=thread(thread2,cont2,d_C,h_C,size);
-    second.join();
+    //thread second=thread(thread2,cont2,d_C,h_C,size);
+    //second.join();
     first.join();
     //Free memory
     cudaFree(d_A);
