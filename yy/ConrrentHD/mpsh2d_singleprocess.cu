@@ -41,20 +41,26 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
+    cout<<"This time single data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"1-1 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
     mtx2.unlock();
     mtx1.lock();
     start=clock();
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
     cotime += (double)(finish-start)/CLOCKS_PER_SEC;
+    cout<<"This time concurrent data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"1-2 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
     }
 
     cout<<"single time: "<<singletime<<" s"<<endl;
     cout<<"cocurrent time1: "<<cotime<<" s"<<endl;
+    /*
     while(1){
     sleep(1);
     cout<<"I'm alive"<<endl;
     }
+    */
 
 }
 
@@ -81,13 +87,17 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
+    cout<<"This time concurrent data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
+    cout<<"2-1 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
     mtx1.unlock();
     }
     cout<<"cocurrent time2: "<<singletime<<" s"<<endl;
+   /*
     while(1){
     sleep(1);
     cout<<"I'm alive"<<endl;
     }
+    */
 }
 
 int main()
@@ -102,7 +112,7 @@ int main()
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
-    CPU_SET(10, &mask); //指定该线程使用的CPU
+    CPU_SET(15, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
