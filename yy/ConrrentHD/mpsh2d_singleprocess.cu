@@ -112,7 +112,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(1);
+    cudaSetDevice(2);
     //clock for collection
 
     //data size
@@ -152,6 +152,7 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
+    cudaSetDevice(1);
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
