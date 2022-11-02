@@ -107,7 +107,7 @@ int main()
     //clock for collection
 
     //data size
-    int N = 5242880;
+    int N = 209715200;
     size_t size = N * sizeof(float);
 
     cpu_set_t mask;
