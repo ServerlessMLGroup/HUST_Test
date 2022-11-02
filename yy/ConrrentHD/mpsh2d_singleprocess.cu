@@ -48,14 +48,14 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     }
     for(int i=0;i < 10;i++)
     {
-    //mtx1.lock();
+    mtx1.lock();
     start=clock();
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time single data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
     cout<<"1-1 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
-    //mtx2.unlock();
+    mtx2.unlock();
 
     start=clock();
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
@@ -81,12 +81,12 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
-    /*
+
     CPU_SET(16, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    */
+
     /*
     float* h_C;
     cudaMallocHost(&h_C, size);
@@ -123,7 +123,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(2);
+    cudaSetDevice(1);
     //clock for collection
 
     //data size
@@ -163,7 +163,7 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
-    cudaSetDevice(1);
+    //cudaSetDevice(1);
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
@@ -176,17 +176,19 @@ int main()
 
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
-    /*
+
     float* h_A = (float*)malloc(size);
     float* h_B = (float*)malloc(size);
     float* h_C = (float*)malloc(size);
-    */
+    
+    /*
     float* h_A;
     float* h_B;
     float* h_C;
     cudaMallocHost(&h_A, size);
     cudaMallocHost(&h_B, size);
     cudaMallocHost(&h_C, size);
+    */
 
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
@@ -200,8 +202,8 @@ int main()
     mtx2.lock();
     thread first=thread(thread1,cont1,d_A,d_B,h_A,h_B,size);
 
-    //thread second=thread(thread2,cont2,d_C,h_C,size);
-    //second.join();
+    thread second=thread(thread2,cont2,d_C,h_C,size);
+    second.join();
     first.join();
     //Free memory
     cudaFree(d_A);
