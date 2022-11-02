@@ -163,7 +163,7 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
-    cudaSetDevice(2);
+    cudaSetDevice(3);
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
