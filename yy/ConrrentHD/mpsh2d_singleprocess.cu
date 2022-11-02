@@ -21,14 +21,14 @@ mutex mtx2;
 void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t size)
 {
     //set CPU
-    /*
+
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(15, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    */
+
 
     cout<<"game start "<<endl;
 
@@ -72,14 +72,14 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
 
 void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 {
-    /*
+
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(15, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    */
+
 
     clock_t start,finish;
     double singletime=0.0;
