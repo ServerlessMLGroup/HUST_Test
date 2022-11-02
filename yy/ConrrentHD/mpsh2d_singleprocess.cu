@@ -81,10 +81,12 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
+    /*
     CPU_SET(16, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
+    */
     /*
     float* h_C;
     cudaMallocHost(&h_C, size);
@@ -197,8 +199,8 @@ int main()
     //prepare
     mtx2.lock();
     thread first=thread(thread1,cont1,d_A,d_B,h_A,h_B,size);
-    thread second=thread(thread2,cont2,d_C,h_C,size);
-    second.join();
+    //thread second=thread(thread2,cont2,d_C,h_C,size);
+    //second.join();
     first.join();
     //Free memory
     cudaFree(d_A);
