@@ -32,6 +32,11 @@ inline void __checkCudaErrors(cudaError_t err, const char *file, const int line)
 }
 
 int main(int argc, char **argv) {
+    if (argc < 2) {
+        printf("args num error! argc:%d", argc);
+    }
+    int gpu_no = atoi(argv[1]);
+    checkCudaErrors(cudaSetDevice(gpu_no));
     int cuda_device = 0;
     cudaDeviceProp deviceProp;
     checkCudaErrors(cudaGetDevice(&cuda_device));
@@ -44,8 +49,8 @@ int main(int argc, char **argv) {
       printf("  CUDA kernel runs will be serialized\n");
     }
   
-    printf("> Detected Compute SM %d.%d hardware with %d multi-processors\n",
-           deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
+    printf("> GPUNo: %d Detected Compute SM %d.%d hardware with %d multi-processors\n",
+           cuda_device, deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
     
     cudaEvent_t start_event, stop_event;
     CUcontext ctx;
@@ -53,7 +58,7 @@ int main(int argc, char **argv) {
     CUresult result;
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
-    GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
+    GPU_RETURN_STATUS(cuDeviceGet(&device, cuda_device));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18_sm.ptx"));
@@ -98,6 +103,17 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr5, storage_size)); // sm
     GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr5, temp.data(), storage_size));
     args.push_back(&device_ptr5);
+
+    // warm up
+    for (int i = 0; i < 10; ++i) {
+      GPU_RETURN_STATUS(cuLaunchKernel(kernel,
+      1, 3, 28,
+      7, 1, 16,
+      0, 0 // stream
+      , (void **)args.data(), 0 // raw_args是json中指示的storage的下标
+      ));
+    }
+    GPU_RETURN_STATUS(cuCtxSynchronize());
 
     std::vector<float> input52(50176); // test -10000 == fail
     for (size_t i = 0; i < 50176; i++)
