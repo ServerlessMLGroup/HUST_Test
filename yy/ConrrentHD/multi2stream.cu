@@ -83,7 +83,7 @@ void CUDART_CB thread2_3callback(void *data) {
 int main()
 {
     cuInit(0);
-    cudaSetDevice(2);
+    cudaSetDevice(1);
     //clock for collection
 
     //data size
@@ -97,6 +97,8 @@ int main()
     cudaMalloc(&d_A, size);
     float* d_B;
     cudaMalloc(&d_B, size);
+
+    cudaSetDevice(2);
     float* d_C;
     cudaMalloc(&d_C, size);
 
@@ -108,7 +110,6 @@ int main()
     float* h_C;
     cudaMallocHost(&h_A, size);
     cudaMallocHost(&h_B, size);
-    cudaSetDevice(1);
     cudaMallocHost(&h_C, size);
 
     uniform_real_distribution<float> u(0,10);
