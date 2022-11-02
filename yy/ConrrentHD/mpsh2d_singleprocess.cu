@@ -24,7 +24,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
-    CPU_SET(15, &mask); //指定该线程使用的CPU
+    CPU_SET(16, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
