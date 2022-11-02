@@ -29,6 +29,10 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
             perror("pthread_setaffinity_np");
     }
 
+    float* h_A;
+    float* h_B;
+    cudaMallocHost(&h_A, size);
+    cudaMallocHost(&h_B, size);
 
     cout<<"game start "<<endl;
 
@@ -44,7 +48,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     {
     mtx1.lock();
     start=clock();
-    cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_a, h_A, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time single data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
@@ -52,7 +56,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     mtx2.unlock();
 
     start=clock();
-    cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_b, h_B, size, cudaMemcpyHostToDevice);
     finish=clock();
     cotime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time concurrent data 111 transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
@@ -79,7 +83,8 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-
+    float* h_C;
+    cudaMallocHost(&h_C, size);
 
     clock_t start,finish;
     double singletime=0.0;
@@ -173,13 +178,13 @@ int main()
     float* h_A;
     float* h_B;
     float* h_C;
-    cudaMallocHost(&h_A, size);
-    cudaMallocHost(&h_B, size);
-    cudaMallocHost(&h_C, size);
+    cudaMallocHost(&h_A, size/16);
+    cudaMallocHost(&h_B, size/16);
+    cudaMallocHost(&h_C, size/16);
 
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
-    for(int i=0;i < N; ++i){
+    for(int i=0;i < N/16; ++i){
     *(h_A + i) = u(e);
 	*(h_B + i) = u(e);
 	*(h_C + i) = u(e);
