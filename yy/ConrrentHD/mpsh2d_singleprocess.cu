@@ -48,14 +48,14 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     }
     for(int i=0;i < 10;i++)
     {
-    mtx1.lock();
+    //mtx1.lock();
     start=clock();
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time single data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
     cout<<"1-1 timeline: "<<(double)(start)/CLOCKS_PER_SEC<<" to "<<(double)(finish)/CLOCKS_PER_SEC<<endl;
-    mtx2.unlock();
+    //mtx2.unlock();
 
     start=clock();
     cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
