@@ -29,10 +29,12 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
             perror("pthread_setaffinity_np");
     }
 
+    /*
     float* h_A;
     float* h_B;
     cudaMallocHost(&h_A, size);
     cudaMallocHost(&h_B, size);
+    */
 
     cout<<"game start "<<endl;
 
@@ -48,7 +50,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     {
     mtx1.lock();
     start=clock();
-    cudaMemcpy(d_a, h_A, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time single data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
@@ -56,7 +58,7 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
     mtx2.unlock();
 
     start=clock();
-    cudaMemcpy(d_b, h_B, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice);
     finish=clock();
     cotime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time concurrent data 111 transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
@@ -79,12 +81,14 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
-    CPU_SET(15, &mask); //指定该线程使用的CPU
+    CPU_SET(16, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
+    /*
     float* h_C;
     cudaMallocHost(&h_C, size);
+    */
 
     clock_t start,finish;
     double singletime=0.0;
@@ -97,7 +101,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     {
     mtx2.lock();
     start=clock();
-    cudaMemcpy(d_c, h_C, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time concurrent 222 data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
