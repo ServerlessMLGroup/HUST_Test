@@ -97,7 +97,7 @@ void thread2(CUcontext ctx,float* d_c,float* h_c,size_t size)
     {
     mtx2.lock();
     start=clock();
-    cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_c, h_C, size, cudaMemcpyHostToDevice);
     finish=clock();
     singletime += (double)(finish-start)/CLOCKS_PER_SEC;
     cout<<"This time concurrent 222 data transfer: "<<((double)(finish-start)/CLOCKS_PER_SEC)<<"(s)"<<endl;
