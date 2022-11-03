@@ -77,5 +77,6 @@
         "queue": "cpp",
         "__memory": "cpp"
     },
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "cmake.sourceDirectory": "${workspaceFolder}/djx/concurrentKernel"
 }

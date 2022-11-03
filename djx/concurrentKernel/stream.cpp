@@ -63,18 +63,21 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuDeviceGet(&device, cuda_device));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
 
+    int priority_high, priority_low;
+    checkCudaErrors(cudaDeviceGetStreamPriorityRange(&priority_low, &priority_high));
+
     // allocate and initialize an array of stream handles
     cudaStream_t *streams =
       (cudaStream_t *)malloc(nstreams * sizeof(cudaStream_t));
-    for (int i = 0; i < nstreams; i++) {
-        checkCudaErrors(cudaStreamCreate(&(streams[i])));
-    }
+    // 优先级
+    checkCudaErrors(cudaStreamCreateWithPriority(&(streams[0]), cudaStreamNonBlocking, priority_high));
+    checkCudaErrors(cudaStreamCreateWithPriority(&(streams[1]), cudaStreamNonBlocking, priority_low));
     CUmodule mod;
-    GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18_sm.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda mod!\n");
     CUfunction kernel[nstreams];
     std::vector<CUdeviceptr*> args[nstreams];
-    CUdeviceptr device_ptr1[nstreams], device_ptr2[nstreams], device_ptr3[nstreams], device_ptr4[nstreams], device_ptr5[nstreams];
+    CUdeviceptr device_ptr1[nstreams], device_ptr2[nstreams], device_ptr3[nstreams], device_ptr4[nstreams];
     printf("begin alloc storage....\n");
     for (int i = 0; i < nstreams; ++i) {
         GPU_RETURN_STATUS(
@@ -106,12 +109,6 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr4[i], storage_size)); // 54
         GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr4[i], temp.data(), storage_size));
         args[i].push_back(&device_ptr4[i]);
-
-        storage_size = 84 * sizeof(int);
-        temp.resize(storage_size, 0);
-        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr5[i], storage_size)); // sm
-        GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr5[i], temp.data(), storage_size));
-        args[i].push_back(&device_ptr5[i]);
 
         // // warm up
         // for (int ii = 0; ii < 10; ++ii) {
@@ -197,24 +194,7 @@ int main(int argc, char **argv) {
     float elapsed;
     checkCudaErrors(cudaEventElapsedTime(&elapsed, all_start_event, all_end_event));
     printf("Total GPU Measured time for sample = %.3fms\n", elapsed); 
-    for (int times = 0; times < nstreams; ++times) {
-        // std::vector<float>output(20);
-        // GPU_RETURN_STATUS(cuMemcpyDtoH(
-        //     output.data(), (CUdeviceptr)*args[times][2], sizeof(float) * 20
-        // ));
-        // std::vector<float> ans = {102410, 153610, 153610, 153610, 153610, 153610, 153610, 153610, 230410, 230410, 230410, 230410, 230410, 230410,
-        // 153610, 230410, 230410, 230410, 230410, 230410};
-        // for (int i = 0; i < 20; ++i) {
-        //     // if (ans[i] != output[i]) std::cout << "ans:" <<ans[i] << " VS "<<"output:" << output[i] <<std::endl;
-        // }
-        std::vector<int>output(84);
-        GPU_RETURN_STATUS(cuMemcpyDtoH(
-            output.data(), (CUdeviceptr)*args[times][4], sizeof(int) * 84
-        ));
-        for (int i = 0; i < 84; ++i) {
-            printf("Stream%d : %d %d\n", times, i, output[i]);
-        }
-    }
+
     std::cout << "End!" << std::endl;
     return 0;
 }

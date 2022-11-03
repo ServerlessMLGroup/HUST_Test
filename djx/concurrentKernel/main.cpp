@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr4, temp.data(), storage_size));
     args.push_back(&device_ptr4);
 
-    storage_size = 84 * sizeof(int);
+    storage_size = 80 * sizeof(int);
     temp.resize(storage_size, 0);
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr5, storage_size)); // sm
     GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr5, temp.data(), storage_size));
@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
     // warm up
     for (int i = 0; i < 10; ++i) {
       GPU_RETURN_STATUS(cuLaunchKernel(kernel,
-      1, 3, 28,
+      1, 5, 20,
       7, 1, 16,
       0, 0 // stream
       , (void **)args.data(), 0 // raw_args是json中指示的storage的下标
@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventCreate(&stop_event));
     cudaEventRecord(start_event, 0);
     GPU_RETURN_STATUS(cuLaunchKernel(kernel,
-      1, 3, 28,
+      1, 4, 20,
       7, 1, 16,
       0, 0 // stream
       , (void **)args.data(), 0 // raw_args是json中指示的storage的下标
@@ -168,16 +168,16 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventSynchronize(stop_event)); // Waits until the completion of all work currently captured in event
     checkCudaErrors(cudaEventElapsedTime(&elapsed_time, start_event, stop_event));
     printf("Measured time for sample = %.3fms\n", elapsed_time);
-    std::vector<int>output(84);
+    std::vector<int>output(80);
     // checkCudaErrors(cudaMemcpyAsync(
     //   output.data(), *args[2], sizeof(float) * 25088, cudaMemcpyDeviceToHost, 0));
 
     GPU_RETURN_STATUS(cuMemcpyDtoH(
-        output.data(), (CUdeviceptr)*args[4], sizeof(int) * 84
+        output.data(), (CUdeviceptr)*args[4], sizeof(int) * 80
     ));
     std::vector<float> ans = {102410, 153610, 153610, 153610, 153610, 153610, 153610, 153610, 230410, 230410, 230410, 230410, 230410, 230410,
      153610, 230410, 230410, 230410, 230410, 230410};
-    for (int i = 0; i < 84; ++i) {
+    for (int i = 0; i < 80; ++i) {
       //if (ans[i] != output[i]) std::cout << "ans:" <<ans[i] << " VS "<<"output:" << output[i] <<std::endl;
       printf("%d %d\n",i,output[i]);
     }
