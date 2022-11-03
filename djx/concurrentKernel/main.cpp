@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
     checkCudaErrors(cudaEventCreate(&stop_event));
     cudaEventRecord(start_event, 0);
     GPU_RETURN_STATUS(cuLaunchKernel(kernel,
-      1, 4, 20,
+      1, 7, 32,
       7, 1, 16,
       0, 0 // stream
       , (void **)args.data(), 0 // raw_args是json中指示的storage的下标

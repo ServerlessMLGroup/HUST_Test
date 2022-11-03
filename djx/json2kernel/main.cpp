@@ -127,7 +127,11 @@ Status get_output(std::vector<float>& out) {
     return get_data(input_storage_idx, out.data(), storage_info.size * sizeof(float));
 }
 
-int main() {
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        printf("args num error! argc:%d", argc);
+    }
+    int gpu_no = atoi(argv[1]);
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
     CUcontext ctx;
@@ -135,7 +139,7 @@ int main() {
     CUresult result;
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
-    GPU_RETURN_STATUS(cuDeviceGet(&device, 0));
+    GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
