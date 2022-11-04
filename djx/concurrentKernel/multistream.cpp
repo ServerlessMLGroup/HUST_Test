@@ -156,25 +156,6 @@ int main(int argc, char **argv) {
     float elapsed_time[nstreams];
     for (int times = 0; times < nstreams; ++times) {
         cudaStream_t  stream  = streams[times];
-
-        // fused_nn_conv2d_add_nn_relu_kernel0<<<224, 112, 0, 0>>>(args[0], args[1], args[2], args[3]);
-        //   {
-        //     "name": "fused_nn_conv2d_add_nn_relu_kernel0",
-        //     "launch_params": [
-        //         1,
-        //         7,
-        //         32,
-        //         7,
-        //         1,
-        //         16
-        //     ],
-        //     "args": [
-        //         52,
-        //         53,
-        //         55,
-        //         54
-        //     ]
-        // },
         cudaEventRecord(start_event[times], stream);
         // printf("launch kernel %d\n", times);
         GPU_RETURN_STATUS(cuLaunchKernel(kernel[times],

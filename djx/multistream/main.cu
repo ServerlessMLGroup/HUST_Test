@@ -3,7 +3,7 @@
 #include<cuda_runtime.h>
 
 #define BLOCK_NUM 80   //块数量
-#define THREAD_NUM 128 // 每个块中的线程数
+#define THREAD_NUM 256 // 每个块中的线程数
 #define R_SIZE BLOCK_NUM * THREAD_NUM
 #define M_SIZE R_SIZE * R_SIZE
 
