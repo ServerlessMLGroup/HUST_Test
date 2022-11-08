@@ -95,7 +95,8 @@ int main()
     }
 
     //data size
-    int N = 4*52428800;
+    //int N = 4*52428800;
+    int N = 52428800/4;
     size_t size = N * sizeof(float);
 
     //
@@ -161,7 +162,7 @@ int main()
     cudaLaunchHostFunc(firststream, fn4, 0);
     */
     //cudaLaunchHostFunc(secondstream, fn3, 0);
-    //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
     //cudaLaunchHostFunc(secondstream, fn4, 0);
     cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, secondstream);
     }
