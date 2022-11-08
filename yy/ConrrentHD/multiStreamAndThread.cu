@@ -181,7 +181,7 @@ int main()
     cudaHostFn_t fn8 = thread2_3callback;
 
     thread first=thread(thread1,firststream,d_A,d_A,size);
-    thread second=thread(thread1,firststream,d_A,d_A,size);
+    thread second=thread(thread2,secondstream,d_B,d_B,size);
     second.join();
     first.join();
 
