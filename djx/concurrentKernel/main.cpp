@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     if ((deviceProp.concurrentKernels == 0)) {
       printf("> GPU does not support concurrent kernel execution\n");
       printf("  CUDA kernel runs will be serialized\n");
-    }
+
   
     printf("> GPUNo: %d Detected Compute SM %d.%d hardware with %d multi-processors\n",
            cuda_device, deviceProp.major, deviceProp.minor, deviceProp.multiProcessorCount);
