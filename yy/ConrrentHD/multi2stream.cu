@@ -106,7 +106,7 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
-    cudaSetDevice(2);
+    cudaSetDevice(3);
     float* d_C;
     cudaMalloc(&d_C, size);
 
@@ -161,7 +161,7 @@ int main()
     cudaLaunchHostFunc(firststream, fn4, 0);
     */
     //cudaLaunchHostFunc(secondstream, fn3, 0);
-    cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, secondstream);
+    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
     //cudaLaunchHostFunc(secondstream, fn4, 0);
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
     }
