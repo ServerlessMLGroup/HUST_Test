@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include<cuda.h>
 #include<cuda_runtime.h>
+#include <ctime>
+#include "time.h"
 
 #define BLOCK_NUM 80   //块数量
-#define THREAD_NUM 256 // 每个块中的线程数
+#define THREAD_NUM 64 // 每个块中的线程数
 #define R_SIZE BLOCK_NUM * THREAD_NUM
 #define M_SIZE R_SIZE * R_SIZE
 
@@ -42,6 +44,21 @@ __device__ uint get_smid(void) {
   
 }
 
+__global__ void mat_mul_wait(int *mat1, int *mat2, int *result, int *sm) {
+    unsigned long long start = clock64();
+    while ((clock64()-start)/1000<1000000); //wait for 1s
+    sm[blockIdx.x] = get_smid();
+    const int bid = blockIdx.x;
+    const int tid = threadIdx.x;
+    // 每个线程计算一行
+    const int row = bid * THREAD_NUM + tid;
+    for (int c = 0; c < R_SIZE; c++) {
+        for (int n = 0; n < R_SIZE; n++) {
+            result[row*R_SIZE+c] += mat1[row*R_SIZE+n] * mat2[n*R_SIZE+c];
+        }
+    }
+}
+
 __global__ void mat_mul(int *mat1, int *mat2, int *result, int *sm) {
     sm[blockIdx.x] = get_smid();
     const int bid = blockIdx.x;
@@ -69,7 +86,6 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < nstreams; i++) {
         checkCudaErrors(cudaStreamCreate(&(streams[i])));
     }
-
     int *mat1[nstreams], *mat2[nstreams], *result[nstreams], *sm[nstreams];
     int *g_mat1[nstreams], *g_mat2[nstreams], *g_mat_result[nstreams], *g_sm[nstreams];
 
@@ -115,8 +131,16 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < nstreams; ++i) {
         cudaStream_t stream = streams[i];
-        cudaEventRecord(start_event[i], stream);
-        mat_mul<<<BLOCK_NUM, THREAD_NUM>>>(g_mat1[i], g_mat2[i], g_mat_result[i], g_sm[i]);
+        if (i == 0) {
+            cudaEventRecord(start_event[i], stream);
+            mat_mul<<<BLOCK_NUM, THREAD_NUM, 0, stream>>>(g_mat1[i], g_mat2[i], g_mat_result[i], g_sm[i]);
+        }
+        else {
+            clock_t now = clock();
+            while ((double)(clock()-now) / CLOCKS_PER_SEC < 1.0f); //wait for 1s
+            cudaEventRecord(start_event[i], stream);
+            mat_mul<<<BLOCK_NUM, THREAD_NUM, 0, stream>>>(g_mat1[i], g_mat2[i], g_mat_result[i], g_sm[i]);
+        }
         checkCudaErrors(cudaEventRecord(stop_event[i], stream));
     }
 

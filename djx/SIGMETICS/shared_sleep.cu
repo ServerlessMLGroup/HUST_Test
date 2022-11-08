@@ -27,7 +27,17 @@ inline void __checkCudaErrors(cudaError_t err, const char *file, const int line)
   }
 }
 
-__global__ void kernel(float n1, float n2, float n3, long long unsigned *times, int stop) {
+__device__ uint get_smid(void) {
+
+    uint ret;
+  
+    asm("mov.u32 %0, %smid;" : "=r"(ret) );
+  
+    return ret;
+  
+}
+
+__global__ void kernel(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag) {
 	unsigned long long mclk; 
 	if (threadIdx.x == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
@@ -37,34 +47,26 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 		n1=sinf(n1);
 		n2=n3/n2;
 	}
-	
 	__syncthreads();
-	
 	if (threadIdx.x == 0) {
 		unsigned long long mclk2;
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		times[blockIdx.x] = (mclk2 - mclk) / 1000000;
 	}
+    flag[0] = 1;
 }
 
-__global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *times, int stop) {
-	#if __CUDA_ARCH__ >= 700
-	while()
+__global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag) {
+    #if __CUDA_ARCH__ >= 700
+	while(flag[0] != 1)
 		__nanosleep(1000000); // 1ms
 	#else
 	printf(">>> __CUDA_ARCH__ !\n");
 	#endif
-	unsigned long long mclk; 
+    unsigned long long mclk; 
 	if (threadIdx.x == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 	}
-	// #if __CUDA_ARCH__ >= 700
-	// for (int i = 0; i < 1000; i++)
-	// 	__nanosleep(100000000); // 100ms
-	// #else
-	// printf(">>> __CUDA_ARCH__ !\n");
-	// #endif
-
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
@@ -86,6 +88,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 		cudaStreamCreate(&streams[i]);
 	}
 	
+    // allocate resource
 	long long unsigned *h_sm_ids = new long long unsigned[a_blocks];
 	long long unsigned *d_sm_ids;
 	cudaMalloc(&d_sm_ids, a_blocks * sizeof(long long unsigned));
@@ -94,14 +97,37 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	long long unsigned *d_sm_ids2;
 	cudaMalloc(&d_sm_ids2, b_blocks * sizeof(long long unsigned));
 
+    // allocate flag
+    int *flag;
+    int *g_flag;
+    flag = (int*) malloc(1 * sizeof(int));
+    flag[0] = 0;
+    cudaMalloc((void **)&g_flag, sizeof(int) * 1);
+    cudaMemcpy(g_flag, flag, sizeof(int) * 1, cudaMemcpyHostToDevice);
+
+
+    // allocate warm flag
+    int *flag_warm;
+    int *g_flag_warm;
+    flag_warm = (int*) malloc(1 * sizeof(int));
+    flag_warm[0] = 0;
+    cudaMalloc((void **)&g_flag_warm, sizeof(int) * 1);
+    cudaMemcpy(g_flag_warm, flag_warm, sizeof(int) * 1, cudaMemcpyHostToDevice);
+
+    // cuda launch kernel
 	dim3 Dba = dim3(a_threads);
 	dim3 Dga = dim3(a_blocks,1,1);
 	dim3 Dbb = dim3(b_threads);
 	dim3 Dgb = dim3(b_blocks,1,1);
-	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000000);
+    // warm-up
+    for (int i = 0; i < 50; ++i) {
+        kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000000, g_flag_warm);
+    }
 	cudaDeviceSynchronize();
-	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000000);
-	kernel_sleep <<<Dgb, Dbb, 0, streams[1]>>>(15.6, 64.9, 134.7, d_sm_ids2, 5000000);
+    // test kernel
+	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000000, g_flag);
+    // sleep until kernel finish
+	kernel_sleep <<<Dgb, Dbb, 0, streams[1]>>>(15.6, 64.9, 134.7, d_sm_ids2, 5000000, g_flag);
 	
 	cudaDeviceSynchronize();
 	
