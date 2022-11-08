@@ -87,13 +87,13 @@ int main()
     //clock for collection
 
     cpu_set_t mask;
-   /*
+
     CPU_ZERO(&mask);
     CPU_SET(15, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    */
+
     //data size
     int N = 4*52428800;
     size_t size = N * sizeof(float);
