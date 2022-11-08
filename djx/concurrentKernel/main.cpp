@@ -104,17 +104,6 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr5, temp.data(), storage_size));
     args.push_back(&device_ptr5);
 
-    // warm up
-    for (int i = 0; i < 10; ++i) {
-      GPU_RETURN_STATUS(cuLaunchKernel(kernel,
-      1, 5, 20,
-      7, 1, 16,
-      0, 0 // stream
-      , (void **)args.data(), 0 // raw_args是json中指示的storage的下标
-      ));
-    }
-    GPU_RETURN_STATUS(cuCtxSynchronize());
-
     std::vector<float> input52(50176); // test -10000 == fail
     for (size_t i = 0; i < 50176; i++)
         input52[i] = 10.0;
