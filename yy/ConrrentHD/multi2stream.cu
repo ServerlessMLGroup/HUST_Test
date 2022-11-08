@@ -161,7 +161,7 @@ int main()
     cudaLaunchHostFunc(firststream, fn4, 0);
     */
     //cudaLaunchHostFunc(secondstream, fn3, 0);
-    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, secondstream);
     //cudaLaunchHostFunc(secondstream, fn4, 0);
     cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
     }
