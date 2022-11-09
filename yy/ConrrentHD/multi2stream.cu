@@ -172,13 +172,14 @@ int main()
     //cudaLaunchHostFunc(firststream, fn1, 0);
     //test.lock();
     //cout<<"Pass the test"<<endl;
-    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
+    //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
     //cudaLaunchHostFunc(firststream, fn2, 0);
     //cudaLaunchHostFunc(firststream, fn3, 0);
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
     //cudaLaunchHostFunc(firststream, fn4, 0);
     }
     //Should i add some code to exit the thread here?
+
     cudaLaunchHostFunc(firststream, fn5, 0);
 
 
