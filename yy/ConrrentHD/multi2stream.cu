@@ -152,6 +152,7 @@ int main()
     cudaHostFn_t fn8 = thread2_3callback;
 
     cudaMemcpyAsync(d_C, h_C, size, cudaMemcpyHostToDevice, secondstream);
+    cout<<"what?"<<endl;
     cudaMemcpyAsync(d_B, h_B, size, cudaMemcpyHostToDevice, firststream);
 
     for(int i=0;i < 10;i++)
