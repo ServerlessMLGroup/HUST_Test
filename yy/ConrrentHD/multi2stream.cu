@@ -95,8 +95,8 @@ int main()
     }
 
     //data size
-    int N = 4*52428800;
-    //int N = 52428800/4;
+    //int N = 4*52428800;
+    int N = 52428800/4;
     size_t size = N * sizeof(float);
 
     //
