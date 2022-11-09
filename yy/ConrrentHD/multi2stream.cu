@@ -164,7 +164,7 @@ int main()
     */
     //cudaLaunchHostFunc(secondstream, fn3, 0);
     cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, secondstream);
-    //cudaMemcpyAsync(d_B, h_B, size, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_B, h_B, size, cudaMemcpyHostToDevice, firststream);
     //cudaLaunchHostFunc(secondstream, fn4, 0);
 
     }
@@ -174,7 +174,7 @@ int main()
     //cudaLaunchHostFunc(firststream, fn1, 0);
     //test.lock();
     //cout<<"Pass the test"<<endl;
-    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
     //cudaLaunchHostFunc(firststream, fn2, 0);
     //cudaLaunchHostFunc(firststream, fn3, 0);
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
