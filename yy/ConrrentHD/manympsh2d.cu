@@ -36,7 +36,7 @@ void thread(CUcontext ctx,float* d_a,float* h_a,size_t size)
     }
 }
 
-}
+
 
 int main()
 {
