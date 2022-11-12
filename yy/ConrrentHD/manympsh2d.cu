@@ -14,7 +14,7 @@
 #include <stdio.h>
 using namespace std;
 
-void thread(CUcontext ctx,float* d_a,float* h_a,size_t size)
+void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
 {
     //set CPU
 
@@ -126,11 +126,11 @@ int main()
     }
 
 
-    thread th1=thread(thread,cont1,d_A,h_A,size);
-    thread th2=thread(thread,cont2,d_B,h_B,size);
-    thread th3=thread(thread,cont3,d_C,h_C,size);
-    thread th4=thread(thread,cont4,d_D,h_D,size);
-    thread th5=thread(thread,cont5,d_E,h_E,size);
+    thread th1=thread(thread1,cont1,d_A,h_A,size);
+    thread th2=thread(thread1,cont2,d_B,h_B,size);
+    thread th3=thread(thread1,cont3,d_C,h_C,size);
+    thread th4=thread(thread1,cont4,d_D,h_D,size);
+    thread th5=thread(thread1,cont5,d_E,h_E,size);
 
     th1.join();
     th2.join();
