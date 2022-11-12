@@ -1469,15 +1469,6 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 extern "C" __global__ void fused_add_nn_relu_3_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   T_relu[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
 }
-extern "C" __device__ uint get_smid(void) {
-
-  uint ret;
-
-  asm("mov.u32 %0, %smid;" : "=r"(ret) );
-
-  return ret;
-
-}
 // add for loop
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
   // sm[blockIdx.y * 28 + blockIdx.z] = get_smid();
@@ -1485,7 +1476,6 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
   __shared__ float pad_temp_shared[180];
   __shared__ float placeholder_shared[576];
   compute[(0)] = 0.000000e+00f;
-  for (int i = 0; i < 1000; ++i) {
     for (int rc_outer = 0; rc_outer < 64; ++rc_outer) {
       __syncthreads();
       if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 180) {
@@ -1602,7 +1592,6 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
       compute[(0)] = (compute[(0)] + (pad_temp_shared[(((((int)threadIdx.x) * 2) + 166))] * placeholder_shared[(((((int)threadIdx.z) * 36) + 34))]));
       compute[(0)] = (compute[(0)] + (pad_temp_shared[(((((int)threadIdx.x) * 2) + 167))] * placeholder_shared[(((((int)threadIdx.z) * 36) + 35))]));
     }
-  }
   
   T_relu[(((((((int)blockIdx.z) * 784) + (((int)threadIdx.z) * 49)) + (((int)blockIdx.y) * 7)) + ((int)threadIdx.x)))] = max((compute[(0)] + placeholder2[(((((int)blockIdx.z) * 16) + ((int)threadIdx.z)))]), 0.000000e+00f);
 }
