@@ -29,13 +29,6 @@ void thread1(CUcontext ctx,float* d_a,float* d_b,float* h_a,float* h_b,size_t si
             perror("pthread_setaffinity_np");
     }
 
-    /*
-    float* h_A;
-    float* h_B;
-    cudaMallocHost(&h_A, size);
-    cudaMallocHost(&h_B, size);
-    */
-
     cout<<"game start "<<endl;
 
     clock_t start,finish;
