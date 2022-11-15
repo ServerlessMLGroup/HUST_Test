@@ -65,7 +65,7 @@ int main()
 
 
     //data size
-    int N = 209715200;
+    int N = 209715200/2;
     size_t size = N * sizeof(float);
 
     //Context and memory
@@ -140,6 +140,67 @@ int main()
     //cudaMallocHost(&h_E, size);
     h_E = (float*)malloc(size);
 
+    ///*
+    err = cuCtxCreate(&cont6,CU_CTX_SCHED_YIELD,dev);
+    if(err)
+    {
+        cout<<"Can't create Context, err" << err << endl;
+        return 0;
+    }
+    float* d_F;
+    cudaMalloc(&d_F, size);
+    float* h_F;
+    //cudaMallocHost(&h_A, size);
+    h_F = (float*)malloc(size);
+
+    err = cuCtxCreate(&cont7,CU_CTX_SCHED_YIELD,dev);
+    if(err)
+    {
+        cout<<"Can't create Context, err" << err << endl;
+        return 0;
+    }
+    float* d_G;
+    cudaMalloc(&d_G, size);
+    float* h_G;
+    //cudaMallocHost(&h_B, size);
+    h_G = (float*)malloc(size);
+
+    err = cuCtxCreate(&cont8,CU_CTX_SCHED_YIELD,dev);
+    if(err)
+    {
+        cout<<"Can't create Context, err" << err << endl;
+        return 0;
+    }
+    float* d_H;
+    cudaMalloc(&d_H, size);
+    float* h_H;
+    //cudaMallocHost(&h_C, size);
+    h_H = (float*)malloc(size);
+
+    err = cuCtxCreate(&cont9,CU_CTX_SCHED_YIELD,dev);
+    if(err)
+    {
+        cout<<"Can't create Context, err" << err << endl;
+        return 0;
+    }
+    float* d_I;
+    cudaMalloc(&d_I, size);
+    float* h_I;
+    //cudaMallocHost(&h_D, size);
+    h_I = (float*)malloc(size);
+
+    err = cuCtxCreate(&cont10,CU_CTX_SCHED_YIELD,dev);
+    if(err)
+    {
+        cout<<"Can't create Context, err" << err << endl;
+        return 0;
+    }
+    float* d_J;
+    cudaMalloc(&d_J, size);
+    float* h_J;
+    //cudaMallocHost(&h_E, size);
+    h_J = (float*)malloc(size);
+
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
     for(int i=0;i < N; ++i){
@@ -148,20 +209,35 @@ int main()
 	*(h_C + i) = u(e);
 	*(h_D + i) = u(e);
 	*(h_E + i) = u(e);
+	*(h_F + i) = u(e);
+	*(h_G + i) = u(e);
+	*(h_H + i) = u(e);
+	*(h_I + i) = u(e);
+	*(h_J + i) = u(e);
     }
 
 
     thread th1=thread(thread1,cont1,d_A,h_A,size,1);
-    //thread th2=thread(thread1,cont2,d_B,h_B,size,2);
-    //thread th3=thread(thread1,cont3,d_C,h_C,size,3);
-    //thread th4=thread(thread1,cont4,d_D,h_D,size,4);
-    //thread th5=thread(thread1,cont5,d_E,h_E,size,5);
+    thread th2=thread(thread1,cont2,d_B,h_B,size,2);
+    thread th3=thread(thread1,cont3,d_C,h_C,size,3);
+    thread th4=thread(thread1,cont4,d_D,h_D,size,4);
+    thread th5=thread(thread1,cont5,d_E,h_E,size,5);
+    thread th6=thread(thread1,cont6,d_F,h_F,size,6);
+    thread th7=thread(thread1,cont7,d_H,h_H,size,7);
+    thread th8=thread(thread1,cont8,d_I,h_I,size,8);
+    thread th9=thread(thread1,cont9,d_J,h_J,size,9);
+    thread th10=thread(thread1,cont10,d_K,h_K,size,10);
 
     th1.join();
-    //th2.join();
-    //th3.join();
-    //th4.join();
-    //th5.join();
+    th2.join();
+    th3.join();
+    th4.join();
+    th5.join();
+    th6.join();
+    th7.join();
+    th8.join();
+    th9.join();
+    th10.join();
 
     //Free memory
     cudaFree(d_A);
@@ -169,6 +245,11 @@ int main()
     cudaFree(d_C);
     cudaFree(d_D);
     cudaFree(d_E);
+    cudaFree(d_F);
+    cudaFree(d_G);
+    cudaFree(d_H);
+    cudaFree(d_I);
+    cudaFree(d_J);
 
     return 0;
 }
