@@ -14,10 +14,11 @@
 #include <stdio.h>
 using namespace std;
 
-void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
+void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size，int i)
 {
     //set CPU
-
+    clock_t start,finish;
+    double time=0.0;
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(16, &mask); //指定该线程使用的CPU
@@ -32,17 +33,31 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
     }
     for(int i=0;i < 10;i++)
     {
+    start=clock();
     cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice);
+    finish=clock();
+    time += (double)(finish-start)/CLOCKS_PER_SEC;
     }
+    cout <<i<<" Timeuse: "<<time<<" (s)"<<endl;
 }
 
 
 
 int main()
 {
+    ///*
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(16, &mask); //指定该线程使用的CPU
+    if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
+            perror("pthread_setaffinity_np");
+    }
+    //*/
+
     cuInit(0);
     cudaSetDevice(2);
     //clock for collection
+
 
     //data size
     int N = 209715200;
@@ -69,7 +84,8 @@ int main()
     float* d_A;
     cudaMalloc(&d_A, size);
     float* h_A;
-    cudaMallocHost(&h_A, size);
+    //cudaMallocHost(&h_A, size);
+    h_A = (float*)malloc(size);
 
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -80,7 +96,8 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
     float* h_B;
-    cudaMallocHost(&h_B, size);
+    //cudaMallocHost(&h_B, size);
+    h_B = (float*)malloc(size);
 
     err = cuCtxCreate(&cont3,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -91,7 +108,8 @@ int main()
     float* d_C;
     cudaMalloc(&d_C, size);
     float* h_C;
-    cudaMallocHost(&h_C, size);
+    //cudaMallocHost(&h_C, size);
+    h_C = (float*)malloc(size);
 
     err = cuCtxCreate(&cont4,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -102,7 +120,8 @@ int main()
     float* d_D;
     cudaMalloc(&d_D, size);
     float* h_D;
-    cudaMallocHost(&h_D, size);
+    //cudaMallocHost(&h_D, size);
+    h_D = (float*)malloc(size);
 
     err = cuCtxCreate(&cont5,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -113,7 +132,8 @@ int main()
     float* d_E;
     cudaMalloc(&d_E, size);
     float* h_E;
-    cudaMallocHost(&h_E, size);
+    //cudaMallocHost(&h_E, size);
+    h_E = (float*)malloc(size);
 
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
@@ -126,11 +146,11 @@ int main()
     }
 
 
-    thread th1=thread(thread1,cont1,d_A,h_A,size);
-    thread th2=thread(thread1,cont2,d_B,h_B,size);
-    thread th3=thread(thread1,cont3,d_C,h_C,size);
-    thread th4=thread(thread1,cont4,d_D,h_D,size);
-    thread th5=thread(thread1,cont5,d_E,h_E,size);
+    thread th1=thread(thread1,cont1,d_A,h_A,size,1);
+    thread th2=thread(thread1,cont2,d_B,h_B,size,2);
+    thread th3=thread(thread1,cont3,d_C,h_C,size,3);
+    thread th4=thread(thread1,cont4,d_D,h_D,size,4);
+    thread th5=thread(thread1,cont5,d_E,h_E,size,5);
 
     th1.join();
     th2.join();

@@ -194,7 +194,6 @@ int main()
     //prepare
     mtx2.lock();
     thread first=thread(thread1,cont1,d_A,d_B,h_A,h_B,size);
-
     thread second=thread(thread2,cont2,d_C,h_C,size);
     second.join();
     first.join();
