@@ -87,8 +87,8 @@ int main()
     float* d_A;
     cudaMalloc(&d_A, size);
     float* h_A;
-    //cudaMallocHost(&h_A, size);
-    h_A = (float*)malloc(size);
+    cudaMallocHost(&h_A, size);
+    //h_A = (float*)malloc(size);
 
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -99,8 +99,8 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
     float* h_B;
-    //cudaMallocHost(&h_B, size);
-    h_B = (float*)malloc(size);
+    cudaMallocHost(&h_B, size);
+    //h_B = (float*)malloc(size);
 
     err = cuCtxCreate(&cont3,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -111,8 +111,8 @@ int main()
     float* d_C;
     cudaMalloc(&d_C, size);
     float* h_C;
-    //cudaMallocHost(&h_C, size);
-    h_C = (float*)malloc(size);
+    cudaMallocHost(&h_C, size);
+    //h_C = (float*)malloc(size);
 
     err = cuCtxCreate(&cont4,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -123,8 +123,8 @@ int main()
     float* d_D;
     cudaMalloc(&d_D, size);
     float* h_D;
-    //cudaMallocHost(&h_D, size);
-    h_D = (float*)malloc(size);
+    cudaMallocHost(&h_D, size);
+    //h_D = (float*)malloc(size);
 
     err = cuCtxCreate(&cont5,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -135,8 +135,8 @@ int main()
     float* d_E;
     cudaMalloc(&d_E, size);
     float* h_E;
-    //cudaMallocHost(&h_E, size);
-    h_E = (float*)malloc(size);
+    cudaMallocHost(&h_E, size);
+    //h_E = (float*)malloc(size);
 
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
