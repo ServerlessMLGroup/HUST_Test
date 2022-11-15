@@ -89,8 +89,8 @@ int main()
     float* d_A;
     cudaMalloc(&d_A, size);
     float* h_A;
-    //cudaMallocHost(&h_A, size);
-    h_A = (float*)malloc(size);
+    cudaMallocHost(&h_A, size);
+    //h_A = (float*)malloc(size);
 
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
@@ -218,6 +218,7 @@ int main()
 
 
     thread th1=thread(thread1,cont1,d_A,h_A,size,1);
+    /*
     thread th2=thread(thread1,cont2,d_B,h_B,size,2);
     thread th3=thread(thread1,cont3,d_C,h_C,size,3);
     thread th4=thread(thread1,cont4,d_D,h_D,size,4);
@@ -227,8 +228,9 @@ int main()
     thread th8=thread(thread1,cont8,d_H,h_H,size,8);
     thread th9=thread(thread1,cont9,d_I,h_I,size,9);
     thread th10=thread(thread1,cont10,d_J,h_J,size,10);
-
+    */
     th1.join();
+    /*
     th2.join();
     th3.join();
     th4.join();
@@ -238,7 +240,7 @@ int main()
     th8.join();
     th9.join();
     th10.join();
-
+    */
     //Free memory
     cudaFree(d_A);
     cudaFree(d_B);
