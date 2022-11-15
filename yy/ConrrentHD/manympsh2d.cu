@@ -223,10 +223,10 @@ int main()
     thread th4=thread(thread1,cont4,d_D,h_D,size,4);
     thread th5=thread(thread1,cont5,d_E,h_E,size,5);
     thread th6=thread(thread1,cont6,d_F,h_F,size,6);
-    thread th7=thread(thread1,cont7,d_H,h_H,size,7);
-    thread th8=thread(thread1,cont8,d_I,h_I,size,8);
-    thread th9=thread(thread1,cont9,d_J,h_J,size,9);
-    thread th10=thread(thread1,cont10,d_K,h_K,size,10);
+    thread th7=thread(thread1,cont7,d_G,h_G,size,7);
+    thread th8=thread(thread1,cont8,d_H,h_H,size,8);
+    thread th9=thread(thread1,cont9,d_I,h_I,size,9);
+    thread th10=thread(thread1,cont10,d_J,h_J,size,10);
 
     th1.join();
     th2.join();
