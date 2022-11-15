@@ -19,14 +19,14 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     //set CPU
     clock_t start,finish;
     double time=0.0;
-    /*
+
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(16, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    */
+
     cout<<"one thread starts: "<<endl;
     int err;
     err=cuCtxPushCurrent(ctx);
@@ -48,14 +48,14 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
 
 int main()
 {
-    /*
+
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(16, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    */
+
 
     cuInit(0);
     cudaSetDevice(2);
