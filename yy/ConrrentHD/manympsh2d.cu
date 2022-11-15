@@ -14,7 +14,7 @@
 #include <stdio.h>
 using namespace std;
 
-void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size，int i)
+void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
 {
     //set CPU
     clock_t start,finish;
@@ -28,6 +28,7 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size，int i)
     cout<<"one thread starts: "<<endl;
     int err;
     err=cuCtxPushCurrent(ctx);
+    
     if(err){
     cout<<"Push Context ERR! "<<err<<endl;
     }
