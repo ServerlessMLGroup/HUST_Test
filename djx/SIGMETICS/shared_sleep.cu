@@ -142,7 +142,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	dim3 Dbb = dim3(b_threads);
 	dim3 Dgb = dim3(b_blocks,1,1);
     // warm-up
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 10; ++i) {
         kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000000, g_flag_warm);
     }
 	cudaDeviceSynchronize();
