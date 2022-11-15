@@ -152,14 +152,14 @@ int main()
 
 
     thread th1=thread(thread1,cont1,d_A,h_A,size,1);
-    thread th2=thread(thread1,cont2,d_B,h_B,size,2);
-    thread th3=thread(thread1,cont3,d_C,h_C,size,3);
+    //thread th2=thread(thread1,cont2,d_B,h_B,size,2);
+    //thread th3=thread(thread1,cont3,d_C,h_C,size,3);
     //thread th4=thread(thread1,cont4,d_D,h_D,size,4);
     //thread th5=thread(thread1,cont5,d_E,h_E,size,5);
 
     th1.join();
-    th2.join();
-    th3.join();
+    //th2.join();
+    //th3.join();
     //th4.join();
     //th5.join();
 
