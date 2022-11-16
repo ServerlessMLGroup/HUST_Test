@@ -172,7 +172,7 @@ int main()
     mtx2_1.lock();
     workend1.lock();
     workend2.lock();
-    /*
+    
     //divide the formal funtion here
     cudaHostFn_t fn1 = thread1_1callback;
     cudaHostFn_t fn2 = thread1_2callback;
@@ -182,7 +182,7 @@ int main()
     cudaHostFn_t fn6 = thread2_1callback;
     cudaHostFn_t fn7 = thread2_2callback;
     cudaHostFn_t fn8 = thread2_3callback;
-    */
+
 
     /*
     thread first=thread(thread1,firststream,d_A,d_A,size);
@@ -190,7 +190,7 @@ int main()
     second.join();
     first.join();
     */
-    
+
     cudaLaunchHostFunc(firststream, fn5, 0);
 
     cudaLaunchHostFunc(secondstream, fn8, 0);
