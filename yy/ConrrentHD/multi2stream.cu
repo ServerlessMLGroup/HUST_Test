@@ -108,7 +108,7 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
-    cudaSetDevice(0);
+    //cudaSetDevice(0);
     float* d_C;
     cudaMalloc(&d_C, size);
 
