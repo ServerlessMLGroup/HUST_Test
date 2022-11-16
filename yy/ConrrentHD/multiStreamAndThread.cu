@@ -168,11 +168,11 @@ int main()
     cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
     cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
     //prepare
-    /*
+
     mtx2_1.lock();
     workend1.lock();
     workend2.lock();
-
+    /*
     //divide the formal funtion here
     cudaHostFn_t fn1 = thread1_1callback;
     cudaHostFn_t fn2 = thread1_2callback;
@@ -189,14 +189,15 @@ int main()
     thread second=thread(thread2,secondstream,d_B,d_B,size);
     second.join();
     first.join();
-
+    */
+    
     cudaLaunchHostFunc(firststream, fn5, 0);
 
     cudaLaunchHostFunc(secondstream, fn8, 0);
 
     workend1.lock();
     workend2.lock();
-    */
+
 
     cout<<"It can't be like this"<<endl;
     //Free memory
