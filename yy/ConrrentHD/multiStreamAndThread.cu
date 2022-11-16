@@ -165,9 +165,10 @@ int main()
     cudaStreamCreate(&firststream);
     cudaStreamCreate(&secondstream);
 
-    cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
     cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
     //prepare
+    /*
     mtx2_1.lock();
     workend1.lock();
     workend2.lock();
@@ -181,6 +182,7 @@ int main()
     cudaHostFn_t fn6 = thread2_1callback;
     cudaHostFn_t fn7 = thread2_2callback;
     cudaHostFn_t fn8 = thread2_3callback;
+    */
 
     /*
     thread first=thread(thread1,firststream,d_A,d_A,size);
