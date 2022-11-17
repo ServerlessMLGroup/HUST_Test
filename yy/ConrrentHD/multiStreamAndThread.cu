@@ -226,10 +226,10 @@ int main()
 
     timelineh2 =(long long unsigned*)malloc(size2);
 
-    /*
+
     cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(timelineh2, timeline2, size, cudaMemcpyDeviceToHost);
-
+    /*
     for(int k=0;k< 11;k++)
     {
     cout<<"Timeline"<<0<<"-"<<k<<" :"<<timeline1[k]<<"(s)"<<endl;
