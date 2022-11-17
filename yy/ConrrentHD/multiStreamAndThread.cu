@@ -229,7 +229,7 @@ int main()
 
     cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(timelineh2, timeline2, size, cudaMemcpyDeviceToHost);
-    /*
+
     for(int k=0;k< 11;k++)
     {
     cout<<"Timeline"<<0<<"-"<<k<<" :"<<timeline1[k]<<"(s)"<<endl;
@@ -238,7 +238,7 @@ int main()
     {
     cout<<"Timeline"<<1<<"-"<<k<<" :"<<timeline2[k]<<"(s)"<<endl;
     }
-    */
+    
     cout<<"It can't be like this"<<endl;
     //Free memory
     cudaFree(timeline1);
