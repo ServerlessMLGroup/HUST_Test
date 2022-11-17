@@ -4,7 +4,7 @@
 #include <sys/time.h>
 #include <math.h>
 #include <cuda.h>
-#include "cuda_runtime.h"
+
 #include "unistd.h"
 #include <thread>
 #include <mutex>
