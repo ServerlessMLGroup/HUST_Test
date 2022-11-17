@@ -6,6 +6,8 @@ docker run --name pytorch -d -it --gpus all --runtime nvidia -v ~/HUST_Test:/wor
 
 docker run --name tvm-gpu-v1 -it -d --gpus all --runtime nvidia -v ~/HUST_Test:/workspace/HUST_Test mytvm:v1 /bin/bash
 
+docker run --name tvm-gpu-v2 -it -d --gpus all --runtime nvidia -v ~/HUST_Test:/workspace/HUST_Test mytvm:v2 /bin/bash
+
 docker build -t mytvm:v0.7.0 -f ./Dockerfile.tvm-v0.7.0 .
 
 docker build -t mytvm:v1 -f ./Dockerfile.mytvm .
@@ -16,8 +18,6 @@ docker pull tlcpack/ci-gpu:20220908-060034-62bdc91b1
 
 export TVM_HOME=/tvm
 export PYTHONPATH=$TVM_HOME/python:${PYTHONPATH}
-
-
 
 docker exec -ti mps-daemon /bin/bash
 

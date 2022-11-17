@@ -119,7 +119,7 @@ void thread2(cudaStream_t stream,float* d_a,float* h_a,size_t size)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(1);
+    cudaSetDevice(0);
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
@@ -184,12 +184,12 @@ int main()
     cudaHostFn_t fn8 = thread2_3callback;
 
 
-    /*
+    
     thread first=thread(thread1,firststream,d_A,d_A,size);
     thread second=thread(thread2,secondstream,d_B,d_B,size);
     second.join();
     first.join();
-    */
+    
 
     cudaLaunchHostFunc(firststream, fn5, 0);
 
