@@ -166,7 +166,6 @@ int main()
     flag1h = (int*) malloc(11 * sizeof(int));
     flag2h = (int*) malloc(11 * sizeof(int));
 
-    cudaMemcpy(g_flag, flag, sizeof(int) * 1, cudaMemcpyHostToDevice);
 
 	size_t size2 = 111 * sizeof(long long unsigned);
 	cudaMalloc(&timeline1, size2);
