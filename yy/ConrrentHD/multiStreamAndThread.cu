@@ -215,8 +215,8 @@ int main()
     second.join();
     first.join();
     
-    cudaLaunchHostFunc(firststream, fn9, timeline1,1);
-    cudaLaunchHostFunc(secondstream, fn9,timeline2,2);
+    //cudaLaunchHostFunc(firststream, fn9, timeline1,1);
+    //cudaLaunchHostFunc(secondstream, fn9,timeline2,2);
     cudaLaunchHostFunc(firststream, fn5, 0);
 
     cudaLaunchHostFunc(secondstream, fn8, 0);
@@ -224,6 +224,23 @@ int main()
     workend1.lock();
     workend2.lock();
 
+
+    size = 11 * sizeof(long long unsigned);
+    float* timelineh1,timelineh2;
+    timelineh1 =(float*)malloc(size);
+    timelineh2 =(float*)malloc(size);
+
+    cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
+    cudaMemcpy(timelineh2, timeline2, size, cudaMemcpyDeviceToHost);
+
+    for(int k=0;k< 11;k++)
+    {
+    cout<<"Timeline"<<0<<"-"<<k<<" :"<<timeline1[k]<<"(s)"<<endl;
+    }
+    for(int k=0;k< 11;k++)
+    {
+    cout<<"Timeline"<<1<<"-"<<k<<" :"<<timeline2[k]<<"(s)"<<endl;
+    }
 
     cout<<"It can't be like this"<<endl;
     //Free memory
