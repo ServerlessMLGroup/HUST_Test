@@ -20,7 +20,6 @@ __global__ void kernel_timer(long long unsigned *times,int j) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		times[j] = mclk2/ 1000000;
 		}
-	}
 }
 
 
