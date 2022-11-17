@@ -165,8 +165,8 @@ int main()
     cudaStreamCreate(&firststream);
     cudaStreamCreate(&secondstream);
 
-    cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
-    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
+    //cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
+    //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
     //prepare
 
     mtx2_1.lock();
