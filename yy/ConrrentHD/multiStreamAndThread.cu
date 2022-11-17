@@ -227,8 +227,8 @@ int main()
 
     size = 11 * sizeof(long long unsigned);
     float* timelineh1,timelineh2;
-    timelineh1 =(float*)malloc(size);
-    timelineh2 =(float*)malloc(size);
+    timelineh1 =(long long unsigned*)malloc(size);
+    timelineh2 =(long long unsigned*)malloc(size);
 
     cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(timelineh2, timeline2, size, cudaMemcpyDeviceToHost);
