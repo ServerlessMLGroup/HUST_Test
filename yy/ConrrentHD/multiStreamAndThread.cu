@@ -224,7 +224,7 @@ int main()
     long long unsigned* timelineh1,timelineh2;
     timelineh1 =(long long unsigned*)malloc(size2);
 
-
+    cout<<"test"<<endl;
     timelineh2 =(long long unsigned*)malloc(size2);
 
     cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
