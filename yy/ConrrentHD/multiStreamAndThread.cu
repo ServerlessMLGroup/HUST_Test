@@ -12,7 +12,24 @@
 #include <ctime>
 #include <time.h>
 #include <stdio.h>
+#include<cuda_runtime.h>
 using namespace std;
+
+//Mutex
+mutex mtx1_1;
+mutex mtx1_2;
+mutex mtx2_1;
+mutex workend1;
+mutex workend2;
+//mutex test;
+//clock_t
+clock_t start1,finish1;
+clock_t start1_2,finish1_2;
+clock_t start2,finish2;
+double singletime = 0.0;
+double cotime1=0.0;
+double cotime2=0.0;
+
 
 __global__ void kernel_timer1(long long unsigned *times,int *flag) {
 		unsigned long long mclk2;
@@ -58,20 +75,6 @@ __global__ void kernel_flager(int i,int *flag) {
 		flag[i] = 1);
 }
 
-//Mutex
-mutex mtx1_1;
-mutex mtx1_2;
-mutex mtx2_1;
-mutex workend1;
-mutex workend2;
-//mutex test;
-//clock_t
-clock_t start1,finish1;
-clock_t start1_2,finish1_2;
-clock_t start2,finish2;
-double singletime = 0.0;
-double cotime1=0.0;
-double cotime2=0.0;
 
 void CUDART_CB thread1_1callback(void *data) {
     //mtx1_1.lock();
@@ -137,7 +140,6 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
-    kernel_timer <<<1, 1, 0, stream>>>(timeline,0);
     kernel_flager<<<1,1,0,stream>>>(0,flag);
 
     for(int i=0;i < 10;i++)
