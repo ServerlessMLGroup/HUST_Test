@@ -31,6 +31,15 @@ double singletime = 0.0;
 double cotime1=0.0;
 double cotime2=0.0;
 
+__global__ void kernel(float n1, float n2, float n3, int stop) {
+
+	for (int i = 0; i < stop; i++) {
+		n1=sinf(n1);
+		n2=n3/n2;
+	}
+
+}
+
 
 __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		unsigned long long mclk2;
@@ -38,10 +47,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		while(i<11)
 		{
 		    while(flag[i] != 1) {
-		      //  if (threadIdx.x == 0)
-		        //{
 		        __nanosleep(5000); // 500us
-	             //}
               }
 		    if (threadIdx.x == 0){
 		    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
@@ -56,60 +62,16 @@ __global__ void kernel_flager(int i,int *flag) {
 		flag[i] = 1;
 }
 
-
-void CUDART_CB thread1_1callback(void *data) {
-    //mtx1_1.lock();
-    start1=clock();
-    //test.unlock();
-}
-
-
-void CUDART_CB thread1_2callback(void *data) {
-    finish1=clock();
-    singletime += (double)(finish1 - start1)/CLOCKS_PER_SEC;
-    cout<<"This time single data transfer: "<<((double)(finish1-start1)/CLOCKS_PER_SEC)<<"(s)"<<endl;
-    cout<<"1-1 timeline: "<<(double)(start1)/CLOCKS_PER_SEC<<" to "<<(double)(finish1)/CLOCKS_PER_SEC<<endl;
-}
-
-void CUDART_CB thread1_3callback(void *data) {
-    //mtx2_1.unlock();
-    //mtx1_2.lock();
-    start1_2=clock();
-}
-
-void CUDART_CB thread1_4callback(void *data) {
-    finish1_2=clock();
-    cotime1 += (double)(finish1_2-start1_2)/CLOCKS_PER_SEC;
-    cout<<"This time cocurrent data transfer 1111: "<<((double)(finish1_2-start1_2)/CLOCKS_PER_SEC)<<"(s)"<<endl;
-    cout<<"1-2 timeline: "<<(double)(start1_2)/CLOCKS_PER_SEC<<" to "<<(double)(finish1_2)/CLOCKS_PER_SEC<<endl;
-    //mtx1_1.unlock();
-}
 void CUDART_CB thread1_5callback(void *data) {
     //cout<<"single time: "<<singletime<<" s"<<endl;
     //cout<<"cocurrent time1111: "<<cotime1<<" s"<<endl;
     workend1.unlock();
 }
 
-void CUDART_CB thread2_1callback(void *data) {
-    //mtx2_1.lock();
-    start2=clock();
-}
-
-void CUDART_CB thread2_2callback(void *data) {
-    finish2=clock();
-    cotime2 += (double)(finish2-start2)/CLOCKS_PER_SEC;
-    cout<<"This time cocurrent data transfer 2222: "<<((double)(finish2-start2)/CLOCKS_PER_SEC)<<"(s)"<<endl;
-    cout<<"2-1 timeline: "<<(double)(start2)/CLOCKS_PER_SEC<<" to "<<(double)(finish2)/CLOCKS_PER_SEC<<endl;
-    //mtx1_2.unlock();
-}
-
 void CUDART_CB thread2_3callback(void *data) {
     //cout<<"cocurrent time2222: "<<cotime2<<" s"<<endl;
     workend2.unlock();
 }
-
-
-
 
 void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
 {
@@ -121,12 +83,14 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
-    kernel_flager<<<1,1,0,stream>>>(0,flag);
+    kernel<<<1,1,0>>>(1.0,2.0,3.0,10);
+    //kernel_flager<<<1,1,0,stream>>>(0,flag);
 
-    for(int i=0;i < 10;i++)
+    for(int i=1;i < 11;i++)
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    kernel_flager<<<1,1,0,stream>>>(i+1,flag);
+    //kernel_flager<<<1,1,0,stream>>>(i,flag);
+    kernel<<<1,1,0>>>(1.0,2.0,3.0,10);
     }
 
 }
@@ -134,7 +98,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 int main()
 {
     cuInit(0);
-    cudaSetDevice(1);
+    cudaSetDevice(3);
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
@@ -176,8 +140,8 @@ int main()
 
     for(int i=0;i<10;i++)
     {
-    flag1h[i]=1;
-    flag2h[i]=1;
+    flag1h[i]=0;
+    flag2h[i]=0;
     }
     cudaMemcpy(flag1, flag1h, sizeof(int) * 11, cudaMemcpyHostToDevice);
     cudaMemcpy(flag2, flag2h, sizeof(int) * 11, cudaMemcpyHostToDevice);
@@ -206,10 +170,14 @@ int main()
     cudaStream_t flagtwostream;
     cudaStreamCreate(&firststream);
     cudaStreamCreate(&secondstream);
+
+    /*
     cudaStreamCreate(&flagonestream);
     cudaStreamCreate(&flagtwostream);
     kernel_timer<<<1,1,0,flagonestream>>>(timeline1,flag1);
     kernel_timer<<<1,1,0,flagtwostream>>>(timeline2,flag2);
+    */
+
 
     //cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
@@ -233,17 +201,21 @@ int main()
     thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
     second.join();
     first.join();
-    
+    cudaLaunchHostFunc(firststream, fn5, 0);
+    cudaLaunchHostFunc(secondstream, fn8, 0);
 
+    /*
     cudaLaunchHostFunc(flagonestream, fn5, 0);
 
     cudaLaunchHostFunc(flagtwostream, fn8, 0);
+    */
+
 
     cout<<"reach here"<<endl;
     workend1.lock();
     workend2.lock();
 
-
+    /*
     long long unsigned* timelineh1;
     long long unsigned* timelineh2;
     timelineh1 =(long long unsigned*)malloc(size2);
@@ -267,6 +239,7 @@ int main()
     //Free memory
     cudaFree(timeline1);
     cudaFree(timeline2);
+    */
     cudaFree(d_A);
     cudaFree(d_B);
     cudaFree(d_C);
