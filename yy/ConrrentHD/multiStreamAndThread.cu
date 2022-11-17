@@ -164,7 +164,7 @@ int main()
     int *flag1h;
     int *flag2h;
     flag1h = (int*) malloc(11 * sizeof(int));
-    flag2h = (int*) malloc(11 * sizeof(int))
+    flag2h = (int*) malloc(11 * sizeof(int));
 
     cudaMemcpy(g_flag, flag, sizeof(int) * 1, cudaMemcpyHostToDevice);
 
