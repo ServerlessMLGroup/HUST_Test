@@ -232,13 +232,13 @@ int main()
 
     for(int k=0;k< 11;k++)
     {
-    cout<<"Timeline"<<0<<"-"<<k<<" :"<<timeline1[k]<<"(s)"<<endl;
+    printf("Timeline0-%d %llu (s)\n",k, timeline1[k]);
     }
     for(int k=0;k< 11;k++)
     {
-    cout<<"Timeline"<<1<<"-"<<k<<" :"<<timeline2[k]<<"(s)"<<endl;
+    printf("Timeline0-%d %llu (s)\n",k, timeline2[k]);
     }
-    
+
     cout<<"It can't be like this"<<endl;
     //Free memory
     cudaFree(timeline1);
