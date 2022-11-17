@@ -14,15 +14,49 @@
 #include <stdio.h>
 using namespace std;
 
-__global__ void kernel_timer(long long unsigned *times,int j) {
+__global__ void kernel_timer1(long long unsigned *times,int *flag) {
 		unsigned long long mclk2;
+		int i=0;
+		while(i<11)
+		{
+		while(flag[i] != 1) {
+		if (threadIdx.x == 0)
+		{
+		__nanosleep(500000); // 500us
+	    }
+        }
 		if (threadIdx.x == 0){
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[j] = mclk2/ 1000000;
+		times[i] = mclk2/ 1000000;
 		}
+		}
+		workend1.unlock();
+
 }
 
+__global__ void kernel_timer2(long long unsigned *times,int *flag) {
+		unsigned long long mclk2;
+		int i=0;
+		while(i<11)
+		{
+		while(flag[i] != 1) {
+		if (threadIdx.x == 0)
+		{
+		__nanosleep(500000); // 500us
+	    }
+        }
+		if (threadIdx.x == 0){
+		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+		times[i] = mclk2/ 1000000;
+		}
+		}
+		workend2.unlock();
 
+}
+
+__global__ void kernel_flager(int i,int *flag) {
+		flag[i] = 1);
+}
 
 //Mutex
 mutex mtx1_1;
@@ -93,7 +127,7 @@ void CUDART_CB thread2_3callback(void *data) {
 
 
 
-void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number)
+void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
 {
     //set CPU
     cpu_set_t mask;
@@ -104,11 +138,14 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
             perror("pthread_setaffinity_np");
     }
     kernel_timer <<<1, 1, 0, stream>>>(timeline,0);
+    kernel_flager<<<1,1,0,stream>>>(0,flag);
+
     for(int i=0;i < 10;i++)
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    kernel_timer <<<1, 1, 0, stream>>>(timeline,i+1);
+    kernel_flager<<<1,1,0,stream>>>(i+1,flag);
     }
+
 }
 
 void thread2(cudaStream_t stream,float* d_a,float* h_a,size_t size)
@@ -154,12 +191,19 @@ int main()
     //cudaSetDevice(0);
     float* d_C;
     cudaMalloc(&d_C, size);
+
+    //create timeline and flag
     long long unsigned *timeline1;
 	long long unsigned *timeline2;
+    int *flag1;
+    int *flag2;
 
 	size_t size2 = 111 * sizeof(long long unsigned);
 	cudaMalloc(&timeline1, size2);
     cudaMalloc(&timeline2, size2);
+    size_t size3 = 111*sizeof(int);
+    cudaMalloc(&flag1, size3);
+    cudaMalloc(&flag2, size3);
 
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
@@ -183,8 +227,14 @@ int main()
     //Create Stream
     cudaStream_t firststream;
     cudaStream_t secondstream;
+    cudaStream_t flagonestream;
+    cudaStream_t flagtwostream;
     cudaStreamCreate(&firststream);
     cudaStreamCreate(&secondstream);
+    cudaStreamCreate(&flagonestream);
+    cudaStreamCreate(&flagtwostream);
+    kernel_timer1<<<1,1,0,flagonestream>>>(timeline1,flag1);
+    kernel_timer2<<<1,1,0,flagtwostream>>>(timeline2,flag2);
 
     //cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
@@ -206,15 +256,15 @@ int main()
 
 
     
-    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1);
-    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2);
+    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
+    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
     second.join();
     first.join();
     
 
-    cudaLaunchHostFunc(firststream, fn5, 0);
+    //cudaLaunchHostFunc(firststream, fn5, 0);
 
-    cudaLaunchHostFunc(secondstream, fn8, 0);
+    //cudaLaunchHostFunc(secondstream, fn8, 0);
 
     workend1.lock();
     workend2.lock();
