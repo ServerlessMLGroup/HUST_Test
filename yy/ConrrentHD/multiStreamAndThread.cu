@@ -108,7 +108,6 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
     kernel_timer <<<1, 1, 0, stream>>>(timeline,i+1);
-
     }
 }
 
@@ -158,7 +157,7 @@ int main()
     long long unsigned *timeline1;
 	long long unsigned *timeline2;
 
-	size_t size2 = 11 * sizeof(long long unsigned);
+	size_t size2 = 111 * sizeof(long long unsigned);
 	cudaMalloc(&timeline1, size2);
     cudaMalloc(&timeline2, size2);
 
