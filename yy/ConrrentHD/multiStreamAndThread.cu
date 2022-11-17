@@ -38,10 +38,10 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		while(i<11)
 		{
 		    while(flag[i] != 1) {
-		        if (threadIdx.x == 0)
-		        {
-		        __nanosleep(500000); // 500us
-	             }
+		      //  if (threadIdx.x == 0)
+		        //{
+		        __nanosleep(5000); // 500us
+	             //}
               }
 		    if (threadIdx.x == 0){
 		    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
@@ -161,6 +161,12 @@ int main()
 	long long unsigned *timeline2;
     int *flag1;
     int *flag2;
+    int *flag1h;
+    int *flag2h;
+    flag1h = (int*) malloc(11 * sizeof(int));
+    flag2h = (int*) malloc(11 * sizeof(int))
+
+    cudaMemcpy(g_flag, flag, sizeof(int) * 1, cudaMemcpyHostToDevice);
 
 	size_t size2 = 111 * sizeof(long long unsigned);
 	cudaMalloc(&timeline1, size2);
@@ -168,6 +174,14 @@ int main()
     size_t size3 = 111*sizeof(int);
     cudaMalloc(&flag1, size3);
     cudaMalloc(&flag2, size3);
+
+    for(int i=0;i<10;i++)
+    {
+    flag1h[i]=0;
+    flag2h[i]=0;
+    }
+    cudaMemcpy(flag1, flag1h, sizeof(int) * 11, cudaMemcpyHostToDevice);
+    cudaMemcpy(flag2, flag2h, sizeof(int) * 11, cudaMemcpyHostToDevice);
 
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
