@@ -31,7 +31,7 @@ double cotime1=0.0;
 double cotime2=0.0;
 
 
-__global__ void kernel_timer1(long long unsigned *times,int *flag) {
+__global__ void kernel_timer(long long unsigned *times,int *flag) {
 		unsigned long long mclk2;
 		int i=0;
 		while(i<11)
@@ -47,29 +47,8 @@ __global__ void kernel_timer1(long long unsigned *times,int *flag) {
 		times[i] = mclk2/ 1000000;
 		}
 		}
-		workend1.unlock();
-
 }
 
-__global__ void kernel_timer2(long long unsigned *times,int *flag) {
-		unsigned long long mclk2;
-		int i=0;
-		while(i<11)
-		{
-		while(flag[i] != 1) {
-		if (threadIdx.x == 0)
-		{
-		__nanosleep(500000); // 500us
-	    }
-        }
-		if (threadIdx.x == 0){
-		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[i] = mclk2/ 1000000;
-		}
-		}
-		workend2.unlock();
-
-}
 
 __global__ void kernel_flager(int i,int *flag) {
 		flag[i] = 1);
@@ -104,8 +83,8 @@ void CUDART_CB thread1_4callback(void *data) {
     //mtx1_1.unlock();
 }
 void CUDART_CB thread1_5callback(void *data) {
-    cout<<"single time: "<<singletime<<" s"<<endl;
-    cout<<"cocurrent time1111: "<<cotime1<<" s"<<endl;
+    //cout<<"single time: "<<singletime<<" s"<<endl;
+    //cout<<"cocurrent time1111: "<<cotime1<<" s"<<endl;
     workend1.unlock();
 }
 
@@ -123,7 +102,7 @@ void CUDART_CB thread2_2callback(void *data) {
 }
 
 void CUDART_CB thread2_3callback(void *data) {
-    cout<<"cocurrent time2222: "<<cotime2<<" s"<<endl;
+    //cout<<"cocurrent time2222: "<<cotime2<<" s"<<endl;
     workend2.unlock();
 }
 
@@ -264,9 +243,9 @@ int main()
     first.join();
     
 
-    //cudaLaunchHostFunc(firststream, fn5, 0);
+    cudaLaunchHostFunc(flagonestream, fn5, 0);
 
-    //cudaLaunchHostFunc(secondstream, fn8, 0);
+    cudaLaunchHostFunc(flagtwostream, fn8, 0);
 
     workend1.lock();
     workend2.lock();
