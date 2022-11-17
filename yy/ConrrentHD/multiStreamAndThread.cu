@@ -226,7 +226,7 @@ int main()
 
 
     size = 11 * sizeof(long long unsigned);
-    float* timelineh1,timelineh2;
+    long long unsigned* timelineh1,timelineh2;
     timelineh1 =(long long unsigned*)malloc(size);
     timelineh2 =(long long unsigned*)malloc(size);
 
