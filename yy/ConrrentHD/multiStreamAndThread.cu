@@ -4,7 +4,7 @@
 #include <sys/time.h>
 #include <math.h>
 #include <cuda.h>
-
+#include "cuda_runtime.h"
 #include "unistd.h"
 #include <thread>
 #include <mutex>
@@ -47,6 +47,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		times[i] = mclk2/ 1000000;
 		}
+		i++;
 		}
 }
 
