@@ -232,11 +232,11 @@ int main()
 
     for(int k=0;k< 11;k++)
     {
-    printf("Timeline0-%d %llu (s)\n",k, timeline1[k]);
+    printf("Timeline0-%d %llu (s)\n",k, timelineh1[k]);
     }
     for(int k=0;k< 11;k++)
     {
-    printf("Timeline0-%d %llu (s)\n",k, timeline2[k]);
+    printf("Timeline0-%d %llu (s)\n",k, timelineh2[k]);
     }
 
     cout<<"It can't be like this"<<endl;
