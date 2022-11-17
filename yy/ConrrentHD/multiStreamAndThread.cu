@@ -37,17 +37,17 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		int i=0;
 		while(i<11)
 		{
-		while(flag[i] != 1) {
-		if (threadIdx.x == 0)
-		{
-		__nanosleep(500000); // 500us
-	    }
-        }
-		if (threadIdx.x == 0){
-		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[i] = mclk2/ 1000000;
-		}
-		i++;
+		    while(flag[i] != 1) {
+		        if (threadIdx.x == 0)
+		        {
+		        __nanosleep(500000); // 500us
+	             }
+              }
+		    if (threadIdx.x == 0){
+		    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+		    times[i] = mclk2/ 1000000;
+		    }
+		    i++;
 		}
 }
 
@@ -131,25 +131,6 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 
 }
 
-void thread2(cudaStream_t stream,float* d_a,float* h_a,size_t size)
-{
-    //set CPU
-    cpu_set_t mask;
-    CPU_ZERO(&mask);
-    CPU_SET(16, &mask); //指定该线程使用的CPU
-    if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0)
-    {
-            perror("pthread_setaffinity_np");
-    }
-
-
-    for(int i=0;i < 10;i++)
-    {
-    cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    }
-
-}
-
 int main()
 {
     cuInit(0);
@@ -162,7 +143,7 @@ int main()
             perror("pthread_setaffinity_np");
     }
 
-    int N = 4*52428800;
+    int N = 4*52428800/4;
     size_t size = N * sizeof(float);
 
     double testtime;
@@ -205,8 +186,6 @@ int main()
 	*(h_C + i) = u(e);
     }
 
-
-
     //Create Stream
     cudaStream_t firststream;
     cudaStream_t secondstream;
@@ -223,7 +202,7 @@ int main()
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
     //prepare
 
-    mtx2_1.lock();
+    //mtx2_1.lock();
     workend1.lock();
     workend2.lock();
 
@@ -236,8 +215,6 @@ int main()
     cudaHostFn_t fn6 = thread2_1callback;
     cudaHostFn_t fn7 = thread2_2callback;
     cudaHostFn_t fn8 = thread2_3callback;
-
-
     
     thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
     thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
@@ -249,6 +226,7 @@ int main()
 
     cudaLaunchHostFunc(flagtwostream, fn8, 0);
 
+    cout<<"reach here"<<endl;
     workend1.lock();
     workend2.lock();
 
