@@ -226,6 +226,7 @@ int main()
 
     timelineh2 =(long long unsigned*)malloc(size2);
 
+    /*
     cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(timelineh2, timeline2, size, cudaMemcpyDeviceToHost);
 
@@ -237,7 +238,7 @@ int main()
     {
     cout<<"Timeline"<<1<<"-"<<k<<" :"<<timeline2[k]<<"(s)"<<endl;
     }
-
+    */
     cout<<"It can't be like this"<<endl;
     //Free memory
     cudaFree(timeline1);
