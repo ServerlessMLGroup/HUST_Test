@@ -14,6 +14,17 @@
 #include <stdio.h>
 using namespace std;
 
+__global__ void kernel_timer(long long unsigned *times,int j) {
+		unsigned long long mclk2;
+		if (threadIdx.x == 0){
+		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+		times[j] = mclk2/ 1000000;
+		}
+	}
+}
+
+
+
 //Mutex
 mutex mtx1_1;
 mutex mtx1_2;
@@ -80,7 +91,7 @@ void CUDART_CB thread2_3callback(void *data) {
     workend2.unlock();
 }
 
-void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size)
+void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number)
 {
     //set CPU
     cpu_set_t mask;
@@ -90,12 +101,16 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size)
     {
             perror("pthread_setaffinity_np");
     }
-
+    kernel_timer <<<1, 1, 0, stream>>>(timeline,0);
     for(int i=0;i < 10;i++)
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
+    kernel_timer <<<1, 1, 0, stream>>>(timeline,i+1);
     }
-
+    for(int k=0;k < 11;k++)
+    {
+    cout<<"Timeline"<<number<<"-"<<k<<" :"<<timeline[k]<<"(s)"<<endl;
+    }
 }
 
 void thread2(cudaStream_t stream,float* d_a,float* h_a,size_t size)
@@ -109,6 +124,7 @@ void thread2(cudaStream_t stream,float* d_a,float* h_a,size_t size)
             perror("pthread_setaffinity_np");
     }
 
+
     for(int i=0;i < 10;i++)
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
@@ -119,7 +135,7 @@ void thread2(cudaStream_t stream,float* d_a,float* h_a,size_t size)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(0);
+    cudaSetDevice(1);
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
@@ -140,7 +156,10 @@ int main()
     //cudaSetDevice(0);
     float* d_C;
     cudaMalloc(&d_C, size);
-
+    long long unsigned *timeline1;
+	long long unsigned *timeline2;
+	cudaMalloc(&timeline1, 11 * sizeof(long long unsigned));
+    cudaMalloc(&timeline2, 11 * sizeof(long long unsigned));
 
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
@@ -158,6 +177,8 @@ int main()
 	*(h_B + i) = u(e);
 	*(h_C + i) = u(e);
     }
+
+
 
     //Create Stream
     cudaStream_t firststream;
@@ -185,8 +206,8 @@ int main()
 
 
     
-    thread first=thread(thread1,firststream,d_A,d_A,size);
-    thread second=thread(thread2,secondstream,d_B,d_B,size);
+    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1);
+    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2);
     second.join();
     first.join();
     
