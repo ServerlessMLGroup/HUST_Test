@@ -69,7 +69,8 @@ __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *t
 	while(flag[0] != 1) {
 		if (threadIdx.x == 0)
 			sleep_time[blockIdx.x]++;
-		__nanosleep(1000000); // 1ms
+		//__nanosleep(1000000); // 1ms
+		__nanosleep(500000); // 500us
 	}
 	#else
 	printf(">>> __CUDA_ARCH__ !\n");
