@@ -157,8 +157,10 @@ int main()
     cudaMalloc(&d_C, size);
     long long unsigned *timeline1;
 	long long unsigned *timeline2;
-	cudaMalloc(&timeline1, 11 * sizeof(long long unsigned));
-    cudaMalloc(&timeline2, 11 * sizeof(long long unsigned));
+
+	size_t size2 = 11 * sizeof(long long unsigned);
+	cudaMalloc(&timeline1, size2);
+    cudaMalloc(&timeline2, size2);
 
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
@@ -219,10 +221,11 @@ int main()
     workend2.lock();
 
 
-    size = 11 * sizeof(long long unsigned);
     long long unsigned* timelineh1,timelineh2;
-    timelineh1 =(long long unsigned*)malloc(size);
-    timelineh2 =(long long unsigned*)malloc(size);
+    timelineh1 =(long long unsigned*)malloc(size2);
+
+
+    timelineh2 =(long long unsigned*)malloc(size2);
 
     cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
     cudaMemcpy(timelineh2, timeline2, size, cudaMemcpyDeviceToHost);
