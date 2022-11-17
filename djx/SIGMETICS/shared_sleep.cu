@@ -56,7 +56,7 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 	if (threadIdx.x == 0) {
 		unsigned long long mclk2;
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[blockIdx.x] = (mclk2 - mclk) / 1000000;
+		times[blockIdx.x] = (mclk2 - mclk) / 1000; // us
 	}
     flag[0] = 1;
 }
@@ -70,7 +70,8 @@ __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *t
 		if (threadIdx.x == 0)
 			sleep_time[blockIdx.x]++;
 		//__nanosleep(1000000); // 1ms
-		__nanosleep(500000); // 500us
+		// __nanosleep(500000); // 500us
+		__nanosleep(100000); // 100us
 	}
 	#else
 	printf(">>> __CUDA_ARCH__ !\n");
@@ -90,7 +91,7 @@ __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *t
 	if (threadIdx.x == 0) {
 		unsigned long long mclk2;
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[blockIdx.x] = (mclk2 - mclk) / 1000000;
+		times[blockIdx.x] = (mclk2 - mclk) / 1000; // us
 	}
 }
 
