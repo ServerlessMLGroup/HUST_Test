@@ -90,6 +90,13 @@ void CUDART_CB thread2_3callback(void *data) {
     workend2.unlock();
 }
 
+void CUDART_CB timercallback(long long unsigned *timeline,int number) {
+     for(int k=0;k < 11;k++)
+    {
+    cout<<"Timeline"<<number<<"-"<<k<<" :"<<timeline[k]<<"(s)"<<endl;
+    }
+}
+
 void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number)
 {
     //set CPU
@@ -105,10 +112,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
     kernel_timer <<<1, 1, 0, stream>>>(timeline,i+1);
-    }
-    for(int k=0;k < 11;k++)
-    {
-    cout<<"Timeline"<<number<<"-"<<k<<" :"<<timeline[k]<<"(s)"<<endl;
+
     }
 }
 
@@ -202,6 +206,7 @@ int main()
     cudaHostFn_t fn6 = thread2_1callback;
     cudaHostFn_t fn7 = thread2_2callback;
     cudaHostFn_t fn8 = thread2_3callback;
+    cudaHostFn_t fn9 = timercallback;
 
 
     
@@ -210,7 +215,8 @@ int main()
     second.join();
     first.join();
     
-
+    cudaLaunchHostFunc(firststream, fn9, timeline1,1);
+    cudaLaunchHostFunc(secondstream, fn9,timeline2,2);
     cudaLaunchHostFunc(firststream, fn5, 0);
 
     cudaLaunchHostFunc(secondstream, fn8, 0);
