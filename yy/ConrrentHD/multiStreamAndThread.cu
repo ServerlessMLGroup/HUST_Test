@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include<cuda_runtime.h>
 using namespace std;
+#define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
 //Mutex
 mutex mtx1_1;
@@ -51,7 +52,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 
 
 __global__ void kernel_flager(int i,int *flag) {
-		flag[i] = 1);
+		flag[i] = 1;
 }
 
 
@@ -214,8 +215,8 @@ int main()
     cudaStreamCreate(&secondstream);
     cudaStreamCreate(&flagonestream);
     cudaStreamCreate(&flagtwostream);
-    kernel_timer1<<<1,1,0,flagonestream>>>(timeline1,flag1);
-    kernel_timer2<<<1,1,0,flagtwostream>>>(timeline2,flag2);
+    kernel_timer<<<1,1,0,flagonestream>>>(timeline1,flag1);
+    kernel_timer<<<1,1,0,flagtwostream>>>(timeline2,flag2);
 
     //cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
