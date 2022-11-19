@@ -146,11 +146,11 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	dim3 Dgb = dim3(b_blocks,1,1);
     // warm-up
     for (int i = 0; i < 50; ++i) {
-        kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 50000, g_flag_warm);
+        kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000, g_flag_warm);
     }
 	cudaDeviceSynchronize();
     // test kernel
-	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 50000, g_flag);
+	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000, g_flag);
     // sleep until kernel finish
 	//kernel_sleep <<<Dgb, Dbb, 0, streams[1]>>>(15.6, 64.9, 134.7, d_sm_ids2, 50000, g_flag, d_sleep_time, d_sleep_sm);
 	
@@ -162,22 +162,26 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
+    long long unsigned maxm = 0, minm = 0x3f3f3f3f;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
 		printf("%llu\n", h_sm_ids[i]);
+        maxm = max(maxm, h_sm_ids[i]);
+        minm = min(minm, h_sm_ids[i]);
 	}
-	printf("---2---\n");
-	for (int i = 0; i < b_blocks; i++) {
-		printf("%llu\n", h_sm_ids2[i]);
-	}
-	printf("---sleep_times---\n");
-	for (int i = 0; i < b_blocks; i++) {
-		printf("block-%d : %llu\n", i, h_sleep_time[i]);
-	}
-	printf("---sleep_sm---\n");
-	for (int i = 0; i < b_blocks; ++i) {
-		printf("block-%d : %llu\n", i, h_sleep_sm[i]);
-	}
+    printf("max:%llu, min%llu", maxm, minm);
+	// printf("---2---\n");
+	// for (int i = 0; i < b_blocks; i++) {
+	// 	printf("%llu\n", h_sm_ids2[i]);
+	// }
+	// printf("---sleep_times---\n");
+	// for (int i = 0; i < b_blocks; i++) {
+	// 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
+	// }
+	// printf("---sleep_sm---\n");
+	// for (int i = 0; i < b_blocks; ++i) {
+	// 	printf("block-%d : %llu\n", i, h_sleep_sm[i]);
+	// }
 	
 	cudaFree(d_sm_ids);
 	cudaFree(d_sm_ids2);
