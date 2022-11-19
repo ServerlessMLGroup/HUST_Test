@@ -37,16 +37,18 @@ __device__ uint get_smid(void) {
   
 }
 
-__global__ void kernel(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag) {
+__global__ void kernel(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_sm) {
+    // __syncthreads();
 	// if (threadIdx.x == 0) {
-	// 	int sm = get_smid();
-	// 	printf("kernel-sm:%d\n", sm);
+	// 	sleep_sm[blockIdx.x] = get_smid();
 	// }
+    __syncthreads();
 	unsigned long long mclk; 
 	if (threadIdx.x == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+		times[blockIdx.x] = (mclk) / 1000; // us
 	}
-
+    __syncthreads();
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
@@ -56,9 +58,11 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 	if (threadIdx.x == 0) {
 		unsigned long long mclk2;
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[blockIdx.x] = (mclk2 - mclk) / 1000; // us
+		times[blockIdx.x + 80] = (mclk2) / 1000; // us
 	}
-    flag[0] = 1;
+    // flag[0] = 1;
+    __syncthreads();
+    // flag[0] = 1;
 }
 
 __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_time, long long unsigned * sleep_sm) {
@@ -104,9 +108,9 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	}
 	
     // allocate resource
-	long long unsigned *h_sm_ids = new long long unsigned[a_blocks];
+	long long unsigned *h_sm_ids = new long long unsigned[a_blocks * 2];
 	long long unsigned *d_sm_ids;
-	cudaMalloc(&d_sm_ids, a_blocks * sizeof(long long unsigned));
+	cudaMalloc(&d_sm_ids, a_blocks * sizeof(long long unsigned) * 2);
 	
 	long long unsigned *h_sm_ids2 = new long long unsigned[b_blocks];
 	long long unsigned *d_sm_ids2;
@@ -145,31 +149,37 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	dim3 Dbb = dim3(b_threads);
 	dim3 Dgb = dim3(b_blocks,1,1);
     // warm-up
-    for (int i = 0; i < 50; ++i) {
-        kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000, g_flag_warm);
+    for (int i = 0; i < 100; ++i) {
+        kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 100000, g_flag_warm, d_sleep_sm);
     }
 	cudaDeviceSynchronize();
     // test kernel
-	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 5000, g_flag);
+	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 100000, g_flag, d_sleep_sm);
     // sleep until kernel finish
 	//kernel_sleep <<<Dgb, Dbb, 0, streams[1]>>>(15.6, 64.9, 134.7, d_sm_ids2, 50000, g_flag, d_sleep_time, d_sleep_sm);
 	
 	cudaDeviceSynchronize();
 	
-	cudaMemcpy(h_sm_ids, d_sm_ids, a_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+	cudaMemcpy(h_sm_ids, d_sm_ids, a_blocks * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sm_ids2, d_sm_ids2, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
 	cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
-    long long unsigned maxm = 0, minm = 0x3f3f3f3f;
+    long long unsigned maxm = 0, minm = 2668828023469159;
+	long long unsigned maxm_e = 0, minm_e = 2668828023469159;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
-		printf("%llu\n", h_sm_ids[i]);
+		printf("blcok%d:%llu-%llu\n", i, h_sm_ids[i], h_sm_ids[i + a_blocks]);
+        // printf("block-%d : %llu\n", i, h_sleep_sm[i]);
         maxm = max(maxm, h_sm_ids[i]);
         minm = min(minm, h_sm_ids[i]);
+		maxm_e = max(maxm_e, h_sm_ids[i + a_blocks]);
+        minm_e = min(minm_e, h_sm_ids[i + a_blocks]);
 	}
-    printf("max:%llu, min%llu", maxm, minm);
+    printf("START_TIMING:max-%llu, min-%llu\n", maxm, minm);
+	printf("END_TIMING:max-%llu, min-%llu\n", maxm_e, minm_e);
+	printf("DURATION:%llu\n", maxm_e - maxm);
 	// printf("---2---\n");
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("%llu\n", h_sm_ids2[i]);
@@ -178,7 +188,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
 	// }
-	// printf("---sleep_sm---\n");
+	// printf("---sm---\n");
 	// for (int i = 0; i < b_blocks; ++i) {
 	// 	printf("block-%d : %llu\n", i, h_sleep_sm[i]);
 	// }
@@ -195,7 +205,7 @@ int main(int argc, char *argv[]) {
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
-	run_kernel(80, 80, 512, 512);
+	run_kernel(80, 80, 32, 32);
 
 	return 0;
 }
