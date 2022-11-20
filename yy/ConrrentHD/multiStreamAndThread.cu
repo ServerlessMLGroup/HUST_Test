@@ -188,18 +188,18 @@ int main()
     //divide the formal funtion here
     cudaHostFn_t fn5 = thread1_5callback;
     cudaHostFn_t fn8 = thread2_3callback;
-    cudaLaunchHostFunc(flagonestream, fn5, 0);
-    cudaLaunchHostFunc(flagtwostream, fn8, 0);
+    //cudaLaunchHostFunc(flagonestream, fn5, 0);
+    //cudaLaunchHostFunc(flagtwostream, fn8, 0);
 
-    //thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
-    //thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
+    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
+    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
     second.join();
     first.join();
 
 
     cudaLaunchHostFunc(firststream, fn5, 0);
     cudaLaunchHostFunc(secondstream, fn8, 0);
-    
+
 
     cout<<"reach here"<<endl;
     workend1.lock();
