@@ -77,6 +77,7 @@ void CUDART_CB thread2_3callback(void *data) {
 void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
 {
     //set CPU
+    /*
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(16, &mask); //指定该线程使用的CPU
@@ -84,6 +85,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
+    */
     kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000,timeline,0);
     //flag[0] = 1;
     //kernel_flager<<<1,1,0,stream>>>(0,flag);
@@ -103,13 +105,14 @@ int main()
     cuInit(0);
     cudaSetDevice(2);
 
+    /*
     cpu_set_t mask;
     CPU_ZERO(&mask);
     CPU_SET(16, &mask); //指定该线程使用的CPU
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-
+    */
     int N = 4*52428800/20;
     size_t size = N * sizeof(float);
 
