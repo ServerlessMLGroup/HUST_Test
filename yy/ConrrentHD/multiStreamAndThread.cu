@@ -31,13 +31,16 @@ double singletime = 0.0;
 double cotime1=0.0;
 double cotime2=0.0;
 
-__global__ void kernel(float n1, float n2, float n3, int stop) {
+__global__ void kernel(float n1, float n2, float n3, int stop,long long unsigned *times,int i) {
 
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
 	}
-
+    if (threadIdx.x == 0){
+		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+		times[i] = mclk2/ 1000000;
+    }
 }
 
 
@@ -50,7 +53,6 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		        __nanosleep(5000); // 500us
 		        //__syncthreads();
               }
-
 		    if (threadIdx.x == 0){
 		    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		    times[i] = mclk2/ 1000000;
@@ -82,16 +84,16 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
-    //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
+    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100,timeline,0);
     //flag[0] = 1;
-    kernel_flager<<<1,1,0,stream>>>(0,&flag);
+    //kernel_flager<<<1,1,0,stream>>>(0,flag);
 
     for(int i=1;i < 11;i++)
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    kernel_flager<<<1,1,0,stream>>>(i,&flag);
-    //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,10000);
+    //kernel_flager<<<1,1,0,stream>>>(i,flag);
+    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100,timeline,i);
     }
 
 }
@@ -168,15 +170,15 @@ int main()
     //Create Stream
     cudaStream_t firststream;
     cudaStream_t secondstream;
-    cudaStream_t flagonestream;
-    cudaStream_t flagtwostream;
+    //cudaStream_t flagonestream;
+    //cudaStream_t flagtwostream;
     cudaStreamCreate(&firststream);
     cudaStreamCreate(&secondstream);
-    cudaStreamCreate(&flagonestream);
-    cudaStreamCreate(&flagtwostream);
+    //cudaStreamCreate(&flagonestream);
+    //cudaStreamCreate(&flagtwostream);
 
-    kernel_timer<<<1,1,0,flagonestream>>>(timeline1,flag1);
-    kernel_timer<<<1,1,0,flagtwostream>>>(timeline2,flag2);
+    //kernel_timer<<<1,1,0,flagonestream>>>(timeline1,flag1);
+    //kernel_timer<<<1,1,0,flagtwostream>>>(timeline2,flag2);
 
 
 
