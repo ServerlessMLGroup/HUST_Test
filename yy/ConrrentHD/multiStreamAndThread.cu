@@ -90,7 +90,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    kernel_flager<<<1,1,0,stream>>>(i,*flag);
+    kernel_flager<<<1,1,0,stream>>>(i,flag);
     kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     }
 
