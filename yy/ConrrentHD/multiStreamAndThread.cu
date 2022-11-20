@@ -110,7 +110,7 @@ int main()
             perror("pthread_setaffinity_np");
     }
 
-    int N = 4*52428800;
+    int N = 4*52428800/20;
     size_t size = N * sizeof(float);
 
     double testtime;
