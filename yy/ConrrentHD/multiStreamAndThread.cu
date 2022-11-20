@@ -191,15 +191,15 @@ int main()
     cudaLaunchHostFunc(flagonestream, fn5, 0);
     cudaLaunchHostFunc(flagtwostream, fn8, 0);
 
-    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
-    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
+    //thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
+    //thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
     second.join();
     first.join();
 
-    /*
+
     cudaLaunchHostFunc(firststream, fn5, 0);
     cudaLaunchHostFunc(secondstream, fn8, 0);
-    */
+    
 
     cout<<"reach here"<<endl;
     workend1.lock();
