@@ -84,7 +84,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
-    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100,timeline,0);
+    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,100,timeline,0);
     //flag[0] = 1;
     //kernel_flager<<<1,1,0,stream>>>(0,flag);
 
@@ -93,7 +93,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
     //kernel_flager<<<1,1,0,stream>>>(i,flag);
-    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100,timeline,i);
+    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,100,timeline,i);
     }
 
 }
@@ -110,7 +110,7 @@ int main()
             perror("pthread_setaffinity_np");
     }
 
-    int N = 4*52428800/20;
+    int N = 4*52428800;
     size_t size = N * sizeof(float);
 
     double testtime;
