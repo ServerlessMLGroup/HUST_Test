@@ -60,7 +60,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 }
 
 
-__global__ void kernel_flager(fint i,int *flag) {
+__global__ void kernel_flager(int i,int *flag) {
 		flag[i] = 1;
 }
 
