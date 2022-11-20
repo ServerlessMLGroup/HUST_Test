@@ -32,7 +32,7 @@ double cotime1=0.0;
 double cotime2=0.0;
 
 __global__ void kernel(float n1, float n2, float n3, int stop,long long unsigned *times,int i) {
-
+    unsigned long long mclk2;
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
