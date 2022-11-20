@@ -48,6 +48,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		{
 		    while(flag[i] != 1) {
 		        __nanosleep(5000); // 500us
+		        __syncthreads();
               }
 		    if (threadIdx.x == 0){
 		    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
@@ -227,12 +228,12 @@ int main()
 
     cout<<"It can't be like this"<<endl;
     //Free memory
-    /*
+
     cudaFree(timeline1);
     cudaFree(timeline2);
     cudaFree(flag1);
     cudaFree(flag2);
-    */
+
     cudaFree(d_A);
     cudaFree(d_B);
     cudaFree(d_C);
