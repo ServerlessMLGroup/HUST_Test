@@ -63,13 +63,10 @@ __global__ void kernel_flager(int i,int *flag) {
 }
 
 void CUDART_CB thread1_5callback(void *data) {
-    //cout<<"single time: "<<singletime<<" s"<<endl;
-    //cout<<"cocurrent time1111: "<<cotime1<<" s"<<endl;
     workend1.unlock();
 }
 
 void CUDART_CB thread2_3callback(void *data) {
-    //cout<<"cocurrent time2222: "<<cotime2<<" s"<<endl;
     workend2.unlock();
 }
 
@@ -83,15 +80,15 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
-    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
-    //kernel_flager<<<1,1,0,stream>>>(0,flag);
+    //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
+    kernel_flager<<<1,1,0,stream>>>(0,flag);
 
     for(int i=1;i < 11;i++)
     {
-    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
+    //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    //kernel_flager<<<1,1,0,stream>>>(i,flag);
-    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
+    kernel_flager<<<1,1,0,stream>>>(i,flag);
+    //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     }
 
 }
@@ -99,7 +96,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 int main()
 {
     cuInit(0);
-    cudaSetDevice(3);
+    cudaSetDevice(2);
 
     cpu_set_t mask;
     CPU_ZERO(&mask);
@@ -117,7 +114,6 @@ int main()
     float* d_B;
     cudaMalloc(&d_B, size);
 
-    //cudaSetDevice(0);
     float* d_C;
     cudaMalloc(&d_C, size);
 
@@ -131,19 +127,21 @@ int main()
     flag1h = (int*) malloc(11 * sizeof(int));
     flag2h = (int*) malloc(11 * sizeof(int));
 
-
+    //use 111 instaead to check
 	size_t size2 = 111 * sizeof(long long unsigned);
 	cudaMalloc(&timeline1, size2);
     cudaMalloc(&timeline2, size2);
+
     size_t size3 = 111*sizeof(int);
     cudaMalloc(&flag1, size3);
     cudaMalloc(&flag2, size3);
 
-    for(int i=0;i<10;i++)
+    for(int i=0;i<11;i++)
     {
     flag1h[i]=0;
     flag2h[i]=0;
     }
+
     cudaMemcpy(flag1, flag1h, sizeof(int) * 11, cudaMemcpyHostToDevice);
     cudaMemcpy(flag2, flag2h, sizeof(int) * 11, cudaMemcpyHostToDevice);
 
@@ -171,13 +169,12 @@ int main()
     cudaStream_t flagtwostream;
     cudaStreamCreate(&firststream);
     cudaStreamCreate(&secondstream);
-
-    /*
     cudaStreamCreate(&flagonestream);
     cudaStreamCreate(&flagtwostream);
+
     kernel_timer<<<1,1,0,flagonestream>>>(timeline1,flag1);
     kernel_timer<<<1,1,0,flagtwostream>>>(timeline2,flag2);
-    */
+
 
 
     //cudaMemcpyAsync(d_A, h_A,size/2, cudaMemcpyHostToDevice, firststream);
@@ -191,26 +188,24 @@ int main()
     //divide the formal funtion here
     cudaHostFn_t fn5 = thread1_5callback;
     cudaHostFn_t fn8 = thread2_3callback;
-    
+    cudaLaunchHostFunc(flagonestream, fn5, 0);
+    cudaLaunchHostFunc(flagtwostream, fn8, 0);
+
     thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
     thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
     second.join();
     first.join();
-    cudaLaunchHostFunc(firststream, fn5, 0);
-    cudaLaunchHostFunc(secondstream, fn8, 0);
 
     /*
-    cudaLaunchHostFunc(flagonestream, fn5, 0);
-
-    cudaLaunchHostFunc(flagtwostream, fn8, 0);
+    cudaLaunchHostFunc(firststream, fn5, 0);
+    cudaLaunchHostFunc(secondstream, fn8, 0);
     */
-
 
     cout<<"reach here"<<endl;
     workend1.lock();
     workend2.lock();
 
-    /*
+
     long long unsigned* timelineh1;
     long long unsigned* timelineh2;
     timelineh1 =(long long unsigned*)malloc(size2);
@@ -218,8 +213,8 @@ int main()
     timelineh2 =(long long unsigned*)malloc(size2);
 
 
-    cudaMemcpy(timelineh1, timeline1, size, cudaMemcpyDeviceToHost);
-    cudaMemcpy(timelineh2, timeline2, size, cudaMemcpyDeviceToHost);
+    cudaMemcpy(timelineh1, timeline1, size2, cudaMemcpyDeviceToHost);
+    cudaMemcpy(timelineh2, timeline2, size2, cudaMemcpyDeviceToHost);
 
     for(int k=0;k< 11;k++)
     {
@@ -234,7 +229,7 @@ int main()
     //Free memory
     cudaFree(timeline1);
     cudaFree(timeline2);
-    */
+
     cudaFree(d_A);
     cudaFree(d_B);
     cudaFree(d_C);
