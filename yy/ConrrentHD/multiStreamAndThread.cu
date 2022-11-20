@@ -60,9 +60,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 }
 
 
-__global__ void kernel_flager(float n1, float n2, float n3,int i,int *flag) {
-		n1=sinf(n1);
-		n2=n3/n2;
+__global__ void kernel_flager(fint i,int *flag) {
 		flag[i] = 1;
 }
 
@@ -74,7 +72,7 @@ void CUDART_CB thread2_3callback(void *data) {
     workend2.unlock();
 }
 
-void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
+void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int **flag)
 {
     //set CPU
     cpu_set_t mask;
@@ -86,13 +84,13 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     }
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     //flag[0] = 1;
-    kernel_flager<<<1,1,0,stream>>>(1.0,2.0,3.0,0,flag);
+    kernel_flager<<<1,1,0,stream>>>(0,*flag);
 
     for(int i=1;i < 11;i++)
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    kernel_flager<<<1,1,0,stream>>>(1.0,2.0,3.0,i,flag);
+    kernel_flager<<<1,1,0,stream>>>(i,*flag);
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     }
 
@@ -196,8 +194,8 @@ int main()
     //cudaLaunchHostFunc(flagonestream, fn5, 0);
     //cudaLaunchHostFunc(flagtwostream, fn8, 0);
 
-    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
-    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
+    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,&flag1);
+    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,&flag2);
     second.join();
     first.join();
 
