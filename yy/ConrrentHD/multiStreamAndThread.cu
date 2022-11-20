@@ -132,14 +132,14 @@ int main()
 	cudaMalloc(&timeline1, size2);
     cudaMalloc(&timeline2, size2);
 
-    size_t size3 = 111*sizeof(int);
+    size_t size3 = 11*sizeof(int);
     cudaMalloc(&flag1, size3);
     cudaMalloc(&flag2, size3);
 
     for(int i=0;i<11;i++)
     {
-    flag1h[i]=1;
-    flag2h[i]=1;
+    flag1h[i]=0;
+    flag2h[i]=0;
     }
 
     cudaMemcpy(flag1, flag1h, sizeof(int) * 11, cudaMemcpyHostToDevice);
@@ -222,7 +222,7 @@ int main()
     }
     for(int k=0;k< 11;k++)
     {
-    printf("Timeline0-%d %llu (s)\n",k, timelineh2[k]);
+    printf("Timeline1-%d %llu (s)\n",k, timelineh2[k]);
     }
 
     cout<<"It can't be like this"<<endl;
