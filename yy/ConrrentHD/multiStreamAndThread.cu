@@ -175,8 +175,8 @@ int main()
     cudaStreamCreate(&flagonestream);
     cudaStreamCreate(&flagtwostream);
 
-    kernel_timer<<<1,1,0,flagonestream>>>(timeline1,flag1);
-    kernel_timer<<<1,1,0,flagtwostream>>>(timeline2,flag2);
+    //kernel_timer<<<1,1,0,flagonestream>>>(timeline1,flag1);
+    //kernel_timer<<<1,1,0,flagtwostream>>>(timeline2,flag2);
 
 
 
