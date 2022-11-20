@@ -72,7 +72,7 @@ void CUDART_CB thread2_3callback(void *data) {
     workend2.unlock();
 }
 
-void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int **flag)
+void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
 {
     //set CPU
     cpu_set_t mask;
@@ -82,16 +82,16 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
-    //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
+    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     //flag[0] = 1;
-    kernel_flager<<<1,1,0,stream>>>(0,*flag);
+    //kernel_flager<<<1,1,0,stream>>>(0,flag);
 
     for(int i=1;i < 11;i++)
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
     kernel_flager<<<1,1,0,stream>>>(i,*flag);
-    //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
+    kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     }
 
 }
