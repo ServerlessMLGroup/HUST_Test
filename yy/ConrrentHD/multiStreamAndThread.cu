@@ -227,9 +227,12 @@ int main()
 
     cout<<"It can't be like this"<<endl;
     //Free memory
+    /*
     cudaFree(timeline1);
     cudaFree(timeline2);
-
+    cudaFree(flag1);
+    cudaFree(flag2);
+    */
     cudaFree(d_A);
     cudaFree(d_B);
     cudaFree(d_C);
