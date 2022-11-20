@@ -46,10 +46,12 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		int i=0;
 		while(i<11)
 		{
+		    /*
 		    while(flag[i] != 1) {
 		        __nanosleep(5000); // 500us
-		        __syncthreads();
+		        //__syncthreads();
               }
+             */
 		    if (threadIdx.x == 0){
 		    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		    times[i] = mclk2/ 1000000;
