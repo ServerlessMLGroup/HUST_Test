@@ -138,8 +138,8 @@ int main()
 
     for(int i=0;i<11;i++)
     {
-    flag1h[i]=0;
-    flag2h[i]=0;
+    flag1h[i]=1;
+    flag2h[i]=1;
     }
 
     cudaMemcpy(flag1, flag1h, sizeof(int) * 11, cudaMemcpyHostToDevice);
