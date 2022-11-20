@@ -46,7 +46,6 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		int i=0;
 		while(i<11)
 		{
-		    
 		    while(flag[0] != 1) {
 		        __nanosleep(5000); // 500us
 		        //__syncthreads();
@@ -84,6 +83,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
             perror("pthread_setaffinity_np");
     }
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
+    flag[0] = 1;
     kernel_flager<<<1,1,0,stream>>>(0,flag);
 
     for(int i=1;i < 11;i++)
