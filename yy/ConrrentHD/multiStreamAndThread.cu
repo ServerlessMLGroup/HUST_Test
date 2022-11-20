@@ -60,7 +60,9 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 }
 
 
-__global__ void kernel_flager(int i,int *flag) {
+__global__ void kernel_flager(float n1, float n2, float n3,int i,int *flag) {
+		n1=sinf(n1);
+		n2=n3/n2;
 		flag[i] = 1;
 }
 
@@ -83,14 +85,14 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
             perror("pthread_setaffinity_np");
     }
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
-    flag[0] = 1;
-    kernel_flager<<<1,1,0,stream>>>(0,flag);
+    //flag[0] = 1;
+    kernel_flager<<<1,1,0,stream>>>(1.0,2.0,3.0,0,flag);
 
     for(int i=1;i < 11;i++)
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    kernel_flager<<<1,1,0,stream>>>(i,flag);
+    kernel_flager<<<1,1,0,stream>>>(1.0,2.0,3.0,i,flag);
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     }
 
