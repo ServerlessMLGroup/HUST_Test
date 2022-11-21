@@ -166,9 +166,14 @@ int main()
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
     for(int i=0;i < N; ++i){
+    /*
     *(h_A + i) = u(e);
 	*(h_B + i) = u(e);
 	*(h_C + i) = u(e);
+    */
+    *(h_A + i) = 1;
+	*(h_B + i) = 1;
+	*(h_C + i) = 1;
     }
 
     //Create Stream
@@ -221,6 +226,24 @@ int main()
 
     cout<<"reach here"<<endl;
     workend1.lock();
+
+    //change
+    for(int i=0;i < N; ++i){
+    /*
+    *(h_A + i) = u(e);
+	*(h_B + i) = u(e);
+	*(h_C + i) = u(e);
+    */
+    *(h_A + i) = 0;
+	*(h_B + i) = 0;
+	*(h_C + i) = 0;
+    }
+    cudaMemcpy(h_A, d_A,size, cudaMemcpyDeviceToHost);
+    for(int i=0;i < 10; ++i){
+    cout<<"now  data"<<*(h_A + i)<<endl;
+    }
+
+
     //workend2.lock();
 
     //check the kernel
