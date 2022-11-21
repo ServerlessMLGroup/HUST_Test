@@ -115,7 +115,7 @@ int main()
             perror("pthread_setaffinity_np");
     }
     */
-    int N = 4*52428800;
+    int N = 4*52428800/20;
     size_t size = N * sizeof(float);
 
     double testtime;
@@ -196,7 +196,7 @@ int main()
     //workend2.lock();
 
     //kernel test
-    kernel<<<1,32,0,firststream>>>(1.0,2.0,3.0,100000,timeline1,2);
+    kernel<<<1,32,0,firststream>>>(1.0,2.0,3.0,1000000,timeline1,2);
 
 
 
