@@ -196,7 +196,7 @@ int main()
     //workend2.lock();
 
     //kernel test
-    kernel<<<1,32,0,firststream>>>(1.0,2.0,3.0,i*100000,timeline1,2);
+    kernel<<<1,32,0,firststream>>>(1.0,2.0,3.0,100000,timeline1,2);
 
 
 
