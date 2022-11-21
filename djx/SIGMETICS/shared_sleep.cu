@@ -141,7 +141,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	dim3 Dbb = dim3(b_threads);
 	dim3 Dgb = dim3(b_blocks,1,1);
     // warm-up
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 100; ++i) {
         kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 8000, g_flag_warm);
     }
 	cudaDeviceSynchronize();
@@ -170,11 +170,12 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
     printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
 	printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
 	printf("DURATION:%llu(us)\n", maxm_e - maxm);
-
+        
 	maxm = 0; minm = 1768959725180341;
 	maxm_e = 0; minm_e = 1768959725180341;
 	printf("---2---\n");
 	for (int i = 0; i < b_blocks; i++) {
+	//	printf("blcok%d:%llu-%llu\n",i, h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
         maxm = max(maxm, h_sm_ids2[i]);
         minm = min(minm, h_sm_ids2[i]);
 		maxm_e = max(maxm_e, h_sm_ids2[i + b_blocks]);

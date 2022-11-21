@@ -146,20 +146,21 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
-    long long unsigned maxm = 0, minm = 2668828023469159;
+    long long unsigned maxm = 0, minm = 2668828023469159, max2=0;
 	long long unsigned maxm_e = 0, minm_e = 2668828023469159;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
-        printf("blcok%d: %llu \n", i,  h_sm_ids[i + a_blocks]- h_sm_ids[i]);
+        printf("blcok%d: %llu - %llu  %llu \n", i, h_sm_ids[i], h_sm_ids[i + a_blocks] , h_sm_ids[i + a_blocks]- h_sm_ids[i]);
         // printf("block-%d : %llu\n", i, h_sleep_sm[i]);
         maxm = max(maxm, h_sm_ids[i]);
         minm = min(minm, h_sm_ids[i]);
 		maxm_e = max(maxm_e, h_sm_ids[i + a_blocks]);
         minm_e = min(minm_e, h_sm_ids[i + a_blocks]);
+	max2 = max(max2, h_sm_ids[i + a_blocks]- h_sm_ids[i]);
 	}
     printf("START_TIMING:max-%llu, min-%llu\n", maxm, minm);
 	printf("END_TIMING:max-%llu, min-%llu\n", maxm_e, minm_e);
-	printf("DURATION:%llu\n", maxm_e - maxm);
+	printf("DURATION:%llu\n", max2);
 	// printf("---2---\n");
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("%llu\n", h_sm_ids2[i]);
