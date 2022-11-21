@@ -90,7 +90,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     //rnel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000,timeline,0);
     //flag[0] = 1;
     kernel_flager<<<1,1,0,stream>>>(0,flag);
-
+    cout<<"flag: "<<flag<<endl;
     for(int i=1;i < 11;i++)
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
@@ -205,6 +205,10 @@ int main()
     //cudaLaunchHostFunc(flagonestream, fn5, 0);
     //cudaLaunchHostFunc(flagtwostream, fn8, 0);
 
+
+    cout<<"flag: "<<flag1<<endl;
+
+
     thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
     //thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
     //second.join();
@@ -223,7 +227,7 @@ int main()
     cudaMemcpy(flag1h, flag1, sizeof(int) * 11, cudaMemcpyDeviceToHost);
     for(int k=0;k< 11;k++)
     {
-    printf("flag1-%d %d (s)\n",k, flag1h[k]);
+    printf("flag1-%d %d \n",k, flag1h[k]);
     }
 
     long long unsigned* timelineh1;
