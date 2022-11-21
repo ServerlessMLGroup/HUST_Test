@@ -195,6 +195,11 @@ int main()
     workend1.lock();
     //workend2.lock();
 
+    //kernel test
+    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,i*100000,timeline1,2);
+
+
+
     //divide the formal funtion here
     cudaHostFn_t fn5 = thread1_5callback;
     cudaHostFn_t fn8 = thread2_3callback;
