@@ -37,10 +37,12 @@ __global__ void kernel(float n1, float n2, float n3, int stop,long long unsigned
 		n1=sinf(n1);
 		n2=n3/n2;
 	}
+    /*
     if (threadIdx.x == 0){
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		times[i] = mclk2/ 1000000;
     }
+    */
 }
 
 
@@ -86,7 +88,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
             perror("pthread_setaffinity_np");
     }
     */
-    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000,timeline,0);
+    ke//rnel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000,timeline,0);
     //flag[0] = 1;
     //kernel_flager<<<1,1,0,stream>>>(0,flag);
 
@@ -95,7 +97,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
     //kernel_flager<<<1,1,0,stream>>>(i,flag);
-    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000,timeline,i);
+    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,i*10000,timeline,i);
     }
 
 }
