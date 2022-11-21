@@ -13,7 +13,7 @@ int main()
             << "Kernel1Duration" << ','
             << "Kernel2Start" << ','
             << "Kernel2End" << ','
-            << "Kernel2Duration" << ','
+            << "Kernel2Duration"
             << std::endl;
     outFile.close();
     return 0;
