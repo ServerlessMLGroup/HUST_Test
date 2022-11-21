@@ -4,7 +4,7 @@
 #include<cuda_runtime.h>
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 // nvcc -arch=native ex.cu -o ex_sleep
-
+// 1:540
 #define GPU_RETURN_STATUS(cmd) \
 { \
     CUresult result = cmd; \
@@ -38,17 +38,12 @@ __device__ uint get_smid(void) {
 }
 
 __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_sm) {
-    // __syncthreads();
-	// if (threadIdx.x == 0) {
-	// 	sleep_sm[blockIdx.x] = get_smid();
-	// }
-    __syncthreads();
 	unsigned long long mclk; 
 	if (threadIdx.x == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.x] = (mclk) / 1000; // us
 	}
-    __syncthreads();
+    // __syncthreads();
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
@@ -61,42 +56,27 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 		times[blockIdx.x + 80] = (mclk2) / 1000; // us
 	}
     // flag[0] = 1;
-    __syncthreads();
+    // __syncthreads();
     // flag[0] = 1;
 }
 
-__global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_time, long long unsigned * sleep_sm) {
-	if (threadIdx.x == 0) {
-		sleep_sm[blockIdx.x] = get_smid();
-	}
-    #if __CUDA_ARCH__ >= 700
-	while(flag[0] != 1) {
-		if (threadIdx.x == 0)
-			sleep_time[blockIdx.x]++;
-		//__nanosleep(1000000); // 1ms
-		// __nanosleep(500000); // 500us
-		__nanosleep(100000); // 100us
-		__syncthreads();
-	}
-	#else
-	printf(">>> __CUDA_ARCH__ !\n");
-	#endif
-	// __syncthreads(); // 如果加入这一行，那么稳定出现20ms计算延迟
-    unsigned long long mclk; 
+__global__ void kernel_(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_sm) {
+
+	unsigned long long mclk; 
 	if (threadIdx.x == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+		times[blockIdx.x] = (mclk) / 1000; // us
 	}
+    // __syncthreads();
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
-	}
-	
+	} 
 	__syncthreads();
-	
 	if (threadIdx.x == 0) {
 		unsigned long long mclk2;
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[blockIdx.x] = (mclk2 - mclk) / 1000; // us
+		times[blockIdx.x + 80] = (mclk2) / 1000; // us
 	}
 }
 
@@ -150,11 +130,11 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	dim3 Dgb = dim3(b_blocks,1,1);
     // warm-up
     for (int i = 0; i < 100; ++i) {
-        kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 100000, g_flag_warm, d_sleep_sm);
+        kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 8000, g_flag_warm, d_sleep_sm);
     }
 	cudaDeviceSynchronize();
     // test kernel
-	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 100000, g_flag, d_sleep_sm);
+	kernel_ <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 8000, g_flag, d_sleep_sm);
     // sleep until kernel finish
 	//kernel_sleep <<<Dgb, Dbb, 0, streams[1]>>>(15.6, 64.9, 134.7, d_sm_ids2, 50000, g_flag, d_sleep_time, d_sleep_sm);
 	
@@ -170,7 +150,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	long long unsigned maxm_e = 0, minm_e = 2668828023469159;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
-		printf("blcok%d:%llu-%llu\n", i, h_sm_ids[i], h_sm_ids[i + a_blocks]);
+		// printf("blcok%d:%llu-%llu\n", i, h_sm_ids[i], h_sm_ids[i + a_blocks]);
         // printf("block-%d : %llu\n", i, h_sleep_sm[i]);
         maxm = max(maxm, h_sm_ids[i]);
         minm = min(minm, h_sm_ids[i]);
