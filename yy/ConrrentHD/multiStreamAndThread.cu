@@ -226,9 +226,6 @@ int main()
     printf("flag1-%d %d (s)\n",k, flag1h[k]);
     }
 
-
-    cudaMemcpy(timelineh1, timeline1, size2, cudaMemcpyDeviceToHost);
-
     long long unsigned* timelineh1;
     long long unsigned* timelineh2;
     timelineh1 =(long long unsigned*)malloc(size2);
