@@ -37,11 +37,11 @@ __device__ uint get_smid(void) {
   
 }
 
-__global__ void kernel(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_sm) {
+__global__ void kernel(float n1, float n2, float n3, long long unsigned * times, int stop, int* flag, long long unsigned * sleep_sm) {
 	unsigned long long mclk; 
-	if (threadIdx.x == 0) {
+	if (threadIdx.x%16 == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-		times[blockIdx.x] = (mclk) / 1000; // us
+		times[blockIdx.x][threadIdx.x/16] = (mclk) / 1000; // us
 	}
     // __syncthreads();
 	for (int i = 0; i < stop; i++) {
@@ -50,17 +50,17 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 	}
 	__syncthreads();
 	// flag[0] = 1在此在ms级别无变化
-	if (threadIdx.x == 0) {
+	if (threadIdx.x %16 == 0) {
 		unsigned long long mclk2;
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		times[blockIdx.x + 80] = (mclk2) / 1000; // us
+		times[blockIdx.x + 80][threadIdx.x/16] = (mclk2) / 1000; // us
 	}
     // flag[0] = 1;
     // __syncthreads();
     // flag[0] = 1;
 }
 
-__global__ void kernel_(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_sm) {
+__global__ void kernel_(float n1, float n2, float n3, long long unsigned * times, int stop, int* flag, long long unsigned * sleep_sm) {
 
 	unsigned long long mclk; 
 	if (threadIdx.x == 0) {
@@ -88,10 +88,17 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	}
 	
     // allocate resource
-	long long unsigned *h_sm_ids = new long long unsigned[a_blocks * 2];
-	long long unsigned *d_sm_ids;
-	cudaMalloc(&d_sm_ids, a_blocks * sizeof(long long unsigned) * 2);
-	
+	long long unsigned * h_sm_ids = (long long unsigned *)malloc(sizeof(a_blocks * 2 * 32));
+
+	//for(int i=0;i<a_blocks * 2;i++){
+	//	h_sm_ids[i] = new long long unsigned [32];
+	//}
+	long long unsigned * d_sm_ids ;
+	size_t pitch = 32;
+	//cudaMalloc(&d_sm_ids, a_blocks * sizeof(long long unsigned) * 2);
+	cudaMallocPitch(&d_sm_ids, &pitch, sizeof(long long unsigned) * 32, a_blocks);
+
+
 	long long unsigned *h_sm_ids2 = new long long unsigned[b_blocks];
 	long long unsigned *d_sm_ids2;
 	cudaMalloc(&d_sm_ids2, b_blocks * sizeof(long long unsigned));
@@ -140,27 +147,38 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	
 	cudaDeviceSynchronize();
 	
-	cudaMemcpy(h_sm_ids, d_sm_ids, a_blocks * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
+	//cudaMemcpy(h_sm_ids, d_sm_ids, a_blocks * sizeof(long long unsigned) * 2 * 32, cudaMemcpyDeviceToHost);
+	cudaMemcpy2D(h_sm_ids,sizeof(long long unsigned) * 32, d_sm_ids,pitch, sizeof(long long unsigned) * 32, a_blocks * 2 , cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sm_ids2, d_sm_ids2, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
 	cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
-    long long unsigned maxm = 0, minm = 2668828023469159, max2=0;
+    long long unsigned maxm = 0, minm = 2668828023469159, max2 = 0, max_2 = 0,max_thread = 0, min_thread = 2668828023469159;
 	long long unsigned maxm_e = 0, minm_e = 2668828023469159;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
-        printf("blcok%d: %llu - %llu  %llu \n", i, h_sm_ids[i], h_sm_ids[i + a_blocks] , h_sm_ids[i + a_blocks]- h_sm_ids[i]);
+		
+		printf("block%d: %llu - %llu  %llu \n", i, h_sm_ids[i][0], h_sm_ids[i + a_blocks][0] , h_sm_ids[i + a_blocks][0]- h_sm_ids[i][0]);
         // printf("block-%d : %llu\n", i, h_sleep_sm[i]);
-        maxm = max(maxm, h_sm_ids[i]);
-        minm = min(minm, h_sm_ids[i]);
-		maxm_e = max(maxm_e, h_sm_ids[i + a_blocks]);
-        minm_e = min(minm_e, h_sm_ids[i + a_blocks]);
-	max2 = max(max2, h_sm_ids[i + a_blocks]- h_sm_ids[i]);
+        maxm = max(maxm, h_sm_ids[i][0]);
+        minm = min(minm, h_sm_ids[i][0]);
+		maxm_e = max(maxm_e, h_sm_ids[i + a_blocks][0]);
+        minm_e = min(minm_e, h_sm_ids[i + a_blocks][0]);
+	max_thread = 0;
+	min_thread = 2668828023469159;
+	max_2 = max(max_2, h_sm_ids[i + a_blocks][0]- h_sm_ids[i][0]);
+		for(int j=0;j<32;j++){
+			max2 = max(max2, h_sm_ids[i + a_blocks][j]- h_sm_ids[i][j]);
+			max_thread = max(max_thread, h_sm_ids[i][j]);
+			min_thread = min(min_thread, h_sm_ids[i][j]);
+
+		}
+		printf("***block%d: %llu - %llu  %llu \n", i, min_thread, max_thread , max2);
 	}
     printf("START_TIMING:max-%llu, min-%llu\n", maxm, minm);
 	printf("END_TIMING:max-%llu, min-%llu\n", maxm_e, minm_e);
-	printf("DURATION:%llu\n", max2);
+	printf("DURATION:%llu\n", max_2);
 	// printf("---2---\n");
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("%llu\n", h_sm_ids2[i]);
