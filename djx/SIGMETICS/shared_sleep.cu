@@ -45,8 +45,8 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 	}
 
 	for (int i = 0; i < stop; i++) {
-		n1=sinf(n1);
-		n2=n3/n2;
+		n1=cosf(n1);
+		n3=n2/n3;
 	}
 	__syncthreads();
 	// flag[0] = 1在此在ms级别无变化
@@ -79,8 +79,8 @@ __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *t
 		times[blockIdx.x] = mclk / 1000;
 	}
 	for (int i = 0; i < stop; i++) {
-		n1=cosf(n1);
-		n3=n2/n3;
+		n1=sinf(n1);
+		n2=n3/n2;
 	}
 	
 	__syncthreads();

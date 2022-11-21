@@ -147,8 +147,6 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	long long unsigned maxm_e = 0, minm_e = 2668828023469159;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
-		// printf("blcok%d:%llu-%llu\n", i, h_sm_ids[i], h_sm_ids[i + a_blocks]);
-        // printf("block-%d : %llu\n", i, h_sleep_sm[i]);
         maxm = max(maxm, h_sm_ids[i]);
         minm = min(minm, h_sm_ids[i]);
 		maxm_e = max(maxm_e, h_sm_ids[i + a_blocks]);
@@ -157,18 +155,6 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
     printf("START_TIMING:max-%llu, min-%llu\n", maxm, minm);
 	printf("END_TIMING:max-%llu, min-%llu\n", maxm_e, minm_e);
 	printf("DURATION:%llu\n", maxm_e - maxm);
-	// printf("---2---\n");
-	// for (int i = 0; i < b_blocks; i++) {
-	// 	printf("%llu\n", h_sm_ids2[i]);
-	// }
-	// printf("---sleep_times---\n");
-	// for (int i = 0; i < b_blocks; i++) {
-	// 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
-	// }
-	// printf("---sm---\n");
-	// for (int i = 0; i < b_blocks; ++i) {
-	// 	printf("block-%d : %llu\n", i, h_sleep_sm[i]);
-	// }
 	
 	cudaFree(d_sm_ids);
 	cudaFree(d_sm_ids2);
