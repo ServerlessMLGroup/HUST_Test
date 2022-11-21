@@ -45,7 +45,6 @@ __global__ void kernel(float n1, float n2, float n3, int stop,long long unsigned
     */
 }
 
-
 __global__ void kernel_timer(long long unsigned *times,int *flag) {
 		unsigned long long mclk2;
 		int i=0;
@@ -90,13 +89,13 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     */
     //rnel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000,timeline,0);
     //flag[0] = 1;
-    //kernel_flager<<<1,1,0,stream>>>(0,flag);
+    kernel_flager<<<1,1,0,stream>>>(0,flag);
 
     for(int i=1;i < 11;i++)
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    //kernel_flager<<<1,1,0,stream>>>(i,flag);
+    kernel_flager<<<1,1,0,stream>>>(i,flag);
     kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,i*100000,timeline,i);
     }
 
@@ -220,6 +219,15 @@ int main()
     workend1.lock();
     //workend2.lock();
 
+    //check the kernel
+    cudaMemcpy(flag1h, flag1, sizeof(int) * 11, cudaMemcpyDeviceToHost);
+    for(int k=0;k< 11;k++)
+    {
+    printf("flag1-%d %d (s)\n",k, flag1h[k]);
+    }
+
+
+    cudaMemcpy(timelineh1, timeline1, size2, cudaMemcpyDeviceToHost);
 
     long long unsigned* timelineh1;
     long long unsigned* timelineh2;
@@ -227,7 +235,7 @@ int main()
 
     timelineh2 =(long long unsigned*)malloc(size2);
 
-
+    /*
     cudaMemcpy(timelineh1, timeline1, size2, cudaMemcpyDeviceToHost);
     cudaMemcpy(timelineh2, timeline2, size2, cudaMemcpyDeviceToHost);
 
@@ -239,8 +247,10 @@ int main()
     {
     printf("Timeline1-%d %llu (s)\n",k, timelineh2[k]);
     }
+    */
 
     cout<<"It can't be like this"<<endl;
+
     //Free memory
 
     cudaFree(timeline1);
