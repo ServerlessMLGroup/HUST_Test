@@ -104,21 +104,21 @@ void run_kernel() {
 	cudaError_t res;
 
     //manage dphoto
-	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+(COREY-1)/2)*sizeof(float*));CHECK(res)
-	res = cudaMalloc((void**)(&dphoto1), (BLOCKY+(COREY-1)/2)*(BLOCKX+(COREX-1)/2)*sizeof(float));CHECK(res)
+	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+COREY-1)*sizeof(float*));CHECK(res)
+	res = cudaMalloc((void**)(&dphoto1), (BLOCKY+COREY-1)*(BLOCKX+COREX-1)*sizeof(float));CHECK(res)
 	printf("103 \n");
-	hphoto2 = (float**)malloc(BLOCKY*sizeof(float*));
-	hphoto1 = (float*)malloc(BLOCKY*BLOCKX*sizeof(float));
-	 for (int r = 0; r < (BLOCKY+(COREY-1)/2) ; r++)
+	hphoto2 = (float**)malloc((BLOCKY+COREY-1)*(BLOCKX+COREX-1)*sizeof(float*));
+	hphoto1 = (float*)malloc((BLOCKY+COREY-1)*(BLOCKX+COREX-1)*sizeof(float));
+	 for (int r = 0; r < (BLOCKY+COREY-1) ; r++)
 	{
-		hphoto2[r] = dphoto1 + r * (BLOCKX+(COREX-1)/2);
+		hphoto2[r] = dphoto1 + r * (BLOCKX+COREX-1));
 	}
-	for (int r = 0; r < (BLOCKY+(COREY-1)/2)*(BLOCKX+(COREX-1)/2); r++)
+	for (int r = 0; r < ((BLOCKY+COREY-1)*(BLOCKX+COREX-1)); r++)
 	{
 		hphoto1[r] = 2.0;
 	}
-	res = cudaMemcpy((void*)(dphoto2), (void*)(hphoto2), (BLOCKY+(COREY-1)/2)*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
-    res = cudaMemcpy((void*)(dphoto1), (void*)(hphoto1), (BLOCKY+(COREY-1)/2)*(BLOCKX+(COREX-1)/2)*sizeof(float), cudaMemcpyHostToDevice);CHECK(res)
+	res = cudaMemcpy((void*)(dphoto2), (void*)(hphoto2), (BLOCKY+COREY-1)*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
+    res = cudaMemcpy((void*)(dphoto1), (void*)(hphoto1), ((BLOCKY+COREY-1)*(BLOCKX+COREX-1))*sizeof(float), cudaMemcpyHostToDevice);CHECK(res)
     printf("116 \n");
     //manage dconvolutioncore
 	res = cudaMalloc((void**)(&dconvolutioncore2), COREY*sizeof(float*));CHECK(res)
