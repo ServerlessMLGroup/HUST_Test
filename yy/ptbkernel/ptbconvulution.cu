@@ -183,8 +183,9 @@ void run_kernel() {
     printf("183 \n");
     convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
     printf("185 \n");
-	res = cudaMemcpy((void*)(hresult1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);CHECK(res)
-    printf("187 \n");
+	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
+	//HECK(res)
+    printf("188 \n");
 	for (int r = 0; r < BLOCKY; r++)
 	{
 		printf("\ncolum %d ",r);
