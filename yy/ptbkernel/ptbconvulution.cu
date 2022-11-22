@@ -148,7 +148,7 @@ void run_kernel() {
 	}
 	for (int r = 0; r < BLOCKY*BLOCKX; r++)
 	{
-		hresult1[r] = 2.0;
+		hresult1[r] = 0.0;
 	}
 	res = cudaMemcpy((void*)(dresult2), (void*)(hresult2), BLOCKY*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
     res = cudaMemcpy((void*)(dresult1), (void*)(hresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyHostToDevice);CHECK(res)
