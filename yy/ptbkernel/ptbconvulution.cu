@@ -127,7 +127,7 @@ void run_kernel() {
 	for (int r = 0; r < COREY; r++)
 	{
 		hconvolutioncore2[r] = dconvolutioncore1 + r * COREX;
-de	}
+	}
 	for (int r = 0; r < COREY*COREX; r++)
 	{
 		hconvolutioncore1[r] = 3.0;
@@ -188,7 +188,7 @@ de	}
     convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
     printf("185 \n");
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
-	prinf（"err: %d \n",res);
+	//prinf（"err: %d \n",res);
 	check(res);
     printf("189 \n");
 	for (int r = 0; r < BLOCKY; r++)
