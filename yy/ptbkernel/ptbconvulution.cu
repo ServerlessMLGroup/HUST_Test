@@ -89,7 +89,8 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     {
     if(i!=(ITERATION-1))
     {
-        index += i*RESIZETHREADX*RESIZEBLOCKX;
+
+        index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
         newy = index/BLOCKY*COREX*COREY;
         newx = (index-newy*(BLOCKY*COREX*COREY))/COREX*COREY;
         thy = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY)/COREY);
