@@ -37,6 +37,16 @@ __device__ uint get_smid(void) {
   
 }
 
+__device__ uint get_warpid(void) {
+
+	    uint ret;
+	      
+	        asm("mov.u32 %0, %warpid;" : "=r"(ret) );
+		  
+		    return ret;
+		      
+}
+
 __global__ void kernel(float n1, float n2, float n3, long long unsigned ** times, int stop, int* flag, long long unsigned * sleep_sm) {
 	unsigned long long mclk; 
 	//if (threadIdx.x %16 == 0) {
@@ -139,9 +149,9 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
     cudaMemcpy(g_flag_warm, flag_warm, sizeof(int) * 1, cudaMemcpyHostToDevice);
 
     // cuda launch kernel
-	dim3 Dba = dim3(a_threads);
+	dim3 Dba = dim3(a_threads,1,1);
 	dim3 Dga = dim3(a_blocks,1,1);
-	dim3 Dbb = dim3(b_threads);
+	dim3 Dbb = dim3(b_threads,1,1);
 	dim3 Dgb = dim3(b_blocks,1,1);
     // warm-up
     for (int i = 0; i < 100; ++i) {
@@ -162,7 +172,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
-    long long unsigned maxm = 0, minm = 2668828023469159, max2 = 0, max_2 = 0,max_thread = 0, min_thread = 2668828023469159;
+    long long unsigned maxm = 0, minm = 2668828023469159, max2 = 0, min_2= 2668828023469159, max_2 = 0,max_thread = 0, min_thread = 2668828023469159;
 	long long unsigned maxm_e = 0, minm_e = 2668828023469159;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
@@ -173,9 +183,12 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
        // minm = min(minm, h_sm_ids[i][0]);
 	//	maxm_e = max(maxm_e, h_sm_ids[i + a_blocks][0]);
         //minm_e = min(minm_e, h_sm_ids[i + a_blocks][0]);
-	//max_thread = 0;
-	//min_thread = 2668828023469159;
+	max_thread = 0;
+	max2 = 0;
+	min_thread = 2668828023469159;
+	//min_2 = 2668828023469159;
 	max_2 = max(max_2,  h_data[i*512 + a_blocks*512]- h_data[i*512]);
+	min_2 = min(min_2,  h_data[i*512 + a_blocks*512]- h_data[i*512]);
 		for(int j=0;j<512;j++){
 			max2 = max(max2, h_data[i*512+a_blocks*512+j]- h_data[i*512+j]);
 			max_thread = max(max_thread, h_data[i*512+a_blocks*512+j]);
@@ -186,7 +199,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	}
     printf("START_TIMING:max-%llu, min-%llu\n", maxm, minm);
 	printf("END_TIMING:max-%llu, min-%llu\n", maxm_e, minm_e);
-	printf("DURATION:%llu\n", max_2);
+	printf("DURATION:%llu, %llu\n", max_2, max_2-min_2);
 	// printf("---2---\n");
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("%llu\n", h_sm_ids2[i]);
@@ -212,7 +225,7 @@ int main(int argc, char *argv[]) {
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
-	run_kernel(10, 10, 512, 512);
+	run_kernel(80, 80, 512, 512);
 
 	return 0;
 }

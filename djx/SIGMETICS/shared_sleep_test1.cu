@@ -67,7 +67,7 @@ __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *t
 	while(flag[0] != 1) {
 		// if (threadIdx.x == 0)
 		// 	sleep_time[blockIdx.x]++;
-		__nanosleep(1000); // 10us
+		__nanosleep(10000); // 10us
 	}
 	#else
 	printf(">>> __CUDA_ARCH__ !\n");
@@ -158,43 +158,36 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
-	long long unsigned maxm = 0, minm = 1768959725180341, max1 = 0, min1=1768959725180341, max2=0, min2=1768959725180341, sum2=0, min_all = 1768959725180341, max_all=0;
+	long long unsigned maxm = 0, minm = 1768959725180341, max1 = 0, max2=0, min2=1768959725180341;
 	long long unsigned maxm_e = 0, minm_e = 1768959725180341;
     printf("---1---\n");
 	for (int i = 0; i < a_blocks; i++) {
-
-	//	printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids[i], h_sm_ids[i + b_blocks] , h_sm_ids[i + b_blocks]-h_sm_ids[i]);
         maxm = max(maxm, h_sm_ids[i]);
         minm = min(minm, h_sm_ids[i]);
 		maxm_e = max(maxm_e, h_sm_ids[i + a_blocks]);
         minm_e = min(minm_e, h_sm_ids[i + a_blocks]);
 	max1 = max(max1, h_sm_ids[i + b_blocks]-h_sm_ids[i]);
-	min1 = min(min1, h_sm_ids[i + b_blocks]-h_sm_ids[i]);
 	}
-	min_all=minm;
     printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
 	printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
-	printf("DURATION:%llu(us) MAX-MIN: %llu(us)\n", max1, max1-min1);
-        printf("MAX, MIN, AVG of all blocks in this kernel\n");
+	printf("DURATION:%llu(us)\n", max1);
+        
 	maxm = 0; minm = 1768959725180341;
 	maxm_e = 0; minm_e = 1768959725180341;
 	printf("---2---\n");
 	for (int i = 0; i < b_blocks; i++) {
-		printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids2[i], h_sm_ids2[i + b_blocks] , h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
+		printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids2[i], h_sm_ids2[i + a_blocks] , h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
         maxm = max(maxm, h_sm_ids2[i]);
         minm = min(minm, h_sm_ids2[i]);
 		maxm_e = max(maxm_e, h_sm_ids2[i + b_blocks]);
         minm_e = min(minm_e, h_sm_ids2[i + b_blocks]);
-	sum2 = sum2 + h_sm_ids2[i + b_blocks]-h_sm_ids2[i];
 	max2 = max(max2, h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
 	min2 = min(min2, h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
 	}
-	max_all=maxm_e;
     printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
 	printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
-	printf("DURATION:%llu(us)  MAX-MIN: %llu(us)  AVG: %llu(us)  MAX-AVG: %llu(us)  AVG-MIN: %llu(us)\n", max2, max2-min2, sum2/b_blocks, max2- sum2/b_blocks, sum2/b_blocks-min2);
-        printf("MAX, MIN, AVG of all blocks in this kernel\n");
-	printf("Overall Latency:  %llu(us)\n", max_all - min_all);
+	printf("DURATION:%llu(us)  %llu(us)\n", max2, max2-min2);
+
 	// printf("---sleep_times---\n");
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
@@ -216,7 +209,7 @@ int main(int argc, char *argv[]) {
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
-	run_kernel(80, 80, 32, 32);
+	run_kernel(80, 80, 512, 512);
 
 	return 0;
 }
