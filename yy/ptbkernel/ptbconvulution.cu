@@ -105,7 +105,7 @@ void run_kernel() {
 
     //manage dphoto
 	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+(COREY-1)/2)*sizeof(float*));CHECK(res)
-	res = cudaMalloc((void**)(&dphoto1), (BLOCKY+(COREY-1)/2)*(BLOCKX+(COREX-1)/2)sizeof(float));CHECK(res)
+	res = cudaMalloc((void**)(&dphoto1), (BLOCKY+(COREY-1)/2)*(BLOCKX+(COREX-1)/2)*sizeof(float));CHECK(res)
 	printf("103 \n");
 	hphoto2 = (float**)malloc(BLOCKY*sizeof(float*));
 	hphoto1 = (float*)malloc(BLOCKY*BLOCKX*sizeof(float));
