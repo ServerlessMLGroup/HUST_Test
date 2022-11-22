@@ -9,10 +9,10 @@
 #define THREADY 9
 #define COREX 9
 #define COREY 9
-#define CHECK(res) if(res!=cudaSuccess){exit(-1);}
-
-void check(cudaError_t err){
-    const char *errorStr = NULL;
+#define RESIZEBLOCKX 45
+#define RESIZETHREADX 36
+#define ITERATION ((BLOCKX*BLOCKY*THREADX*THREADY-1)/(RESIZEBLCOKX*RESIZETHREADX)+1)
+#define LEFT (BLOCKX*BLOCKY*THREADX*THREADY - Iteration*RESIZEBLCOKX*RESIZETHREADX)
     errorStr = cudaGetErrorString(err);
     //printf("checkCudaErrors()  error = %04d %s\n",err, errorStr);
     printf("checkCudaErrors()  error =  %s\n", errorStr);
@@ -68,6 +68,71 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
     }
 
 }
+
+__global__ void resizeconvolutionkernel(float** photo,float**** temp,float** convolutioncore,float** result) {
+    int oldx = blockIdx.x;
+    //int oldy = blockIdx.y;
+
+    //get the data based on the threadIdx.x and threadIdx.y
+    int oldthx = threadIdx.x;
+    //int oldthy = threadIdx.y;
+    int index = oldx*RESIZETHREADX + oldthx;
+    for(int i=0;i<ITERATION;i++)
+    {
+    if(i!=(ITERATION-1))
+    {
+        index += i*RESIZETHREADX*RESIZEBLOCKX;
+        newy = index/BLOCKIDY*COREX*COREY;
+        newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
+        thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY;
+        thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
+
+        //caculate(COREX * COREY thread respectively by each thread)
+
+        temp[newy][newx][thy][thx] = photo[newy + thy][newx + thx] * convolutioncore[thy][thx];
+
+        __syncthreads();
+
+        //get the final result by one thread
+
+        if (thx == 0 && thy == 0){
+        for(int i = 0;i < COREY;i++){
+            for(int j = 0;j < COREX;j++){
+                result[newy][newx] +=temp[newy][newx][i][j];
+                }
+            }
+        }
+    }
+    else
+    {
+        if(index<LEFT){
+            index += i*RESIZETHREADX*RESIZEBLOCKX;
+            newy = index/BLOCKIDY*COREX*COREY;
+            newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
+            thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY;
+            thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
+
+            //caculate(COREX * COREY thread respectively by each thread)
+
+            temp[newy][newx][thy][thx] = photo[newy + thy][newx + thx] * convolutioncore[thy][thx];
+
+            __syncthreads();
+
+            //get the final result by one thread
+
+            if (thx == 0 && thy == 0){
+            for(int i = 0;i < COREY;i++){
+                for(int j = 0;j < COREX;j++){
+                    result[newy][newx] +=temp[newy][newx][i][j];
+                    }
+                }
+            }
+        }
+    }
+    }
+    }
+}
+
 
 
 void run_kernel() {
@@ -187,7 +252,8 @@ void run_kernel() {
 	dim3 dimBlock(COREX,COREY);
 	dim3 dimGrid(BLOCKX,BLOCKY);
     printf("183 \n");
-    convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
+    //convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
+    convolutionkernel<<<RESIZEBLOCKX, RESIZETHREADX>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
     printf("185 \n");
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
 	//prinf（"err: %d \n",res);
