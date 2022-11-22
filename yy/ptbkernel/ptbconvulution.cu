@@ -111,7 +111,7 @@ void run_kernel() {
 	hphoto1 = (float*)malloc((BLOCKY+COREY-1)*(BLOCKX+COREX-1)*sizeof(float));
 	 for (int r = 0; r < (BLOCKY+COREY-1) ; r++)
 	{
-		hphoto2[r] = dphoto1 + r * (BLOCKX+COREX-1));
+		hphoto2[r] = dphoto1 + r * (BLOCKX+COREX-1);
 	}
 	for (int r = 0; r < ((BLOCKY+COREY-1)*(BLOCKX+COREX-1)); r++)
 	{
