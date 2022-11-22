@@ -41,14 +41,14 @@ inline void __checkCudaErrors(cudaError_t err, const char *file, const int line)
 __global__ void convolutionkernel(float** photo,float**** temp,float** convolutioncore,float** result) {
     //confirm the element
     int newx = blockIdx.x;
-    int newy = blockIdy.y;
+    int newy = blockIdx.y;
 
     //get the data based on the threadIdx.x and threadIdx.y
     int thx = threadIdx.x;
     int thy = threadIdx.y;
 
     //caculate(COREX * COREY thread respectively by each thread)
-    temp[newy][newx][thy][thx] = photo[newy - (COREY-1)/2 + thy][newx - (COREX-1)/2 + thx] * covolution[thy][thx];
+    temp[newy][newx][thy][thx] = photo[newy - (COREY-1)/2 + thy][newx - (COREX-1)/2 + thx] * convolution[thy][thx];
 
     __syncthreads();
 
@@ -64,7 +64,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
 }
 
 
-void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
+void run_kernel() {
     //device variable
     float **dphoto2 = NULL;
     float *dphoto1 = NULL;
@@ -172,7 +172,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 
 	res = cudaMemcpy((void*)(dtemp4), (void*)(htemp4), BLOCKY*sizeof(float***), cudaMemcpyHostToDevice);CHECK(res)
 	res = cudaMemcpy((void*)(dtemp3), (void*)(htemp3), BLOCKY*BLOCKX*sizeof(float**), cudaMemcpyHostToDevice);CHECK(res)
-	res = cudaMemcpy((void*)(dtemp2), (void*)(htemp2), BLOCKY*BLCOKX*COREY*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
+	res = cudaMemcpy((void*)(dtemp2), (void*)(htemp2), BLOCKY*BLOCKX*COREY*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
 
 	dim3 dimBlock(COREX,COREY);
 	dim3 dimGrid(BLOCKX,BLOCKY);
@@ -183,7 +183,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 
 	for (int r = 0; r < BLOCKY; r++)
 	{
-		printf("\ncolum %d ",r)
+		printf("\ncolum %d ",r);
 		for (int c = 0; c < BLOCKX; c++)
 		{
 			printf("%f ", hpho[r*BLOCKX+c]);
