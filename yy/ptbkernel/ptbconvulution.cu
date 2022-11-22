@@ -130,8 +130,8 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
         }
     }
     }
-    }
 }
+
 
 
 
