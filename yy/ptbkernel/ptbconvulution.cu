@@ -100,7 +100,7 @@ void run_kernel() {
     //manage dphoto
 	res = cudaMalloc((void**)(&dphoto2), BLOCKY*sizeof(float*));CHECK(res)
 	res = cudaMalloc((void**)(&dphoto1), BLOCKY*BLOCKX*sizeof(float));CHECK(res)
-	cout<<"103"<<endl;
+	printf("103 \n");
 	hphoto2 = (float**)malloc(BLOCKY*sizeof(float*));
 	hphoto1 = (float*)malloc(BLOCKY*BLOCKX*sizeof(float));
 	 for (int r = 0; r < BLOCKY; r++)
@@ -113,10 +113,11 @@ void run_kernel() {
 	}
 	res = cudaMemcpy((void*)(dphoto2), (void*)(hphoto2), BLOCKY*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
     res = cudaMemcpy((void*)(dphoto1), (void*)(hphoto1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyHostToDevice);CHECK(res)
-
+    printf("116 \n");
     //manage dconvolutioncore
 	res = cudaMalloc((void**)(&dconvolutioncore2), COREY*sizeof(float*));CHECK(res)
 	res = cudaMalloc((void**)(&dconvolutioncore1), COREY*COREX*sizeof(float));CHECK(res)
+	printf("120 \n");
 	hconvolutioncore2 = (float**)malloc(COREY*sizeof(float*));
 	hconvolutioncore1 = (float*)malloc(COREY*COREX*sizeof(float));
 	for (int r = 0; r < COREY; r++)
@@ -145,6 +146,7 @@ void run_kernel() {
 	}
 	res = cudaMemcpy((void*)(dresult2), (void*)(hresult2), BLOCKY*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
     res = cudaMemcpy((void*)(dresult1), (void*)(hresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyHostToDevice);CHECK(res)
+    printf("149 \n");
 
     //manage dtemp
 	res = cudaMalloc((void**)(&dtemp1), BLOCKY*BLOCKX*COREY*COREX*sizeof(float));CHECK(res)
@@ -174,6 +176,7 @@ void run_kernel() {
 	res = cudaMemcpy((void*)(dtemp4), (void*)(htemp4), BLOCKY*sizeof(float***), cudaMemcpyHostToDevice);CHECK(res)
 	res = cudaMemcpy((void*)(dtemp3), (void*)(htemp3), BLOCKY*BLOCKX*sizeof(float**), cudaMemcpyHostToDevice);CHECK(res)
 	res = cudaMemcpy((void*)(dtemp2), (void*)(htemp2), BLOCKY*BLOCKX*COREY*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
+	printf("179 \n");
 
 	dim3 dimBlock(COREX,COREY);
 	dim3 dimGrid(BLOCKX,BLOCKY);
