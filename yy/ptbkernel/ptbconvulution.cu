@@ -91,9 +91,9 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     {
         index += i*RESIZETHREADX*RESIZEBLOCKX;
         newy = index/BLOCKY*COREX*COREY;
-        newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
-        thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY);
-        thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
+        newx = (index-newy*(BLOCKY*COREX*COREY))/COREX*COREY;
+        thy = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY)/COREY);
+        thx = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
 
         //caculate(COREX * COREY thread respectively by each thread)
 
@@ -116,9 +116,9 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
         if(index<LEFT){
             index += i*RESIZETHREADX*RESIZEBLOCKX;
             newy = index/BLOCKY*COREX*COREY;
-            newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
-            thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY);
-            thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
+            newx = (index-newy*(BLOCKY*COREX*COREY))/COREX*COREY;
+            thy = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY)/COREY);
+            thx = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
 
             //caculate(COREX * COREY thread respectively by each thread)
 
