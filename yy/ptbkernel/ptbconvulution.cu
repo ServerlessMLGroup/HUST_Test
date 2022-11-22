@@ -14,7 +14,8 @@
 check(cudaError_t err){
     const char *errorStr = NULL;
     errorStr = cudaGetErrorString(err);
-    printf("checkCudaErrors()  error = %04d %s\n",err, errorStr);
+    //printf("checkCudaErrors()  error = %04d %s\n",err, errorStr);
+    printf("checkCudaErrors()  error =  %s\n", errorStr);
 }
 //this code is to test the ptb way yy suggests
 
@@ -126,7 +127,7 @@ void run_kernel() {
 	for (int r = 0; r < COREY; r++)
 	{
 		hconvolutioncore2[r] = dconvolutioncore1 + r * COREX;
-	}
+de	}
 	for (int r = 0; r < COREY*COREX; r++)
 	{
 		hconvolutioncore1[r] = 3.0;
@@ -188,7 +189,7 @@ void run_kernel() {
     printf("185 \n");
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
 	prinf（"err: %d \n",res);
-	check(res)
+	check(res);
     printf("189 \n");
 	for (int r = 0; r < BLOCKY; r++)
 	{
