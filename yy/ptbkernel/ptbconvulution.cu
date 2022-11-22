@@ -11,7 +11,7 @@
 #define COREY 9
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}
 
-check(cudaError_t err){
+void check(cudaError_t err){
     const char *errorStr = NULL;
     errorStr = cudaGetErrorString(err);
     //printf("checkCudaErrors()  error = %04d %s\n",err, errorStr);
