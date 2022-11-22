@@ -216,7 +216,7 @@ int main(int argc, char *argv[]) {
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
-	run_kernel(80, 80, 32, 32);
+	run_kernel(80, 80, 512, 512);
 
 	return 0;
 }
