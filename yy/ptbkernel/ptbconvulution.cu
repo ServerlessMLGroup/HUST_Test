@@ -180,9 +180,9 @@ void run_kernel() {
 
 	dim3 dimBlock(COREX,COREY);
 	dim3 dimGrid(BLOCKX,BLOCKY);
-
+    printf("183 \n");
     convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
-
+    printf("185 \n");
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);CHECK(res)
 
 	for (int r = 0; r < BLOCKY; r++)
