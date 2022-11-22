@@ -16,7 +16,7 @@
 
 void check(cudaError_t err)
     {
-    const char * errorstr;
+    const char * errorStr;
     errorStr = cudaGetErrorString(err);
     //printf("checkCudaErrors()  error = %04d %s\n",err, errorStr);
     printf("checkCudaErrors()  error =  %s\n", errorStr);
@@ -81,15 +81,19 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     int oldthx = threadIdx.x;
     //int oldthy = threadIdx.y;
     int index = oldx*RESIZETHREADX + oldthx;
+    int newy = 0.0;
+    int newx = 0.0;
+    int thy = 0.0;
+    int thx = 0.0;
     for(int i=0;i<ITERATION;i++)
     {
     if(i!=(ITERATION-1))
     {
         index += i*RESIZETHREADX*RESIZEBLOCKX;
-        int newy = index/BLOCKIDY*COREX*COREY;
-        int newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
-        int thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY);
-        int thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
+        newy = index/BLOCKIDY*COREX*COREY;
+        newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
+        thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY);
+        thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
 
         //caculate(COREX * COREY thread respectively by each thread)
 
