@@ -48,7 +48,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
     int thy = threadIdx.y;
 
     //caculate(COREX * COREY thread respectively by each thread)
-    temp[newy][newx][thy][thx] = photo[newy - (COREY-1)/2 + thy][newx - (COREX-1)/2 + thx] * convolution[thy][thx];
+    temp[newy][newx][thy][thx] = photo[newy - (COREY-1)/2 + thy][newx - (COREX-1)/2 + thx] * convolutioncore[thy][thx];
 
     __syncthreads();
 
@@ -57,7 +57,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
     if (thx == 0 && thy == 0){
     for(int i = 0;i < COREY;i++){
         for(int j = 0;j < COREX;j++){
-            result[newy][newx] + =temp[newy][newx][i][j];
+            result[newy][newx] +=temp[newy][newx][i][j];
             }
         }
     }
@@ -186,7 +186,7 @@ void run_kernel() {
 		printf("\ncolum %d ",r);
 		for (int c = 0; c < BLOCKX; c++)
 		{
-			printf("%f ", hpho[r*BLOCKX+c]);
+			printf("%f ", hphoto1[r*BLOCKX+c]);
 		}
 	}
 
