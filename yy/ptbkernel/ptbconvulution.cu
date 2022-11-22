@@ -52,6 +52,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
     int thy = threadIdx.y;
 
     //caculate(COREX * COREY thread respectively by each thread)
+    /*
     temp[newy][newx][thy][thx] = photo[newy - (COREY-1)/2 + thy][newx - (COREX-1)/2 + thx] * convolutioncore[thy][thx];
 
     __syncthreads();
@@ -65,6 +66,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
             }
         }
     }
+    */
 }
 
 
@@ -187,8 +189,7 @@ void run_kernel() {
     printf("183 \n");
     convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
     printf("185 \n");
-	//res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
-	res = cudaMemcpy((void*)(dtemp2), (void*)(htemp2), BLOCKY*BLOCKX*COREY*sizeof(float*), cudaMemcpyHostToDevice);
+	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
 	//prinf（"err: %d \n",res);
 	check(res);
     printf("189 \n");
