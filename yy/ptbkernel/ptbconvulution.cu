@@ -12,7 +12,7 @@
 #define RESIZEBLOCKX 45
 #define RESIZETHREADX 36
 #define ITERATION ((BLOCKX*BLOCKY*THREADX*THREADY-1)/(RESIZEBLOCKX*RESIZETHREADX)+1)
-#define LEFT (BLOCKX*BLOCKY*THREADX*THREADY - Iteration*RESIZEBLOCKX*RESIZETHREADX)
+#define LEFT (BLOCKX*BLOCKY*THREADX*THREADY - ITERATION*RESIZEBLOCKX*RESIZETHREADX)
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}
 void check(cudaError_t err)
     {
@@ -90,7 +90,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     if(i!=(ITERATION-1))
     {
         index += i*RESIZETHREADX*RESIZEBLOCKX;
-        newy = index/BLOCKIDY*COREX*COREY;
+        newy = index/BLOCKY*COREX*COREY;
         newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
         thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY);
         thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
@@ -115,7 +115,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     {
         if(index<LEFT){
             index += i*RESIZETHREADX*RESIZEBLOCKX;
-            newy = index/BLOCKIDY*COREX*COREY;
+            newy = index/BLOCKY*COREX*COREY;
             newx = (index-newy*(BLOCKIDY*COREX*COREY))/COREX*COREY;
             thy = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY)/COREY);
             thx = index - (newy*(BLOCKIDY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
