@@ -13,10 +13,13 @@
 #define RESIZETHREADX 36
 #define ITERATION ((BLOCKX*BLOCKY*THREADX*THREADY-1)/(RESIZEBLCOKX*RESIZETHREADX)+1)
 #define LEFT (BLOCKX*BLOCKY*THREADX*THREADY - Iteration*RESIZEBLCOKX*RESIZETHREADX)
+
+void check(cudaError_t err)
+    {
     errorStr = cudaGetErrorString(err);
     //printf("checkCudaErrors()  error = %04d %s\n",err, errorStr);
     printf("checkCudaErrors()  error =  %s\n", errorStr);
-}
+    }
 //this code is to test the ptb way yy suggests
 
 #define GPU_RETURN_STATUS(cmd) \
