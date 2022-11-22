@@ -53,7 +53,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
 
     //caculate(COREX * COREY thread respectively by each thread)
 
-    temp[newy][newx][thy][thx] = photo[newy - (COREY-1)/2 + thy][newx - (COREX-1)/2 + thx] * convolutioncore[thy][thx];
+    //temp[newy][newx][thy][thx] = photo[newy - (COREY-1)/2 + thy][newx - (COREX-1)/2 + thx] * convolutioncore[thy][thx];
 
     __syncthreads();
 
@@ -66,7 +66,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
             }
         }
     }
-    
+
 }
 
 
