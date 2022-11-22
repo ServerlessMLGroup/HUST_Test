@@ -11,8 +11,11 @@
 #define COREY 9
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}
 
-
-
+check(cudaError_t err){
+    const char *errorStr = NULL;
+    errorStr = cudaGetErrorString(err);
+    printf("checkCudaErrors()  error = %04d %s\n",err, errorStr);
+}
 //this code is to test the ptb way yy suggests
 
 #define GPU_RETURN_STATUS(cmd) \
@@ -185,7 +188,7 @@ void run_kernel() {
     printf("185 \n");
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
 	prinf（"err: %d \n",res);
-	CHECK(res)
+	check(res)
     printf("189 \n");
 	for (int r = 0; r < BLOCKY; r++)
 	{
