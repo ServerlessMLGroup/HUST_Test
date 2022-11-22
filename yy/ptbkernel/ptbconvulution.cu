@@ -184,7 +184,7 @@ void run_kernel() {
     convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
     printf("185 \n");
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);CHECK(res)
-
+    printf("187 \n");
 	for (int r = 0; r < BLOCKY; r++)
 	{
 		printf("\ncolum %d ",r);
@@ -193,7 +193,7 @@ void run_kernel() {
 			printf("%f ", hphoto1[r*BLOCKX+c]);
 		}
 	}
-
+    printf("196 \n");
 }
 
 int main(int argc, char *argv[]) {
