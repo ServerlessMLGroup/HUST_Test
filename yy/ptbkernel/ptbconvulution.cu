@@ -80,7 +80,8 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     //get the data based on the threadIdx.x and threadIdx.y
     int oldthx = threadIdx.x;
     //int oldthy = threadIdx.y;
-    int index = oldx*RESIZETHREADX + oldthx;
+    int offset = oldx*RESIZETHREADX + oldthx;
+    index = offset;
     int newy = 0.0;
     int newx = 0.0;
     int thy = 0.0;
@@ -90,7 +91,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
         if(i!=(ITERATION-1))
         {
 
-            index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
+            index = i*RESIZETHREADX*RESIZEBLOCKX +offset;
             newy = index/(BLOCKX*COREX*COREY);
             newx = (index-newy*(BLOCKX*COREX*COREY))/(COREX*COREY);
             thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREY;
@@ -114,7 +115,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
         }
         else
         {
-            if(index<LEFT){
+            if(offset<LEFT){
                 //index 3279  newy 4  newx 4
                 index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
                 newy = index/(BLOCKX*COREX*COREY);
