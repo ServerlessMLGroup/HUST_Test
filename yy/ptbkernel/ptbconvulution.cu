@@ -87,39 +87,14 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     int thx = 0.0;
     for(int i=0;i<ITERATION;i++)
     {
-    if(i!=(ITERATION-1))
-    {
+        if(i!=(ITERATION-1))
+        {
 
-        index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
-        newy = index/BLOCKY*COREX*COREY;
-        newx = (index-newy*(BLOCKY*COREX*COREY))/COREX*COREY;
-        thy = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY)/COREY);
-        thx = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
-
-        //caculate(COREX * COREY thread respectively by each thread)
-
-        temp[newy][newx][thy][thx] = photo[newy + thy][newx + thx] * convolutioncore[thy][thx];
-
-        __syncthreads();
-
-        //get the final result by one thread
-
-        if (thx == 0 && thy == 0){
-        for(int i = 0;i < COREY;i++){
-            for(int j = 0;j < COREX;j++){
-                result[newy][newx] +=temp[newy][newx][i][j];
-                }
-            }
-        }
-    }
-    else
-    {
-        if(index<LEFT){
             index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
             newy = index/BLOCKX*COREX*COREY;
-            newx = (index-newy*(BLOCKY*COREX*COREY))/COREX*COREY;
-            thy = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY)/COREY);
-            thx = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
+            newx = (index-newy*(BLOCKX*COREX*COREY))/COREX*COREY;
+            thy = index - (newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY)/COREY);
+            thx = index - (newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
 
             //caculate(COREX * COREY thread respectively by each thread)
 
@@ -137,6 +112,32 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
                 }
             }
         }
+        else
+        {ew
+            if(index<LEFT){
+                //index 3279  newy 4  newx 4
+                index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
+                newy = index/BLOCKX*COREX*COREY;
+                newx = (index-newy*(BLOCKX*COREX*COREY))/COREX*COREY;
+                thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREY;
+                thx = index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
+
+                //caculate(COREX * COREY thread respectively by each thread)
+
+                temp[newy][newx][thy][thx] = photo[newy + thy][newx + thx] * convolutioncore[thy][thx];
+
+                __syncthreads();
+
+                //get the final result by one thread
+
+                if (thx == 0 && thy == 0){
+                for(int i = 0;i < COREY;i++){
+                    for(int j = 0;j < COREX;j++){
+                        result[newy][newx] +=temp[newy][newx][i][j];
+                        }
+                    }
+                }
+            }
     }
     }
 }
