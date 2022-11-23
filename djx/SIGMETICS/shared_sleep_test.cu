@@ -60,29 +60,40 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 }
 
 __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *times, int stop, int* flag, long long unsigned * sleep_time, long long unsigned * sleep_sm) {
-	// if (threadIdx.x == 0) {
-	// 	sleep_sm[blockIdx.x] = get_smid();
-	// }
+        //if (threadIdx.x == 0) {
+ 	//sleep_sm[blockIdx.x] = get_smid();
+        //}
     #if __CUDA_ARCH__ >= 700
+	//unsigned long long mclk;
+	//if (threadIdx.x == 0) {
+        //         asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+        //         times[blockIdx.x] = mclk / 1000;
+         //}
 	while(flag[0] != 1) {
-		// if (threadIdx.x == 0)
-		// 	sleep_time[blockIdx.x]++;
+		 //if (threadIdx.x == 0)
+		 //    sleep_time[blockIdx.x]++;
 		__nanosleep(1000); // 10us
 	}
 	#else
 	printf(">>> __CUDA_ARCH__ !\n");
 	#endif
 	__syncthreads(); 
-    unsigned long long mclk; 
+        unsigned long long mclk; 
 	if (threadIdx.x == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.x] = mclk / 1000;
 	}
+	//__syncthreads();
+
+	//for (int i = 0; i < 1000; i++) {
+        //        n1=sinf(n1);
+        //        n2=n3/n2;
+        //}
+	__syncthreads();
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
 	}
-	
 	__syncthreads();
 	
 	if (threadIdx.x == 0) {
@@ -180,14 +191,14 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	maxm_e = 0; minm_e = 1768959725180341;
 	printf("---2---\n");
 	for (int i = 0; i < b_blocks; i++) {
-		printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids2[i], h_sm_ids2[i + b_blocks] , h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
-        maxm = max(maxm, h_sm_ids2[i]);
-        minm = min(minm, h_sm_ids2[i]);
+       		 printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids2[i], h_sm_ids2[i + b_blocks] , h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
+       		 maxm = max(maxm, h_sm_ids2[i]);
+      		 minm = min(minm, h_sm_ids2[i]);
 		maxm_e = max(maxm_e, h_sm_ids2[i + b_blocks]);
-        minm_e = min(minm_e, h_sm_ids2[i + b_blocks]);
-	sum2 = sum2 + h_sm_ids2[i + b_blocks]-h_sm_ids2[i];
-	max2 = max(max2, h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
-	min2 = min(min2, h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
+	        minm_e = min(minm_e, h_sm_ids2[i + b_blocks]);
+		sum2 = sum2 + h_sm_ids2[i + b_blocks]-h_sm_ids2[i];
+		max2 = max(max2, h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
+		min2 = min(min2, h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
 	}
 	max_all=maxm_e;
     printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
@@ -198,11 +209,11 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
 	// printf("---sleep_times---\n");
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
-	// }
-	// printf("---sleep_sm---\n");
+	 //}
+	 //printf("---sleep_sm---\n");
 	// for (int i = 0; i < b_blocks; ++i) {
-	// 	printf("block-%d : %llu\n", i, h_sleep_sm[i]);
-	// }
+	 //	printf("block-%d : %llu\n", i, h_sleep_sm[i]);
+	 //}
 	
 	cudaFree(d_sm_ids);
 	cudaFree(d_sm_ids2);

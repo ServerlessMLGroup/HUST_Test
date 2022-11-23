@@ -48,7 +48,7 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 		n1=cosf(n1);
 		n3=n2/n3;
 	}
-	__syncthreads();
+	//__syncthreads();
 	// flag[0] = 1在此在ms级别无变化
 	if (threadIdx.x == 0) {
 		unsigned long long mclk2;

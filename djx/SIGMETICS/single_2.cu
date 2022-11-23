@@ -43,7 +43,12 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned *times, 
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.x] = (mclk) / 1000; // us
 	}
-    // __syncthreads();
+        // __syncthreads();
+	//for (int i = 0; i < 1000; i++) {
+	//	n1=sinf(n1);
+	//	n2=n3/n2;
+	//}
+	__syncthreads();
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
@@ -134,7 +139,7 @@ void run_kernel(int a_blocks, int b_blocks, int a_threads, int b_threads) {
     }
 	cudaDeviceSynchronize();
     // test kernel
-	kernel_ <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 8000, g_flag, d_sleep_sm);
+	kernel <<<Dga, Dba, 0, streams[0]>>>(15.6, 64.9, 134.7, d_sm_ids, 8000, g_flag, d_sleep_sm);
     // sleep until kernel finish
 	//kernel_sleep <<<Dgb, Dbb, 0, streams[1]>>>(15.6, 64.9, 134.7, d_sm_ids2, 50000, g_flag, d_sleep_time, d_sleep_sm);
 	

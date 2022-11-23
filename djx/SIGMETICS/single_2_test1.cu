@@ -53,12 +53,17 @@ __global__ void kernel(float n1, float n2, float n3, long long unsigned ** times
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.x][threadIdx.x] = (mclk) / 1000; // us
 	//}
-    // __syncthreads();
+        //__syncthreads();
+	//for (int i = 0; i < 1000; i++) {
+	//	n1=sinf(n1);
+	//	n2=n3/n2;
+	//}
+	 __syncthreads();
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
 	}
-	__syncthreads();
+        __syncthreads();
 	// flag[0] = 1在此在ms级别无变化
 	//if (threadIdx.x %16 == 0) {
 		unsigned long long mclk2;
@@ -77,7 +82,11 @@ __global__ void kernel_(float n1, float n2, float n3, long long unsigned * times
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.x] = (mclk) / 1000; // us
 	}
-    // __syncthreads();
+        __syncthreads();
+	for (int i = 0; i < 1000; i++) {
+		n1=sinf(n1);
+		n2=n3/n2;
+	}
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
