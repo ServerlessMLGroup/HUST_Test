@@ -9,8 +9,8 @@
 #define THREADY 9
 #define COREX 9
 #define COREY 9
-#define RESIZEBLOCKX 27
-#define RESIZETHREADX 26
+#define RESIZEBLOCKX 26
+#define RESIZETHREADX 27
 #define ITERATION ((BLOCKX*BLOCKY*THREADX*THREADY-1)/(RESIZEBLOCKX*RESIZETHREADX)+1)
 #define LEFT (BLOCKX*BLOCKY*THREADX*THREADY - (ITERATION-1)*RESIZEBLOCKX*RESIZETHREADX)
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}
@@ -95,8 +95,8 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
             index = i*RESIZETHREADX*RESIZEBLOCKX +offset;
             newy = index/(BLOCKX*COREX*COREY);
             newx = (index - newy * (BLOCKX*COREX*COREY))/(COREX*COREY);
-            thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREY;
-            thx = index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
+            thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREX;
+            thx = index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREX;
 
             //caculate(COREX * COREY thread respectively by each thread)
 
@@ -121,7 +121,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
                 index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
                 newy = index/(BLOCKX*COREX*COREY);
                 newx = (index-newy*(BLOCKX*COREX*COREY))/(COREX*COREY);
-                thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREY;
+                thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREX;
                 thx = index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
 
                 //caculate(COREX * COREY thread respectively by each thread)
@@ -135,7 +135,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
                 if (thx == 0 && thy == 0){
                 for(int i = 0;i < COREY;i++){
                     for(int j = 0;j < COREX;j++){
-                        //result[newy][newx] +=temp[newy][newx][i][j];
+                        result[newy][newx] +=temp[newy][newx][i][j];
                         }
                     }
                 }
