@@ -91,12 +91,12 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     //flag[0] = 1;
     kernel_flager<<<1,1,0,stream>>>(0,flag);
     cout<<"flag: "<<flag<<endl;
-    for(int i=1;i < 11;i++)
+    for(int i=1;i < 11111;i++)
     {
     //kernel<<<1,1,0,stream>>>(1.0,2.0,3.0,100);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
-    kernel_flager<<<1,1,0,stream>>>(i,flag);
-    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,i*100000,timeline,i);
+    //kernel_flager<<<1,1,0,stream>>>(i,flag);
+    //kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,i*100000,timeline,i);
     }
 
 }
