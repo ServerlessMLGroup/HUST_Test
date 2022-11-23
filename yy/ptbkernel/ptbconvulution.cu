@@ -113,7 +113,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
             }
         }
         else
-        {ew
+        {
             if(index<LEFT){
                 //index 3279  newy 4  newx 4
                 index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
@@ -138,7 +138,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
                     }
                 }
             }
-    }
+        }
     }
 }
 
