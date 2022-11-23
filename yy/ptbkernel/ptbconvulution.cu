@@ -107,7 +107,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
 
             if (thx == 0 && thy == 0){
             for(int i = 0;i < COREY;i++){
-                for(int j = 0;j < 5;j++){
+                for(int j = 0;j < COREX;j++){
                     result[newy][newx] +=temp[newy][newx][i][j];
                     }
                 }
@@ -133,7 +133,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
 
                 if (thx == 0 && thy == 0){
                 for(int i = 0;i < COREY;i++){
-                    for(int j = 0;j < COREX;j++){
+                    for(int j = 0;j < 2;j++){
                         result[newy][newx] +=temp[newy][newx][i][j];
                         }
                     }
