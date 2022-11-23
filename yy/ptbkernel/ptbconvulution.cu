@@ -115,8 +115,8 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     else
     {
         if(index<LEFT){
-            index += i*RESIZETHREADX*RESIZEBLOCKX;
-            newy = index/BLOCKY*COREX*COREY;
+            index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
+            newy = index/BLOCKX*COREX*COREY;
             newx = (index-newy*(BLOCKY*COREX*COREY))/COREX*COREY;
             thy = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY)/COREY);
             thx = index - (newy*(BLOCKY*COREX*COREY) -newx*(COREX*COREY) - thy*COREY);
@@ -179,7 +179,7 @@ void run_kernel() {
 
     //test
     int ite = ITERATION;
-    printf("Iteration:%d ",ite);
+    printf("Iteration:%d \n",ite);
 
     //manage dphoto
 	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+COREY-1)*sizeof(float*));CHECK(res)
@@ -266,7 +266,7 @@ void run_kernel() {
 	dim3 dimGrid(BLOCKX,BLOCKY);
     printf("183 \n");
     //convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
-    convolutionkernel<<<RESIZEBLOCKX, RESIZETHREADX>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
+    resizeconvolutionkernel<<<RESIZEBLOCKX, RESIZETHREADX>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
     printf("185 \n");
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
 	//prinf（"err: %d \n",res);
