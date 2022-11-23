@@ -177,6 +177,10 @@ void run_kernel() {
 
 	cudaError_t res;
 
+    //test
+    int ite = ITERATION;
+    printf("Iteration:%d ",ite);
+
     //manage dphoto
 	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+COREY-1)*sizeof(float*));CHECK(res)
 	res = cudaMalloc((void**)(&dphoto1), (BLOCKY+COREY-1)*(BLOCKX+COREX-1)*sizeof(float));CHECK(res)
