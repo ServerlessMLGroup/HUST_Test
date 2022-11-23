@@ -87,7 +87,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
             perror("pthread_setaffinity_np");
     }
     */
-    //rnel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000,timeline,0);
+    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000000,timeline,0);
     //flag[0] = 1;
     kernel_flager<<<1,1,0,stream>>>(0,flag);
     cout<<"flag: "<<flag<<endl;
