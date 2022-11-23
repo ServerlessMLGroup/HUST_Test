@@ -181,7 +181,8 @@ void run_kernel() {
 
     //test
     int ite = ITERATION;
-    printf("Iteration:%d \n",ite);
+    int lef = LEFT;
+    printf("Iteration:%d \n",lef);
 
     //manage dphoto
 	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+COREY-1)*sizeof(float*));CHECK(res)
@@ -282,7 +283,7 @@ void run_kernel() {
 			printf("%f ", hphoto1[r*BLOCKX+c]);
 		}
 	}
-    printf("196 \n");
+    //printf("196 \n");
 }
 
 int main(int argc, char *argv[]) {
