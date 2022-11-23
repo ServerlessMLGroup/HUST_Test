@@ -9,8 +9,8 @@
 #define THREADY 9
 #define COREX 9
 #define COREY 9
-#define RESIZEBLOCKX 10
-#define RESIZETHREADX 20
+#define RESIZEBLOCKX 45
+#define RESIZETHREADX 36
 #define ITERATION ((BLOCKX*BLOCKY*THREADX*THREADY-1)/(RESIZEBLOCKX*RESIZETHREADX)+1)
 #define LEFT (BLOCKX*BLOCKY*THREADX*THREADY - (ITERATION-1)*RESIZEBLOCKX*RESIZETHREADX)
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}
@@ -284,6 +284,7 @@ void run_kernel() {
 		}
 	}
     //printf("196 \n");
+    printf("\n");
 }
 
 int main(int argc, char *argv[]) {
