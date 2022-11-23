@@ -183,7 +183,7 @@ void run_kernel() {
     //test ITERATION and LEFT
     int ite = ITERATION;
     int lef = LEFT;
-    printf("Iteration:%d \n",lef);
+    printf("Iteration:%d \n",ite);
 
     //manage dphoto
 	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+COREY-1)*sizeof(float*));CHECK(res)
