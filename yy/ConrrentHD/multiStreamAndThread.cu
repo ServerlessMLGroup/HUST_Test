@@ -105,7 +105,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 int main()
 {
     cuInit(0);
-    cudaSetDevice(2);
+    cudaSetDevice(1);
 
     /*
     cpu_set_t mask;
