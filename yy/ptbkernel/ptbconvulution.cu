@@ -94,7 +94,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
 
             index = i*RESIZETHREADX*RESIZEBLOCKX +offset;
             newy = index/(BLOCKX*COREX*COREY);
-            newx = (index-newy*(BLOCKX*COREX*COREY))/(COREX*COREY);
+            newx = (index - newy * (BLOCKX*COREX*COREY))/(COREX*COREY);
             thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREY;
             thx = index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
 
@@ -135,7 +135,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
                 if (thx == 0 && thy == 0){
                 for(int i = 0;i < COREY;i++){
                     for(int j = 0;j < COREX;j++){
-                        result[newy][newx] +=temp[newy][newx][i][j];
+                        //result[newy][newx] +=temp[newy][newx][i][j];
                         }
                     }
                 }
@@ -184,6 +184,7 @@ void run_kernel() {
     int ite = ITERATION;
     int lef = LEFT;
     printf("Iteration:%d \n",ite);
+    printf("Left:%d \n",lef);
 
     //manage dphoto
 	res = cudaMalloc((void**)(&dphoto2), (BLOCKY+COREY-1)*sizeof(float*));CHECK(res)
