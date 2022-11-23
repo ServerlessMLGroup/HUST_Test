@@ -86,6 +86,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     {
             perror("pthread_setaffinity_np");
     }
+    cout << "In thread stream: "<<stream<<endl;
     */
     kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000000,timeline,0);
     //flag[0] = 1;
@@ -212,7 +213,7 @@ int main()
 
 
     cout<<"flag: "<<flag1<<endl;
-
+    cout << "Out of the thread stream: "<<firststream<<endl;
 
     thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
     //thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
