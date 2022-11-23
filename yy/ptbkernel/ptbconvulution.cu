@@ -65,7 +65,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
 
     if (thx == 0 && thy == 0){
     for(int i = 0;i < COREY;i++){
-        for(int j = 0;j < COREX;j++){
+        for(int j = 0;j < 5;j++){
             result[newy][newx] +=temp[newy][newx][i][j];
             }
         }
