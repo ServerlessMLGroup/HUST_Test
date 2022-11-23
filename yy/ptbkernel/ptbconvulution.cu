@@ -10,7 +10,7 @@
 #define COREX 9
 #define COREY 9
 #define RESIZEBLOCKX 27
-#define RESIZETHREADX 27
+#define RESIZETHREADX 26
 #define ITERATION ((BLOCKX*BLOCKY*THREADX*THREADY-1)/(RESIZEBLOCKX*RESIZETHREADX)+1)
 #define LEFT (BLOCKX*BLOCKY*THREADX*THREADY - (ITERATION-1)*RESIZEBLOCKX*RESIZETHREADX)
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}
@@ -81,6 +81,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     int oldthx = threadIdx.x;
     //int oldthy = threadIdx.y;
     int offset = oldx*RESIZETHREADX + oldthx;
+
     int index = offset;
     int newy = 0.0;
     int newx = 0.0;
