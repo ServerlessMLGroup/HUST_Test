@@ -81,7 +81,7 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
     int oldthx = threadIdx.x;
     //int oldthy = threadIdx.y;
     int offset = oldx*RESIZETHREADX + oldthx;
-    index = offset;
+    int index = offset;
     int newy = 0.0;
     int newx = 0.0;
     int thy = 0.0;
