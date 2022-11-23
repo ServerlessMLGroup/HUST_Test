@@ -91,8 +91,8 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
         {
 
             index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
-            newy = index/BLOCKX*COREX*COREY;
-            newx = (index-newy*(BLOCKX*COREX*COREY))/COREX*COREY;
+            newy = index/(BLOCKX*COREX*COREY);
+            newx = (index-newy*(BLOCKX*COREX*COREY))/(COREX*COREY);
             thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREY;
             thx = index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
 
@@ -117,8 +117,8 @@ __global__ void resizeconvolutionkernel(float** photo,float**** temp,float** con
             if(index<LEFT){
                 //index 3279  newy 4  newx 4
                 index = i*RESIZETHREADX*RESIZEBLOCKX +oldx*RESIZETHREADX + oldthx;
-                newy = index/BLOCKX*COREX*COREY;
-                newx = (index-newy*(BLOCKX*COREX*COREY))/COREX*COREY;
+                newy = index/(BLOCKX*COREX*COREY);
+                newx = (index-newy*(BLOCKX*COREX*COREY))/(COREX*COREY);
                 thy = (index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY))/COREY;
                 thx = index - newy*(BLOCKX*COREX*COREY) -newx*(COREX*COREY) - thy*COREY;
 
