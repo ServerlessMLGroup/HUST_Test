@@ -213,7 +213,7 @@ void run_kernel() {
 	//assign the data to the photo
 	for (int r = 0; r < ((BLOCKY+COREY-1)*(BLOCKX+COREX-1)); r++)
 	{
-		hphoto1[r] = 2.0 + r;
+		hphoto1[r] = 2.0 ;
 	}
 	res = cudaMemcpy((void*)(dphoto2), (void*)(hphoto2), (BLOCKY+COREY-1)*sizeof(float*), cudaMemcpyHostToDevice);CHECK(res)
     res = cudaMemcpy((void*)(dphoto1), (void*)(hphoto1), ((BLOCKY+COREY-1)*(BLOCKX+COREX-1))*sizeof(float), cudaMemcpyHostToDevice);CHECK(res)
@@ -278,10 +278,10 @@ void run_kernel() {
     //normal way
 	dim3 dimBlock(COREX,COREY);
 	dim3 dimGrid(BLOCKX,BLOCKY);
-    //convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
+    convolutionkernel<<<dimGrid, dimBlock>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
 
     //ptb way
-    resizeconvolutionkernel<<<RESIZEBLOCKX, RESIZETHREADX>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
+    //resizeconvolutionkernel<<<RESIZEBLOCKX, RESIZETHREADX>>>(dphoto2,dtemp4,dconvolutioncore2,dresult2);
 
     //Get the result
 	res = cudaMemcpy((void*)(hphoto1), (void*)(dresult1), BLOCKY*BLOCKX*sizeof(float), cudaMemcpyDeviceToHost);
