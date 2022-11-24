@@ -94,10 +94,11 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     //rotate for so many times,the total runtime didn't change
     for(int i=1;i < 11;i++)
     {
-    cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
+    //cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
     //old code
     //kernel_flager<<<1,1,0,tempstream>>>(i,flag);
     }
+    
 }
 
 int main()
