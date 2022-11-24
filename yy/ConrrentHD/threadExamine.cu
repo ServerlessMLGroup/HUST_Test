@@ -74,12 +74,13 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
             perror("pthread_setaffinity_np");
     }
     */
-
+    cudaStream_t tempstream;
+    cudaStreamCreate(&tempstream);
     //compare whether the parameter stream has the same value as variable "firststream" outside
     cout << "In thread stream: "<<stream<<endl;
 
     //test whether the kernel worked ,it should work 67s,however,nothing happened
-    kernel<<<1,32>>>(1.0,2.0,3.0,1000000000);
+    kernel<<<1,32,0,tempstream>>>(1.0,2.0,3.0,1000000000);
 
     //test wherther the parameter flag is effective,the line below worked well
     //flag[0] = 1;
@@ -87,15 +88,15 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     cout<<"In thread flag: "<<flag<<endl;
 
     //old code,designed for timing
-    kernel_flager<<<1,1,0,stream>>>(0,flag);
+    kernel_flager<<<1,1,0,tempstream>>>(0,flag);
 
     //data transfer loop
     //rotate for so many times,the total runtime didn't change
     for(int i=1;i < 11111;i++)
     {
-    cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
     //old code
-    //kernel_flager<<<1,1,0,stream>>>(i,flag);
+    //kernel_flager<<<1,1,0,tempstream>>>(i,flag);
     }
 }
 
