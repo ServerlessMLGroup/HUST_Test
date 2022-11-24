@@ -16,6 +16,9 @@
 using namespace std;
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
+mutex workend2;
+mutex workend1;
+
 //this is a normal kernel
 __global__ void kernel(float n1, float n2, float n3, int stop) {
 	for (int i = 0; i < stop; i++) {
@@ -38,7 +41,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
               }
 		    if (threadIdx.x == 0){
 		    asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-		    times[i] = mclk2/ 1000000;t
+		    times[i] = mclk2/ 1000000;
 		    }
 		    i++;
 		}
@@ -81,7 +84,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     //test wherther the parameter flag is effective,the line below worked well
     //flag[0] = 1;
     //compare whether the parameter flag has the same value as variable "flag" outside
-    out<<"In thread flag: "<<flag<<endl;
+    cout<<"In thread flag: "<<flag<<endl;
 
     //old code,designed for timing
     kernel_flager<<<1,1,0,stream>>>(0,flag);
