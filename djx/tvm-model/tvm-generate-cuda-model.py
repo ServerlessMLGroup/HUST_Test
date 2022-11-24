@@ -48,9 +48,13 @@ opt_level = 3
 target = tvm.target.cuda()
     
 with tvm.transform.PassContext(opt_level=opt_level):
-    graph_json, lib, params = relay.build(mod, target, params=params)
+    # graph_json, lib, params = relay.build(mod, target, params=params)
+    lib = relay.build(mod, target, params=params)
 
+graph_json = lib.graph_json
+params = lib.get_params()
 ctx = tvm.gpu()
+# module = graph_runtime.GraphModule(lib["default"](ctx))
 module = graph_runtime.GraphModule(lib["default"](ctx))
 
 data = np.ones(data_shape).astype("float32")

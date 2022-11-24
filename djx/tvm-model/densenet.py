@@ -32,8 +32,14 @@ graph_json_file = open("densenet/"+sys.argv[3], "w")  # json
 param_file = open("densenet/"+sys.argv[4], "w+b")  # params
 
 
+batch_size = 1
+num_class = 1000
+image_shape = (3, 224, 224)
+data_shape = (batch_size,) + image_shape
+out_shape = (batch_size, num_class)
+
 mod, params = relay.testing.densenet.get_workload(
-    densenet_size=121, classes=1000, batch_size=1, image_shape=(3, 224, 224), dtype="float32"
+    densenet_size=169, batch_size=batch_size, image_shape=image_shape
 )
 # mod, params = relay.testing.mobilenet.get_workload(
 #     batch_size=batch_size, image_shape=image_shape
@@ -43,12 +49,14 @@ opt_level = 3
 target = tvm.target.cuda()
     
 with tvm.transform.PassContext(opt_level=opt_level):
-    graph_json, lib, params = relay.build(mod, target, params=params)
+    lib = relay.build(mod, target, params=params)
 
+graph_json = lib.graph_json
+params = lib.get_params()
 ctx = tvm.gpu()
 module = graph_runtime.GraphModule(lib["default"](ctx))
 
-data = np.ones((1,3,224,224)).astype("float32")
+data = np.ones(data_shape).astype("float32")
 data = data * 10
 module.set_input("data", data)
 
@@ -80,5 +88,5 @@ def dump_params(params, f):
 dump_params(params, param_file)
 param_file.close()
 
-out = module.get_output(0, tvm.nd.empty((1, 1000))).asnumpy()
+out = module.get_output(0, tvm.nd.empty(out_shape)).asnumpy()
 print(out.flatten()[0:10])
