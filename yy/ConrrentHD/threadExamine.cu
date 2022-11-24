@@ -1,5 +1,5 @@
 #include <iostream>
-#include <thread>
+#include <pthread.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include <math.h>
@@ -20,11 +20,13 @@ using namespace std;
 //mutex workend1;
 
 //this is a normal kernel
-__global__ void kernel(float n1, float n2, float n3, int stop) {
+__global__ void kernel(float n1, float n2, float n3, int stop,int *flag) {
 	for (int i = 0; i < stop; i++) {
 		n1=sinf(n1);
 		n2=n3/n2;
 	}
+    flag[0] = 1;
+    //flag[1] = 1;
 }
 
 //this is designed to timing based on the flag
@@ -50,6 +52,7 @@ __global__ void kernel_timer(long long unsigned *times,int *flag) {
 //this kernel was designed to change the flag
 __global__ void kernel_flager(int i,int *flag) {
 		flag[i] = 1;
+        __nanosleep(100000);
 }
 
 
@@ -62,7 +65,8 @@ void CUDART_CB thread2_3callback(void *data) {
 }
 
 //diy thread
-void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
+//void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
+void *thread1(void *dummy)
 {
     //set CPU
     /*
@@ -74,21 +78,27 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
             perror("pthread_setaffinity_np");
     }
     */
+    cudaError_t cudaStatus;
     cudaStream_t tempstream;
-    cudaStreamCreate(&tempstream);
+    cudaStatus = cudaStreamCreate(&tempstream);
+    fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
+    int *flag = (int *)dummy;
     //compare whether the parameter stream has the same value as variable "firststream" outside
-    cout << "In thread stream: "<<stream<<endl;
+    //cout << "In thread stream: "<<stream<<endl;
 
     //test whether the kernel worked ,it should work 67s,however,nothing happened
-    kernel<<<1,32>>>(1.0,2.0,3.0,1000000000);
-    cudaError_t cudaStatus;
+    kernel<<<80,32>>>(1.0,2.0,3.0,10,flag);
+    //kernel<<<80,32>>>(1.0,2.0,3.0,10);
+    
+    
+    //cudaMalloc(&flag, sizeof(int));
     cudaStatus = cudaGetLastError();
     if (cudaStatus != cudaSuccess) {
         fprintf(stderr, "addKernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
     }
     else
     {
-        fprintf(stderr, "addKernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
+        fprintf(stderr, "%s\n", cudaGetErrorString(cudaStatus));
     }
 
 
@@ -98,8 +108,9 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     cout<<"In thread flag: "<<flag<<endl;
 
     //old code,designed for timing
-    kernel_flager<<<1,1,0,tempstream>>>(0,flag);
-
+    //kernel_flager<<<1,1,0,tempstream >>>(0,flag);
+    kernel_flager<<<1,1>>>(0,flag);
+    //cuStreamSynchronize(tempstream);
     //data transfer loop
     //rotate for so many times,the total runtime didn't change
     //cout<<cudaMemcpy(d_a, h_a,size, cudaMemcpyHostToDevice);
@@ -111,6 +122,9 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     }
 
 }
+
+
+pthread_t ntid;
 
 int main()
 {
@@ -154,7 +168,7 @@ int main()
     cudaMalloc(&timeline2, size2);
 
     size_t size3 = 11*sizeof(int);
-    cudaMalloc(&flag1, size3);
+    cudaMalloc(&flag1, 11*sizeof(int));
     cudaMalloc(&flag2, size3);
 
     //initialize the flags
@@ -213,8 +227,8 @@ int main()
     //kernel<<<1,32,0,firststream>>>(1.0,2.0,3.0,1000000);
 
     //cudahostfunc to synchronize
-    cudaHostFn_t fn5 = thread1_5callback;
-    cudaHostFn_t fn8 = thread2_3callback;
+    //cudaHostFn_t fn5 = thread1_5callback;
+    //cudaHostFn_t fn8 = thread2_3callback;
     //cudaLaunchHostFunc(flagonestream, fn5, 0);
     //cudaLaunchHostFunc(flagtwostream, fn8, 0);
 
@@ -222,17 +236,20 @@ int main()
     cout<<"flag: "<<flag1<<endl;
     cout << "Out of the thread stream: "<<firststream<<endl;
 
-    thread first=thread(thread1,firststream,d_A,d_A,size,timeline1,1,flag1);
+    //kernel<<<80,32>>>(1.0,2.0,3.0,10);
+
+    pthread_create(&ntid, NULL, thread1, flag1);
+    pthread_join(ntid, NULL);
     //thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
     //second.join();
-    first.join();
+    //first.join();
 
 
-    cudaLaunchHostFunc(firststream, fn5, 0);
+    //cudaLaunchHostFunc(firststream, fn5, 0);
     //cudaLaunchHostFunc(secondstream, fn8, 0);
 
 
-    cout<<"reach here"<<endl;
+    //cout<<"reach here"<<endl;
     //workend1.lock();
     //workend2.lock();
 
@@ -249,7 +266,7 @@ int main()
     }
     cudaMemcpy(h_A, d_A,size, cudaMemcpyDeviceToHost);
     for(int i=0;i < 10; ++i){
-    cout<<"now  data"<<*(h_A + i)<<endl;
+    //cout<<"now  data"<<*(h_A + i)<<endl;
     }
 
 
@@ -262,8 +279,8 @@ int main()
 
     long long unsigned* timelineh1;
     long long unsigned* timelineh2;
-    timelineh1 =(long long unsigned*)malloc(size2);
-    timelineh2 =(long long unsigned*)malloc(size2);
+    //timelineh1 =(long long unsigned*)malloc(size2);
+    //timelineh2 =(long long unsigned*)malloc(size2);
 
     //output the timeline
     /*

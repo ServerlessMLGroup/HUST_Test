@@ -23,13 +23,13 @@ if len(sys.argv) != 5:
     print("Usage: device_source_file_name raw_schedule_file graph_json_file param_file")
     exit(0)
 
-file_path_dir = os.path.dirname(os.path.abspath(__file__)) + '/reef-cuda'
+file_path_dir = os.path.dirname(os.path.abspath(__file__)) + '/reef-cuda-test'
 if not os.path.exists(file_path_dir):
     os.mkdir(file_path_dir)
-device_source_file = open("reef-cuda/"+sys.argv[1], "w")  # cu
-raw_schedule_file = open("reef-cuda/"+sys.argv[2], "w")  # json
-graph_json_file = open("reef-cuda/"+sys.argv[3], "w")  # json
-param_file = open("reef-cuda/"+sys.argv[4], "w+b")  # params
+device_source_file = open("reef-cuda-test/"+sys.argv[1], "w")  # cu
+raw_schedule_file = open("reef-cuda-test/"+sys.argv[2], "w")  # json
+graph_json_file = open("reef-cuda-test/"+sys.argv[3], "w")  # json
+param_file = open("reef-cuda-test/"+sys.argv[4], "w+b")  # params
 
 batch_size = 1
 num_class = 1000
@@ -51,7 +51,7 @@ with tvm.transform.PassContext(opt_level=opt_level):
     # graph_json, lib, params = relay.build(mod, target, params=params)
     lib = relay.build(mod, target, params=params)
 
-graph_json = lib.graph_json
+# graph_json = lib.graph_json
 params = lib.get_params()
 ctx = tvm.gpu()
 # module = graph_runtime.GraphModule(lib["default"](ctx))
