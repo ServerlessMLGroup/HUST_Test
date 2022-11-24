@@ -154,7 +154,6 @@ int main()
     }
     cudaMemcpy(flag1, flag1h, sizeof(int) * 11, cudaMemcpyHostToDevice);
     cudaMemcpy(flag2, flag2h, sizeof(int) * 11, cudaMemcpyHostToDevice);
-    kernel
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
     float* h_A;
