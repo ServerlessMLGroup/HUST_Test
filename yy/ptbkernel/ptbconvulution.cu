@@ -60,7 +60,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
     __syncthreads();
 
     //get the final result by one thread
-    if (thx == 0 && thy == 0){
+    if (thx == 0 && thy == 0)
     for(int i = 0;i < COREY;i++){
         for(int j = 0;j < COREX;j++){
             result[newy][newx] +=temp[newy][newx][i][j];
