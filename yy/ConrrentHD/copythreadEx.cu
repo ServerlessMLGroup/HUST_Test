@@ -83,7 +83,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     cudaStream_t tempstream;
     cudaStatus = cudaStreamCreate(&tempstream);
     fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
-    int *flag = (int *)dummy;
+    //int *flag = (int *)dummy;
     //compare whether the parameter stream has the same value as variable "firststream" outside
     //cout << "In thread stream: "<<stream<<endl;
 
