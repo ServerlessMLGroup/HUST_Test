@@ -25,7 +25,7 @@ __global__ void kernel(float n1, float n2, float n3, int stop,int *flag) {
 		n1=sinf(n1);
 		n2=n3/n2;
 	}
-    flag[0] = 1;
+    //flag[0] = 1;
     //flag[1] = 1;
 }
 
@@ -68,6 +68,7 @@ void CUDART_CB thread2_3callback(void *data) {
 //void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
 void *thread1(void *dummy)
 {
+    cudaSetDevice(1);
     //set CPU
     /*
     cpu_set_t mask;
@@ -78,11 +79,15 @@ void *thread1(void *dummy)
             perror("pthread_setaffinity_np");
     }
     */
+    
+
+
     cudaError_t cudaStatus;
     cudaStream_t tempstream;
     cudaStatus = cudaStreamCreate(&tempstream);
     fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
     int *flag = (int *)dummy;
+    cout<<"**flag_in_thread: "<<flag<<endl;
     //compare whether the parameter stream has the same value as variable "firststream" outside
     //cout << "In thread stream: "<<stream<<endl;
 
@@ -108,9 +113,9 @@ void *thread1(void *dummy)
     cout<<"In thread flag: "<<flag<<endl;
 
     //old code,designed for timing
-    //kernel_flager<<<1,1,0,tempstream >>>(0,flag);
-    kernel_flager<<<1,1>>>(0,flag);
-    //cuStreamSynchronize(tempstream);
+    kernel_flager<<<1,1,0,tempstream >>>(0,flag);
+    //kernel_flager<<<1,1>>>(0,flag);
+    cuStreamSynchronize(tempstream);
     //data transfer loop
     //rotate for so many times,the total runtime didn't change
     //cout<<cudaMemcpy(d_a, h_a,size, cudaMemcpyHostToDevice);
@@ -128,7 +133,7 @@ pthread_t ntid;
 
 int main()
 {
-    cuInit(0);
+    //cuInit(0);
     cudaSetDevice(1);
 
     /*
