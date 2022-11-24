@@ -81,6 +81,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 
     //test whether the kernel worked ,it should work 67s,however,nothing happened
     kernel<<<1,32,0,tempstream>>>(1.0,2.0,3.0,1000000000);
+    cudaError_t cudaStatus;
     cudaStatus = cudaGetLastError();
     if (cudaStatus != cudaSuccess) {
         fprintf(stderr, "addKernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
