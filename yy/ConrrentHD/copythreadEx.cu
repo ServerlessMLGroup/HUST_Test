@@ -65,8 +65,9 @@ void CUDART_CB thread2_3callback(void *data) {
 }
 
 //diy thread
-//void *thread1(void *dummy)
-void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
+//
+//void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
+void *thread1(void *dummy,void* d_A,void *h_A)
 {
     //set CPU
     /*
@@ -83,7 +84,9 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     cudaStream_t tempstream;
     cudaStatus = cudaStreamCreate(&tempstream);
     fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
-    //int *flag = (int *)dummy;
+    int *flag = (int *)dummy;
+    int *d_a = (int *)d_A;
+    int *h_a = (int *)h_A;
     //compare whether the parameter stream has the same value as variable "firststream" outside
     //cout << "In thread stream: "<<stream<<endl;
 
@@ -126,7 +129,8 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 }
 
 
-pthread_t ntid;
+pthread_t ntid1;
+pthread_t ntid2;
 
 int main()
 {
@@ -239,12 +243,14 @@ int main()
 
     //kernel<<<80,32>>>(1.0,2.0,3.0,10);
 
-    //pthread_create(&ntid, NULL, thread1, flag1);
-    //pthread_join(ntid, NULL);
-    thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
-    thread first=thread(thread1,secondstream,d_A,d_A,size,timeline2,2,flag1);
-    second.join();
-    first.join();
+    pthread_create(&ntid1, NULL, thread1, flag1,d_A,h_A);
+    pthread_create(&ntid2, NULL, thread1, flag2,d_B,h_B);
+    pthread_join(ntid1, NULL);
+    pthread_join(ntid2, NULL);
+    //thread second=thread(thread1,secondstream,d_B,d_B,size,timeline2,2,flag2);
+    //thread first=thread(thread1,secondstream,d_A,d_A,size,timeline2,2,flag1);
+    //second.join();
+    //first.join();
 
 
     //cudaLaunchHostFunc(firststream, fn5, 0);
