@@ -199,7 +199,7 @@ int main()
     //workend2.lock();
 
     //test whether kernel works here
-    kernel<<<1,32,0,firststream>>>(1.0,2.0,3.0,1000000);
+    //kernel<<<1,32,0,firststream>>>(1.0,2.0,3.0,1000000);
 
     //cudahostfunc to synchronize
     cudaHostFn_t fn5 = thread1_5callback;

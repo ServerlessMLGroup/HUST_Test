@@ -36,6 +36,7 @@ void check(cudaError_t err)
 inline void __checkCudaErrors(cudaError_t err, const char *file, const int line) {
   if (CUDA_SUCCESS != err) {
     const char *errorStr = NULL;
+
     errorStr = cudaGetErrorString(err);
     fprintf(stderr,
             "checkCudaErrors() Driver API error = %04d \"%s\" from file <%s>, "
