@@ -43,6 +43,8 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
     }
 
     cudaStream_t tempstream;
+
+    cudaError_t cudaStatus;
     cudaStatus = cudaStreamCreate(&tempstream);
     fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
 
@@ -136,7 +138,7 @@ int main()
     pthread_join(ntid2, NULL);
     */
 
-    thread second=thread(thread1,cont1,d_B,H_B,size);
+    thread second=thread(thread1,cont1,d_B,h_B,size);
     thread first=thread(thread1,cont1,d_A,h_A,size);
     second.join();
     first.join();
