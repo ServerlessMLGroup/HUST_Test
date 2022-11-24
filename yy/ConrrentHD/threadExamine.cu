@@ -80,7 +80,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     cout << "In thread stream: "<<stream<<endl;
 
     //test whether the kernel worked ,it should work 67s,however,nothing happened
-    kernel<<<1,32,0,tempstream>>>(1.0,2.0,3.0,1000000000);
+    cout<< kernel<<<1,32,0,tempstream>>>(1.0,2.0,3.0,1000000000);
 
     //test wherther the parameter flag is effective,the line below worked well
     //flag[0] = 1;
@@ -98,7 +98,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     //old code
     //kernel_flager<<<1,1,0,tempstream>>>(i,flag);
     }
-    
+
 }
 
 int main()
@@ -154,7 +154,7 @@ int main()
     }
     cudaMemcpy(flag1, flag1h, sizeof(int) * 11, cudaMemcpyHostToDevice);
     cudaMemcpy(flag2, flag2h, sizeof(int) * 11, cudaMemcpyHostToDevice);
-
+    kernel
     cout<<"Allocate Host Memory"<<endl;
     // Allocate input vectors h_A and h_B in host memory
     float* h_A;
