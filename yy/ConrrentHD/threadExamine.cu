@@ -86,6 +86,11 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     if (cudaStatus != cudaSuccess) {
         fprintf(stderr, "addKernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
     }
+    else
+    {
+        fprintf(stderr, "addKernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
+    }
+    
 
     //test wherther the parameter flag is effective,the line below worked well
     //flag[0] = 1;
