@@ -195,7 +195,7 @@ int main()
     //cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, secondstream);
 
     //prepare
-    workend1.lock();
+    //workend1.lock();
     //workend2.lock();
 
     //test whether kernel works here
@@ -222,7 +222,7 @@ int main()
 
 
     cout<<"reach here"<<endl;
-    workend1.lock();
+    //workend1.lock();
     //workend2.lock();
 
     //change,check whether the cudamemcpy works
