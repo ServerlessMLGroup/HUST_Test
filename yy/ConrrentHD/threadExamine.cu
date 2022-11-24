@@ -55,10 +55,10 @@ __global__ void kernel_flager(int i,int *flag) {
 
 //synchronize funtion ,can be substituted by cudaDeviceSynchronize()
 void CUDART_CB thread1_5callback(void *data) {
-    workend1.unlock();
+    //workend1.unlock();
 }
 void CUDART_CB thread2_3callback(void *data) {
-    workend2.unlock();
+    //workend2.unlock();
 }
 
 //diy thread
