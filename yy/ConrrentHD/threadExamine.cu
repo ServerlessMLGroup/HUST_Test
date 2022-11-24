@@ -16,8 +16,8 @@
 using namespace std;
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
-mutex workend2;
-mutex workend1;
+//mutex workend2;
+//mutex workend1;
 
 //this is a normal kernel
 __global__ void kernel(float n1, float n2, float n3, int stop) {
