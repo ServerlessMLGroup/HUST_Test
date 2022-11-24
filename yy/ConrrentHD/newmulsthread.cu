@@ -151,8 +151,8 @@ int main()
     pthread_join(ntid2, NULL);
     */
 
-    thread second=thread(thread1,cont1,d_B,h_B,size);
-    thread first=thread(thread1,cont1,d_A,h_A,size);
+    thread second=thread(thread1,cont1,d_B,h_B,size,1);
+    thread first=thread(thread1,cont1,d_A,h_A,size,2);
     second.join();
     first.join();
 
