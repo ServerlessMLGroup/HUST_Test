@@ -79,7 +79,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
     cout << "In thread stream: "<<stream<<endl;
 
     //test whether the kernel worked ,it should work 67s,however,nothing happened
-    kernel<<<1,32,0,stream>>>(1.0,2.0,3.0,1000000000);
+    kernel<<<1,32>>>(1.0,2.0,3.0,1000000000);
 
     //test wherther the parameter flag is effective,the line below worked well
     //flag[0] = 1;
