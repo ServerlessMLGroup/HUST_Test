@@ -119,9 +119,12 @@ void *thread1(void *dummy,void* d_A,void *h_A)
     //rotate for so many times,the total runtime didn't change
     //cout<<cudaMemcpy(d_a, h_a,size, cudaMemcpyHostToDevice);
 
+    int N = 4*52428800/20;
+    size_t size2 = N * sizeof(float);
+
     for(int i=1;i < 11;i++)
     {
-    cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
+    cudaMemcpyAsync(d_a, h_a,size2, cudaMemcpyHostToDevice, tempstream);
     //old code
     //kernel_flager<<<1,1,0,tempstream>>>(i,flag);
     }
