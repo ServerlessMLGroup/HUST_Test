@@ -67,7 +67,7 @@ void CUDART_CB thread2_3callback(void *data) {
 //diy thread
 //
 //void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long unsigned *timeline,int number,int *flag)
-void *thread1(void *dummy,void* d_A,void *h_A)
+void *thread1(void *dummy,void* d_A,void *h_A,int i)
 {
     //set CPU
     /*

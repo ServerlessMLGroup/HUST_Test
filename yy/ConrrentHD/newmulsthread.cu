@@ -16,11 +16,13 @@
 using namespace std;
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
+mutex workend2;
+mutex workend1;
 //diy thread
 
 //void *thread1(void *dummy,void* d_A,void *h_A)
 //
-void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
+void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
 {
     //set CPU
     /*
@@ -53,6 +55,17 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size)
     int *d_a = (int *)d_A;
     int *h_a = (int *)h_A;
     */
+
+    if(i==1)
+    {
+    workend1.unlock();
+    workend2.lock();
+    }
+    else
+    {
+    workend2.unlock();
+    workend1.lock();
+    }
 
     for(int i=1;i < 10;i++)
     {
