@@ -81,6 +81,10 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 
     //test whether the kernel worked ,it should work 67s,however,nothing happened
     kernel<<<1,32,0,tempstream>>>(1.0,2.0,3.0,1000000000);
+    cudaStatus = cudaGetLastError();
+    if (cudaStatus != cudaSuccess) {
+        fprintf(stderr, "addKernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
+    }
 
     //test wherther the parameter flag is effective,the line below worked well
     //flag[0] = 1;
@@ -92,7 +96,7 @@ void thread1(cudaStream_t stream,float* d_a,float* h_a,size_t size,long long uns
 
     //data transfer loop
     //rotate for so many times,the total runtime didn't change
-    cout<<cudaMemcpy(d_a, h_a,size, cudaMemcpyHostToDevice);
+    //cout<<cudaMemcpy(d_a, h_a,size, cudaMemcpyHostToDevice);
     for(int i=1;i < 11;i++)
     {
     //cout<< cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
