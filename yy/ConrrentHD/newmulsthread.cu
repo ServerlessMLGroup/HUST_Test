@@ -37,6 +37,16 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     //set GPU
     //cudaSetDevice(1);
 
+
+    //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
+    //wo hui zai wo gaide mei yige difang jia shang zhushi yy
+    //yy preparation
+
+    CUevent  start, stop;
+    float time;
+    cuEventCreate(&start,0);
+    cuEventCreate(&stop,0);
+
     cout<<"one thread starts: "<<endl;
     int err;
     err=cuCtxPushCurrent(ctx);
@@ -69,8 +79,15 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
 
     for(int i=1;i < 10;i++)
     {
+    //cuEventRecord(start,0);
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
+    //cuEventRecord(stop,0);
+    //cuEventSynchronize(stop);
+    //cuEventElapsedTime(&time, start, stop);
+	//std::cout<< i <<" time: "<<1000*time<<" us"<<std::endl;
     }
+
+
     cuStreamSynchronize(tempstream);
 }
 
@@ -81,6 +98,10 @@ pthread_t ntid2;
 
 int main()
 {
+    //preparation
+    workend1.lock();
+    workend2.lock();
+
     cuInit(0);
     cudaSetDevice(1);
     /*
@@ -144,6 +165,22 @@ int main()
 	*(h_C + i) = 1;
     }
 
+
+    CUevent  start, stop;
+    float time;
+    cuEventCreate(&start,0);
+    cuEventCreate(&stop,0);
+
+    for(int i=1;i < 10;i++)
+    {
+    cuEventRecord(start,0);
+    cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, 0);
+    cuEventRecord(stop,0);
+    cuEventSynchronize(stop);
+    cuEventElapsedTime(&time, start, stop);
+	std::cout<< i <<" time: "<<1000*time<<" us"<<std::endl;
+    }
+
     /*
     pthread_create(&ntid1, NULL, thread1, flag1,d_A,h_A);
     pthread_create(&ntid2, NULL, thread1, flag2,d_B,h_B);
@@ -151,10 +188,10 @@ int main()
     pthread_join(ntid2, NULL);
     */
 
-    thread second=thread(thread1,cont1,d_B,h_B,size,1);
-    thread first=thread(thread1,cont1,d_A,h_A,size,2);
-    second.join();
-    first.join();
+    //thread second=thread(thread1,cont1,d_B,h_B,size,1);
+    //thread first=thread(thread1,cont1,d_A,h_A,size,2);
+    //second.join();
+    //first.join();
 
     //change,check whether the cudamemcpy works
     for(int i=0;i < N; ++i){
