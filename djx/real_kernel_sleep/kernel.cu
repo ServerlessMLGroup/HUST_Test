@@ -92,7 +92,6 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   
   float d[16];
     float data_pack_local[16];
-  for (int i = 0; i < 500; ++i) {
     for (int eps = 0; eps < 4; ++eps) {
       for (int nu = 0; nu < 4; ++nu) {
           d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
@@ -182,7 +181,6 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       for (int nu1 = 0; nu1 < 4; ++nu1) {
       data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
       }
-  }
   }
     // __syncthreads(); //new
     unsigned long long mclk2; 

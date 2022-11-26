@@ -3,6 +3,9 @@
 #include <bits/unique_ptr.h>
 #include <cuda.h>
 #include "cuda_runtime.h"
+//yy add
+#include <stdio.h>
+#include <stdlib.h>
 // #include <glog/logging.h>
 
 enum Status {
@@ -148,11 +151,13 @@ int main(int argc, char **argv) {
     //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
     //wo hui zai wo gaide mei yige difang jia shang zhushi yy
     //yy preparation
-    cudaEvent_t start, stop;
+    
+    CUevent  start, stop;
     float time;
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
-
+    cuEventCreate(&start,0);
+    cuEventCreate(&stop,0);
+    
+    
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
@@ -195,13 +200,15 @@ int main(int argc, char **argv) {
         auto &array = params->at(storage_info.name);
 
         //yy event record test
-        cudaEventRecord(start,0);
+        cuEventRecord(start,0);
         GPU_RETURN_STATUS(cuMemcpyHtoD(
             (CUdeviceptr)storage[i], array.data(), 
             array.size() * sizeof(float)));
-        cudaEventRecord(stop,0);
-        cudaEventElapsedTime(&time, start, stop);
-        cout<<model->kernels[i].name.c_str()<<" time: "<<time<<" ms"<<endl;
+        cuEventRecord(stop,0);
+        cuEventSynchronize(stop);
+	cuEventElapsedTime(&time, start, stop);
+
+	std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
     }
     std::vector<float> output(1000);
     RETURN_STATUS(set_input());
