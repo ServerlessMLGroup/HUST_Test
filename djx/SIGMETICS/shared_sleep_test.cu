@@ -78,7 +78,7 @@ __global__ void kernel_sleep(float n1, float n2, float n3, long long unsigned *t
 	printf(">>> __CUDA_ARCH__ !\n");
 	#endif
 	__syncthreads(); 
-        unsigned long long mclk; 
+    unsigned long long mclk; 
 	if (threadIdx.x == 0) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.x] = mclk / 1000;

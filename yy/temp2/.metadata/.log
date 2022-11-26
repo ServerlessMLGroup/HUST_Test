@@ -9378,3 +9378,69 @@ Caused by: org.eclipse.swt.SWTException: Widget is disposed
 
 !ENTRY org.eclipse.ui 2 2 2022-11-20 19:35:09.768
 !MESSAGE Invalid property category path: org.eclipse.cdt.managedbuilder.ui.properties.Page_head_build (bundle: org.eclipse.cdt.ui, propertyPage: org.eclipse.cdt.managedbuilder.ui.properties.BuildLogPreferencePage)
+!SESSION 2022-11-24 15:53:05.394 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_342
+java.vendor=Private Build
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.208
+!MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.212
+!MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.212
+!MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.212
+!MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.212
+!MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.213
+!MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.213
+!MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 15:53:08.213
+!MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.core.resources 2 10035 2022-11-24 15:53:11.396
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2022-11-24 16:03:06.582 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_342
+java.vendor=Private Build
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.033
+!MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.037
+!MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.037
+!MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.037
+!MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.038
+!MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.038
+!MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.038
+!MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2022-11-24 16:03:10.038
+!MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.core.resources 2 10035 2022-11-24 16:03:13.704
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
