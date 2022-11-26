@@ -37,7 +37,7 @@ __device__ uint get_smid(void) {
   
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag, long long unsigned* times) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag, long long unsigned* times, long long unsigned* sm) {
     #if __CUDA_ARCH__ >= 700
 	while(flag[0] != 1) {
 		__nanosleep(1000); // 1us
@@ -47,10 +47,14 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 	#endif
 
     unsigned long long mclk; 
-	if (threadIdx.x == 0) {
+	if (threadIdx.x == (rand() % 128)) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.y * 16 + blockIdx.z] = mclk / 1000;
 	}
+    
+	// if (threadIdx.x == 0) {
+	// 	sm[blockIdx.y * 16 + blockIdx.z] = get_smid();
+	// }
 
     float bgemm_local[8];
     __shared__ float placeholder_shared[1024];
@@ -83,20 +87,23 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       }
     }
 
-    //__syncthreads(); // new
+    // __syncthreads(); // new
     unsigned long long mclk2; 
-	if (threadIdx.x == 0) {
+	if (threadIdx.x == (rand() % 128)) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		times[blockIdx.y * 16 + blockIdx.z + 128] = mclk2 / 1000;
 	}
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* flag, long long unsigned* times) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* flag, long long unsigned* times, long long unsigned* sm) {
     unsigned long long mclk; 
-	if (threadIdx.x == 0) {
+	if (threadIdx.x == (rand() % 128)) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 		times[blockIdx.x] = mclk / 1000;
 	}
+    // if (threadIdx.x == 0) {
+	// 	sm[blockIdx.x] = get_smid();
+	// }
     float d[16];
     float data_pack_local[16];
     for (int i = 0; i < 500; ++i) {
@@ -192,13 +199,13 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
         }
     }
     
-    //__syncthreads(); //new
-    flag[0] = 1;
+    // __syncthreads(); //new
     unsigned long long mclk2; 
-	if (threadIdx.x == 0) {
+	if (threadIdx.x == (rand() % 128)) {
 		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
 		times[blockIdx.x + 64] = mclk2 / 1000;
 	}
+    flag[0] = 1;
     
 }
 
@@ -249,10 +256,15 @@ void run_kernel() {
 	// long long unsigned *d_sleep_time;
 	// cudaMalloc(&d_sleep_time, b_blocks * sizeof(long long unsigned));
 
-	// // allocate kernel_sleep sm
-	// long long unsigned *h_sleep_sm = new long long unsigned[b_blocks];
-	// long long unsigned *d_sleep_sm;
-	// cudaMalloc(&d_sleep_sm, b_blocks * sizeof(long long unsigned));
+	// allocate kernel_sleep sm
+	long long unsigned *h_sleep_sm = new long long unsigned[128];
+	long long unsigned *d_sleep_sm;
+	cudaMalloc(&d_sleep_sm, 128 * sizeof(long long unsigned));
+
+    // allocate kernel_sleep sm
+	long long unsigned *h_sm = new long long unsigned[64];
+	long long unsigned *d_sm;
+	cudaMalloc(&d_sm, 64 * sizeof(long long unsigned));
 
 
     // allocate warm flag
@@ -270,14 +282,14 @@ void run_kernel() {
 	dim3 D_t_b = dim3(8, 16, 1);
     // warm-up
     for (int i = 0; i < 100; ++i) {
-        fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag_warm, d_sm_ids);
+        fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag_warm, d_sm_ids, d_sm);
     }
 	cudaDeviceSynchronize();
     // test kernel
-	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag, d_sm_ids);
+	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag, d_sm_ids, d_sm);
 
     // sleep until kernel finish
-	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2);
+	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2, d_sleep_sm);
 	
 	cudaDeviceSynchronize();
 
@@ -286,7 +298,8 @@ void run_kernel() {
 	
 
 	// cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
-	// cudaMemcpy(h_sleep_sm, d_sleep_sm, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+	cudaMemcpy(h_sleep_sm, d_sleep_sm, 128 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_sm, d_sm, 64 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
 	long long unsigned maxm = 0, minm = 1768959725180341, max1 = 0, max2=0, min2=1768959725180341;
 	long long unsigned maxm_e = 0, minm_e = 1768959725180341;
@@ -324,10 +337,16 @@ void run_kernel() {
 	// for (int i = 0; i < b_blocks; i++) {
 	// 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
 	// }
-	// printf("---sleep_sm---\n");
-	// for (int i = 0; i < b_blocks; ++i) {
-	// 	printf("block-%d : %llu\n", i, h_sleep_sm[i]);
-	// }
+
+    printf("---first_sm---\n");
+	for (int i = 0; i < 64; ++i) {
+		printf("block-%d %llu\n", i, h_sm[i]);
+	}
+
+	printf("---second_sm---\n");
+	for (int i = 0; i < 128; ++i) {
+		printf("block-%d %llu\n", i, h_sleep_sm[i]);
+	}
 	
 	// cudaFree(d_sm_ids);
 	// cudaFree(d_sm_ids2);
