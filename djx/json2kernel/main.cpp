@@ -144,6 +144,15 @@ int main(int argc, char **argv) {
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda kernels!\n");
+
+    //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
+    //wo hui zai wo gaide mei yige difang jia shang zhushi yy
+    //yy preparation
+    cudaEvent_t start, stop;
+    float time;
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
@@ -184,9 +193,15 @@ int main(int argc, char **argv) {
         if (params->find(storage_info.name) == params->end()) 
             continue;
         auto &array = params->at(storage_info.name);
+
+        //yy event record test
+        cudaEventRecord(start,0);
         GPU_RETURN_STATUS(cuMemcpyHtoD(
             (CUdeviceptr)storage[i], array.data(), 
-            array.size() * sizeof(float))); 
+            array.size() * sizeof(float)));
+        cudaEventRecord(stop,0);
+        cudaEventElapsedTime(&time, start, stop);
+        cout<<model->kernels[i].name.c_str()<<" time: "<<time<<" ms"<<endl;
     }
     std::vector<float> output(1000);
     RETURN_STATUS(set_input());
