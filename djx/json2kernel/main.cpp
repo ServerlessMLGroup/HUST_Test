@@ -189,6 +189,7 @@ int main(int argc, char **argv) {
     outFile << "kernel name" << ','
             << "size" << std::endl;
     int storage_tongji[model->storage.size()];
+    int kernelsize_tongji[model->kernels.size()]
     size_t type_size;
     size_t torage_size;
     for (int i=0;i<model->storage.size();i++) {
@@ -196,9 +197,17 @@ int main(int argc, char **argv) {
         torage_size = type_size * model->storage[i].size;
         storage_tongji[i]=(int)torage_size;
     }
-    for(int j=0;j<model->storage.size();j++)
+    int tempsizetotal;
+    for (int k=0;k<model->kernels.size();k++) {
+        tempsizetotal=0;
+        for (int temp : model->kernels[k].args) {
+            tempsizetotal+=storage_tongji[temp];
+        }
+        kernelsize_tongji[k]=tempsizetotal;
+    }
+    for(int j=0;j<model->kernels.size();j++)
     {
-    std::cout<<j<<": "<<storage_tongji[j]<<" byte"<<std::endl;
+    std::cout<<"Kernel: "<< j <<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
     }
     outFile.close();
 
