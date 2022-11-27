@@ -207,7 +207,7 @@ int main(int argc, char **argv) {
     }
     for(int j=0;j<model->kernels.size();j++)
     {
-    std::cout<<"Kernel: "<< j <<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
+    std::cout<<"Kernel: "<< model->kernels[j].name.c_str()<<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
     }
     outFile.close();
 
