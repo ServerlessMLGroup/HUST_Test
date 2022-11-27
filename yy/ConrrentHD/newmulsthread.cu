@@ -103,7 +103,7 @@ int main()
     workend2.lock();
 
     cuInit(0);
-    cudaSetDevice(1);
+    cudaSetDevice(2);
     /*
     cpu_set_t mask;
     CPU_ZERO(&mask);
@@ -132,7 +132,7 @@ int main()
     }
 
     //40M data
-    int N = 4*52428800/20;
+    int N = 4*52428800/2000;
     size_t size = N * sizeof(float);
 
     //allocate device variable(data)
