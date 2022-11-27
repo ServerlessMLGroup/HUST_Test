@@ -37,24 +37,30 @@ __device__ uint get_smid(void) {
   
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag, long long unsigned* times, long long unsigned* sm) {
-    #if __CUDA_ARCH__ >= 700
-	while(flag[0] != 1) {
-		__nanosleep(1000); // 1us
-	}
-	#else
-	printf(">>> __CUDA_ARCH__ !\n");
-	#endif
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag, long long unsigned* times, long long unsigned* sm, int* sleep_times) {
+    unsigned int ns = 5;
+    while(atomicAdd(flag, 0) == 0) { // 40us版本
+        __nanosleep(ns); // 1us
+        if (ns < 1000) {
+            ns *= 2;
+        }
+    }
 
+    // while(!flag[0]) {   // 60us版本
+    //     __nanosleep(ns); // 1us
+    //     if (ns < 256) {
+    //         ns *= 2;
+    //     }
+    // }
     // unsigned long long mclk; 
 	// if (threadIdx.x == 0) {
 	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 	// 	times[blockIdx.y * 16 + blockIdx.z] = mclk / 1000;
 	// }
     
-	if (threadIdx.x == 0) {
-		sm[blockIdx.y * 16 + blockIdx.z] = get_smid();
-	}
+	// if (threadIdx.x == 0) {
+	// 	sm[blockIdx.y * 16 + blockIdx.z] = get_smid();
+	// }
 
     float bgemm_local[8];
     __shared__ float placeholder_shared[1024];
@@ -104,6 +110,10 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     // if (threadIdx.x == 0) {
 	// 	sm[blockIdx.x] = get_smid();
 	// }
+
+    clock_t t0 = clock64();
+    clock_t t1 = t0;
+    while ((t1 - t0)/(1530000 * 1000.0f / 1000000) < 20) t1 = clock64(); // 20us, 1530000为kilohertz
     float d[16];
     float data_pack_local[16];
     for (int eps = 0; eps < 4; ++eps) {
@@ -264,6 +274,14 @@ void run_kernel() {
     cudaMalloc((void **)&g_flag, sizeof(int) * 1);
     cudaMemcpy(g_flag, flag, sizeof(int) * 1, cudaMemcpyHostToDevice);
 
+    // allocate flag
+    int *sleep_times;
+    int *g_sleep_times;
+    sleep_times = (int*) malloc(1 * sizeof(int));
+    sleep_times[0] = 0;
+    cudaMalloc((void **)&g_sleep_times, sizeof(int) * 1);
+    cudaMemcpy(g_sleep_times, sleep_times, sizeof(int) * 1, cudaMemcpyHostToDevice);
+
 	// // allocate sleep_time
 	// long long unsigned *h_sleep_time = new long long unsigned[b_blocks];
 	// long long unsigned *d_sleep_time;
@@ -299,18 +317,17 @@ void run_kernel() {
     }
 	cudaDeviceSynchronize();
     // test kernel
-	//fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag, d_sm_ids, d_sm);
-    // cudaDeviceSynchronize();
+	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag, d_sm_ids, d_sm);
     // sleep until kernel finish
-	//fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2, d_sleep_sm);
-	kernel_sleep <<<D_b_b, D_t_b, 0, streams[1]>>>(15.6, 64.9, 134.7, 1000, g_flag);
+	 fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2, d_sleep_sm, g_sleep_times);
+	// kernel_sleep <<<D_b_b, D_t_b, 0, streams[1]>>>(15.6, 64.9, 134.7, 1000, g_flag);
 	cudaDeviceSynchronize();
 
     cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sm_ids2, d_sm_ids2, 128 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
 	
 
-	// cudaMemcpy(h_sleep_time, d_sleep_time, b_blocks * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+	cudaMemcpy(sleep_times, g_sleep_times, 1 * sizeof(int), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, 128 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
     cudaMemcpy(h_sm, d_sm, 64 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
 
@@ -358,8 +375,9 @@ void run_kernel() {
 
 	printf("---second_sm---\n");
 	for (int i = 0; i < 128; ++i) {
-		printf("block-%d %llu\n", i, h_sleep_sm[i]);
+		//printf("block-%d %llu\n", i, h_sleep_sm[i]);
 	}
+    printf("kernel1 sleep time:%d\n", sleep_times[0]);
 	
 	// cudaFree(d_sm_ids);
 	// cudaFree(d_sm_ids2);
@@ -373,6 +391,11 @@ int main(int argc, char *argv[]) {
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
+
+    // cudaDeviceProp  prop;
+    // cudaGetDeviceProperties(&prop, 0); 
+    // clock_t clock_rate = prop.clockRate;
+    // printf("clock_rate:%d\n", clock_rate); // 1530000
 	run_kernel();
 
 	return 0;

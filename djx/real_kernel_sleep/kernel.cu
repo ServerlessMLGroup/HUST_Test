@@ -38,11 +38,6 @@ __device__ uint get_smid(void) {
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, long long unsigned* times) {
-  unsigned long long mclk; 
-	if (threadIdx.x == 0) {
-		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-		times[blockIdx.y * 16 + blockIdx.z] = mclk / 1000;
-	} 
     float bgemm_local[8];
     __shared__ float placeholder_shared[1024];
     __shared__ float data_pack_shared[256];
@@ -73,23 +68,10 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
         bgemm[(((((((((int)blockIdx.z) * 8192) + (((int)blockIdx.y) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
       }
     }
-    // __syncthreads(); // new
-
-    unsigned long long mclk2; 
-    if (threadIdx.x == 0) {
-      asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-      times[blockIdx.y * 16 + blockIdx.z + 128] = mclk2 / 1000;
-    } 
 
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, long long unsigned* times) {
-  unsigned long long mclk; 
-	if (threadIdx.x == 0) {
-		asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-		times[blockIdx.x] = mclk / 1000;
-	}  
-  
   float d[16];
     float data_pack_local[16];
     for (int eps = 0; eps < 4; ++eps) {
@@ -182,12 +164,6 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
       }
   }
-    // __syncthreads(); //new
-    unsigned long long mclk2; 
-    if (threadIdx.x == 0) {
-      asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-      times[blockIdx.x + 64] = mclk2 / 1000;
-    }
 }
 
 

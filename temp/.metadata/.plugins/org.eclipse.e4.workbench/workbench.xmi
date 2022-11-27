@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList/>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:com.nvidia.viper.acceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_RSYcoV3bEe248IFswizI0w" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_RSYcol3bEe248IFswizI0w" label="%trimmedwindow.label.eclipseSDK" x="27" y="134" width="1229" height="715">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_RSYcoV3bEe248IFswizI0w" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_RSYcol3bEe248IFswizI0w" label="%trimmedwindow.label.eclipseSDK" x="165" y="73" width="1223" height="686">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="false"/>
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
@@ -26,8 +26,8 @@
             <children xsi:type="basic:PartSashContainer" xmi:id="_RSYcp13bEe248IFswizI0w" containerData="4041" selectedElement="_RSYcqF3bEe248IFswizI0w" horizontal="true">
               <children xsi:type="basic:PartStack" xmi:id="_RSYcqF3bEe248IFswizI0w" elementId="com.nvidia.viper.analysisviewMStack" containerData="7500" selectedElement="_RSYcql3bEe248IFswizI0w">
                 <tags>newtablook</tags>
-                <tags>noFocus</tags>
                 <tags>active</tags>
+                <tags>noFocus</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_RSYcqV3bEe248IFswizI0w" elementId="com.nvidia.viper.analysisview" ref="_RSYc813bEe248IFswizI0w"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_RSYcql3bEe248IFswizI0w" elementId="com.nvidia.viper.expertview" ref="_RSYc913bEe248IFswizI0w"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_RSYcq13bEe248IFswizI0w" elementId="com.nvidia.viper.cpuview" toBeRendered="false" ref="_RSYdAl3bEe248IFswizI0w"/>
@@ -79,7 +79,7 @@
       </menus>
       <toolbar xmi:id="_RSYc9V3bEe248IFswizI0w" elementId="com.nvidia.viper.analysisview" visible="false"/>
     </sharedElements>
-    <sharedElements xsi:type="basic:Part" xmi:id="_RSYc913bEe248IFswizI0w" elementId="com.nvidia.viper.expertview" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="GPU Details (Summary)" iconURI="platform:/plugin/com.nvidia.viper/icons/en/detailed_view.png" closeable="true">
+    <sharedElements xsi:type="basic:Part" xmi:id="_RSYc913bEe248IFswizI0w" elementId="com.nvidia.viper.expertview" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="GPU Details" iconURI="platform:/plugin/com.nvidia.viper/icons/en/detailed_view.png" closeable="true">
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view expert.filteredBySelection=&quot;true&quot; expert.showFilteredTimelineData=&quot;false&quot; expert.showHiddenTimelineData=&quot;true&quot;/>"/>
       <tags>View</tags>
       <tags>categoryTag:Other</tags>

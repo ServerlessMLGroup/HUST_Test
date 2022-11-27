@@ -1,0 +1,2 @@
+Name,Invocations,Avg. Duration(ns),Registers/Thread,Static Shared Memory,Avg. Dynamic Shared Memory
+"fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1",1,43616,40,5120,0
