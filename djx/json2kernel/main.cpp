@@ -167,6 +167,7 @@ int main(int argc, char **argv) {
         kernels.emplace(kernel_info.name, kernel);
     }
     printf("allocate device storage!\n");
+
     // 3. allocate device storage
     for (StorageInfo &storage_info : model->storage) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
@@ -207,7 +208,7 @@ int main(int argc, char **argv) {
         //cuEventRecord(stop,0);
         //cuEventSynchronize(stop);
 	//cuEventElapsedTime(&time, start, stop);
-
+        std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
 	//std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
     }
     std::vector<float> output(1000);
