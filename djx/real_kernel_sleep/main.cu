@@ -104,16 +104,6 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     // if (threadIdx.x == 0) {
 	// 	sm[blockIdx.x] = get_smid();
 	// }
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
-    __nanosleep(1000); // 1us
     float d[16];
     float data_pack_local[16];
     for (int eps = 0; eps < 4; ++eps) {
@@ -218,13 +208,13 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 __global__ void kernel_sleep(float n1, float n2, float n3, int stop, int* flag) {
-    #if __CUDA_ARCH__ >= 700
-    while(flag[0] != 1) {
-        __nanosleep(1000); // 1us
-    }
-    #else
-    printf(">>> __CUDA_ARCH__ !\n");
-    #endif
+    // #if __CUDA_ARCH__ >= 700
+    // while(flag[0] != 1) {
+    //     __nanosleep(1000); // 1us
+    // }
+    // #else
+    // printf(">>> __CUDA_ARCH__ !\n");
+    // #endif
     for (int i = 0; i < stop; i++) {
         n1=sinf(n1);
         n2=n3/n2;
@@ -309,11 +299,11 @@ void run_kernel() {
     }
 	cudaDeviceSynchronize();
     // test kernel
-	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag, d_sm_ids, d_sm);
-
+	//fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag, d_sm_ids, d_sm);
+    // cudaDeviceSynchronize();
     // sleep until kernel finish
 	//fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2, d_sleep_sm);
-	kernel_sleep <<<D_b_b, D_t_b, 0, streams[1]>>>(15.6, 64.9, 134.7, 8000, g_flag);
+	kernel_sleep <<<D_b_b, D_t_b, 0, streams[1]>>>(15.6, 64.9, 134.7, 1000, g_flag);
 	cudaDeviceSynchronize();
 
     cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
