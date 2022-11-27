@@ -193,12 +193,12 @@ int main(int argc, char **argv) {
     size_t torage_size;
     for (int i=0;i<model->storage.size();i++) {
         type_size = Model::get_stype_size(model->storage[i].stype);
-        torage_size = stype_size * model->storage[i].size;
+        torage_size = type_size * model->storage[i].size;
         storage_tongji[i]=(int)torage_size;
     }
     for(int j=0;j<model->storage.size();j++)
     {
-    std::cout<<j<<": "<<storage_tongji[j]<<<<" byte"<<std::endl;
+    std::cout<<j<<": "<<storage_tongji[j]<<" byte"<<std::endl;
     }
     outFile.close();
 
