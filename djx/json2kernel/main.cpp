@@ -189,7 +189,7 @@ int main(int argc, char **argv) {
     outFile << "kernel name" << ','
             << "size" << std::endl;
     int storage_tongji[model->storage.size()];
-    int kernelsize_tongji[model->kernels.size()]
+    int kernelsize_tongji[model->kernels.size()];
     size_t type_size;
     size_t torage_size;
     for (int i=0;i<model->storage.size();i++) {
