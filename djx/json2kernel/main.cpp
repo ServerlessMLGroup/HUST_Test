@@ -168,6 +168,7 @@ int main(int argc, char **argv) {
     }
     printf("allocate device storage!\n");
 
+
     // 3. allocate device storage
     for (StorageInfo &storage_info : model->storage) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
@@ -179,6 +180,29 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
         storage.push_back(device_ptr);
     }
+
+
+    //yy create csv
+    std::ofstream outFile;
+    //outFile.open("output.csv", std::ios::out | std::ios::trunc);
+    outFile.open("oytput.csv", std::ios::in);
+    outFile << "kernel name" << ','
+            << "size" << std::endl;
+    int storage_tongji[model->storage.size()];
+    size_t type_size;
+    size_t torage_size;
+    for (int i=0;i<model->storage.size();i++) {
+        type_size = Model::get_stype_size(model->storage[i].stype);
+        torage_size = stype_size * model->storage[i].size;
+        storage_tongji[i]=(int)torage_size;
+    }
+    for(int j=0;j<model->storage.size();j++)
+    {
+    std::cout<<j<<": "<<storage_tongji[j]<<<<" byte"<<std::endl;
+    }
+    outFile.close();
+
+
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;
     raw_args.reserve(model->kernels.size());
@@ -187,6 +211,7 @@ int main(int argc, char **argv) {
         for (size_t arg_idx : kernel_info.args) {
             // assert(arg_idx < storage.size());
             kernel_arg.push_back(&storage[arg_idx]);
+
         }
         raw_args.push_back(kernel_arg);
     }
@@ -208,7 +233,7 @@ int main(int argc, char **argv) {
         //cuEventRecord(stop,0);
         //cuEventSynchronize(stop);
 	//cuEventElapsedTime(&time, start, stop);
-        std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
+        //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
 	//std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
     }
     std::vector<float> output(1000);
