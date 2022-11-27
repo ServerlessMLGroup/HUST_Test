@@ -20,6 +20,14 @@ mutex workend2;
 mutex workend1;
 //diy thread
 
+__global__ void kernel(float n1, float n2, float n3, int stop) {
+	for (int i = 0; i < stop; i++) {
+		n1=cosf(n1);
+		n3=n2/n3;
+	}
+}
+
+
 //void *thread1(void *dummy,void* d_A,void *h_A)
 //
 void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
@@ -179,6 +187,16 @@ int main()
     cuEventSynchronize(stop);
     cuEventElapsedTime(&time, start, stop);
 	std::cout<< i <<" time: "<<1000*time<<" us"<<std::endl;
+    }
+
+    for(int i=1;i < 10;i++)
+    {
+    cuEventRecord(start,0);
+    kernel<<<1,1,0,0>>>(1.0,2.0,3.0,100);
+    cuEventRecord(stop,0);
+    cuEventSynchronize(stop);
+    cuEventElapsedTime(&time, start, stop);
+	std::cout<< i <<" kernel time: "<<1000*time<<" us"<<std::endl;
     }
 
     /*
