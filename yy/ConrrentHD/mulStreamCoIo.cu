@@ -39,14 +39,18 @@ int main()
     cudaMalloc(&d_B, size);
     float* d_C;
     cudaMalloc(&d_C, size);
+    float* d_D;
+    cudaMalloc(&d_D, size);
 
     // Allocate input vectors
     float* h_A;
     float* h_B;
     float* h_C;
+    float* h_D;
     cudaMallocHost(&h_A, size);
     cudaMallocHost(&h_B, size);
     cudaMallocHost(&h_C, size);
+    cudaMallocHost(&h_D, size);
 
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
@@ -54,6 +58,7 @@ int main()
     *(h_A + i) = u(e);
 	*(h_B + i) = u(e);
 	*(h_C + i) = u(e);
+	*(h_D + i) = u(e);
     }
 
     //Create Stream
