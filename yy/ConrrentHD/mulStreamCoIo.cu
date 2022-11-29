@@ -13,6 +13,15 @@
 #include <time.h>
 using namespace std;
 
+void CUDART_CB thread1_1callback(void *data) {
+    int i;
+    int j=0;
+    start1=clock();
+    //test.unlock()
+}
+
+
+
 int main()
 {
     cuInit(0);
@@ -29,7 +38,7 @@ int main()
     */
 
     //data size, 209715200 > 800 M
-    int N = 209715200/20;
+    int N = 209715200;
     size_t size = N * sizeof(float);
 
     //Alloc Device memory
@@ -74,18 +83,18 @@ int main()
     */
 
     //cudaMemcpyAsync(d_D, h_D, size, cudaMemcpyHostToDevice, secondstream);
-    cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
-    cudaDeviceSynchronize();
-    
+    //cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
+    //cudaDeviceSynchronize();
+
     for(int i=0;i < 10;i++)
     {
     cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
-    //cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
     }
 
     for(int i=0;i < 10;i++)
     {
-    cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
+    //cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
     }
     //Should i add some code to exit the thread here?
 
