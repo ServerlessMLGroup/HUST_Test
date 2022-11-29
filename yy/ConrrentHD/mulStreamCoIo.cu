@@ -64,10 +64,12 @@ int main()
 
     //test
     /*
-    cudaMemcpyAsync(d_C, h_C, size, cudaMemcpyHostToDevice, secondstream);
+
     cout<<"what?"<<endl;
     */
-    cudaMemcpyAsync(d_B, h_B, size/2, cudaMemcpyHostToDevice, firststream);
+    //cudaMemcpyAsync(d_A, h_A, size, cudaMemcpyHostToDevice, secondstream);
+
+    cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
 
     for(int i=0;i < 10;i++)
     {
