@@ -37,7 +37,7 @@ int main()
     */
 
     //data size, 209715200 > 800 M
-    int N = 209715200/(40*128);
+    int N = 209715200/800;
     size_t size = N * sizeof(float);
 
     //Alloc Device memory
