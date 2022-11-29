@@ -19,14 +19,7 @@ mutex mtx1_2;
 mutex mtx2_1;
 mutex workend1;
 mutex workend2;
-//mutex test;
-//clock_t
-clock_t start1,finish1;
-clock_t start1_2,finish1_2;
-clock_t start2,finish2;
-double singletime = 0.0;
-double cotime1=0.0;
-double cotime2=0.0;
+
 
 void CUDART_CB thread1_1callback(void *data) {
     //mtx1_1.lock();
