@@ -73,18 +73,18 @@ int main()
     cout<<"what?"<<endl;
     */
 
-    cudaMemcpyAsync(d_D, h_D, size, cudaMemcpyHostToDevice, secondstream);
-    cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
+    //cudaMemcpyAsync(d_D, h_D, size, cudaMemcpyHostToDevice, secondstream);
+    //cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
 
     for(int i=0;i < 10;i++)
     {
     cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
-    cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
+    //cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
     }
 
     for(int i=0;i < 10;i++)
     {
-    //cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, secondstream);
+    cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
     }
     //Should i add some code to exit the thread here?
 
