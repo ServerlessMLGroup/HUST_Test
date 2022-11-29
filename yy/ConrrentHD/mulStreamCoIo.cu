@@ -72,7 +72,7 @@ int main()
     for(int i=0;i < 10;i++)
     {
     cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
-    cudaMemcpyAsync(d_B, h_B,size, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_B, h_B,size/2, cudaMemcpyHostToDevice, firststream);
     }
 
     for(int i=0;i < 10;i++)
