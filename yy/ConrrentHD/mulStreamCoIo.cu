@@ -73,9 +73,10 @@ int main()
     cout<<"what?"<<endl;
     */
 
-    cudaMemcpyAsync(d_D, h_D, size, cudaMemcpyHostToDevice, secondstream);
+    //cudaMemcpyAsync(d_D, h_D, size, cudaMemcpyHostToDevice, secondstream);
     cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
-
+    cudaDeviceSynchronize();
+    
     for(int i=0;i < 10;i++)
     {
     cudaMemcpyAsync(d_C, h_C,size, cudaMemcpyHostToDevice, secondstream);
