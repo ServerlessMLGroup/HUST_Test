@@ -16,7 +16,6 @@ using namespace std;
 void CUDART_CB thread1_1callback(void *data) {
     int i;
     int j=0;
-    start1=clock();
     //test.unlock()
 }
 
