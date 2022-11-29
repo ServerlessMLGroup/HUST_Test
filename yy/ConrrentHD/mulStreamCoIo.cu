@@ -74,7 +74,7 @@ int main()
     */
 
     //cudaMemcpyAsync(d_D, h_D, size, cudaMemcpyHostToDevice, secondstream);
-    //cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
+    cudaMemcpyAsync(d_A, h_A, size/2, cudaMemcpyHostToDevice, firststream);
 
     for(int i=0;i < 10;i++)
     {
