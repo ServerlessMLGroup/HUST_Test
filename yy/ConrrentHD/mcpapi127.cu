@@ -42,7 +42,7 @@ int main()
 
     for(int i=0;i<datasize;i++)
     {
-    cudaMalloc(&hostdata[i], size);
+    cudaMallocHost(&hostdata[i], size);
     }
 
     uniform_real_distribution<float> u(0,10);
