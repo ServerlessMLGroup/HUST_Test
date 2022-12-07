@@ -183,6 +183,7 @@ int main(int argc, char **argv) {
 
 
     //yy create csv
+    /*
     std::ofstream outFile;
     //outFile.open("output.csv", std::ios::out | std::ios::trunc);
     outFile.open("oytput.csv", std::ios::in);
@@ -211,7 +212,7 @@ int main(int argc, char **argv) {
     outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
     }
     outFile.close();
-
+    */
 
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;
