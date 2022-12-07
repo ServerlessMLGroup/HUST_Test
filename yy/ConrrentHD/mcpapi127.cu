@@ -29,7 +29,7 @@ int main()
 
 
     //data size, 262144 > 1 M
-    int N = 262144;
+    int N = 262144/20;
     size_t size = N * sizeof(float);
     int datasize = 20;
     float* devicedata[datasize];
@@ -54,6 +54,8 @@ int main()
     //Create Stream
     cudaStream_t firststream;
     cudaStreamCreate(&firststream);
+
+
 
     for(int i=0;i<datasize;i++)
     {
