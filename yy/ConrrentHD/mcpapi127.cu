@@ -48,7 +48,7 @@ int main()
     uniform_real_distribution<float> u(0,10);
     default_random_engine e(time(NULL));
     for(int i=0;i < datasize; ++i){
-    *hostdata[i] = u(e);
+    //*hostdata[i] = u(e);
     }
 
     //Create Stream
