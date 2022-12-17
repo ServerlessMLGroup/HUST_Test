@@ -101,6 +101,124 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 	// }
 }
 
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0_warm(float* __restrict__ placeholder, float* __restrict__ data_pack, int* flag, long long unsigned* times, long long unsigned* sm) {
+    // unsigned long long mclk; 
+	// if (threadIdx.x == 0) {
+	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+	// 	times[blockIdx.x] = mclk / 1000;
+	// }
+    // if (threadIdx.x == 0) {
+	// 	sm[blockIdx.x] = get_smid();
+	// }
+
+    // clock_t t0 = clock64();
+    // clock_t t1 = t0;
+    // while ((t1 - t0)/(1530000 * 1000.0f / 1000000) < 20) t1 = clock64(); // 20us, 1530000为kilohertz
+    float d[16];
+    float data_pack_local[16];
+    for (int eps = 0; eps < 4; ++eps) {
+        for (int nu = 0; nu < 4; ++nu) {
+            d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
+        }
+    }
+    data_pack_local[(0)] = 0.000000e+00f;
+    data_pack_local[(0)] = (data_pack_local[(0)] + d[(0)]);
+    data_pack_local[(0)] = (data_pack_local[(0)] + (d[(2)] * -1.000000e+00f));
+    data_pack_local[(0)] = (data_pack_local[(0)] + (d[(8)] * -1.000000e+00f));
+    data_pack_local[(0)] = (data_pack_local[(0)] + ((d[(10)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(1)] = 0.000000e+00f;
+    data_pack_local[(1)] = (data_pack_local[(1)] + (d[(1)] * -1.000000e+00f));
+    data_pack_local[(1)] = (data_pack_local[(1)] + d[(2)]);
+    data_pack_local[(1)] = (data_pack_local[(1)] + ((d[(9)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(1)] = (data_pack_local[(1)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(2)] = 0.000000e+00f;
+    data_pack_local[(2)] = (data_pack_local[(2)] + d[(1)]);
+    data_pack_local[(2)] = (data_pack_local[(2)] + d[(2)]);
+    data_pack_local[(2)] = (data_pack_local[(2)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(2)] = (data_pack_local[(2)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(3)] = 0.000000e+00f;
+    data_pack_local[(3)] = (data_pack_local[(3)] + (d[(1)] * -1.000000e+00f));
+    data_pack_local[(3)] = (data_pack_local[(3)] + d[(3)]);
+    data_pack_local[(3)] = (data_pack_local[(3)] + ((d[(9)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(3)] = (data_pack_local[(3)] + (d[(11)] * -1.000000e+00f));
+    data_pack_local[(4)] = 0.000000e+00f;
+    data_pack_local[(4)] = (data_pack_local[(4)] + (d[(4)] * -1.000000e+00f));
+    data_pack_local[(4)] = (data_pack_local[(4)] + ((d[(6)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(4)] = (data_pack_local[(4)] + d[(8)]);
+    data_pack_local[(4)] = (data_pack_local[(4)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(5)] = 0.000000e+00f;
+    data_pack_local[(5)] = (data_pack_local[(5)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + d[(10)]);
+    data_pack_local[(6)] = 0.000000e+00f;
+    data_pack_local[(6)] = (data_pack_local[(6)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(6)] = (data_pack_local[(6)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(6)] = (data_pack_local[(6)] + d[(9)]);
+    data_pack_local[(6)] = (data_pack_local[(6)] + d[(10)]);
+    data_pack_local[(7)] = 0.000000e+00f;
+    data_pack_local[(7)] = (data_pack_local[(7)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + (d[(7)] * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + d[(11)]);
+    data_pack_local[(8)] = 0.000000e+00f;
+    data_pack_local[(8)] = (data_pack_local[(8)] + d[(4)]);
+    data_pack_local[(8)] = (data_pack_local[(8)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(8)] = (data_pack_local[(8)] + d[(8)]);
+    data_pack_local[(8)] = (data_pack_local[(8)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(9)] = 0.000000e+00f;
+    data_pack_local[(9)] = (data_pack_local[(9)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(9)] = (data_pack_local[(9)] + d[(6)]);
+    data_pack_local[(9)] = (data_pack_local[(9)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(9)] = (data_pack_local[(9)] + d[(10)]);
+    data_pack_local[(10)] = 0.000000e+00f;
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(5)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(6)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(9)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(10)]);
+    data_pack_local[(11)] = 0.000000e+00f;
+    data_pack_local[(11)] = (data_pack_local[(11)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(11)] = (data_pack_local[(11)] + d[(7)]);
+    data_pack_local[(11)] = (data_pack_local[(11)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(11)] = (data_pack_local[(11)] + d[(11)]);
+    data_pack_local[(12)] = 0.000000e+00f;
+    data_pack_local[(12)] = (data_pack_local[(12)] + (d[(4)] * -1.000000e+00f));
+    data_pack_local[(12)] = (data_pack_local[(12)] + ((d[(6)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(12)] = (data_pack_local[(12)] + d[(12)]);
+    data_pack_local[(12)] = (data_pack_local[(12)] + (d[(14)] * -1.000000e+00f));
+    data_pack_local[(13)] = 0.000000e+00f;
+    data_pack_local[(13)] = (data_pack_local[(13)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + (d[(13)] * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + d[(14)]);
+    data_pack_local[(14)] = 0.000000e+00f;
+    data_pack_local[(14)] = (data_pack_local[(14)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(14)] = (data_pack_local[(14)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(14)] = (data_pack_local[(14)] + d[(13)]);
+    data_pack_local[(14)] = (data_pack_local[(14)] + d[(14)]);
+    data_pack_local[(15)] = 0.000000e+00f;
+    data_pack_local[(15)] = (data_pack_local[(15)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + (d[(7)] * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + (d[(13)] * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
+    for (int eps1 = 0; eps1 < 4; ++eps1) {
+        for (int nu1 = 0; nu1 < 4; ++nu1) {
+        data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+        }
+    }
+    
+    // __syncthreads(); //new
+    // unsigned long long mclk2; 
+	// if (threadIdx.x == 0) {
+	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+	// 	times[blockIdx.x + 64] = mclk2 / 1000;
+	// }
+    atomicAdd(flag + threadIdx.x + blockIdx.x * 128, 1);
+    // flag[threadIdx.x + blockIdx.x * 128] = 1;
+    // flag[0] = 1;
+    
+}
+
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* flag, long long unsigned* times, long long unsigned* sm) {
     // unsigned long long mclk; 
 	// if (threadIdx.x == 0) {
@@ -316,7 +434,7 @@ void run_kernel() {
 	dim3 D_t_b = dim3(8, 16, 1);
     // warm-up
     for (int i = 0; i < 100; ++i) {
-        fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag_warm, d_sm_ids, d_sm);
+        fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0_warm <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag_warm, d_sm_ids, d_sm);
     }
 	cudaDeviceSynchronize();
     // test kernel
