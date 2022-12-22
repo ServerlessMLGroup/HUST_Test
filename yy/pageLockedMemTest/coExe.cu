@@ -54,7 +54,7 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     cudaStatus = cudaStreamCreate(&tempstream);
     fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
 
-    for(int i=1;i < 10;i++)
+    for(int i=1;i < 1000;i++)
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
     }
