@@ -18,7 +18,7 @@ using namespace std;
 int main()
 {
     cuInit(0);
-    cudaSetDevice(2);
+    cudaSetDevice(1);
 
     //set CPU
     clock_t start,finish;
