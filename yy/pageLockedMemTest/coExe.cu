@@ -58,7 +58,9 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
     }
+
     cuStreamSynchronize(tempstream);
+    workend1.unlock();
 }
 
 void thread2(CUcontext ctx,int i)
@@ -137,6 +139,9 @@ int main()
     cuInit(0);
     cudaSetDevice(1);
 
+    //synchronize thread 1
+    workend1.lock()
+
     //set cpu
     /*
     cpu_set_t mask;
@@ -183,6 +188,7 @@ int main()
     first.join();
     second.join();
 
+    workend1.lock();
     cudaFree(d_A);
 
     return 0;
