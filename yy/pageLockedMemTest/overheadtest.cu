@@ -31,7 +31,7 @@ int main()
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    
+
 
 
 

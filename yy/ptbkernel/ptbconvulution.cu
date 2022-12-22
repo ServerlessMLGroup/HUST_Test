@@ -52,6 +52,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
     int newx = blockIdx.x;
     int newy = blockIdx.y;
 
+    for(){
     //get the data based on the threadIdx.x and threadIdx.y
     int thx = threadIdx.x;
     int thy = threadIdx.y;
@@ -67,6 +68,7 @@ __global__ void convolutionkernel(float** photo,float**** temp,float** convoluti
             result[newy][newx] +=temp[newy][newx][i][j];
             }
         }
+    }
     }
 }
 
