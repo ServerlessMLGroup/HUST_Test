@@ -23,7 +23,7 @@ int main()
     //set CPU
     clock_t start,finish;
     double time=0.0;
-    /*
+
     cout<<"set cpu"<<endl;
     cpu_set_t mask;
     CPU_ZERO(&mask);
@@ -31,7 +31,7 @@ int main()
     if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0) {
             perror("pthread_setaffinity_np");
     }
-    */
+    
 
 
 
