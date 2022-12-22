@@ -140,7 +140,7 @@ int main()
     cudaSetDevice(1);
 
     //synchronize thread 1
-    workend1.lock()
+    workend1.lock();
 
     //set cpu
     /*
