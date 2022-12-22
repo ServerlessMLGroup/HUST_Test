@@ -74,6 +74,9 @@ void thread2(CUcontext ctx,int i)
     }
     */
 
+    clock_t start,finish;
+    double time=0.0;
+
     cout<<"number: "<<i<<"   one thread starts: "<<endl;
     int err;
     err=cuCtxPushCurrent(ctx);
@@ -89,7 +92,10 @@ void thread2(CUcontext ctx,int i)
 
     //allocate locked memory
     int N = 262144;
+    size_t size;
+
     size = N * sizeof(float);
+    start=clock();
     cudaMallocHost(&hostdata1, size);
     finish=clock();
     time = (double)(finish-start)/CLOCKS_PER_SEC;
@@ -172,7 +178,7 @@ int main()
     cudaMallocHost(&h_A, size);
 
     // create thread
-    thread first=thread(thread1,cont1,d_B,h_B,size,1);
+    thread first=thread(thread1,cont1,d_A,h_A,size,1);
     thread second=thread(thread2,cont1,2);
     first.join();
     second.join();
