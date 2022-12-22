@@ -52,7 +52,6 @@ int main()
 
 
     cudaMalloc(&devicedata,size);
-    cudaMallocHost(&hostdata, size);
 
     //Create Stream
     cudaStream_t firststream;
