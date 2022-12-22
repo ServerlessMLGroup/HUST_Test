@@ -51,7 +51,7 @@ int main()
     float* devicedata;
 
 
-    cudaMalloc(&devicedata,size)
+    cudaMalloc(&devicedata,size);
     cudaMallocHost(&hostdata, size);
 
     //Create Stream
@@ -97,7 +97,7 @@ int main()
     //
     cout <<"Add computation between malloc host"<<endl;
     int temp=0;
-    for(int i=;i<1000;i++)
+    for(int i=0;i<1000;i++)
     {
     temp++;
     }
@@ -108,7 +108,7 @@ int main()
     time = (double)(finish-start)/CLOCKS_PER_SEC;
     cout <<"6"<<" Timeuse: "<<time<<" (s)"<<endl;
 
-    for(int i=;i<1000;i++)
+    for(int i=0;i<1000;i++)
     {
     temp++;
     }
@@ -119,7 +119,7 @@ int main()
     time = (double)(finish-start)/CLOCKS_PER_SEC;
     cout <<"7"<<" Timeuse: "<<time<<" (s)"<<endl;
 
-    for(int i=;i<1000;i++)
+    for(int i=0;i<1000;i++)
     {
     temp++;
     }
@@ -130,7 +130,7 @@ int main()
     time = (double)(finish-start)/CLOCKS_PER_SEC;
     cout <<"8"<<" Timeuse: "<<time<<" (s)"<<endl;
 
-    for(int i=;i<1000;i++)
+    for(int i=0;i<1000;i++)
     {
     temp++;
     }
@@ -141,7 +141,7 @@ int main()
     time = (double)(finish-start)/CLOCKS_PER_SEC;
     cout <<"9"<<" Timeuse: "<<time<<" (s)"<<endl;
 
-    for(int i=;i<1000;i++)
+    for(int i=0;i<1000;i++)
     {
     temp++;
     }
