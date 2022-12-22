@@ -57,7 +57,7 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     for(int i=1;i < 10;i++)
     {
     //cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
-    kernel<<<1,1,0,tempstream>>>(1.0,2.0,3.0,10000);
+    kernel<<<1,1,0,tempstream>>>(1.0,2.0,3.0,10000000);
     }
 
     cuStreamSynchronize(tempstream);
