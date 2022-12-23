@@ -252,12 +252,12 @@ int main(int argc, char **argv) {
         temlocation=-1;
         for (int i=0;i<model->kernels[k].args.size();i++) {
             temp=model->kernels[k].args[i];
-            if(!(argexist(temp,argused,&top)))
-            {
+            //if(!(argexist(temp,argused,&top)))
+            //{
             tempsizetotal+=storage_tongji[temp];
-            temlocation++;
-            kernelownarg[k][temlocation]=temp;
-            }
+            //temlocation++;
+            //kernelownarg[k][temlocation]=temp;
+            //}
         }
         kernelsize_tongji[k]=tempsizetotal;
     }
@@ -265,12 +265,15 @@ int main(int argc, char **argv) {
     for(int j=0;j<model->kernels.size();j++)
     {
     std::cout<<"Kernel: "<< model->kernels[j].name.c_str()<<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
+    outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
+    /*
     outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j];
         for(int i=0;i<8;i++)
         {
         outFile<<","<<kernelownarg[j][i];
         }
     outFile<<std::endl;
+    */
     }
     outFile.close();
 
