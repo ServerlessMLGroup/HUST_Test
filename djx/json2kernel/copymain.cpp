@@ -1,3 +1,9 @@
+/*
+Created by yuyue
+because i have to test a lot via main.cpp, i copy all its original code here
+once i make some mistakes i don't know why , i can fix my code by this
+*/
+
 #include "model.h"
 #include "log.h"
 #include <bits/unique_ptr.h>
@@ -7,11 +13,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 // #include <glog/logging.h>
-
-//Notice
-// To make some experiments, i(yy) make some changes here. Before changing, i copied all the code
-// Just read the code at copymain.cpp. If some bad change were made, we can fix it by the copy
-
 
 enum Status {
     Succ,
@@ -44,6 +45,7 @@ std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args;
 std::unique_ptr<Model> model;
 
+
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
     std::string& func_name = model->kernels[i].name;
@@ -56,7 +58,7 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
         0, stream, (void **)raw_args[i].data(), 0 // raw_args是json中指示的storage的下标
     ));
     // double duration = (double(end - start));
-    // std::cout << "func_name:" << func_name << " time:" << duration << std::endl; 
+    // std::cout << "func_name:" << func_name << " time:" << duration << std::endl;
     // std::cout << "func_name:" << func_name << " launch_params:" << launch_params[0] << " " << launch_params[1] << " " << launch_params[2] << " " << launch_params[3] << " " << launch_params[4] << " " << launch_params[5] << " raw_args_ptr:" << (void **)raw_args[i].data() << std::endl;
     return Status::Succ;
 }
@@ -65,7 +67,7 @@ Status execute_to(int idx, CUstream stream, Model* model) {
     for (int i = 0; i < idx; i++) {
         RETURN_STATUS(launch_kernel(i, stream, model));
         //GPU_RETURN_STATUS(cuStreamSynchronize(stream));
-    }  
+    }
     return Status::Succ;
 }
 
@@ -105,7 +107,7 @@ Status set_input() {
     size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
     if (input.size() * sizeof(float) < storage_size) RETURN_STATUS(Status::OutOfRange);
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-        (CUdeviceptr)storage[input_storage_idx], (void*)input.data(), 
+        (CUdeviceptr)storage[input_storage_idx], (void*)input.data(),
         storage_size)
     );
     // TODO: printf input_storage_idx
@@ -134,21 +136,6 @@ Status get_output(std::vector<float>& out) {
     return get_data(input_storage_idx, out.data(), storage_info.size * sizeof(float));
 }
 
-bool argexist(int temparg,int* aused,int* top)
-{
-    for(int i=0;i<*top;i++)
-    {
-    if(temparg == aused[i])
-    {
-    return true;
-    }
-    }
-    aused[*top]=temparg;
-    *top=*top +1;
-    return false;
-}
-
-
 int main(int argc, char **argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
@@ -169,15 +156,14 @@ int main(int argc, char **argv) {
 
     //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
     //wo hui zai wo gaide mei yige difang jia shang zhushi yy
-    //yy preparation: After test, i think the event didn't work well for small job which take little time
-    //                                   nvvp show different data with event
+    //yy preparation
     /*
     CUevent  start, stop;
     float time;
     cuEventCreate(&start,0);
     cuEventCreate(&stop,0);
     */
-    
+
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
@@ -204,7 +190,7 @@ int main(int argc, char **argv) {
 
 
     //yy create csv
-    //get parameter for each kernel
+    /*
     std::ofstream outFile;
     //outFile.open("output.csv", std::ios::out | std::ios::trunc);
     outFile.open("oytput.csv", std::ios::in);
@@ -212,68 +198,28 @@ int main(int argc, char **argv) {
             << "size" << std::endl;
     int storage_tongji[model->storage.size()];
     int kernelsize_tongji[model->kernels.size()];
-    int argused[80];
-    int kernelownarg[model->kernels.size()][8];
     size_t type_size;
     size_t torage_size;
-    //Initilize argused and kernelownarg
-    //argused is used for pointing wherther the arg was uesd by the kernel launched bofore
-    //kernelownarg
-    for(int i=0;i<80;i++)
-    {
-    argused[i]=-1;
-    }
-    for(int i=0;i<model->kernels.size();i++)
-    {
-        for(int j=0;j<8;j++)
-        {
-        kernelownarg[i][j]=-1;
-        }
-    }
-
     for (int i=0;i<model->storage.size();i++) {
         type_size = Model::get_stype_size(model->storage[i].stype);
         torage_size = type_size * model->storage[i].size;
         storage_tongji[i]=(int)torage_size;
     }
-
-    //tempsizetotal for kernel size
-    //temlocation for location to save
-    //top for arguesd
-    //temp to save temporary arg
     int tempsizetotal;
-    int temp=-2;
-    int temlocation;
-    int top=0;
-
-
     for (int k=0;k<model->kernels.size();k++) {
         tempsizetotal=0;
-        temlocation=-1;
-        for (int i=0;i<model->kernels[k].args.size();i++) {
-            temp=model->kernels[k].args[i];
-            if(!(argexist(temp,argused,&top)))
-            {
+        for (int temp : model->kernels[k].args) {
             tempsizetotal+=storage_tongji[temp];
-            temlocation++;
-            kernelownarg[k][temlocation]=temp;
-            }
         }
         kernelsize_tongji[k]=tempsizetotal;
     }
-
     for(int j=0;j<model->kernels.size();j++)
     {
     std::cout<<"Kernel: "<< model->kernels[j].name.c_str()<<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
-    outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j];
-        for(int i=0;i<8;i++)
-        {
-        outFile<<","<<kernelownarg[j][i];
-        }
-    outFile<<std::endl;
+    outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
     }
     outFile.close();
-
+    */
 
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;
@@ -295,14 +241,14 @@ int main(int argc, char **argv) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         // std::cout << "storage_info.name:" << storage_info.name << std::endl;
-        if (params->find(storage_info.name) == params->end()) 
+        if (params->find(storage_info.name) == params->end())
             continue;
         auto &array = params->at(storage_info.name);
 
         //yy event record test
         //cuEventRecord(start,0);
         GPU_RETURN_STATUS(cuMemcpyHtoD(
-            (CUdeviceptr)storage[i], array.data(), 
+            (CUdeviceptr)storage[i], array.data(),
             array.size() * sizeof(float)));
         //cuEventRecord(stop,0);
         //cuEventSynchronize(stop);
