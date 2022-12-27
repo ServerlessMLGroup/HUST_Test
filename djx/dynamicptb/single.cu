@@ -1,0 +1,429 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<cuda.h>
+#include<cuda_runtime.h>
+#define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
+// nvcc -arch=native ex.cu -o ex_sleep
+
+#define GPU_RETURN_STATUS(cmd) \
+{ \
+    CUresult result = cmd; \
+    if (result != CUDA_SUCCESS) { \
+        std::cout << #cmd " error, return code:" << result << " | " << __FILE__ << ":" << __LINE__ << std::endl; \
+        exit(1); \
+    } \
+}
+
+// These are the inline versions for all of the SDK helper functions
+inline void __checkCudaErrors(cudaError_t err, const char *file, const int line) {
+  if (CUDA_SUCCESS != err) {
+    const char *errorStr = NULL;
+    errorStr = cudaGetErrorString(err);
+    fprintf(stderr,
+            "checkCudaErrors() Driver API error = %04d \"%s\" from file <%s>, "
+            "line %i.\n",
+            err, errorStr, file, line);
+    exit(EXIT_FAILURE);
+  }
+}
+
+__device__ uint get_smid(void) {
+
+    uint ret;
+  
+    asm("mov.u32 %0, %smid;" : "=r"(ret) );
+  
+    return ret;
+  
+}
+
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0_warm(float* __restrict__ placeholder, float* __restrict__ data_pack, int* flag, long long unsigned* times, long long unsigned* sm) {
+    float d[16];
+    float data_pack_local[16];
+    for (int eps = 0; eps < 4; ++eps) {
+        for (int nu = 0; nu < 4; ++nu) {
+            d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
+        }
+    }
+    data_pack_local[(0)] = 0.000000e+00f;
+    data_pack_local[(0)] = (data_pack_local[(0)] + d[(0)]);
+    data_pack_local[(0)] = (data_pack_local[(0)] + (d[(2)] * -1.000000e+00f));
+    data_pack_local[(0)] = (data_pack_local[(0)] + (d[(8)] * -1.000000e+00f));
+    data_pack_local[(0)] = (data_pack_local[(0)] + ((d[(10)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(1)] = 0.000000e+00f;
+    data_pack_local[(1)] = (data_pack_local[(1)] + (d[(1)] * -1.000000e+00f));
+    data_pack_local[(1)] = (data_pack_local[(1)] + d[(2)]);
+    data_pack_local[(1)] = (data_pack_local[(1)] + ((d[(9)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(1)] = (data_pack_local[(1)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(2)] = 0.000000e+00f;
+    data_pack_local[(2)] = (data_pack_local[(2)] + d[(1)]);
+    data_pack_local[(2)] = (data_pack_local[(2)] + d[(2)]);
+    data_pack_local[(2)] = (data_pack_local[(2)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(2)] = (data_pack_local[(2)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(3)] = 0.000000e+00f;
+    data_pack_local[(3)] = (data_pack_local[(3)] + (d[(1)] * -1.000000e+00f));
+    data_pack_local[(3)] = (data_pack_local[(3)] + d[(3)]);
+    data_pack_local[(3)] = (data_pack_local[(3)] + ((d[(9)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(3)] = (data_pack_local[(3)] + (d[(11)] * -1.000000e+00f));
+    data_pack_local[(4)] = 0.000000e+00f;
+    data_pack_local[(4)] = (data_pack_local[(4)] + (d[(4)] * -1.000000e+00f));
+    data_pack_local[(4)] = (data_pack_local[(4)] + ((d[(6)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(4)] = (data_pack_local[(4)] + d[(8)]);
+    data_pack_local[(4)] = (data_pack_local[(4)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(5)] = 0.000000e+00f;
+    data_pack_local[(5)] = (data_pack_local[(5)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + d[(10)]);
+    data_pack_local[(6)] = 0.000000e+00f;
+    data_pack_local[(6)] = (data_pack_local[(6)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(6)] = (data_pack_local[(6)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(6)] = (data_pack_local[(6)] + d[(9)]);
+    data_pack_local[(6)] = (data_pack_local[(6)] + d[(10)]);
+    data_pack_local[(7)] = 0.000000e+00f;
+    data_pack_local[(7)] = (data_pack_local[(7)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + (d[(7)] * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + d[(11)]);
+    data_pack_local[(8)] = 0.000000e+00f;
+    data_pack_local[(8)] = (data_pack_local[(8)] + d[(4)]);
+    data_pack_local[(8)] = (data_pack_local[(8)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(8)] = (data_pack_local[(8)] + d[(8)]);
+    data_pack_local[(8)] = (data_pack_local[(8)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(9)] = 0.000000e+00f;
+    data_pack_local[(9)] = (data_pack_local[(9)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(9)] = (data_pack_local[(9)] + d[(6)]);
+    data_pack_local[(9)] = (data_pack_local[(9)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(9)] = (data_pack_local[(9)] + d[(10)]);
+    data_pack_local[(10)] = 0.000000e+00f;
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(5)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(6)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(9)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(10)]);
+    data_pack_local[(11)] = 0.000000e+00f;
+    data_pack_local[(11)] = (data_pack_local[(11)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(11)] = (data_pack_local[(11)] + d[(7)]);
+    data_pack_local[(11)] = (data_pack_local[(11)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(11)] = (data_pack_local[(11)] + d[(11)]);
+    data_pack_local[(12)] = 0.000000e+00f;
+    data_pack_local[(12)] = (data_pack_local[(12)] + (d[(4)] * -1.000000e+00f));
+    data_pack_local[(12)] = (data_pack_local[(12)] + ((d[(6)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(12)] = (data_pack_local[(12)] + d[(12)]);
+    data_pack_local[(12)] = (data_pack_local[(12)] + (d[(14)] * -1.000000e+00f));
+    data_pack_local[(13)] = 0.000000e+00f;
+    data_pack_local[(13)] = (data_pack_local[(13)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + (d[(13)] * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + d[(14)]);
+    data_pack_local[(14)] = 0.000000e+00f;
+    data_pack_local[(14)] = (data_pack_local[(14)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(14)] = (data_pack_local[(14)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(14)] = (data_pack_local[(14)] + d[(13)]);
+    data_pack_local[(14)] = (data_pack_local[(14)] + d[(14)]);
+    data_pack_local[(15)] = 0.000000e+00f;
+    data_pack_local[(15)] = (data_pack_local[(15)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + (d[(7)] * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + (d[(13)] * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
+    for (int eps1 = 0; eps1 < 4; ++eps1) {
+        for (int nu1 = 0; nu1 < 4; ++nu1) {
+        data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+        }
+    }
+    
+}
+
+// sm_flag指示i号sm是保留的原先几号block
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* sm_flag, long long unsigned* worker_num, int* block_flag) {
+    // unsigned long long mclk; 
+	// if (threadIdx.x == 0) {
+	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+	// 	times[blockIdx.x] = mclk / 1000;
+	// }
+    unsigned int ns = 5;
+    int smid = get_smid() + 1;
+    if (threadIdx.x == 0 && atomicAdd(sm_flag + smid, 1) == 0) atomicAdd(block_flag + blockIdx.x, 1);
+    __syncthreads();
+    // while(atomicAdd(flag, 0) == 0) { // 40us版本
+    //     __nanosleep(ns); 
+    //     if (ns < 1000) {
+    //         ns *= 2;
+    //     }
+    // }
+
+    if (atomicAdd(block_flag + blockIdx.x, 0) == 0) return ;
+    __syncthreads();
+
+    // if (threadIdx.x == 0) printf("%d %d\n", smid, blockIdx.x);
+    
+    float d[16];
+    float data_pack_local[16];
+    for (int eps = 0; eps < 4; ++eps) {
+        for (int nu = 0; nu < 4; ++nu) {
+            d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
+        }
+    }
+    data_pack_local[(0)] = 0.000000e+00f;
+    data_pack_local[(0)] = (data_pack_local[(0)] + d[(0)]);
+    data_pack_local[(0)] = (data_pack_local[(0)] + (d[(2)] * -1.000000e+00f));
+    data_pack_local[(0)] = (data_pack_local[(0)] + (d[(8)] * -1.000000e+00f));
+    data_pack_local[(0)] = (data_pack_local[(0)] + ((d[(10)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(1)] = 0.000000e+00f;
+    data_pack_local[(1)] = (data_pack_local[(1)] + (d[(1)] * -1.000000e+00f));
+    data_pack_local[(1)] = (data_pack_local[(1)] + d[(2)]);
+    data_pack_local[(1)] = (data_pack_local[(1)] + ((d[(9)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(1)] = (data_pack_local[(1)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(2)] = 0.000000e+00f;
+    data_pack_local[(2)] = (data_pack_local[(2)] + d[(1)]);
+    data_pack_local[(2)] = (data_pack_local[(2)] + d[(2)]);
+    data_pack_local[(2)] = (data_pack_local[(2)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(2)] = (data_pack_local[(2)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(3)] = 0.000000e+00f;
+    data_pack_local[(3)] = (data_pack_local[(3)] + (d[(1)] * -1.000000e+00f));
+    data_pack_local[(3)] = (data_pack_local[(3)] + d[(3)]);
+    data_pack_local[(3)] = (data_pack_local[(3)] + ((d[(9)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(3)] = (data_pack_local[(3)] + (d[(11)] * -1.000000e+00f));
+    data_pack_local[(4)] = 0.000000e+00f;
+    data_pack_local[(4)] = (data_pack_local[(4)] + (d[(4)] * -1.000000e+00f));
+    data_pack_local[(4)] = (data_pack_local[(4)] + ((d[(6)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(4)] = (data_pack_local[(4)] + d[(8)]);
+    data_pack_local[(4)] = (data_pack_local[(4)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(5)] = 0.000000e+00f;
+    data_pack_local[(5)] = (data_pack_local[(5)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(5)] = (data_pack_local[(5)] + d[(10)]);
+    data_pack_local[(6)] = 0.000000e+00f;
+    data_pack_local[(6)] = (data_pack_local[(6)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(6)] = (data_pack_local[(6)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(6)] = (data_pack_local[(6)] + d[(9)]);
+    data_pack_local[(6)] = (data_pack_local[(6)] + d[(10)]);
+    data_pack_local[(7)] = 0.000000e+00f;
+    data_pack_local[(7)] = (data_pack_local[(7)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + (d[(7)] * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(7)] = (data_pack_local[(7)] + d[(11)]);
+    data_pack_local[(8)] = 0.000000e+00f;
+    data_pack_local[(8)] = (data_pack_local[(8)] + d[(4)]);
+    data_pack_local[(8)] = (data_pack_local[(8)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(8)] = (data_pack_local[(8)] + d[(8)]);
+    data_pack_local[(8)] = (data_pack_local[(8)] + (d[(10)] * -1.000000e+00f));
+    data_pack_local[(9)] = 0.000000e+00f;
+    data_pack_local[(9)] = (data_pack_local[(9)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(9)] = (data_pack_local[(9)] + d[(6)]);
+    data_pack_local[(9)] = (data_pack_local[(9)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(9)] = (data_pack_local[(9)] + d[(10)]);
+    data_pack_local[(10)] = 0.000000e+00f;
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(5)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(6)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(9)]);
+    data_pack_local[(10)] = (data_pack_local[(10)] + d[(10)]);
+    data_pack_local[(11)] = 0.000000e+00f;
+    data_pack_local[(11)] = (data_pack_local[(11)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(11)] = (data_pack_local[(11)] + d[(7)]);
+    data_pack_local[(11)] = (data_pack_local[(11)] + (d[(9)] * -1.000000e+00f));
+    data_pack_local[(11)] = (data_pack_local[(11)] + d[(11)]);
+    data_pack_local[(12)] = 0.000000e+00f;
+    data_pack_local[(12)] = (data_pack_local[(12)] + (d[(4)] * -1.000000e+00f));
+    data_pack_local[(12)] = (data_pack_local[(12)] + ((d[(6)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(12)] = (data_pack_local[(12)] + d[(12)]);
+    data_pack_local[(12)] = (data_pack_local[(12)] + (d[(14)] * -1.000000e+00f));
+    data_pack_local[(13)] = 0.000000e+00f;
+    data_pack_local[(13)] = (data_pack_local[(13)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + (d[(13)] * -1.000000e+00f));
+    data_pack_local[(13)] = (data_pack_local[(13)] + d[(14)]);
+    data_pack_local[(14)] = 0.000000e+00f;
+    data_pack_local[(14)] = (data_pack_local[(14)] + (d[(5)] * -1.000000e+00f));
+    data_pack_local[(14)] = (data_pack_local[(14)] + (d[(6)] * -1.000000e+00f));
+    data_pack_local[(14)] = (data_pack_local[(14)] + d[(13)]);
+    data_pack_local[(14)] = (data_pack_local[(14)] + d[(14)]);
+    data_pack_local[(15)] = 0.000000e+00f;
+    data_pack_local[(15)] = (data_pack_local[(15)] + ((d[(5)] * -1.000000e+00f) * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + (d[(7)] * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + (d[(13)] * -1.000000e+00f));
+    data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
+    for (int eps1 = 0; eps1 < 4; ++eps1) {
+        for (int nu1 = 0; nu1 < 4; ++nu1) {
+        data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+        }
+    }
+    
+    // __syncthreads(); //new
+    // unsigned long long mclk2; 
+	// if (threadIdx.x == 0) {
+	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+	// 	times[blockIdx.x + 64] = mclk2 / 1000;
+	// }
+    // atomicAdd(flag + threadIdx.x + blockIdx.x * 128, 1);
+    // flag[threadIdx.x + blockIdx.x * 128] = 1;
+    // flag[0] = 1;
+    
+}
+
+
+void run_kernel() {
+	int num_streams = 2;
+	cudaStream_t streams[num_streams];
+	for (int i = 0; i < num_streams; i++) {
+		cudaStreamCreate(&streams[i]);
+	}
+	
+    // allocate kernel_sleep sm
+	long long unsigned *h_sm = new long long unsigned[64];
+	long long unsigned *d_sm;
+	cudaMalloc(&d_sm, 64 * sizeof(long long unsigned));
+
+    long long unsigned *h_sm_ids = new long long unsigned[64 * 2];
+	long long unsigned *d_sm_ids;
+	cudaMalloc(&d_sm_ids, 64 * sizeof(long long unsigned) * 2);
+
+    // // allocate resource
+    float *h_args_55 = new float[25088]; // 55
+    float *d_args_55;
+    cudaMalloc(&d_args_55, sizeof(float) * 25088);
+
+    float *h_args_56 = new float[4194304]; // 56
+    float *d_args_56;
+    cudaMalloc(&d_args_56, sizeof(float) * 4194304);
+
+    float *h_args_75 = new float[1806336 / 4 + 1]; // 55
+    float *d_args_75;
+    cudaMalloc(&d_args_75, sizeof(float) * 1806336 / 4 + 4);
+
+    float *h_args_76 = new float[1806336 / 4 + 1]; // 55
+    float *d_args_76;
+    cudaMalloc(&d_args_76, sizeof(float) * 1806336 / 4 + 4);
+
+
+    // allocate flag
+    int *sm_flag = new int[85];
+    int *g_sm_flag;
+    for (int i = 0; i < 85; ++i) {
+        sm_flag[i] = 0;
+    }
+    cudaMalloc((void **)&g_sm_flag, sizeof(int) * 85);
+    cudaMemcpy(g_sm_flag, sm_flag, sizeof(int) * 85, cudaMemcpyHostToDevice);
+
+    int *block_flag = new int[300];
+    int *g_block_flag;
+    for (int i = 0; i < 300; ++i) {
+        block_flag[i] = 0;
+    }
+    cudaMalloc((void **)&g_block_flag, sizeof(int) * 300);
+    cudaMemcpy(g_block_flag, block_flag, sizeof(int) * 300, cudaMemcpyHostToDevice);
+
+    // allocate kernel_sleep sm
+	long long unsigned *worker_num = new long long unsigned[1];
+	long long unsigned *d_worker_num;
+	cudaMalloc(&d_worker_num, 1 * sizeof(long long unsigned));
+
+
+    // allocate warm flag
+    int *flag_warm;
+    int *g_flag_warm;
+    flag_warm = (int*) malloc(1 * sizeof(int));
+    flag_warm[0] = 0;
+    cudaMalloc((void **)&g_flag_warm, sizeof(int) * 9000);
+    cudaMemcpy(g_flag_warm, flag_warm, sizeof(int) * 9000, cudaMemcpyHostToDevice);
+
+    // cuda launch kernel
+	dim3 D_b_a = dim3(200, 1, 1);
+	dim3 D_t_a = dim3(128, 1, 1);
+    // warm-up
+    for (int i = 0; i < 100; ++i) {
+        fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0_warm <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_flag_warm, d_sm_ids, d_sm);
+    }
+	cudaDeviceSynchronize();
+    // test kernel
+	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_sm_flag, d_worker_num, g_block_flag);
+    // sleep until kernel finish
+	// fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2, d_sleep_sm, g_sleep_times);
+	// kernel_sleep <<<D_b_b, D_t_b, 0, streams[1]>>>(15.6, 64.9, 134.7, 1000, g_flag);
+	cudaDeviceSynchronize();
+
+    // cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
+	// //cudaMemcpy(h_sm_ids2, d_sm_ids2, 128 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
+	
+
+	// //cudaMemcpy(sleep_times, g_sleep_times, 1 * sizeof(int), cudaMemcpyDeviceToHost);
+	// //cudaMemcpy(h_sleep_sm, d_sleep_sm, 128 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+    // //cudaMemcpy(h_sm, d_sm, 64 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+
+    // cudaMemcpy(flag, g_flag, sizeof(int) * 9000, cudaMemcpyDeviceToHost);
+
+	// long long unsigned maxm = 0, minm = 1768959725180341, max1 = 0, max2=0, min2=1768959725180341;
+	// long long unsigned maxm_e = 0, minm_e = 1768959725180341;
+    // printf("---1---\n");
+	// for (int i = 0; i < 64; i++) {
+    //     printf("%llu-%llu\n", h_sm_ids[i], h_sm_ids[i + 64]);
+    //     maxm = max(maxm, h_sm_ids[i]);
+    //     minm = min(minm, h_sm_ids[i]);
+	// 	maxm_e = max(maxm_e, h_sm_ids[i + 64]);
+    //     minm_e = min(minm_e, h_sm_ids[i + 64]);
+	//     max1 = max(max1, h_sm_ids[i + 64] - h_sm_ids[i]);
+	// }
+    // printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
+	// printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
+	// printf("DURATION:单block最大执行时间%llu(us)\n", max1);
+        
+	// maxm = 0; minm = 1768959725180341;
+	// maxm_e = 0; minm_e = 1768959725180341;
+	// printf("---2---\n");
+	// for (int i = 0; i < 128; i++) {
+	// 	// printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids2[i], h_sm_ids2[i + a_blocks] , h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
+    //     // printf("%llu-%llu\n", h_sm_ids2[i], h_sm_ids2[i + 128]);
+    //     maxm = max(maxm, h_sm_ids2[i]);
+    //     minm = min(minm, h_sm_ids2[i]);
+	// 	maxm_e = max(maxm_e, h_sm_ids2[i + 128]);
+    //     minm_e = min(minm_e, h_sm_ids2[i + 128]);
+	//     max2 = max(max2, h_sm_ids2[i + 128]-h_sm_ids2[i]);
+	//     min2 = min(min2, h_sm_ids2[i + 128]-h_sm_ids2[i]);
+	// }
+    // printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
+	// printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
+	// printf("DURATION:单block最大执行时间%llu(us)  单block最大执行时间与最小的时间差%llu(us)\n", max2, max2 - min2);
+
+	// // printf("---sleep_times---\n");
+	// // for (int i = 0; i < b_blocks; i++) {
+	// // 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
+	// // }
+
+    // printf("---first_sm---\n");
+	// for (int i = 0; i < 64; ++i) {
+	// 	//printf("block-%d %llu\n", i, h_sm[i]);
+	// }
+
+	// printf("---second_sm---\n");
+	// for (int i = 0; i < 128; ++i) {
+	// 	//printf("block-%d %llu\n", i, h_sleep_sm[i]);
+	// }
+    // printf("kernel1 sleep time:%d\n", sleep_times[0]);
+    // int total = 0;
+    // for (int i = 0; i < 64 * 128; ++i) {
+    //     total += flag[i];
+    // }
+    // printf("total flag:%d\n", total);
+	
+	// cudaFree(d_sm_ids);
+	// cudaFree(d_sm_ids2);
+
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        printf("args num error! argc:%d", argc);
+        exit(1);
+    }
+    int gpu_no = atoi(argv[1]);
+    checkCudaErrors(cudaSetDevice(gpu_no));
+
+    // cudaDeviceProp  prop;
+    // cudaGetDeviceProperties(&prop, 0); 
+    // clock_t clock_rate = prop.clockRate;
+    // printf("clock_rate:%d\n", clock_rate); // 1530000
+	run_kernel();
+
+	return 0;
+}
+
