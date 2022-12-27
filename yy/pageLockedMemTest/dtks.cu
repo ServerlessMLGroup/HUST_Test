@@ -41,7 +41,7 @@ __device__ uint get_smid(void) {
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag) {
     unsigned int ns = 5;
     //original test
-    while(atomicAdd(flag, 0) ！= 0) { // 40us版本
+    while(atomicAdd(flag, 0) != 0) { // 40us版本
         __nanosleep(ns); // 1us
         if (ns < 1000) {
             ns *= 2;
