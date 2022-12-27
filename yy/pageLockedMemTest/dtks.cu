@@ -428,7 +428,7 @@ void run_kernel() {
     }
     size = 1*sizeof(int);
 
-    cudaMemcpy(g_flag, flag, sizeof(int) * 9000, cudaMemcpyHostToDevice);
+    
 
     // cuda launch kernel
 	dim3 D_b_a = dim3(64, 1, 1);
