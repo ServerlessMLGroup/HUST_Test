@@ -40,7 +40,8 @@ __device__ uint get_smid(void) {
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag) {
     unsigned int ns = 5;
-    while(atomicAdd(flag, 0) == 0) { // 40us版本
+    //original test
+    while(atomicAdd(flag, 0) ！= 0) { // 40us版本
         __nanosleep(ns); // 1us
         if (ns < 1000) {
             ns *= 2;
@@ -428,7 +429,7 @@ void run_kernel() {
     }
     size = 1*sizeof(int);
 
-    
+
 
     // cuda launch kernel
 	dim3 D_b_a = dim3(64, 1, 1);
@@ -443,7 +444,8 @@ void run_kernel() {
 
 
     // sleep until flag changes
-	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag);
+    // original time test
+	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag);
     cudaMemcpyAsync(d_args_56, h_args_56,size56, cudaMemcpyHostToDevice, streams[0]);
     cudaMemcpyAsync(d_args_76, h_args_76,size76, cudaMemcpyHostToDevice, streams[0]);
     cudaMemcpyAsync(d_args_75, h_args_75,size75, cudaMemcpyHostToDevice, streams[0]);
