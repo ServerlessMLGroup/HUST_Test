@@ -508,7 +508,8 @@ void run_kernel() {
     // cuda launch kernel
 	dim3 D_b_a = dim3(64, 1, 1);
 	dim3 D_t_a = dim3(128, 1, 1);
-	dim3 D_b_b = dim3(1, 8, 16);
+	//dim3 D_b_b = dim3(1, 8, 16);
+	dim3 D_b_b = dim3(1, 8, 8);
 	dim3 D_t_b = dim3(8, 16, 1);
     // warm-up
     for (int i = 0; i < 100; ++i) {
@@ -558,7 +559,7 @@ void run_kernel() {
 	maxm = 0; minm = 1768959725180341;
 	maxm_e = 0; minm_e = 1768959725180341;
 	printf("---2---\n");
-	for (int i = 0; i < 128; i++) {
+	for (int i = 0; i < 64; i++) {
 		// printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids2[i], h_sm_ids2[i + a_blocks] , h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
         // printf("%llu-%llu\n", h_sm_ids2[i], h_sm_ids2[i + 128]);
         maxm = max(maxm, h_sm_ids2[i]);
@@ -576,7 +577,7 @@ void run_kernel() {
     maxm = 0; minm = 1768959725180341;
 	maxm_e = 0; minm_e = 1768959725180341;
 	printf("---3---\n");
-	for (int i = 0; i < 128; i++) {
+	for (int i = 0; i < 64; i++) {
 		// printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids3[i], h_sm_ids3[i + a_blocks] , h_sm_ids3[i + b_blocks]-h_sm_ids3[i]);
         // printf("%llu-%llu\n", h_sm_ids3[i], h_sm_ids3[i + 128]);
         maxm = max(maxm, h_sm_ids3[i]);
