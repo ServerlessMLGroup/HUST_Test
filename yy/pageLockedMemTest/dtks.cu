@@ -38,6 +38,7 @@ __device__ uint get_smid(void) {
 
 }
 
+/*
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag) {
     unsigned int ns = 100;
     //original test
@@ -81,6 +82,70 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       }
     }
 
+}
+*/
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag, long long unsigned* times, long long unsigned* sm, int* sleep_times) {
+    unsigned int ns = 5;
+    while(atomicAdd(flag, 0) == 0) { // 40us版本
+        __nanosleep(ns); // 1us
+        if (ns < 1000) {
+            ns *= 2;
+        }
+    }
+
+    // while(!flag[0]) {   // 60us版本
+    //     __nanosleep(ns); // 1us
+    //     if (ns < 256) {
+    //         ns *= 2;
+    //     }
+    // }
+     unsigned long long mclk;
+	 if (threadIdx.x == 0) {
+	 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+	 	times[blockIdx.y * 16 + blockIdx.z] = mclk / 1000;
+	 }
+
+	// if (threadIdx.x == 0) {
+	// 	sm[blockIdx.y * 16 + blockIdx.z] = get_smid();
+	// }
+
+    float bgemm_local[8];
+    __shared__ float placeholder_shared[1024];
+    __shared__ float data_pack_shared[256];
+    for (int co_c_init = 0; co_c_init < 4; ++co_c_init) {
+      for (int p_c_init = 0; p_c_init < 2; ++p_c_init) {
+        bgemm_local[(((co_c_init * 2) + p_c_init))] = 0.000000e+00f;
+      }
+    }
+    for (int ci_outer = 0; ci_outer < 32; ++ci_outer) {
+      __syncthreads();
+      for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
+        placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = placeholder[(((((((((int)blockIdx.z) * 262144) + (ci_outer * 8192)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 1024)) + ((((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) >> 6) * 512)) + (((int)blockIdx.y) * 64)) + (((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) & 63)))];
+      }
+      for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
+        data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 8192) + (ci_outer * 256)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128)) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))];
+      }
+      __syncthreads();
+      for (int ci_inner = 0; ci_inner < 16; ++ci_inner) {
+        for (int co_c = 0; co_c < 4; ++co_c) {
+          for (int p_c = 0; p_c < 2; ++p_c) {
+            bgemm_local[(((co_c * 2) + p_c))] = (bgemm_local[(((co_c * 2) + p_c))] + (placeholder_shared[((((ci_inner * 64) + (((int)threadIdx.y) * 4)) + co_c))] * data_pack_shared[((((ci_inner * 16) + (((int)threadIdx.x) * 2)) + p_c))]));
+          }
+        }
+      }
+    }
+    for (int co_inner_inner_inner = 0; co_inner_inner_inner < 4; ++co_inner_inner_inner) {
+      for (int p_inner_inner_inner = 0; p_inner_inner_inner < 2; ++p_inner_inner_inner) {
+        bgemm[(((((((((int)blockIdx.z) * 8192) + (((int)blockIdx.y) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
+      }
+    }
+
+     __syncthreads(); // new
+     unsigned long long mclk2;
+	 if (threadIdx.x == 0) {
+	 	 asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+	 	 times[blockIdx.y * 16 + blockIdx.z + 128] = mclk2 / 1000;
+	 }
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0_warm(float* __restrict__ placeholder, float* __restrict__ data_pack, int* flag, long long unsigned* times, long long unsigned* sm) {
@@ -355,6 +420,10 @@ void run_kernel() {
 	long long unsigned *d_sm_ids2;
 	cudaMalloc(&d_sm_ids2, 128 * sizeof(long long unsigned) * 2);
 
+    long long unsigned *h_sm_ids3 = new long long unsigned[128 * 2];
+	long long unsigned *d_sm_ids3;
+	cudaMalloc(&d_sm_ids3, 128 * sizeof(long long unsigned) * 2);
+
     float *h_args_55 = new float[25088]; // 55
     float *d_args_55;
     cudaMalloc(&d_args_55, sizeof(float) * 25088);
@@ -447,17 +516,19 @@ void run_kernel() {
 
     // sleep until flag changes
     // original time test
-	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag);
+    //weiguan test
+    fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2, d_sleep_sm, g_sleep_times);
+	//fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag);
     cudaMemcpyAsync(d_args_56, h_args_56,size56, cudaMemcpyHostToDevice, streams[1]);
     cudaMemcpyAsync(d_args_76, h_args_76,size76, cudaMemcpyHostToDevice, streams[1]);
     cudaMemcpyAsync(d_args_75, h_args_75,size75, cudaMemcpyHostToDevice, streams[1]);
     cudaMemcpyAsync(g_flag, flag,size, cudaMemcpyHostToDevice, streams[1]);
 	cudaDeviceSynchronize();
-    fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag);
-
+    //fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag);
+    fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids3, d_sleep_sm, g_sleep_times);
     cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sm_ids2, d_sm_ids2, 128 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
-
+    cudaMemcpy(h_sm_ids3, d_sm_ids3, 128 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
 
 	cudaMemcpy(sleep_times, g_sleep_times, 1 * sizeof(int), cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sleep_sm, d_sleep_sm, 128 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
@@ -492,6 +563,23 @@ void run_kernel() {
         minm_e = min(minm_e, h_sm_ids2[i + 128]);
 	    max2 = max(max2, h_sm_ids2[i + 128]-h_sm_ids2[i]);
 	    min2 = min(min2, h_sm_ids2[i + 128]-h_sm_ids2[i]);
+	}
+    printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
+	printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
+	printf("DURATION:单block最大执行时间%llu(us)  单block最大执行时间与最小的时间差%llu(us)\n", max2, max2 - min2);
+
+    maxm = 0; minm = 1768959725180341;
+	maxm_e = 0; minm_e = 1768959725180341;
+	printf("---3---\n");
+	for (int i = 0; i < 128; i++) {
+		// printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids3[i], h_sm_ids3[i + a_blocks] , h_sm_ids3[i + b_blocks]-h_sm_ids3[i]);
+        // printf("%llu-%llu\n", h_sm_ids3[i], h_sm_ids3[i + 128]);
+        maxm = max(maxm, h_sm_ids3[i]);
+        minm = min(minm, h_sm_ids3[i]);
+		maxm_e = max(maxm_e, h_sm_ids3[i + 128]);
+        minm_e = min(minm_e, h_sm_ids3[i + 128]);
+	    max2 = max(max2, h_sm_ids3[i + 128]-h_sm_ids3[i]);
+	    min2 = min(min2, h_sm_ids3[i + 128]-h_sm_ids3[i]);
 	}
     printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
 	printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
