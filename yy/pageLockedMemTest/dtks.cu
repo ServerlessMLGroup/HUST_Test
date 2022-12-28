@@ -453,7 +453,7 @@ void run_kernel() {
     cudaMemcpyAsync(d_args_75, h_args_75,size75, cudaMemcpyHostToDevice, streams[1]);
     cudaMemcpyAsync(g_flag, flag,size, cudaMemcpyHostToDevice, streams[1]);
 	cudaDeviceSynchronize();
-
+    fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[0]>>>(d_args_56, d_args_76, d_args_75, g_flag);
 
     cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
 	cudaMemcpy(h_sm_ids2, d_sm_ids2, 128 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
