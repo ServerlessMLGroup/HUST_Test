@@ -589,7 +589,7 @@ void run_kernel() {
     printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
 	printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
     printf("Task overhead(Max end - min start):%llu(us)\n",maxm_e - minm);
-	printf("DURATION:单block最大执行时间%llu(us)  单block最大执行时间与最小的时间差%llu(us)\n", max3, max3 - min2);
+	printf("DURATION:单block最大执行时间%llu(us)  单block最大执行时间与最小的时间差%llu(us)\n", max3, max3 - min3);
 
 	// printf("---sleep_times---\n");
 	// for (int i = 0; i < b_blocks; i++) {
