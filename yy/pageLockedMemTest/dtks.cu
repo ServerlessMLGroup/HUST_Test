@@ -81,16 +81,19 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
         bgemm[(((((((((int)blockIdx.z) * 8192) + (((int)blockIdx.y) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
       }
     }
-
 }
 */
+
+
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm, int* flag, long long unsigned* times, long long unsigned* sm, int* sleep_times) {
-    unsigned int ns = 5;
+    unsigned int ns = 100;
     while(atomicAdd(flag, 0) == 0) { // 40us版本
         __nanosleep(ns); // 1us
+        /*
         if (ns < 1000) {
             ns *= 2;
         }
+        */
     }
 
     // while(!flag[0]) {   // 60us版本
