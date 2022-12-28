@@ -44,11 +44,11 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     //original test
     while(atomicAdd(flag, 0) == 0) { // 40us版本
         __nanosleep(ns); // 1us
-        /*
-        if (ns < 1000) {
-            ns *= 2;
-        }
-        */
+
+        //if (ns < 1000) {
+        //    ns *= 2;
+        //}
+
     }
 
     float bgemm_local[8];
