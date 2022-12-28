@@ -164,7 +164,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     // if (threadIdx.x == 0) printf("%d %d\n", smid, blockIdx.x);
     // for (int i = 0; i < 100; ++i) { // 模拟多次主动感知
     ns = 5;
-    while (atomicAdd(worker_num, 0) < smid) {
+    while (atomicAdd(worker_num + smid) == 0) {
         if (threadIdx.x == 0) time[smid] += 1; 
         __nanosleep(ns);
         if (ns < 1000) {
@@ -267,21 +267,14 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 
     unsigned long long mclk2; 
     if (threadIdx.x == 0) {
-        atomicExch(worker_num, 80);
+        if (smid == 0) {
+            for (int i = 0; i < 80; ++i) {
+                atomicExch(worker_num + i, 1);
+            }
+        }
         asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
         time[get_smid() + 80] = (mclk2 - mclk) / 1000;
     }
-    
-    
-    // __syncthreads(); //new
-    // unsigned long long mclk2; 
-	// if (threadIdx.x == 0) {
-	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-	// 	times[blockIdx.x + 64] = mclk2 / 1000;
-	// }
-    // atomicAdd(flag + threadIdx.x + blockIdx.x * 128, 1);
-    // flag[threadIdx.x + blockIdx.x * 128] = 1;
-    // flag[0] = 1;
     
 }
 
@@ -338,11 +331,14 @@ void run_kernel() {
     cudaMemcpy(g_block_flag, block_flag, sizeof(int) * 300, cudaMemcpyHostToDevice);
 
     // allocate kernel_sleep sm
-	long long unsigned *worker_num = new long long unsigned[1];
-    worker_num[0] = 40;
+	long long unsigned *worker_num = new long long unsigned[80];
+    for (int i = 0; i < 40; ++i) {
+        worker_num[i] = 1;
+        worker_num[80 - i - 1] = 0;
+    }
 	long long unsigned *d_worker_num;
-	cudaMalloc(&d_worker_num, 1 * sizeof(long long unsigned));
-    cudaMemcpy(d_worker_num, worker_num, sizeof(long long unsigned) * 1, cudaMemcpyHostToDevice);
+	cudaMalloc(&d_worker_num, 80 * sizeof(long long unsigned));
+    cudaMemcpy(d_worker_num, worker_num, sizeof(long long unsigned) * 80, cudaMemcpyHostToDevice);
 
     long long unsigned *time = new long long unsigned[200];
 	long long unsigned *d_time;
