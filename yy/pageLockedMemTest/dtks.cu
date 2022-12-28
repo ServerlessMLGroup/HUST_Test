@@ -540,6 +540,7 @@ void run_kernel() {
     cudaMemcpy(flag, g_flag, sizeof(int) * 9000, cudaMemcpyDeviceToHost);
 
 	long long unsigned maxm = 0, minm = 1768959725180341, max1 = 0, max2=0, min2=1768959725180341;
+	long long unsigned max3 = 0, min3=1768959725180341;
 	long long unsigned maxm_e = 0, minm_e = 1768959725180341;
     printf("---1---\n");
 	for (int i = 0; i < 64; i++) {
@@ -581,12 +582,12 @@ void run_kernel() {
         minm = min(minm, h_sm_ids3[i]);
 		maxm_e = max(maxm_e, h_sm_ids3[i + 128]);
         minm_e = min(minm_e, h_sm_ids3[i + 128]);
-	    max2 = max(max2, h_sm_ids3[i + 128]-h_sm_ids3[i]);
-	    min2 = min(min2, h_sm_ids3[i + 128]-h_sm_ids3[i]);
+	    max3 = max(max3, h_sm_ids3[i + 128]-h_sm_ids3[i]);
+	    min3 = min(min3, h_sm_ids3[i + 128]-h_sm_ids3[i]);
 	}
     printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
 	printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
-	printf("DURATION:单block最大执行时间%llu(us)  单block最大执行时间与最小的时间差%llu(us)\n", max2, max2 - min2);
+	printf("DURATION:单block最大执行时间%llu(us)  单block最大执行时间与最小的时间差%llu(us)\n", max3, max3 - min2);
 
 	// printf("---sleep_times---\n");
 	// for (int i = 0; i < b_blocks; i++) {
