@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList/>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:com.nvidia.viper.acceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_N7kJ4HXZEe21-sKGYNbhhQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_N7kJ4XXZEe21-sKGYNbhhQ" label="%trimmedwindow.label.eclipseSDK" x="138" y="224" width="1284" height="626">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_N7kJ4HXZEe21-sKGYNbhhQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_N7kJ4XXZEe21-sKGYNbhhQ" label="%trimmedwindow.label.eclipseSDK" x="30" y="31" width="1871" height="854">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="false"/>
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>

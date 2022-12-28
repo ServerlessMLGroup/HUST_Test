@@ -134,14 +134,14 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 // sm_flag指示i号sm是保留的原先几号block
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* sm_flag, long long unsigned* worker_num, int* block_flag) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* sm_flag, long long unsigned* worker_num, int* block_flag, long long unsigned* time) {
     // unsigned long long mclk; 
 	// if (threadIdx.x == 0) {
 	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
 	// 	times[blockIdx.x] = mclk / 1000;
 	// }
     unsigned int ns = 5;
-    int smid = get_smid() + 1;
+    int smid = get_smid();
     if (threadIdx.x == 0 && atomicAdd(sm_flag + smid, 1) == 0) atomicAdd(block_flag + blockIdx.x, 1);
     __syncthreads();
     // while(atomicAdd(flag, 0) == 0) { // 40us版本
@@ -153,9 +153,25 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 
     if (atomicAdd(block_flag + blockIdx.x, 0) == 0) return ;
     __syncthreads();
+    
+    unsigned long long mclk;
+    if (threadIdx.x == 0) {
+        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+        //time[get_smid()] = mclk / 1000;
+    }
+    // while ((t1 - t0)/(1530000 * 1000.0f / 1000000) < 20) t1 = clock64(); // 20us, 1530000为kilohertz
 
     // if (threadIdx.x == 0) printf("%d %d\n", smid, blockIdx.x);
-    
+    // for (int i = 0; i < 100; ++i) { // 模拟多次主动感知
+    ns = 5;
+    while (atomicAdd(worker_num, 0) < smid) {
+        if (threadIdx.x == 0) time[smid] += 1; 
+        __nanosleep(ns);
+        if (ns < 1000) {
+            ns *= 2;
+        }
+    }
+    // if (get_smid() != smid - 1) printf("error in %d-%d\n", smid - 1, get_smid());
     float d[16];
     float data_pack_local[16];
     for (int eps = 0; eps < 4; ++eps) {
@@ -248,6 +264,14 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
         data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
         }
     }
+
+    unsigned long long mclk2; 
+    if (threadIdx.x == 0) {
+        atomicExch(worker_num, 80);
+        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+        time[get_smid() + 80] = (mclk2 - mclk) / 1000;
+    }
+    
     
     // __syncthreads(); //new
     // unsigned long long mclk2; 
@@ -315,8 +339,14 @@ void run_kernel() {
 
     // allocate kernel_sleep sm
 	long long unsigned *worker_num = new long long unsigned[1];
+    worker_num[0] = 40;
 	long long unsigned *d_worker_num;
 	cudaMalloc(&d_worker_num, 1 * sizeof(long long unsigned));
+    cudaMemcpy(d_worker_num, worker_num, sizeof(long long unsigned) * 1, cudaMemcpyHostToDevice);
+
+    long long unsigned *time = new long long unsigned[200];
+	long long unsigned *d_time;
+	cudaMalloc(&d_time, 200 * sizeof(long long unsigned));
 
 
     // allocate warm flag
@@ -336,14 +366,17 @@ void run_kernel() {
     }
 	cudaDeviceSynchronize();
     // test kernel
-	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_sm_flag, d_worker_num, g_block_flag);
+	fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0 <<<D_b_a, D_t_a, 0, streams[0]>>>(d_args_55, d_args_76, g_sm_flag, d_worker_num, g_block_flag, d_time);
     // sleep until kernel finish
 	// fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1 <<<D_b_b, D_t_b, 0, streams[1]>>>(d_args_56, d_args_76, d_args_75, g_flag, d_sm_ids2, d_sleep_sm, g_sleep_times);
 	// kernel_sleep <<<D_b_b, D_t_b, 0, streams[1]>>>(15.6, 64.9, 134.7, 1000, g_flag);
 	cudaDeviceSynchronize();
 
     // cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
-	// //cudaMemcpy(h_sm_ids2, d_sm_ids2, 128 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
+	cudaMemcpy(time, d_time, 200 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+    for (int i = 0; i < 80; ++i) {
+        printf("sm-%d---sleep_times:%llu duration:%llu\n", i, time[i], time[i + 80]);
+    }
 	
 
 	// //cudaMemcpy(sleep_times, g_sleep_times, 1 * sizeof(int), cudaMemcpyDeviceToHost);
