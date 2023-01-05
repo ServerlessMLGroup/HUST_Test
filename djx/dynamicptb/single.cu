@@ -135,11 +135,6 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 
 // sm_flag指示i号sm是保留的原先几号block
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* sm_flag, long long unsigned* worker_num, int* block_flag, long long unsigned* time) {
-    // unsigned long long mclk; 
-	// if (threadIdx.x == 0) {
-	// 	asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-	// 	times[blockIdx.x] = mclk / 1000;
-	// }
     unsigned int ns = 5;
     int smid = get_smid();
     if (threadIdx.x == 0 && atomicAdd(sm_flag + smid, 1) == 0) atomicAdd(block_flag + blockIdx.x, 1);
@@ -154,24 +149,49 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     if (atomicAdd(block_flag + blockIdx.x, 0) == 0) return ;
     __syncthreads();
     
-    unsigned long long mclk;
-    if (threadIdx.x == 0) {
-        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-        //time[get_smid()] = mclk / 1000;
-    }
+    // unsigned long long mclk;
+    // if (threadIdx.x == 1) {
+    //     asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+    //     time[get_smid()] = mclk / 1000;
+    // }
     // while ((t1 - t0)/(1530000 * 1000.0f / 1000000) < 20) t1 = clock64(); // 20us, 1530000为kilohertz
 
     // if (threadIdx.x == 0) printf("%d %d\n", smid, blockIdx.x);
     // for (int i = 0; i < 100; ++i) { // 模拟多次主动感知
     ns = 5;
-    while (atomicAdd(worker_num + smid) == 0) {
-        if (threadIdx.x == 0) time[smid] += 1; 
-        __nanosleep(ns);
-        if (ns < 1000) {
-            ns *= 2;
+    __shared__ int BlockSyn[128 + 5];
+    BlockSyn[threadIdx.x] = 0;
+    if (threadIdx.x == 0) {
+        while (atomicAdd(worker_num + smid, 0) == 0) {
+            //if (threadIdx.x == 0) time[smid] += 1; 
+            __nanosleep(10);
+            // if (ns < 1000) {
+            //     ns *= 2;
+            // }
+        }
+        for(int i = 0; i < 128 + 5; ++i) {
+            atomicAdd(BlockSyn + i, 1);
         }
     }
+    else {
+        while (atomicAdd(BlockSyn + threadIdx.x, 0) == 0) {
+            //if (threadIdx.x == 0) time[smid] += 1; 
+            __nanosleep(10);
+            // if (ns < 1000) {
+            //     ns *= 2;
+            // }
+        }
+    }
+    // if (threadIdx.x == 0) {
+    //     asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+    //     time[get_smid() + 80] = mclk2 / 1000;
+    // }
     // if (get_smid() != smid - 1) printf("error in %d-%d\n", smid - 1, get_smid());
+    unsigned long long mclk;
+    if (threadIdx.x == 1) {
+        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+        time[get_smid()] = mclk / 1000;
+    }
     float d[16];
     float data_pack_local[16];
     for (int eps = 0; eps < 4; ++eps) {
@@ -266,14 +286,14 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     }
 
     unsigned long long mclk2; 
-    if (threadIdx.x == 0) {
+    if (threadIdx.x == 1) {
         if (smid == 0) {
             for (int i = 0; i < 80; ++i) {
                 atomicExch(worker_num + i, 1);
             }
         }
         asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-        time[get_smid() + 80] = (mclk2 - mclk) / 1000;
+        time[get_smid() + 80] = (mclk2) / 1000;
     }
     
 }
@@ -371,71 +391,9 @@ void run_kernel() {
     // cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
 	cudaMemcpy(time, d_time, 200 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
     for (int i = 0; i < 80; ++i) {
-        printf("sm-%d---sleep_times:%llu duration:%llu\n", i, time[i], time[i + 80]);
+        printf("sm-%d---start_time:%llu end_time:%llu\n", i, time[i] , time[i + 80]);
     }
 	
-
-	// //cudaMemcpy(sleep_times, g_sleep_times, 1 * sizeof(int), cudaMemcpyDeviceToHost);
-	// //cudaMemcpy(h_sleep_sm, d_sleep_sm, 128 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
-    // //cudaMemcpy(h_sm, d_sm, 64 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
-
-    // cudaMemcpy(flag, g_flag, sizeof(int) * 9000, cudaMemcpyDeviceToHost);
-
-	// long long unsigned maxm = 0, minm = 1768959725180341, max1 = 0, max2=0, min2=1768959725180341;
-	// long long unsigned maxm_e = 0, minm_e = 1768959725180341;
-    // printf("---1---\n");
-	// for (int i = 0; i < 64; i++) {
-    //     printf("%llu-%llu\n", h_sm_ids[i], h_sm_ids[i + 64]);
-    //     maxm = max(maxm, h_sm_ids[i]);
-    //     minm = min(minm, h_sm_ids[i]);
-	// 	maxm_e = max(maxm_e, h_sm_ids[i + 64]);
-    //     minm_e = min(minm_e, h_sm_ids[i + 64]);
-	//     max1 = max(max1, h_sm_ids[i + 64] - h_sm_ids[i]);
-	// }
-    // printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
-	// printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
-	// printf("DURATION:单block最大执行时间%llu(us)\n", max1);
-        
-	// maxm = 0; minm = 1768959725180341;
-	// maxm_e = 0; minm_e = 1768959725180341;
-	// printf("---2---\n");
-	// for (int i = 0; i < 128; i++) {
-	// 	// printf("blcok%d:%llu-%llu   %llu \n",i, h_sm_ids2[i], h_sm_ids2[i + a_blocks] , h_sm_ids2[i + b_blocks]-h_sm_ids2[i]);
-    //     // printf("%llu-%llu\n", h_sm_ids2[i], h_sm_ids2[i + 128]);
-    //     maxm = max(maxm, h_sm_ids2[i]);
-    //     minm = min(minm, h_sm_ids2[i]);
-	// 	maxm_e = max(maxm_e, h_sm_ids2[i + 128]);
-    //     minm_e = min(minm_e, h_sm_ids2[i + 128]);
-	//     max2 = max(max2, h_sm_ids2[i + 128]-h_sm_ids2[i]);
-	//     min2 = min(min2, h_sm_ids2[i + 128]-h_sm_ids2[i]);
-	// }
-    // printf("START_TIMING:max-%llu, min-%llu(us)\n", maxm, minm);
-	// printf("END_TIMING__:max-%llu, min-%llu(us)\n", maxm_e, minm_e);
-	// printf("DURATION:单block最大执行时间%llu(us)  单block最大执行时间与最小的时间差%llu(us)\n", max2, max2 - min2);
-
-	// // printf("---sleep_times---\n");
-	// // for (int i = 0; i < b_blocks; i++) {
-	// // 	printf("block-%d : %llu\n", i, h_sleep_time[i]);
-	// // }
-
-    // printf("---first_sm---\n");
-	// for (int i = 0; i < 64; ++i) {
-	// 	//printf("block-%d %llu\n", i, h_sm[i]);
-	// }
-
-	// printf("---second_sm---\n");
-	// for (int i = 0; i < 128; ++i) {
-	// 	//printf("block-%d %llu\n", i, h_sleep_sm[i]);
-	// }
-    // printf("kernel1 sleep time:%d\n", sleep_times[0]);
-    // int total = 0;
-    // for (int i = 0; i < 64 * 128; ++i) {
-    //     total += flag[i];
-    // }
-    // printf("total flag:%d\n", total);
-	
-	// cudaFree(d_sm_ids);
-	// cudaFree(d_sm_ids2);
 
 }
 
