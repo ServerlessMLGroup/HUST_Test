@@ -1,3 +1,4 @@
+// 测量适应sm（80个）的开销
 #include <stdio.h>
 #include <stdlib.h>
 #include<cuda.h>
@@ -143,16 +144,16 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     unsigned int ns = 5;
     int smid = get_smid();
     if (threadIdx.x == 0 && atomicAdd(sm_flag + smid, 1) == 0) atomicAdd(block_flag + blockIdx.x, 1);
-    __syncthreads();xin 
+    __syncthreads();
 
     if (atomicAdd(block_flag + blockIdx.x, 0) == 0) return ;
     __syncthreads();
     
-    // unsigned long long mclk; 
-    // if (threadIdx.x == 1) {
-    //     asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-    //     time[get_smid()] = mclk / 1000;
-    // }
+    unsigned long long mclk;
+    if (threadIdx.x == 1) {
+        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+        time[blockIdx.x + 200] = mclk / 1000;
+    }
     // while ((t1 - t0)/(1530000 * 1000.0f / 1000000) < 20) t1 = clock64(); // 20us, 1530000为kilohertz
 
     // if (threadIdx.x == 0) printf("%d %d\n", smid, blockIdx.x);
@@ -186,11 +187,11 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     //     time[get_smid() + 80] = mclk2 / 1000;
     // }
     // if (get_smid() != smid - 1) printf("error in %d-%d\n", smid - 1, get_smid());
-    unsigned long long mclk;
-    if (threadIdx.x == 1) {
-        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-        time[blockIdx.x + 200] = mclk / 1000;
-    }
+    // unsigned long long mclk;
+    // if (threadIdx.x == 1) {
+    //     asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
+    //     time[blockIdx.x + 200] = mclk / 1000;
+    // }
     float d[16];
     float data_pack_local[16];
     for (int eps = 0; eps < 4; ++eps) {
@@ -391,11 +392,11 @@ void run_kernel() {
 	cudaMemcpy(time, d_time, 410 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
     int valid = 0;
     for (int i = 0; i < 200; ++i) {
-        if (time[i + 200] - time[i] > 100) continue;
-        printf("block-%d---start_time:%llu end_time:%llu\n", i, time[i] , time[i + 80]);
+        if (time[i + 200] - time[i] > 30) continue;
+        printf("block-%d---start_time:%llu end_time:%llu duration:%llu\n", i, time[i] , time[i + 200], time[i + 200] - time[i]);
         valid ++;
     }
-    printf()
+    printf("统计到%d个有效block数据\n", valid);
 	
 
 }

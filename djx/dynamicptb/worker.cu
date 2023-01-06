@@ -1,21 +1,28 @@
-__global__ int pull_taskID(task_queue){
-    int top_block_id = task_queue.front(); // 原子操作
-    task_queue.pop(); // 原子操作
-    return top_block_id;
+typedef struct TASK {
+    block_id,
+    ...
+}TASK;
+
+__device__ int pull_taskID(&task_pool, smID){
+    TASK task_info = task_pool.GetTASK(); // concurrent
+    return task_info;
 }
 
-
-__global__ void Elastic_Kernel((origin_block_num, origin_thread_num, mem, streamid), &kernel_task_queue) {
+__device__ void Elastic_Kernel((streamid, sm_num, original_block_num), &kernel_task_pool) {
     smID = get_current_smID();
-    kill_redundant_worker();
-    while(!empty_task()){
+    kill_redundant_worker(); // 适应sm
+    while(!empty_task(kernel_task_pool)){
         if(!is_current_sm_idle(smID)) {
-            sleep(10us);
+            nanosleep();
             continue;
         }
-        block_id = pull_taskID(kernel_task_queue);
-        ... run as block_id:
+        task_info = pull_taskID(kernel_task_pool, smID);
+        ... run as task_info.block_id:
     }
 }
 
-__global__ void Launch_kernel()
+__global__ void Launch_Kernel(args..., flags...) {
+    init_flags(flags...);
+    kernel_task_pool = init_task_pool();
+    Elastic_Kernel((...), &kernel_task_pool);
+}
