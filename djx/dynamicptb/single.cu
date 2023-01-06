@@ -135,21 +135,20 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 
 // sm_flag指示i号sm是保留的原先几号block
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack, int* sm_flag, long long unsigned* worker_num, int* block_flag, long long unsigned* time) {
+    unsigned long long mclk2; 
+    if (threadIdx.x == 1) {
+        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+        time[blockIdx.x] = (mclk2) / 1000;
+    }
     unsigned int ns = 5;
     int smid = get_smid();
     if (threadIdx.x == 0 && atomicAdd(sm_flag + smid, 1) == 0) atomicAdd(block_flag + blockIdx.x, 1);
-    __syncthreads();
-    // while(atomicAdd(flag, 0) == 0) { // 40us版本
-    //     __nanosleep(ns); 
-    //     if (ns < 1000) {
-    //         ns *= 2;
-    //     }
-    // }
+    __syncthreads();xin 
 
     if (atomicAdd(block_flag + blockIdx.x, 0) == 0) return ;
     __syncthreads();
     
-    // unsigned long long mclk;
+    // unsigned long long mclk; 
     // if (threadIdx.x == 1) {
     //     asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
     //     time[get_smid()] = mclk / 1000;
@@ -190,7 +189,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     unsigned long long mclk;
     if (threadIdx.x == 1) {
         asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk));
-        time[get_smid()] = mclk / 1000;
+        time[blockIdx.x + 200] = mclk / 1000;
     }
     float d[16];
     float data_pack_local[16];
@@ -285,15 +284,15 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
         }
     }
 
-    unsigned long long mclk2; 
+    //unsigned long long mclk2; 
     if (threadIdx.x == 1) {
         if (smid == 0) {
             for (int i = 0; i < 80; ++i) {
                 atomicExch(worker_num + i, 1);
             }
         }
-        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
-        time[get_smid() + 80] = (mclk2) / 1000;
+        // asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk2));
+        // time[get_smid() + 80] = (mclk2) / 1000;
     }
     
 }
@@ -360,9 +359,9 @@ void run_kernel() {
 	cudaMalloc(&d_worker_num, 80 * sizeof(long long unsigned));
     cudaMemcpy(d_worker_num, worker_num, sizeof(long long unsigned) * 80, cudaMemcpyHostToDevice);
 
-    long long unsigned *time = new long long unsigned[200];
+    long long unsigned *time = new long long unsigned[400 + 10];
 	long long unsigned *d_time;
-	cudaMalloc(&d_time, 200 * sizeof(long long unsigned));
+	cudaMalloc(&d_time, 410 * sizeof(long long unsigned));
 
 
     // allocate warm flag
@@ -389,10 +388,14 @@ void run_kernel() {
 	cudaDeviceSynchronize();
 
     // cudaMemcpy(h_sm_ids, d_sm_ids, 64 * sizeof(long long unsigned) * 2, cudaMemcpyDeviceToHost);
-	cudaMemcpy(time, d_time, 200 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
-    for (int i = 0; i < 80; ++i) {
-        printf("sm-%d---start_time:%llu end_time:%llu\n", i, time[i] , time[i + 80]);
+	cudaMemcpy(time, d_time, 410 * sizeof(long long unsigned), cudaMemcpyDeviceToHost);
+    int valid = 0;
+    for (int i = 0; i < 200; ++i) {
+        if (time[i + 200] - time[i] > 100) continue;
+        printf("block-%d---start_time:%llu end_time:%llu\n", i, time[i] , time[i + 80]);
+        valid ++;
     }
+    printf()
 	
 
 }
