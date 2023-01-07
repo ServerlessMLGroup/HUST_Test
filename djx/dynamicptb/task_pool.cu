@@ -143,13 +143,13 @@ int main() {
     new(task_pool) CudaTaskPool<Task>(TASK_NUM);
 
     for (int i = 0; i < TASK_NUM; ++i) {
-      task_pool.push(Task(i));
+      task_pool->push(Task(i));
     }
 
     // CudaTaskPool<Task> *d_task_pool;
     // cudaMalloc(&d_task_pool, sizeof(CudaTaskPool<Task>));
     // cudaMemcpy(d_task_pool, &task_pool, sizeof(CudaTaskPool<Task>), cudaMemcpyHostToDevice);
-    // expression must have class type but it has type "CudaTaskPool<Task> *"
+    
     // cuda launch kernel
     dim3 Dim_block = dim3(BLOCK_NUM, 1, 1);
     dim3 Dim_thread = dim3(THREAD_NUM, 1, 1);
