@@ -20,32 +20,32 @@ class CudaTaskPool {
  public:
    CudaTaskPool(size_t capacity) : capacity_(capacity) {
     int state = 0;
-    cudaMalloc((int*)&&mutex, sizeof(int));
+    cudaMalloc((void**)&mutex, sizeof(int));
     cudaMemcpy(mutex, &state, sizeof(int), cudaMemcpyHostToDevice);
     cudaMalloc((void**)&tasks_, capacity_ * sizeof(TASK));
   }
 
    ~CudaTaskPool() {
     cudaFree(tasks_);
-    cudaFree(&mutex);
+    cudaFree(mutex);
   }
 
   __device__ void push(TASK task) {
     while (atomicCAS(mutex, 0, 1) != 0);
-    tasks_[head_] = std::move(task);
+    tasks_[head_] = task;
     head_ = (head_ + 1) % capacity_;
     atomicExch(mutex, 0);
   }
 
-  __device__ TASK* get() {
+  __device__ TASK get() {
     while (atomicCAS(mutex, 0, 1) != 0);
     if (head_ == tail_) {
-      return nullptr;
+      return TASK(-1);  
     }
-    TASK task = std::move(tasks_[tail_]);
+    TASK task = tasks_[tail_];
     tail_ = (tail_ + 1) % capacity_;
     atomicExch(mutex, 0);
-    return &task;
+    return task;
   }
 
   __device__ size_t size() const {
@@ -91,9 +91,10 @@ __device__ void ElasticKernel(int *flag, CudaTaskPool<Task>& task_pool) {
     BlockSyn[threadIdx.x] = 0;
 
     if (threadIdx.x == 0) {
-      Task *task;
-      while((task = task_pool.get()) != nullptr) {
-        printf("block %d get task %d\n", blockIdx.x, task->block_id);
+      int id;
+      while(id = task_pool.get().block_id) {
+        if (id == -1) break;
+        printf("block %d get task %d\n", blockIdx.x, id);
       }
       for (int i = 0; i < THREAD_NUM; ++i) {
         atomicAdd(BlockSyn + i, 1);
@@ -135,21 +136,20 @@ int main() {
     cudaMemcpy(g_flag, flag, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice);
 
     // allocate pool
-    CudaTaskPool<Task> task_pool(1024);
-    // 创建任务队列
-    std::vector<Task*> tasks;
+    CudaTaskPool<Task>* task_pool;
+    cudaMallocManaged(&task_pool, sizeof(CudaTaskPool<Task>));
+
+    // 在 CPU 端初始化 task_pool
+    new(task_pool) CudaTaskPool<Task>(TASK_NUM);
+
     for (int i = 0; i < TASK_NUM; ++i) {
-      tasks.push_back(new Task(i));
+      task_pool.push(Task(i));
     }
 
-    // 将任务加入任务池
-    for (Task *task : tasks) {
-      task_pool.push(std::move(*task));
-    }
-    CudaTaskPool<Task> *d_task_pool;
-    cudaMalloc(&d_task_pool, sizeof(CudaTaskPool<Task>));
-    cudaMemcpy(d_task_pool, &task_pool, sizeof(CudaTaskPool<Task>), cudaMemcpyHostToDevice);
-
+    // CudaTaskPool<Task> *d_task_pool;
+    // cudaMalloc(&d_task_pool, sizeof(CudaTaskPool<Task>));
+    // cudaMemcpy(d_task_pool, &task_pool, sizeof(CudaTaskPool<Task>), cudaMemcpyHostToDevice);
+    // expression must have class type but it has type "CudaTaskPool<Task> *"
     // cuda launch kernel
     dim3 Dim_block = dim3(BLOCK_NUM, 1, 1);
     dim3 Dim_thread = dim3(THREAD_NUM, 1, 1);
@@ -162,11 +162,5 @@ int main() {
 
     
 
-    LaunchKernel <<<Dim_block, Dim_thread, 0, streams[0]>>> (g_flag, *d_task_pool);
-
-    // 释放任务
-    for (Task* task : tasks) {
-      delete task;
-    }
-
+    LaunchKernel <<<Dim_block, Dim_thread, 0, streams[0]>>> (g_flag, *task_pool);
 }
