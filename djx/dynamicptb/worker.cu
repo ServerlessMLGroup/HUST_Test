@@ -26,3 +26,4 @@ __global__ void Launch_Kernel(args..., flags...) {
     kernel_task_pool = init_task_pool();
     Elastic_Kernel((...), &kernel_task_pool);
 }
+
