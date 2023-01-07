@@ -29,7 +29,7 @@ int main()
 
 
     //data size, 262144 > 1 M
-    int N = 262144/20;
+    int N = 262144*8/20;
     size_t size = N * sizeof(float);
     size_t mergesize;
 
