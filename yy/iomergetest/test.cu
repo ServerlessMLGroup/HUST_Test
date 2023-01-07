@@ -46,14 +46,14 @@ int main()
     {
     cudaMalloc(&devicedata[i], size);
     }
-    cudaMalloc(mergedevicedata, mergesize);
+    cudaMalloc(&mergedevicedata, mergesize);
 
 
     for(int i=0;i<datasize;i++)
     {
     cudaMallocHost(&hostdata[i], size);
     }
-    cudaMallocHost(&hostdata[i], mergehostdata);
+    cudaMallocHost(&mergehostdata, mergesize);
 
 
     uniform_real_distribution<float> u(0,10);
