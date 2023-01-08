@@ -6,6 +6,12 @@
 //yy add
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+#include <thread>
+#include <math.h>
+#include "unistd.h"
+#include <thread>
+
 // #include <glog/logging.h>
 
 //Notice
