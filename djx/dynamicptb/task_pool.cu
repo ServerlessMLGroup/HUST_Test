@@ -15,10 +15,12 @@
 #define FLAG_RESULT_BASE FLAG_SM_BASE + SM_NUM
 // nvcc -arch=native task_pool.cu tool.cu -o pool
 
+
 template <typename TASK>
-class CudaTaskPool {
+class CudaTaskPool{
  public:
    CudaTaskPool(size_t capacity) : capacity_(capacity) {
+    capacity_ = capacity; // 赋值不上去
     int state = 0;
     cudaMalloc((void**)&mutex, sizeof(int));
     cudaMemcpy(mutex, &state, sizeof(int), cudaMemcpyHostToDevice);
@@ -62,6 +64,16 @@ class CudaTaskPool {
   size_t head_ = 0;
   size_t tail_ = 0;
   int *mutex;
+  void *operator new(size_t len) 
+  {
+        void *ptr;
+        cudaMallocManaged(&ptr, len);
+        return ptr;
+  }
+  void operator delete(void *ptr) 
+  {
+        cudaFree(ptr);
+  }
 };
 
 extern void initDevice(int argc, char *argv[]);
