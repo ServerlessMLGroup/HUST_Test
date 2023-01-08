@@ -31,9 +31,12 @@ class CudaTaskPool {
   }
 
   __device__ void push(int id) {
+    //printf("into push %d\n", id);
     while (atomicCAS(mutex, 0, 1) != 0);
+    // printf("into push %d\n", id);
     tasks_[head_].block_id = id;
     head_ = (head_ + 1) % capacity_;
+    printf("into push %d, head = %d, tail = %d, capacity = %d\n", id, head_, tail_, capacity_);
     atomicExch(mutex, 0);
   }
 
@@ -45,6 +48,7 @@ class CudaTaskPool {
     TASK task = tasks_[tail_];
     tail_ = (tail_ + 1) % capacity_;
     atomicExch(mutex, 0);
+    printf("get task %d\n", task.block_id);
     return task.block_id;
   }
 
@@ -68,6 +72,8 @@ __device__ uint get_smid(void) {
   return ret;
 }
 
+__device__ dim3 Dim_block = dim3(BLOCK_NUM, 1, 1);
+__device__ dim3 Dim_thread = dim3(THREAD_NUM, 1, 1);
 
 struct Task{
     int block_id;
@@ -76,14 +82,14 @@ struct Task{
 
 __global__ void workload() {
   int n1 = 15.6, n2 = 64.9, n3 = 134.7;
-    for (int i = 0; i < 500000; i++) {
+    for (int i = 0; i < 50000; i++) {
         n1=sinf(n1);
         n2=n3/n2;
     }
     __syncthreads();
 }
 
-__device__ void ElasticKernel(int *flag, CudaTaskPool<Task>& task_pool) {
+__global__ void ElasticKernel(int *flag, CudaTaskPool<Task>& task_pool) {
     int* sm_flag = flag + FLAG_SM_BASE, *block_flag = flag + FLAG_BLOCK_BASE, *result_flag = flag + FLAG_RESULT_BASE;
     unsigned int ns = 5;
     int smid = get_smid();
@@ -100,7 +106,7 @@ __device__ void ElasticKernel(int *flag, CudaTaskPool<Task>& task_pool) {
       int id;
       while(id = task_pool.get()) {
         if (id == -1) break;
-        // printf("block %d get task %d\n", blockIdx.x, id);
+        printf("block %d get task %d\n", blockIdx.x, id);
         atomicAdd(result_flag + smid, 1);
       }
       for (int i = 0; i < THREAD_NUM; ++i) {
@@ -118,12 +124,14 @@ __device__ void ElasticKernel(int *flag, CudaTaskPool<Task>& task_pool) {
 
 }
 
-__global__ void LaunchKernel(int *flags, CudaTaskPool<Task>& task_pool) {
+__global__ void LaunchKernel(int *flags, CudaTaskPool<Task>& task_pool, cudaStream_t stream) {
+  //printf("enter global!\n");
   for (int i = 0; i < TASK_NUM; ++i) {
     task_pool.push(i);
-    atomicAdd(flags + FLAG_RESULT_BASE + RESULT_NUM + 1, 1);
+    atomicAdd(flags + FLAG_RESULT_BASE + RESULT_NUM, 1);
   }
-  ElasticKernel(flags, task_pool);
+  //printf("push tasks finish!\n");
+  ElasticKernel<<<Dim_block, Dim_thread, 0, stream>>>(flags, task_pool);
 }
 
 
@@ -148,38 +156,33 @@ int main(int argc, char *argv[]) {
 
     // allocate pool
     CudaTaskPool<Task>* task_pool;
-    cudaMallocManaged(&task_pool, sizeof(CudaTaskPool<Task>));
+    cudaMallocManaged(&task_pool, sizeof(CudaTaskPool<Task>(TASK_NUM + 10)));
+    //printf("sizeof(CudaTaskPool<Task>(TASK_NUM)):%d\n", sizeof(CudaTaskPool<Task>(TASK_NUM)));
+    //printf("sizeof(CudaTaskPool<Task>()):%d\n", sizeof(CudaTaskPool<Task>()));
 
-    // 在 CPU 端初始化 task_pool
-    new(task_pool) CudaTaskPool<Task>(TASK_NUM);
-
-
-    // CudaTaskPool<Task> *d_task_pool;
-    // cudaMalloc(&d_task_pool, sizeof(CudaTaskPool<Task>));
-    // cudaMemcpy(d_task_pool, &task_pool, sizeof(CudaTaskPool<Task>), cudaMemcpyHostToDevice);
-
+    // CPU初始化task_pool
+    new(task_pool) CudaTaskPool<Task>(TASK_NUM + 10);
     // cuda launch kernel
-    dim3 Dim_block = dim3(BLOCK_NUM, 1, 1);
-    dim3 Dim_thread = dim3(THREAD_NUM, 1, 1);
     // warm-up
     for (int i = 0; i < 100; ++i) {
         workload <<<Dim_block, Dim_thread, 0, streams[0]>>> ();
     }
     cudaDeviceSynchronize();
     cudaMemcpy(g_flag, flag, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice);
+    printf("init finish!\n");
+
+    LaunchKernel <<<1, 1, 0, streams[0]>>> (g_flag, *task_pool, streams[0]);
+    cudaDeviceSynchronize();
 
     cudaMemcpy(flag, g_flag, sizeof(int) * FLAG_LENGTH, cudaMemcpyDeviceToHost);
 
     int total = 0;
     for (int i = FLAG_RESULT_BASE; i < FLAG_RESULT_BASE + RESULT_NUM; ++i) {
-      printf("sm %d get %d task\n", i - FLAG_RESULT_BASE, flag[i]);
+      printf("sm %d get %d task\n", (i - FLAG_RESULT_BASE), flag[i]);
       total += flag[i];
     }
     printf("total task:%d\n", total);
     printf("total push:%d\n", flag[FLAG_RESULT_BASE + RESULT_NUM]);
-
-    LaunchKernel <<<Dim_block, Dim_thread, 0, streams[0]>>> (g_flag, *task_pool);
-    cudaDeviceSynchronize();
 
 
 }
