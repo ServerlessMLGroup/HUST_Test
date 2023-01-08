@@ -212,8 +212,8 @@ int main(int argc, char **argv) {
         std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
-    std::thread first=std::thread(thread1,cont1);
-    std::thread second=std::thread(thread1,cont1);
+    std::thread first(thread1,cont1);
+    std::thread second(thread1,cont1);
     first.join();
     second.join();
 
