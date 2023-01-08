@@ -198,13 +198,13 @@ int main(int argc, char **argv) {
     err = cuCtxGetDevice(&dev);
     if(err)
     {
-        cout<<"Can't get device, err" << err<<endl;
+        std::cout<<"Can't get device, err" << err<<std::endl;
         return 0;
     }
     err = cuCtxCreate(&cont1,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
-        cout<<"Can't create Context, err" << err << endl;
+        std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
     thread first=thread(thread1,cont1);
