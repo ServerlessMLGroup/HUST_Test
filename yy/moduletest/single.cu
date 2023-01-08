@@ -25,13 +25,11 @@ void thread1(CUcontext ctx)
    if(err)
    {
        std::cout<<"Can't get device, err" << err<<std::endl;
-       return 0;
    }
    err = cuCtxCreate(&tempcont,CU_CTX_SCHED_YIELD,dev);
    if(err)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
-       return 0;
    }
 
 
