@@ -17,6 +17,7 @@ using namespace std;
 //yy add
 void thread1(CUcontext ctx)
 {
+   /*
    cudaSetDevice(2);
    CUcontext tempcont;
    CUdevice dev;
@@ -31,7 +32,13 @@ void thread1(CUcontext ctx)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
-
+   */
+   int temp=0;
+   for(int i=0;i<10000;i++)
+   {
+   temp++;
+   }
+   
 
    err=cuCtxPushCurrent(ctx);
    if(err){
