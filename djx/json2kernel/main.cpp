@@ -193,6 +193,7 @@ int main(int argc, char **argv) {
     //yy change
     CUcontext cont1;
     CUdevice dev;
+    int err;
     err = cuCtxGetDevice(&dev);
     if(err)
     {
