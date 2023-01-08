@@ -40,6 +40,7 @@ void thread1(CUcontext ctx)
    {
    temp++;
    }
+   sleep(1);
 
 
    err=cuCtxPushCurrent(ctx);
