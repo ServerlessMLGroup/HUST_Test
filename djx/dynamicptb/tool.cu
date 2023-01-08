@@ -27,17 +27,11 @@ inline void __checkCudaErrors(cudaError_t err, const char *file, const int line)
   }
 }
 
-void initDevice() {
+void initDevice(int argc, char *argv[]) {
     if (argc < 2) {
       printf("args num error! argc:%d", argc);
       exit(1);
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
-}
-
-__device__ uint get_smid(void) {
-    uint ret;
-    asm("mov.u32 %0, %smid;" : "=r"(ret) );
-    return ret;
 }
