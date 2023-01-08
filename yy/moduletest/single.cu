@@ -33,12 +33,14 @@ void thread1(CUcontext ctx)
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
    */
+
+   int err;
    int temp=0;
    for(int i=0;i<10000;i++)
    {
    temp++;
    }
-   
+
 
    err=cuCtxPushCurrent(ctx);
    if(err){
