@@ -44,6 +44,7 @@ int main()
     CUcontext cont1;
     CUdevice dev;
     int err;
+    int temp;
     err = cuCtxGetDevice(&dev);
     if(err)
     {
@@ -61,14 +62,18 @@ int main()
     thread second=thread(thread1,cont1);
     first.join();
     second.join();
+    temp =0;
 
     thread third=thread(thread1,cont1);
     third.join();
+    temp++;
+
 
     thread fourth=thread(thread1,cont1);
     thread fifth=thread(thread1,cont1);
     fourth.join();
     fifth.join();
+    temp++;
 
     return 0;
 }
