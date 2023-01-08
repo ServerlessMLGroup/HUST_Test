@@ -21,7 +21,7 @@ void thread1(CUcontext ctx)
     int err;
     err=cuCtxPushCurrent(ctx);
     if(err){
-    cout<<"Push Context ERR! "<<err<<endl;
+    std::cout<<"Push Context ERR! "<<err<<std::endl;
     }
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
