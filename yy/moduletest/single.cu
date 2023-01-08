@@ -34,12 +34,8 @@ void thread1(CUcontext ctx)
    }
    */
 
-   int err;
-   int temp=0;
-   for(int i=0;i<10000;i++)
-   {
-   temp++;
-   }
+   CUmodule mod;
+   cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
    sleep(1);
 
 
