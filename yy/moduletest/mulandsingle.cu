@@ -25,11 +25,11 @@ void thread1(CUcontext ctx)
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
+   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
+   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
+   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
+   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
+   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
 }
 
 void thread2(CUcontext ctx)
@@ -42,11 +42,11 @@ void thread2(CUcontext ctx)
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp9.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
+   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
+   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp9.ptx");
+   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
+   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
+   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
 }
 // add fininshed
 
