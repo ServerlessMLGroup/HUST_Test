@@ -24,12 +24,29 @@ void thread1(CUcontext ctx)
     }
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
+}
+
+void thread2(CUcontext ctx)
+{
+   int err;
+   err=cuCtxPushCurrent(ctx);
+   if(err){
+   std::cout<<"Push Context ERR! "<<err<<std::endl;
+   }
+
+   CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp9.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
 }
 // add fininshed
 
@@ -59,7 +76,7 @@ int main()
     }
 
     thread first=thread(thread1,cont1);
-    thread second=thread(thread1,cont1);
+    thread second=thread(thread2,cont1);
     first.join();
     second.join();
     temp =0;
@@ -71,7 +88,7 @@ int main()
     sleep(1);
 
     thread fourth=thread(thread1,cont1);
-    thread fifth=thread(thread1,cont1);
+    thread fifth=thread(thread2,cont1);
     fourth.join();
     fifth.join();
     temp++;
