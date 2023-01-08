@@ -163,8 +163,20 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuInit(0));
     GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
+
     CUmodule mod;
+    //yy change
+    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
+
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    GPU_RETURN_STATUS(cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
+    
+
     printf("load cuda kernels!\n");
 
     //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
