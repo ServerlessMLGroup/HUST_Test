@@ -29,7 +29,7 @@ int main()
 
 
     //data size, 262144 > 1 M
-    int N = 262144;
+    int N = 5*262144;
     size_t size = N * sizeof(float);
 
     //size of array datasize
