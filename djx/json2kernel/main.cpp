@@ -19,28 +19,6 @@
 // Just read the code at copymain.cpp. If some bad change were made, we can fix it by the copy
 
 
-
-//yy add
-//yy add
-void thread1(CUcontext ctx)
-{
-    int err;
-    err=cuCtxPushCurrent(ctx);
-    if(err){
-    std::cout<<"Push Context ERR! "<<err<<std::endl;
-    }
-
-   CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-}
-// add fininshed
-
-
 enum Status {
     Succ,
     Fail,
@@ -195,28 +173,6 @@ int main(int argc, char **argv) {
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda kernels!\n");
-
-    //yy change
-    CUcontext cont1;
-    CUdevice dev;
-    int err;
-    err = cuCtxGetDevice(&dev);
-    if(err)
-    {
-        std::cout<<"Can't get device, err" << err<<std::endl;
-        return 0;
-    }
-    err = cuCtxCreate(&cont1,CU_CTX_SCHED_YIELD,dev);
-    if(err)
-    {
-        std::cout<<"Can't create Context, err" << err << std::endl;
-        return 0;
-    }
-    std::thread first(thread1,cont1);
-    std::thread second(thread1,cont1);
-    first.join();
-    second.join();
-
 
 
     //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
