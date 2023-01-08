@@ -17,11 +17,28 @@ using namespace std;
 //yy add
 void thread1(CUcontext ctx)
 {
-    int err;
-    err=cuCtxPushCurrent(ctx);
-    if(err){
-    std::cout<<"Push Context ERR! "<<err<<std::endl;
-    }
+   cudaSetDevice(2);
+   CUcontext tempcont;
+   CUdevice dev;
+   int err;
+   err = cuCtxGetDevice(&dev);
+   if(err)
+   {
+       std::cout<<"Can't get device, err" << err<<std::endl;
+       return 0;
+   }
+   err = cuCtxCreate(&tempcont,CU_CTX_SCHED_YIELD,dev);
+   if(err)
+   {
+       std::cout<<"Can't create Context, err" << err << std::endl;
+       return 0;
+   }
+
+
+   err=cuCtxPushCurrent(ctx);
+   if(err){
+   std::cout<<"Push Context ERR! "<<err<<std::endl;
+   }
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
