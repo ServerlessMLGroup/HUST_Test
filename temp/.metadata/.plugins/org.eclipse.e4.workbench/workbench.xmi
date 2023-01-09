@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList/>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:com.nvidia.viper.acceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_PXjikY5KEe22R9VLQrKzPw" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_PXjiko5KEe22R9VLQrKzPw" label="%trimmedwindow.label.eclipseSDK" x="35" y="283" width="1883" height="568">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_PXjikY5KEe22R9VLQrKzPw" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_PXjiko5KEe22R9VLQrKzPw" label="%trimmedwindow.label.eclipseSDK" x="113" y="240" width="1770" height="588">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="false"/>
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
@@ -21,15 +21,21 @@
           <tags>persp.viewSC:com.nvidia.viper.cpuview</tags>
           <tags>persp.viewSC:com.nvidia.viper.openaccview</tags>
           <tags>persp.viewSC:com.nvidia.viper.openmpview</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_PXjilY5KEe22R9VLQrKzPw" selectedElement="_PXjil45KEe22R9VLQrKzPw">
-            <children xsi:type="advanced:Placeholder" xmi:id="_PXjilo5KEe22R9VLQrKzPw" elementId="org.eclipse.ui.editorss" containerData="5959" ref="_PXkJpY5KEe22R9VLQrKzPw"/>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_PXjil45KEe22R9VLQrKzPw" containerData="4041" selectedElement="_PXjimI5KEe22R9VLQrKzPw" horizontal="true">
-              <children xsi:type="basic:PartStack" xmi:id="_PXjimI5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.analysisviewMStack" containerData="7500" selectedElement="_PXjimo5KEe22R9VLQrKzPw">
-                <tags>newtablook</tags>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_PXjilY5KEe22R9VLQrKzPw" selectedElement="_SOAkcI_NEe2jhLgSSCyyPw">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_SOAkcI_NEe2jhLgSSCyyPw" containerData="5959" selectedElement="_m_pHwY8GEe2xLotKEhe7Ag">
+              <children xsi:type="advanced:Placeholder" xmi:id="_PXjilo5KEe22R9VLQrKzPw" elementId="org.eclipse.ui.editorss" containerData="5000" ref="_PXkJpY5KEe22R9VLQrKzPw"/>
+              <children xsi:type="basic:PartStack" xmi:id="_m_pHwY8GEe2xLotKEhe7Ag" elementId="PartStack@6cd45b6c" containerData="5000" selectedElement="_PXjimo5KEe22R9VLQrKzPw">
                 <tags>noFocus</tags>
                 <tags>active</tags>
-                <children xsi:type="advanced:Placeholder" xmi:id="_PXjimY5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.analysisview" ref="_PXkJs45KEe22R9VLQrKzPw"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_PXjimo5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.expertview" ref="_PXkJt45KEe22R9VLQrKzPw"/>
+              </children>
+            </children>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_PXjil45KEe22R9VLQrKzPw" visible="false" containerData="4041" selectedElement="_PXjimI5KEe22R9VLQrKzPw" horizontal="true">
+              <children xsi:type="basic:PartStack" xmi:id="_PXjimI5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.analysisviewMStack" visible="false" containerData="7500" selectedElement="_PXjimY5KEe22R9VLQrKzPw">
+                <tags>newtablook</tags>
+                <tags>noFocus</tags>
+                <tags>Minimized</tags>
+                <children xsi:type="advanced:Placeholder" xmi:id="_PXjimY5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.analysisview" ref="_PXkJs45KEe22R9VLQrKzPw"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_PXjim45KEe22R9VLQrKzPw" elementId="com.nvidia.viper.cpuview" toBeRendered="false" ref="_PXkJwo5KEe22R9VLQrKzPw"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_PXjinI5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.openaccview" ref="_PXkJxY5KEe22R9VLQrKzPw"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_PXjinY5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.openmpview" toBeRendered="false" ref="_PXkJyo5KEe22R9VLQrKzPw"/>
@@ -78,7 +84,7 @@
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
       </menus>
-      <toolbar xmi:id="_PXkJtY5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.analysisview" visible="false"/>
+      <toolbar xmi:id="_PXkJtY5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.analysisview"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_PXkJt45KEe22R9VLQrKzPw" elementId="com.nvidia.viper.expertview" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="GPU Details (Summary)" iconURI="platform:/plugin/com.nvidia.viper/icons/en/detailed_view.png" closeable="true">
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view expert.filteredBySelection=&quot;true&quot; expert.showFilteredTimelineData=&quot;true&quot; expert.showHiddenTimelineData=&quot;true&quot;/>"/>
@@ -189,9 +195,19 @@
         <tags>Draggable</tags>
       </children>
     </trimBars>
-    <trimBars xmi:id="_PXkKCo5KEe22R9VLQrKzPw" elementId="org.eclipse.ui.trim.vertical1" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Left"/>
+    <trimBars xmi:id="_PXkKCo5KEe22R9VLQrKzPw" elementId="org.eclipse.ui.trim.vertical1" contributorURI="platform:/plugin/org.eclipse.ui.workbench" side="Left">
+      <children xsi:type="menu:ToolControl" xmi:id="_ls6UkI8GEe2xLotKEhe7Ag" elementId="com.nvidia.viper.analysisviewMStack(com.nvidia.viper.perspective)" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.TrimStack">
+        <tags>TrimStack</tags>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_qim4MI8GEe2xLotKEhe7Ag" elementId="PartStack@6cd45b6c(com.nvidia.viper.perspective)" toBeRendered="false" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.TrimStack">
+        <tags>TrimStack</tags>
+      </children>
+    </trimBars>
     <trimBars xmi:id="_PXkKC45KEe22R9VLQrKzPw" elementId="org.eclipse.ui.trim.vertical2" contributorURI="platform:/plugin/org.eclipse.ui.workbench" toBeRendered="false" side="Right">
       <children xsi:type="menu:ToolControl" xmi:id="_PXkKDI5KEe22R9VLQrKzPw" elementId="com.nvidia.viper.timelinepropertyviewMStack(com.nvidia.viper.perspective)" toBeRendered="false" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.TrimStack">
+        <tags>TrimStack</tags>
+      </children>
+      <children xsi:type="menu:ToolControl" xmi:id="_kqoYMI8GEe2xLotKEhe7Ag" elementId="org.eclipse.ui.editorss(com.nvidia.viper.perspective)" toBeRendered="false" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.TrimStack">
         <tags>TrimStack</tags>
       </children>
     </trimBars>
