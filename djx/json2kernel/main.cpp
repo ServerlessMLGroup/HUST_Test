@@ -175,17 +175,14 @@ int main(int argc, char **argv) {
     printf("load cuda kernels!\n");
 
 
-    //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
-    //wo hui zai wo gaide mei yige difang jia shang zhushi yy
-    //yy preparation: After test, i think the event didn't work well for small job which take little time
-    //                                   nvvp show different data with event
-    /*
-    CUevent  start, stop;
-    float time;
-    cuEventCreate(&start,0);
-    cuEventCreate(&stop,0);
-    */
-    
+    //yy change:huan yi ge wenjian hai yao gai makefile,wo jiu yong zhe ge le
+    //wo hui zai wo gai de mei yige di fang jia shang zhushi yy
+
+    //yy add stream
+    cudaStream_t firststream;
+    cudaStreamCreate(&firststream);
+    //add fininshed
+
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
@@ -303,25 +300,37 @@ int main(int argc, char **argv) {
 
     printf("parse params!\n");
     std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param"));
+
+    //yy add
+    float* array;
+    uint64_t size;
+    //add fininshed
+
     for (size_t i = 0; i < storage.size(); i++) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         // std::cout << "storage_info.name:" << storage_info.name << std::endl;
         if (params->find(storage_info.name) == params->end()) 
             continue;
-        auto &array = params->at(storage_info.name);
 
-        //yy event record test
-        //cuEventRecord(start,0);
-        GPU_RETURN_STATUS(cuMemcpyHtoD(
-            (CUdeviceptr)storage[i], array.data(), 
-            array.size() * sizeof(float)));
-        //cuEventRecord(stop,0);
-        //cuEventSynchronize(stop);
-	//cuEventElapsedTime(&time, start, stop);
+        //auto &array = params->at(storage_info.name);
+        //yy change
+        array=params->at(storage_info.name).data;
+        size=params->at(storage_info.name).params_size;
+
+        //old
+        //GPU_RETURN_STATUS(cuMemcpyHtoD(
+        //    (CUdeviceptr)storage[i], array.data(),
+        //    array.size() * sizeof(float)));
+
+        //yychange
+        GPU_RETURN_STATUS(cudaMemcpyAsync((CUdeviceptr)storage[i], array, array.size* sizeof(float), cudaMemcpyHostToDevice, firststream));
+
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
-	//std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
+	    //std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
     }
+
+
     std::vector<float> output(1000);
     RETURN_STATUS(set_input());
     RETURN_STATUS(execute(0, model.get()));

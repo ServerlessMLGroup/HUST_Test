@@ -50,7 +50,27 @@ public:
     static ModelProfile* from_json(const char* json_file);
 };
 
-typedef std::unordered_map<std::string, std::vector<float>> ModelParam;
+//yy add
+class ModelParamValue{
+public:
+    float* data;
+    uint64_t params_size;
+
+    ModelParamValue(float* indata,uint64_t inparams_size)
+    {
+    data = indata;
+    params_size = inparams_size;
+    }
+
+}
+//add fininshed
+
+//old
+//typedef std::unordered_map<std::string, std::vector<float>> ModelParam;
+//
+
+//yy change
+typedef std::unordered_map<std::string, ModelParamValue*> ModelParam;
 
 class ModelParamParser {
 public:

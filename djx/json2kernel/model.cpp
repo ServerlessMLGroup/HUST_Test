@@ -94,7 +94,15 @@ ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
     assert(params_size != 0);
     std::cout << "params_size:" << params_size << std::endl;
 
+
+
     ModelParam* params = new ModelParam(params_size);
+
+    //yyadd
+    ModelParamValue* tempparamvalue;
+    float* tempdata[params_size];
+    //add fininshed
+
     for (uint64_t i = 0; i < params_size; i++) {
         char key_buf[256];
         uint64_t key_len = 0;
@@ -111,11 +119,30 @@ ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
         res = fread(&array_size, sizeof(uint64_t), 1, fp);
         assert(res == 1);
         assert(array_size != 0);
-        std::vector<float> array(array_size);
-        array.resize(array_size);
-        res = fread(array.data(), sizeof(float), array_size, fp);
+
+        //old
+        //std::vector<float> array(array_size);
+        //array.resize(array_size);
+        //old
+
+        //yychange
+        cudaMallocHost(&(tempdata[i]), array_size*sizeof(float));
+
+        //old
+        //res = fread(array.data(), sizeof(float), array_size, fp);
+        //old
+
+        res = fread(tempdata[i], sizeof(float), array_size, fp);
         assert(res == array_size);
-        params->insert({key, array});
+
+        //yy add
+        tempparamvalue = new ModelParamValue(tempdata[i],array_size);
+
+        //old
+        //params->insert({key, array});
+        //old
+
+        params->insert({key, tempparamvalue});
         std::cout << "params key:" << key << std::endl;
     }
     return params;
