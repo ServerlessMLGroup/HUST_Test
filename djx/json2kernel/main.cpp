@@ -331,7 +331,7 @@ int main(int argc, char **argv) {
         //    array.size() * sizeof(float)));
 
         //yychange
-        tempsize[i] = size*sizeof(float);
+        tempsize[i] = size[i]*sizeof(float);
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
 	    //std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
