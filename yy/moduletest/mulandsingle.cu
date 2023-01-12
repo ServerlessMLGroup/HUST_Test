@@ -35,8 +35,8 @@ void thread1(CUcontext ctx)
    cuCtxGetCurrent(pctx);
    std::cout<<"set context"<<*pctx<<std::endl;
 
-   size_t now;
-   size_t total;
+   size_t now=0;
+   size_t total=0;
    cudaMemGetInfo(&now,&total);
    std::cout<<"Size now"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
