@@ -368,7 +368,7 @@ int main(int argc, char **argv) {
     {
     totaldata[j]=2.0;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)&devicetotal,totaldata, totoalsize,firststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)&devicetotal,totaldata, totoalsize/8,firststream));
     cuStreamSynchronize(firststream);
 
     //add fininshed
