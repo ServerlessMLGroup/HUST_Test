@@ -17,11 +17,34 @@ using namespace std;
 //yy add
 void thread1(CUcontext ctx)
 {
-    int err;
+
+
+   cudaSetDevice(2);
+   int err;
+   CUcontext* pctx;
+
+   CUcontext tempcont;
+   CUdevice dev;
+
+   err = cuCtxGetDevice(&dev);
+   if(err)
+   {
+       std::cout<<"Can't get device, err" << err<<std::endl;
+   }
+   err = cuCtxCreate(&tempcont,CU_CTX_SCHED_YIELD,dev);
+   if(err)
+   {
+       std::cout<<"Can't create Context, err" << err << std::endl;
+   }
+
+
     err=cuCtxPushCurrent(ctx);
     if(err){
     std::cout<<"Push Context ERR! "<<err<<std::endl;
     }
+
+    cuCtxGetCurrent(pctx);
+   std::cout<<"set context"<<*pctx<<std::endl;
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
@@ -35,10 +58,15 @@ void thread1(CUcontext ctx)
 void thread2(CUcontext ctx)
 {
    int err;
+   CUcontext* pctx;
    err=cuCtxPushCurrent(ctx);
+
+
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
+   cuCtxGetCurrent(pctx);
+   std::cout<<"set context"<<*pctx<<std::endl;
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
