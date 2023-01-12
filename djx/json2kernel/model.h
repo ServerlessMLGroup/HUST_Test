@@ -70,7 +70,7 @@ public:
     {
     return mpv.data == this->data && mpv.params_size == this->params_size;
     }
-}
+};
 
 //yy add
 static size_t ModelParamValue_hash(const ModelParamValue& tmp)
