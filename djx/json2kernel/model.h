@@ -53,43 +53,33 @@ public:
     static ModelProfile* from_json(const char* json_file);
 };
 
-//yy add
-class ModelParamValue{
-public:
-    float* data;
-    uint64_t params_size;
-    int formap;
 
-    ModelParamValue(float* indata,uint64_t inparams_size,int fm)
-    {
-    data = indata;
-    params_size = inparams_size;
-    formap = fm;
-    }
-
-    //to make it available for std::unorderedmap
-    bool operator==(const ModelParamValue& mpv)
-    {
-    return mpv.formap == this->formap;
-    }
-};
-
-//yy add
-static size_t ModelParamValue_hash(const ModelParamValue& tmp)
-{
-     return std::hash<int>()(tmp.formap) ^ std::hash<float*>()(tmp.data);
-}
-//add fininshed
 
 //old
 //typedef std::unordered_map<std::string, std::vector<float>> ModelParam;
 //
 
 //yy change
-typedef std::unordered_map<std::string, ModelParamValue,decltype(&ModelParamValue_hash)> ModelParam;
+typedef std::unordered_map<std::string, float*> ModelParamdata;
+typedef std::unordered_map<std::string, uint64_t> ModelParamsize;
+
+//yy add
+class parseresult{
+    public:
+        ModelParamdata mpdata;
+        ModelParamsize mpsize;
+
+     
+        parseresult(ModelParamdata* indata,ModelParamdata inparams_size)
+        {
+        mpdata = indata;
+        mpsize = inparams_size;
+        }
+};
+
 
 class ModelParamParser {
 public:
-    static ModelParam* parse_from_file(const char* param_file);
+    static parseresult* parse_from_file(const char* param_file);
 };
 

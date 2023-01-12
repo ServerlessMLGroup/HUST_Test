@@ -299,7 +299,8 @@ int main(int argc, char **argv) {
     }
 
     printf("parse params!\n");
-    std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param"));
+    parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
+
 
     //yy add
     float* array;
@@ -311,13 +312,13 @@ int main(int argc, char **argv) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         // std::cout << "storage_info.name:" << storage_info.name << std::endl;
-        if (params->find(storage_info.name) == params->end()) 
+        if (params->mpdata->find(storage_info.name) == params->end())
             continue;
 
         //auto &array = params->at(storage_info.name);
         //yy change
-        array=params->at(storage_info.name).data;
-        size=params->at(storage_info.name).params_size;
+        array=params->mpdata->at(storage_info.name);
+        size=params->mpsize->at(storage_info.name);
 
         //old
         //GPU_RETURN_STATUS(cuMemcpyHtoD(

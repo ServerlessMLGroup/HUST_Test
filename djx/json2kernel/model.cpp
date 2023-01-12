@@ -81,7 +81,7 @@ size_t Model::get_stype_size(std::string &stype) {
 
 #define PARAM_MAGIC "TVM_MODEL_PARAMS"
 
-ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
+parseresult* ModelParamParser::parse_from_file(const char* param_file) {
     FILE* fp;
     fp = fopen(param_file, "rb"); 
     char magic[sizeof(PARAM_MAGIC)];
@@ -99,10 +99,11 @@ ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
 
 
 
-    ModelParam* params = new ModelParam(params_size);
+    ModelParamdata* paramdata = new ModelParamdata(params_size);
+    ModelParamsize* paramsize = new ModelParamsize(params_size);
 
     //yyadd
-    ModelParamValue* tempparamvalue;
+    parseresult* result;
     float* tempdata[params_size];
     //add fininshed
 
@@ -138,15 +139,14 @@ ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
         res = fread(tempdata[i], sizeof(float), array_size, fp);
         assert(res == array_size);
 
-        //yy add
-        tempparamvalue = new ModelParamValue(tempdata[i],array_size,i);
-
         //old
         //params->insert({key, array});
         //old
 
-        params->insert({key, *tempparamvalue});
+        paramdata->insert({key, tempdata[i]});
+        paramsize->insert({key, array_size});
+        result = new parseresult(paramdata,paramsize);
         std::cout << "params key:" << key << std::endl;
     }
-    return params;
+    return result;
 }
