@@ -100,7 +100,7 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
 
 
     ModelParamdata* paramdata = new ModelParamdata(params_size);
-    ModelParamdata* paramsize = new ModelParamsize(params_size);
+    ModelParamsize* paramsize = new ModelParamsize(params_size);
 
     //yyadd
     parseresult* result;
