@@ -318,7 +318,6 @@ int main(int argc, char **argv) {
         //auto &array = params->at(storage_info.name);
         //yy change
         array=params->mpdata->at(storage_info.name);
-        float* temp =array;
         size=params->mpsize->at(storage_info.name);
 
         //old
@@ -328,7 +327,7 @@ int main(int argc, char **argv) {
 
         //yychange
         tempsize = size*sizeof(float);
-        cudaMemcpyAsync((CUdeviceptr)storage[i], array, tempsize, cudaMemcpyHostToDevice, firststream);
+        cudaMemcpyAsync(storage[i], array, tempsize, cudaMemcpyHostToDevice, firststream);
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
 	    //std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
