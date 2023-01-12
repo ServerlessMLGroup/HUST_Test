@@ -130,7 +130,7 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
         //old
 
         //yychange
-        cudaMallocHost(&(tempdata[i]), array_size*sizeof(float));
+        cuMemAllocHost(&(tempdata[i]), array_size*sizeof(float));
 
         //old
         //res = fread(array.data(), sizeof(float), array_size, fp);
