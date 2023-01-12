@@ -77,7 +77,7 @@ public:
 //yy add
 static size_t ModelParamValue_hash(const ModelParamValue& tmp)
 {
-return std::hash<float*>()(tmp.formap);
+return std::hash<int>()(tmp.formap);
 }
 
 
