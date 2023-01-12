@@ -312,7 +312,7 @@ int main(int argc, char **argv) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         // std::cout << "storage_info.name:" << storage_info.name << std::endl;
-        if (params->mpdata->find(storage_info.name) == params->end())
+        if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
 
         //auto &array = params->at(storage_info.name);
