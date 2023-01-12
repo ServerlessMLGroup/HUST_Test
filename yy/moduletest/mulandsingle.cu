@@ -79,20 +79,6 @@ int main()
     thread second=thread(thread2,cont1);
     first.join();
     second.join();
-    temp =0;
-    sleep(1);
-
-    thread third=thread(thread1,cont1);
-    third.join();
-    temp++;
-    sleep(1);
-
-    thread fourth=thread(thread1,cont1);
-    thread fifth=thread(thread2,cont1);
-    fourth.join();
-    fifth.join();
-    temp++;
-    sleep(1);
-
+ 
     return 0;
 }

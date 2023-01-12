@@ -49,12 +49,19 @@ void thread1(CUcontext ctx)
    sleep(1);
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
-   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
+   CUmodule mod7,mod8,mod9,mod10,mod11,mod12;
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
+   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
+   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
+   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
+   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
+   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
+   cuModuleLoad(&mod7, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
+   cuModuleLoad(&mod8, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
+   cuModuleLoad(&mod9, "/home/wuhao/HUST_Test/yy/moduletest/temp9.ptx");
+   cuModuleLoad(&mod10, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
+   cuModuleLoad(&mod11, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
+   cuModuleLoad(&mod12, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
 }
 // add fininshed
 
