@@ -355,18 +355,22 @@ int main(int argc, char **argv) {
     //add fininshed
 
     //yy add
-    /*
+
     cuStreamSynchronize(firststream);
     float* totaldata;
     CUdeviceptr devicetotal;
     std::cout<<" total size: "<<totoalsize<<std::endl;
+
     cuMemAlloc((CUdeviceptr*)&devicetotal, totoalsize);
     cuMemAllocHost((void**)(&totaldata), totoalsize);
-    totaldata[0]=2.0;
 
+    for(int j=0;j<(totoalsize/sizeof(float));j++)
+    {
+    totaldata[j]=2.0;
+    }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)&devicetotal,totaldata, totoalsize,firststream));
     cuStreamSynchronize(firststream);
-    */
+
     //add fininshed
 
     std::vector<float> output(1000);
