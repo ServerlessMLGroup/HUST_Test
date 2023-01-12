@@ -10,6 +10,7 @@
 #include "log.h"
 #include "model.h"
 //yy add
+#include <cuda.h>
 #include "cuda_runtime.h"
 //add fininshed
 
