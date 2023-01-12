@@ -62,7 +62,19 @@ public:
     params_size = inparams_size;
     }
 
+    //to make it available for std::unorderedmap
+    bool operator==(const ModelParamValue& mpv)
+    {
+    return mpv.data == this->data && mpv.params_size == this->params_size;
+    }
 }
+
+static size_t mypair_hash(const ModelParamValue& tmp)
+{
+return hash<float*>()(tmp.data) ^ hash<uint64_t>()(tmp.params_size);
+}
+
+
 //add fininshed
 
 //old
