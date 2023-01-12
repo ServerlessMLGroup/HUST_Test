@@ -18,11 +18,12 @@ using namespace std;
 void thread1(CUcontext ctx)
 {
    CUcontext* pctx;
-
+   int err;
+   /*
    cudaSetDevice(2);
    CUcontext tempcont;
    CUdevice dev;
-   int err;
+
    err = cuCtxGetDevice(&dev);
    if(err)
    {
@@ -35,14 +36,14 @@ void thread1(CUcontext ctx)
    }
    cuCtxGetCurrent(pctx);
    std::cout<<"new context"<<*pctx<<std::endl;
-
+   */
 
    err=cuCtxPushCurrent(ctx);
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
-   cuCtxGetCurrent(pctx);
-   std::cout<<"set context"<<*pctx<<std::endl;
+   //cuCtxGetCurrent(pctx);
+   //std::cout<<"set context"<<*pctx<<std::endl;
 
    CUmodule mod;
    cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
