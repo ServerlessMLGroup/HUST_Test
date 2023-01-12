@@ -86,7 +86,7 @@ return hash<float*>()(tmp.data) ^ hash<uint64_t>()(tmp.params_size);
 //
 
 //yy change
-typedef std::unordered_map<std::string, ModelParamValue> ModelParam;
+typedef std::unordered_map<std::string, ModelParamValue,decltype(&ModelParamValue_hash)> ModelParam;
 
 class ModelParamParser {
 public:
