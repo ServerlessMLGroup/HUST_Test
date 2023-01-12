@@ -34,7 +34,7 @@ void thread1(CUcontext ctx)
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
    cuCtxGetCurrent(pctx);
-   std::cout<<"new context"<<pctx<<std::endl;
+   std::cout<<"new context"<<*pctx<<std::endl;
 
 
    err=cuCtxPushCurrent(ctx);
@@ -42,7 +42,7 @@ void thread1(CUcontext ctx)
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
    cuCtxGetCurrent(pctx);
-   std::cout<<"new context"<<pctx<<std::endl;
+   std::cout<<"set context"<<*pctx<<std::endl;
 
    CUmodule mod;
    cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
