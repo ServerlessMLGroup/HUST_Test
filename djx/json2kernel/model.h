@@ -69,7 +69,7 @@ public:
     }
 }
 
-static size_t mypair_hash(const ModelParamValue& tmp)
+static size_t ModelParamValue_hash(const ModelParamValue& tmp)
 {
 return hash<float*>()(tmp.data) ^ hash<uint64_t>()(tmp.params_size);
 }
