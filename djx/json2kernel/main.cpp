@@ -323,6 +323,7 @@ int main(int argc, char **argv) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         // std::cout << "storage_info.name:" << storage_info.name << std::endl;
+        std::cout<<storage_info.name<<std::endl;
         if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
 
@@ -342,7 +343,7 @@ int main(int argc, char **argv) {
         //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array, tempsize,firststream));
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
-	    std::cout<<i<<" wawawa: "<<std::endl;
+	    //std::cout<<i<<" wawawa: "<<std::endl;
     }
 
 
