@@ -304,6 +304,7 @@ int main(int argc, char **argv) {
     //yy add
     float* array;
     uint64_t size;
+    size_t tempsize;
     //add fininshed
 
     for (size_t i = 0; i < storage.size(); i++) {
@@ -324,7 +325,8 @@ int main(int argc, char **argv) {
         //    array.size() * sizeof(float)));
 
         //yychange
-        cudaMemcpyAsync((CUdeviceptr)storage[i], array, size* sizeof(float), cudaMemcpyHostToDevice, firststream);
+        tempsize = size*sizeof(float);
+        cudaMemcpyAsync((CUdeviceptr)storage[i], array, tempsize, cudaMemcpyHostToDevice, firststream);
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
 	    //std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
