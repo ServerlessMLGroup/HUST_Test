@@ -362,7 +362,7 @@ int main(int argc, char **argv) {
     cuMemAlloc((CUdeviceptr*)&devicetotal, totoalsize);
     cuMemAllocHost((void**)(&totaldata), totoalsize);
 
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)&devicedata,totaldata, totoalsize,firststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)&devicetotal,totaldata, totoalsize,firststream));
     cuStreamSynchronize(firststream);
     //add fininshed
 
