@@ -1,4 +1,7 @@
 #pragma once
+//yy add
+#include <functional>
+//add fininshed
 
 #include <cstddef>
 #include <string>
@@ -69,6 +72,7 @@ public:
     }
 }
 
+//yy add
 static size_t ModelParamValue_hash(const ModelParamValue& tmp)
 {
 return hash<float*>()(tmp.data) ^ hash<uint64_t>()(tmp.params_size);
