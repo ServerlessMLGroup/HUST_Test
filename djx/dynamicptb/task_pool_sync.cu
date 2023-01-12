@@ -76,14 +76,15 @@ __global__ void workload() {
 
 __global__ void ElasticKernel(int *flag, int* task_pool) {
     int* sm_flag = flag + FLAG_SM_BASE, *block_flag = flag + FLAG_BLOCK_BASE, *result_flag = flag + FLAG_RESULT_BASE, *times = flag + FLAG_TIME_BASE;
-    unsigned int ns = 5;
+    unsigned int ns = 10;
     int smid = get_smid();
     if (threadIdx.x == 0 && atomicAdd(sm_flag + smid, 1) == 0) atomicAdd(block_flag + blockIdx.x, 1);
     __syncthreads();
 
     if (atomicAdd(block_flag + blockIdx.x, 0) == 0) return ;
     __syncthreads();
-    __shared__ int BlockSyn[128 + 5];
+    __shared__ int BlockSyn[128 + 5]; // 0为无任务，1为忙碌无累计任务，2为忙碌有一个累计任务,-1为退出
+    // __shared__ int state; 
     BlockSyn[threadIdx.x] = 0;
 
     // if (threadIdx.x == 0 )printf("%d\n", smid); 已验证仍然均匀分布
@@ -91,34 +92,43 @@ __global__ void ElasticKernel(int *flag, int* task_pool) {
     if (threadIdx.x == 0) {
       int id = 0, task_num = 0, i = 0;
       unsigned long long mclk[2];
-      asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk[(i++) % 2]));
+      asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk[0]));
+      //asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk[(i++) % 2]));
       while((id = get_task(task_pool)) != -1) {
-        asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk[(i++) % 2]));
-        times[smid * TASK_NUM + task_num] = (mclk[(i + 1) % 2] - mclk[i % 2]) / 1000;
-        ++task_num;
+        // asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk[(i++) % 2]));
+        // times[smid * TASK_NUM + task_num] = (mclk[(i + 1) % 2] - mclk[i % 2]) / 1000;
+        // ++task_num;
         atomicAdd(result_flag + smid, 1);
-
-        // workload 目前与blockIdx无关
-        int n1 = 15.6, n2 = 64.9, n3 = 134.7;
-        for (int ii = 0; ii < 50000; ii++) {
-            n1=sinf(n1);
-            n2=n3/n2;
+        for (int i = 1; i < THREAD_NUM; ++i) {
+            atomicAdd(BlockSyn + i, 1);
+        }
+        int finish_num = 0;
+        for (int i = 1; i < THREAD_NUM; ++i) {
+            atomicAdd(BlockSyn + i, 1);
         }
       }
-      times[smid * TASK_NUM + task_num] = -1;
-      for (int i = 0; i < THREAD_NUM; ++i) {
-        atomicAdd(BlockSyn + i, 1);
+      // times[smid * TASK_NUM + task_num] = -1;
+      for (int i = 1; i < THREAD_NUM; ++i) {
+        atomicExch(BlockSyn + i, -1);
       }
-      // __syncthreads();
+      asm volatile("mov.u64 %0, %%globaltimer;" : "=l"(mclk[1]));
+      times[smid] = (mclk[1] - mclk[0]) / 1000;
     }
     else {
       while (atomicAdd(BlockSyn + threadIdx.x, 0) == 0) {
         __nanosleep(ns);
-        if (ns < 1000) {
-            ns *= 2;
-        }
       }
-      // __syncthreads();
+      if (atomicAdd(BlockSyn + threadIdx.x, 0) == -1) {
+        return;
+      }
+      // workload 目前与blockIdx无关
+      int n1 = 15.6, n2 = 64.9, n3 = 134.7;
+      for (int ii = 0; ii < 500; ii++) {
+          n1=sinf(n1);
+          n2=n3/n2;
+      }
+      __syncthreads();
+      atomicSub(BlockSyn + threadIdx.x, 1);
     }
 
 }
