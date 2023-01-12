@@ -17,7 +17,8 @@ using namespace std;
 //yy add
 void thread1(CUcontext ctx)
 {
-   /*
+   CUcontext* pctx;
+
    cudaSetDevice(2);
    CUcontext tempcont;
    CUdevice dev;
@@ -32,16 +33,16 @@ void thread1(CUcontext ctx)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
-   */
-
-   int err;
-
+   cuCtxGetCurrent(pctx);
+   std::cout<<"new context"<<pctx<<std::endl;
 
 
    err=cuCtxPushCurrent(ctx);
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
+   cuCtxGetCurrent(pctx);
+   std::cout<<"new context"<<pctx<<std::endl;
 
    CUmodule mod;
    cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx");
