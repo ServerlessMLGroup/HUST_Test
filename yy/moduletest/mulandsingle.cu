@@ -57,8 +57,27 @@ void thread1(CUcontext ctx)
 
 void thread2(CUcontext ctx)
 {
+   cudaSetDevice(2);
    int err;
    CUcontext* pctx;
+
+   CUcontext tempcont;
+   CUdevice dev;
+
+   err = cuCtxGetDevice(&dev);
+   if(err)
+   {
+       std::cout<<"Can't get device, err" << err<<std::endl;
+   }
+   err = cuCtxCreate(&tempcont,CU_CTX_SCHED_YIELD,dev);
+   if(err)
+   {
+       std::cout<<"Can't create Context, err" << err << std::endl;
+   }
+
+
+
+  
    err=cuCtxPushCurrent(ctx);
 
 
