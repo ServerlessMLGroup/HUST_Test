@@ -1,7 +1,7 @@
 CMakeFiles/demo.dir/main.cpp.o: \
  /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
  /usr/include/stdc-predef.h /home/wuhao/HUST_Test/djx/json2kernel/model.h \
- /usr/include/c++/8/cstddef \
+ /usr/include/c++/8/functional \
  /usr/include/x86_64-linux-gnu/c++/8/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/8/bits/os_defines.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -10,18 +10,28 @@ CMakeFiles/demo.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/8/bits/cpu_defines.h \
+ /usr/include/c++/8/bits/stl_function.h \
+ /usr/include/c++/8/backward/binders.h /usr/include/c++/8/new \
+ /usr/include/c++/8/exception /usr/include/c++/8/bits/exception.h \
+ /usr/include/c++/8/bits/exception_ptr.h \
+ /usr/include/c++/8/bits/exception_defines.h \
+ /usr/include/c++/8/bits/cxxabi_init_exception.h \
  /usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h \
+ /usr/include/c++/8/typeinfo /usr/include/c++/8/bits/hash_bytes.h \
+ /usr/include/c++/8/bits/nested_exception.h \
+ /usr/include/c++/8/bits/move.h /usr/include/c++/8/bits/concept_check.h \
+ /usr/include/c++/8/type_traits /usr/include/c++/8/tuple \
+ /usr/include/c++/8/utility /usr/include/c++/8/bits/stl_relops.h \
+ /usr/include/c++/8/bits/stl_pair.h /usr/include/c++/8/initializer_list \
+ /usr/include/c++/8/array /usr/include/c++/8/stdexcept \
  /usr/include/c++/8/string /usr/include/c++/8/bits/stringfwd.h \
  /usr/include/c++/8/bits/memoryfwd.h \
  /usr/include/c++/8/bits/char_traits.h \
  /usr/include/c++/8/bits/stl_algobase.h \
  /usr/include/c++/8/bits/functexcept.h \
- /usr/include/c++/8/bits/exception_defines.h \
  /usr/include/c++/8/bits/cpp_type_traits.h \
  /usr/include/c++/8/ext/type_traits.h \
  /usr/include/c++/8/ext/numeric_traits.h \
- /usr/include/c++/8/bits/stl_pair.h /usr/include/c++/8/bits/move.h \
- /usr/include/c++/8/bits/concept_check.h /usr/include/c++/8/type_traits \
  /usr/include/c++/8/bits/stl_iterator_base_types.h \
  /usr/include/c++/8/bits/stl_iterator_base_funcs.h \
  /usr/include/c++/8/debug/assertions.h \
@@ -50,12 +60,7 @@ CMakeFiles/demo.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/c++/8/bits/allocator.h \
  /usr/include/x86_64-linux-gnu/c++/8/bits/c++allocator.h \
- /usr/include/c++/8/ext/new_allocator.h /usr/include/c++/8/new \
- /usr/include/c++/8/exception /usr/include/c++/8/bits/exception.h \
- /usr/include/c++/8/bits/exception_ptr.h \
- /usr/include/c++/8/bits/cxxabi_init_exception.h \
- /usr/include/c++/8/typeinfo /usr/include/c++/8/bits/hash_bytes.h \
- /usr/include/c++/8/bits/nested_exception.h \
+ /usr/include/c++/8/ext/new_allocator.h \
  /usr/include/c++/8/bits/localefwd.h \
  /usr/include/x86_64-linux-gnu/c++/8/bits/c++locale.h \
  /usr/include/c++/8/clocale /usr/include/locale.h \
@@ -67,10 +72,7 @@ CMakeFiles/demo.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
  /usr/include/c++/8/bits/ostream_insert.h \
  /usr/include/c++/8/bits/cxxabi_forced.h \
- /usr/include/c++/8/bits/stl_function.h \
- /usr/include/c++/8/backward/binders.h \
  /usr/include/c++/8/bits/range_access.h \
- /usr/include/c++/8/initializer_list \
  /usr/include/c++/8/bits/basic_string.h \
  /usr/include/c++/8/ext/atomicity.h \
  /usr/include/x86_64-linux-gnu/c++/8/bits/gthr.h \
@@ -116,18 +118,17 @@ CMakeFiles/demo.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/c++/8/bits/functional_hash.h \
- /usr/include/c++/8/bits/basic_string.tcc /usr/include/c++/8/vector \
- /usr/include/c++/8/bits/stl_construct.h \
+ /usr/include/c++/8/bits/basic_string.tcc \
+ /usr/include/c++/8/bits/uses_allocator.h \
+ /usr/include/c++/8/bits/invoke.h /usr/include/c++/8/bits/refwrap.h \
+ /usr/include/c++/8/bits/std_function.h /usr/include/c++/8/cstddef \
+ /usr/include/c++/8/vector /usr/include/c++/8/bits/stl_construct.h \
  /usr/include/c++/8/bits/stl_uninitialized.h \
  /usr/include/c++/8/bits/stl_vector.h \
  /usr/include/c++/8/bits/stl_bvector.h /usr/include/c++/8/bits/vector.tcc \
  /usr/include/c++/8/map /usr/include/c++/8/bits/stl_tree.h \
  /usr/include/c++/8/ext/aligned_buffer.h \
- /usr/include/c++/8/bits/stl_map.h /usr/include/c++/8/tuple \
- /usr/include/c++/8/utility /usr/include/c++/8/bits/stl_relops.h \
- /usr/include/c++/8/array /usr/include/c++/8/stdexcept \
- /usr/include/c++/8/bits/uses_allocator.h \
- /usr/include/c++/8/bits/invoke.h /usr/include/c++/8/bits/stl_multimap.h \
+ /usr/include/c++/8/bits/stl_map.h /usr/include/c++/8/bits/stl_multimap.h \
  /usr/include/c++/8/fstream /usr/include/c++/8/istream \
  /usr/include/c++/8/ios /usr/include/c++/8/bits/ios_base.h \
  /usr/include/c++/8/bits/locale_classes.h \
@@ -186,7 +187,6 @@ CMakeFiles/demo.dir/main.cpp.o: \
  /usr/include/c++/8/bits/shared_ptr.h \
  /usr/include/c++/8/bits/shared_ptr_base.h \
  /usr/include/c++/8/bits/allocated_ptr.h \
- /usr/include/c++/8/bits/refwrap.h \
  /usr/include/c++/8/bits/shared_ptr_atomic.h \
  /usr/include/c++/8/bits/atomic_base.h \
  /usr/include/c++/8/bits/atomic_lockfree_defines.h \

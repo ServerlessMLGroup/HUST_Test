@@ -356,7 +356,7 @@ CMakeFiles/demo.dir/log.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/log.cpp \
 CMakeFiles/demo.dir/main.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
   /usr/include/stdc-predef.h \
   /home/wuhao/HUST_Test/djx/json2kernel/model.h \
-  /usr/include/c++/8/cstddef \
+  /usr/include/c++/8/functional \
   /usr/include/x86_64-linux-gnu/c++/8/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/8/bits/os_defines.h \
   /usr/include/features.h \
@@ -366,21 +366,37 @@ CMakeFiles/demo.dir/main.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/c++/8/bits/cpu_defines.h \
+  /usr/include/c++/8/bits/stl_function.h \
+  /usr/include/c++/8/backward/binders.h \
+  /usr/include/c++/8/new \
+  /usr/include/c++/8/exception \
+  /usr/include/c++/8/bits/exception.h \
+  /usr/include/c++/8/bits/exception_ptr.h \
+  /usr/include/c++/8/bits/exception_defines.h \
+  /usr/include/c++/8/bits/cxxabi_init_exception.h \
   /usr/lib/gcc/x86_64-linux-gnu/8/include/stddef.h \
+  /usr/include/c++/8/typeinfo \
+  /usr/include/c++/8/bits/hash_bytes.h \
+  /usr/include/c++/8/bits/nested_exception.h \
+  /usr/include/c++/8/bits/move.h \
+  /usr/include/c++/8/bits/concept_check.h \
+  /usr/include/c++/8/type_traits \
+  /usr/include/c++/8/tuple \
+  /usr/include/c++/8/utility \
+  /usr/include/c++/8/bits/stl_relops.h \
+  /usr/include/c++/8/bits/stl_pair.h \
+  /usr/include/c++/8/initializer_list \
+  /usr/include/c++/8/array \
+  /usr/include/c++/8/stdexcept \
   /usr/include/c++/8/string \
   /usr/include/c++/8/bits/stringfwd.h \
   /usr/include/c++/8/bits/memoryfwd.h \
   /usr/include/c++/8/bits/char_traits.h \
   /usr/include/c++/8/bits/stl_algobase.h \
   /usr/include/c++/8/bits/functexcept.h \
-  /usr/include/c++/8/bits/exception_defines.h \
   /usr/include/c++/8/bits/cpp_type_traits.h \
   /usr/include/c++/8/ext/type_traits.h \
   /usr/include/c++/8/ext/numeric_traits.h \
-  /usr/include/c++/8/bits/stl_pair.h \
-  /usr/include/c++/8/bits/move.h \
-  /usr/include/c++/8/bits/concept_check.h \
-  /usr/include/c++/8/type_traits \
   /usr/include/c++/8/bits/stl_iterator_base_types.h \
   /usr/include/c++/8/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/8/debug/assertions.h \
@@ -413,14 +429,6 @@ CMakeFiles/demo.dir/main.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
   /usr/include/c++/8/bits/allocator.h \
   /usr/include/x86_64-linux-gnu/c++/8/bits/c++allocator.h \
   /usr/include/c++/8/ext/new_allocator.h \
-  /usr/include/c++/8/new \
-  /usr/include/c++/8/exception \
-  /usr/include/c++/8/bits/exception.h \
-  /usr/include/c++/8/bits/exception_ptr.h \
-  /usr/include/c++/8/bits/cxxabi_init_exception.h \
-  /usr/include/c++/8/typeinfo \
-  /usr/include/c++/8/bits/hash_bytes.h \
-  /usr/include/c++/8/bits/nested_exception.h \
   /usr/include/c++/8/bits/localefwd.h \
   /usr/include/x86_64-linux-gnu/c++/8/bits/c++locale.h \
   /usr/include/c++/8/clocale \
@@ -436,10 +444,7 @@ CMakeFiles/demo.dir/main.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
   /usr/include/c++/8/bits/ostream_insert.h \
   /usr/include/c++/8/bits/cxxabi_forced.h \
-  /usr/include/c++/8/bits/stl_function.h \
-  /usr/include/c++/8/backward/binders.h \
   /usr/include/c++/8/bits/range_access.h \
-  /usr/include/c++/8/initializer_list \
   /usr/include/c++/8/bits/basic_string.h \
   /usr/include/c++/8/ext/atomicity.h \
   /usr/include/x86_64-linux-gnu/c++/8/bits/gthr.h \
@@ -496,6 +501,11 @@ CMakeFiles/demo.dir/main.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/c++/8/bits/functional_hash.h \
   /usr/include/c++/8/bits/basic_string.tcc \
+  /usr/include/c++/8/bits/uses_allocator.h \
+  /usr/include/c++/8/bits/invoke.h \
+  /usr/include/c++/8/bits/refwrap.h \
+  /usr/include/c++/8/bits/std_function.h \
+  /usr/include/c++/8/cstddef \
   /usr/include/c++/8/vector \
   /usr/include/c++/8/bits/stl_construct.h \
   /usr/include/c++/8/bits/stl_uninitialized.h \
@@ -506,13 +516,6 @@ CMakeFiles/demo.dir/main.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
   /usr/include/c++/8/bits/stl_tree.h \
   /usr/include/c++/8/ext/aligned_buffer.h \
   /usr/include/c++/8/bits/stl_map.h \
-  /usr/include/c++/8/tuple \
-  /usr/include/c++/8/utility \
-  /usr/include/c++/8/bits/stl_relops.h \
-  /usr/include/c++/8/array \
-  /usr/include/c++/8/stdexcept \
-  /usr/include/c++/8/bits/uses_allocator.h \
-  /usr/include/c++/8/bits/invoke.h \
   /usr/include/c++/8/bits/stl_multimap.h \
   /usr/include/c++/8/fstream \
   /usr/include/c++/8/istream \
@@ -588,7 +591,6 @@ CMakeFiles/demo.dir/main.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/main.cpp \
   /usr/include/c++/8/bits/shared_ptr.h \
   /usr/include/c++/8/bits/shared_ptr_base.h \
   /usr/include/c++/8/bits/allocated_ptr.h \
-  /usr/include/c++/8/bits/refwrap.h \
   /usr/include/c++/8/bits/shared_ptr_atomic.h \
   /usr/include/c++/8/bits/atomic_base.h \
   /usr/include/c++/8/bits/atomic_lockfree_defines.h \
@@ -806,7 +808,37 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
   /usr/include/assert.h \
   /home/wuhao/HUST_Test/djx/json2kernel/json.h \
   /home/wuhao/HUST_Test/djx/json2kernel/log.h \
-  /home/wuhao/HUST_Test/djx/json2kernel/model.h
+  /home/wuhao/HUST_Test/djx/json2kernel/model.h \
+  /usr/include/c++/8/functional \
+  /usr/include/c++/8/bits/refwrap.h \
+  /usr/include/c++/8/bits/std_function.h \
+  /usr/local/cuda-11.6/include/cuda.h \
+  /usr/include/c++/8/stdlib.h \
+  /usr/local/cuda-11.6/include/cuda_runtime.h \
+  /usr/local/cuda-11.6/include/crt/host_config.h \
+  /usr/local/cuda-11.6/include/builtin_types.h \
+  /usr/local/cuda-11.6/include/device_types.h \
+  /usr/local/cuda-11.6/include/crt/host_defines.h \
+  /usr/local/cuda-11.6/include/driver_types.h \
+  /usr/local/cuda-11.6/include/vector_types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/8/include-fixed/limits.h \
+  /usr/lib/gcc/x86_64-linux-gnu/8/include-fixed/syslimits.h \
+  /usr/include/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+  /usr/include/linux/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+  /usr/local/cuda-11.6/include/surface_types.h \
+  /usr/local/cuda-11.6/include/texture_types.h \
+  /usr/local/cuda-11.6/include/library_types.h \
+  /usr/local/cuda-11.6/include/channel_descriptor.h \
+  /usr/local/cuda-11.6/include/cuda_runtime_api.h \
+  /usr/local/cuda-11.6/include/cuda_device_runtime_api.h \
+  /usr/local/cuda-11.6/include/driver_functions.h \
+  /usr/local/cuda-11.6/include/vector_functions.h \
+  /usr/local/cuda-11.6/include/vector_functions.hpp
 
 
 /usr/include/x86_64-linux-gnu/bits/confname.h:
@@ -818,8 +850,6 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 /usr/include/c++/8/cmath:
 
 /usr/include/c++/8/bits/atomic_base.h:
-
-/usr/include/c++/8/bits/refwrap.h:
 
 /usr/include/c++/8/bits/shared_ptr_base.h:
 
@@ -870,6 +900,12 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 /usr/local/cuda-11.6/include/cuda_runtime.h:
 
 /usr/local/cuda-11.6/include/cuda.h:
+
+/usr/include/c++/8/bits/unordered_map.h:
+
+/usr/include/c++/8/bits/hashtable_policy.h:
+
+/usr/include/c++/8/bits/hashtable.h:
 
 /usr/include/c++/8/math.h:
 
@@ -960,8 +996,6 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 /usr/include/math.h:
 
 /usr/include/c++/8/bits/stl_iterator.h:
-
-/usr/include/c++/8/bits/hashtable_policy.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/8/include-fixed/syslimits.h:
 
@@ -1181,8 +1215,6 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 
 /usr/include/c++/8/cstddef:
 
-/usr/include/c++/8/bits/hashtable.h:
-
 /usr/include/x86_64-linux-gnu/c++/8/bits/c++allocator.h:
 
 /usr/include/c++/8/bits/ostream_insert.h:
@@ -1195,8 +1227,6 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 
 /usr/include/c++/8/bits/range_access.h:
 
-/usr/include/c++/8/initializer_list:
-
 /usr/include/c++/8/ext/alloc_traits.h:
 
 /usr/include/linux/limits.h:
@@ -1204,6 +1234,10 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 /usr/include/c++/8/cstdlib:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/c++/8/initializer_list:
+
+/usr/include/c++/8/functional:
 
 /usr/include/c++/8/bits/unique_ptr.h:
 
@@ -1315,6 +1349,10 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 
 /usr/include/c++/8/bits/uses_allocator.h:
 
+/usr/include/c++/8/bits/refwrap.h:
+
+/usr/include/c++/8/bits/std_function.h:
+
 /usr/local/cuda-11.6/include/library_types.h:
 
 /usr/include/sched.h:
@@ -1330,5 +1368,3 @@ CMakeFiles/demo.dir/model.cpp.o: /home/wuhao/HUST_Test/djx/json2kernel/model.cpp
 /usr/include/x86_64-linux-gnu/c++/8/bits/basic_file.h:
 
 /usr/include/c++/8/unordered_map:
-
-/usr/include/c++/8/bits/unordered_map.h:
