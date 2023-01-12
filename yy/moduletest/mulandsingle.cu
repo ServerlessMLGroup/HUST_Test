@@ -17,6 +17,13 @@ using namespace std;
 //yy add
 void thread1(CUcontext ctx)
 {
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(16, &mask); //指定该线程使用的CPU
+    if (pthread_setaffinity_np(pthread_self(), sizeof(mask), &mask) < 0)
+    {
+            perror("pthread_setaffinity_np");
+    }
    int err;
    CUcontext* pctx;
 
@@ -28,6 +35,10 @@ void thread1(CUcontext ctx)
    cuCtxGetCurrent(pctx);
    std::cout<<"set context"<<*pctx<<std::endl;
 
+   size_t now;
+   size_t total;
+   cudaMemGetInfo(&now,&total);
+   std::cout<<"Size now"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -35,6 +46,8 @@ void thread1(CUcontext ctx)
    cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
    cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
    cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
+   cudaMemGetInfo(&now,&total);
+   std::cout<<"Size now"<<now<<std::endl;
 }
 
 void thread2(CUcontext ctx)
