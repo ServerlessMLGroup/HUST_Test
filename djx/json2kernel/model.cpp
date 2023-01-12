@@ -139,7 +139,7 @@ ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
         assert(res == array_size);
 
         //yy add
-        tempparamvalue = new ModelParamValue(tempdata[i],array_size);
+        tempparamvalue = new ModelParamValue(tempdata[i],array_size,i);
 
         //old
         //params->insert({key, array});

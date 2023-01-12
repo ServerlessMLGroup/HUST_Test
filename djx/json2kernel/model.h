@@ -58,24 +58,26 @@ class ModelParamValue{
 public:
     float* data;
     uint64_t params_size;
+    int formap;
 
-    ModelParamValue(float* indata,uint64_t inparams_size)
+    ModelParamValue(float* indata,uint64_t inparams_size,int fm)
     {
     data = indata;
     params_size = inparams_size;
+    formap = fm;
     }
 
     //to make it available for std::unorderedmap
     bool operator==(const ModelParamValue& mpv)
     {
-    return mpv.data == this->data && mpv.params_size == this->params_size;
+    return mpv.formap == this->formap;
     }
 };
 
 //yy add
 static size_t ModelParamValue_hash(const ModelParamValue& tmp)
 {
-return std::hash<float*>()(tmp.data) ^ std::hash<uint64_t>()(tmp.params_size);
+return std::hash<float*>()(tmp.formap);
 }
 
 
