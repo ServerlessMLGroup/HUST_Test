@@ -45,7 +45,10 @@ enum Status {
     }\
 }
 
-std::vector<CUdeviceptr> storage;
+//old
+//std::vector<CUdeviceptr> storage;
+
+
 std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args;
 std::unique_ptr<Model> model;
@@ -327,7 +330,8 @@ int main(int argc, char **argv) {
 
         //yychange
         tempsize = size*sizeof(float);
-        cudaMemcpyAsync((CUdeviceptr)storage[i],
+
+        cudaMemcpyAsync((float*)storage[i],
                     array, tempsize,
                     cudaMemcpyHostToDevice, firststream);
 
