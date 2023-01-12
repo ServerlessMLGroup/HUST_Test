@@ -338,9 +338,9 @@ int main(int argc, char **argv) {
     }
 
     //yy add
-     for (size_t i = 0; i < storage.size(); i++) {
+     for (size_t p = 0; p < storage.size(); p++) {
 
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array[i], tempsize[i],firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array[0], tempsize[i],firststream));
 
     }
     //add fininshed
