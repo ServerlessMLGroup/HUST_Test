@@ -9,6 +9,9 @@
 #include "json.h"
 #include "log.h"
 #include "model.h"
+//yy add
+#include "cuda_runtime.h"
+//add fininshed
 
 Model* Model::from_json(const char* json_file) {
     log("enter Model::from_json");
