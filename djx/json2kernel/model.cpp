@@ -144,7 +144,7 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
         //old
 
         //yy change
-        paramdata->insert({key, tempdata[i]});
+        paramdata->insert({key, &(tempdata[i])});
         paramsize->insert({key, array_size});
 
         std::cout << "params key:" << key << std::endl;
