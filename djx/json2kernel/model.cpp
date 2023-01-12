@@ -99,8 +99,8 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
 
 
 
-    ModelParamdata* paramdata = new ModelParamdata(params_size);
-    ModelParamsize* paramsize = new ModelParamsize(params_size);
+    ModelParamdata paramdata(params_size);
+    ModelParamsize paramsize(params_size);
 
     //yyadd
     parseresult* result;
@@ -143,10 +143,12 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
         //params->insert({key, array});
         //old
 
+        //yy change
         paramdata->insert({key, tempdata[i]});
         paramsize->insert({key, array_size});
-        result = new parseresult(paramdata,paramsize);
+
         std::cout << "params key:" << key << std::endl;
     }
+    result = new parseresult(paramdata,paramsize);
     return result;
 }
