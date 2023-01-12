@@ -308,9 +308,15 @@ int main(int argc, char **argv) {
 
 
     //yy add
-    float* array[storage.size()];
-    uint64_t size[storage.size()];
-    size_t tempsize[storage.size()];
+    //float* array[storage.size()];
+    //uint64_t size[storage.size()];
+    //size_t tempsize[storage.size()];
+    //add fininshed
+
+    //yy add
+    float* array;
+    uint64_t size;
+    size_t tempsize;
     //add fininshed
 
     for (size_t i = 0; i < storage.size(); i++) {
@@ -322,8 +328,8 @@ int main(int argc, char **argv) {
 
         //auto &array = params->at(storage_info.name);
         //yy change
-        array[i]=params->mpdata->at(storage_info.name);
-        size[i]=params->mpsize->at(storage_info.name);
+        array =params->mpdata->at(storage_info.name);
+        size =params->mpsize->at(storage_info.name);
 
         //old
         //GPU_RETURN_STATUS(cuMemcpyHtoD(
@@ -331,19 +337,15 @@ int main(int argc, char **argv) {
         //    array.size() * sizeof(float)));
 
         //yychange
-        tempsize[i] = size[i]*sizeof(float);
+        tempsize = size*sizeof(float);
+
+        //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array, tempsize,firststream));
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
-	    //std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
+	    std::cout<<i<<" wawawa: "<<std::endl;
     }
 
-    //yy add
-     for (size_t p = 0; p < storage.size(); p++) {
 
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[p],array[0], tempsize[p],firststream));
-
-    }
-    //add fininshed
 
     std::vector<float> output(1000);
     RETURN_STATUS(set_input());
