@@ -70,7 +70,7 @@ public:
 //
 
 //yy change
-typedef std::unordered_map<std::string, ModelParamValue*> ModelParam;
+typedef std::unordered_map<std::string, ModelParamValue> ModelParam;
 
 class ModelParamParser {
 public:
