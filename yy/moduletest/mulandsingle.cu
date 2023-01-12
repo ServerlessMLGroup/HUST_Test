@@ -17,33 +17,15 @@ using namespace std;
 //yy add
 void thread1(CUcontext ctx)
 {
-
-
-   cudaSetDevice(2);
    int err;
    CUcontext* pctx;
 
-   CUcontext tempcont;
-   CUdevice dev;
-
-   err = cuCtxGetDevice(&dev);
-   if(err)
-   {
-       std::cout<<"Can't get device, err" << err<<std::endl;
-   }
-   err = cuCtxCreate(&tempcont,CU_CTX_SCHED_YIELD,dev);
-   if(err)
-   {
-       std::cout<<"Can't create Context, err" << err << std::endl;
+   err=cuCtxPushCurrent(ctx);
+   if(err){
+   std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
 
-
-    err=cuCtxPushCurrent(ctx);
-    if(err){
-    std::cout<<"Push Context ERR! "<<err<<std::endl;
-    }
-
-    cuCtxGetCurrent(pctx);
+   cuCtxGetCurrent(pctx);
    std::cout<<"set context"<<*pctx<<std::endl;
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
@@ -57,30 +39,10 @@ void thread1(CUcontext ctx)
 
 void thread2(CUcontext ctx)
 {
-   cudaSetDevice(2);
    int err;
    CUcontext* pctx;
 
-   CUcontext tempcont;
-   CUdevice dev;
-
-   err = cuCtxGetDevice(&dev);
-   if(err)
-   {
-       std::cout<<"Can't get device, err" << err<<std::endl;
-   }
-   err = cuCtxCreate(&tempcont,CU_CTX_SCHED_YIELD,dev);
-   if(err)
-   {
-       std::cout<<"Can't create Context, err" << err << std::endl;
-   }
-
-
-
-  
    err=cuCtxPushCurrent(ctx);
-
-
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
@@ -95,7 +57,28 @@ void thread2(CUcontext ctx)
    cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
    cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
 }
-// add fininshed
+
+void thread3(CUcontext ctx)
+{
+   int err;
+   CUcontext* pctx;
+
+   err=cuCtxPushCurrent(ctx);
+   if(err){
+   std::cout<<"Push Context ERR! "<<err<<std::endl;
+   }
+   cuCtxGetCurrent(pctx);
+   std::cout<<"set context"<<*pctx<<std::endl;
+
+   CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
+   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
+   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp9.ptx");
+   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
+   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
+   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
+}
+
 
 
 int main()
@@ -126,6 +109,9 @@ int main()
     thread second=thread(thread2,cont1);
     first.join();
     second.join();
+
+    thread third=thread(thread3,cont1);
+    third.join();
 
     return 0;
 }
