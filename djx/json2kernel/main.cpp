@@ -327,7 +327,7 @@ int main(int argc, char **argv) {
 
         //yychange
         tempsize = size*sizeof(float);
-        cudaMemcpyAsync((CUdeviceptr)storage[i], array, tempsize, cudaMemcpyHostToDevice, firststream);
+        cudaMemcpyAsync((CUdeviceptr)storage[i], (void*)array, tempsize, cudaMemcpyHostToDevice, firststream);
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
 	    //std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
