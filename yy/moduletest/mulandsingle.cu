@@ -126,11 +126,7 @@ int main()
 
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
-   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
-   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
-   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
-   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
-   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
+  
    cudaMemGetInfo(&now,&total);
 
    std::cout<<"Size now"<<now<<std::endl;
