@@ -69,8 +69,8 @@ class parseresult{
         ModelParamdata mpdata;
         ModelParamsize mpsize;
 
-     
-        parseresult(ModelParamdata* indata,ModelParamdata inparams_size)
+
+        parseresult(ModelParamdata indata,ModelParamdata inparams_size)
         {
         mpdata = indata;
         mpsize = inparams_size;
