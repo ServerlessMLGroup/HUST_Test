@@ -350,7 +350,7 @@ int main(int argc, char **argv) {
         if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
 
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array, tempsize,firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array[i], tempsize[i],firststream));
     }
     //add fininshed
 
@@ -361,7 +361,7 @@ int main(int argc, char **argv) {
 
     cuMemAlloc((CUdeviceptr*)&devicetotal, totoalsize);
     cuMemAllocHost((void**)(&totaldata), totoalsize);
-    
+
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)&devicedata,totaldata, totoalsize,firststream));
     cuStreamSynchronize(firststream);
     //add fininshed
