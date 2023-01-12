@@ -170,7 +170,12 @@ int main(int argc, char **argv) {
     CUresult result;
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
-    GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
+    //old
+    //GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
+
+    //yy change
+    cudaSetDevice(2);
+
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
 
     CUmodule mod;
