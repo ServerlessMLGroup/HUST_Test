@@ -46,7 +46,7 @@ enum Status {
 }
 
 //old
-//std::vector<CUdeviceptr> storage;
+std::vector<CUdeviceptr> storage;
 
 
 std::unordered_map<std::string, CUfunction> kernels;
