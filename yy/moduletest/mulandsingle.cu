@@ -97,7 +97,7 @@ void thread3(CUcontext ctx)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(0);
+    cudaSetDevice(2);
     //clock for collection
 
     //yy change
