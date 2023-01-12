@@ -170,11 +170,8 @@ int main(int argc, char **argv) {
     CUresult result;
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
-    //old
-    //GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
+    GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
 
-    //yy change
-    cudaSetDevice(2);
 
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
 
@@ -187,8 +184,8 @@ int main(int argc, char **argv) {
     //wo hui zai wo gai de mei yige di fang jia shang zhushi yy
 
     //yy add stream
-    cudaStream_t firststream;
-    cudaStreamCreate(&firststream);
+    CUstream firststream;
+    cuStreamCreate(&firststream,0);
     //add fininshed
 
     // 2. load cuda kernels
@@ -336,7 +333,7 @@ int main(int argc, char **argv) {
         //yychange
         tempsize = size*sizeof(float);
 
-        cudaMemcpyAsync((float*)storage[i],
+        cuMemcpyHtoDAsync((CUdeviceptr)storage[i],
                     array, tempsize,
                     cudaMemcpyHostToDevice, firststream);
 
