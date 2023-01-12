@@ -66,11 +66,10 @@ typedef std::unordered_map<std::string, uint64_t> ModelParamsize;
 //yy add
 class parseresult{
     public:
-        ModelParamdata mpdata;
-        ModelParamsize mpsize;
+        ModelParamdata* mpdata;
+        ModelParamsize* mpsize;
 
-
-        parseresult(ModelParamdata indata,ModelParamsize inparams_size)
+        parseresult(ModelParamdata* indata,ModelParamsize* inparams_size)
         {
         mpdata = indata;
         mpsize = inparams_size;
