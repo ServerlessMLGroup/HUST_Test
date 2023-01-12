@@ -355,6 +355,7 @@ int main(int argc, char **argv) {
     //add fininshed
 
     //yy add
+    /*
     cuStreamSynchronize(firststream);
     float* totaldata;
     CUdeviceptr devicetotal;
@@ -365,6 +366,7 @@ int main(int argc, char **argv) {
 
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)&devicetotal,totaldata, totoalsize,firststream));
     cuStreamSynchronize(firststream);
+    */
     //add fininshed
 
     std::vector<float> output(1000);
