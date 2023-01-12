@@ -118,13 +118,22 @@ int main()
         return 0;
     }
 
-    thread first=thread(thread1,cont1);
-    thread second=thread(thread2,cont1);
-    first.join();
-    second.join();
 
-    thread third=thread(thread3,cont1);
-    third.join();
+   size_t now=0;
+   size_t total=0;
+   cudaMemGetInfo(&now,&total);
+   std::cout<<"Size now"<<now<<std::endl;
+   CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
+   cudaMemGetInfo(&now,&total);
+   std::cout<<"Size now"<<now<<std::endl;
+    //thread first=thread(thread1,cont1);
+    //thread second=thread(thread2,cont1);
+   // first.join();
+    //second.join();
+
+    //thread third=thread(thread3,cont1);
+    //third.join();
 
     return 0;
 }
