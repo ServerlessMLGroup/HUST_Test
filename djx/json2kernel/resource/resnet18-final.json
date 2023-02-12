@@ -404,7 +404,7 @@
             ]
         },
         {
-            "name": "fused_nn_conv2d_add_nn_relu_3_kernel0",
+            "name": "fused_nn_conv2d_add_nn_relu_3_kernel0fused_nn_conv2d_add_nn_relu_3_kernel0",
             "launch_params": [
                 1,
                 112,

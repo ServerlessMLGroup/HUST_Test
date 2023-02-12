@@ -3,6 +3,7 @@
 #include <bits/unique_ptr.h>
 #include <cuda.h>
 #include "cuda_runtime.h"
+
 //yy add
 #include <stdio.h>
 #include <stdlib.h>
@@ -171,8 +172,6 @@ int main(int argc, char **argv) {
     // init CUDA driver API
     GPU_RETURN_STATUS(cuInit(0));
     GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
-
-
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
 
     CUmodule mod;
@@ -213,6 +212,7 @@ int main(int argc, char **argv) {
 
 
 
+    /*
     //yy create csv
     //get parameter for each kernel
     std::ofstream outFile;
@@ -276,18 +276,18 @@ int main(int argc, char **argv) {
     {
     std::cout<<"Kernel: "<< model->kernels[j].name.c_str()<<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
     outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
-    /*
+
     outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j];
         for(int i=0;i<8;i++)
         {
         outFile<<","<<kernelownarg[j][i];
         }
     outFile<<std::endl;
-    */
+
     }
     outFile.close();
     //add fininshed
-
+    */
 
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;
@@ -344,13 +344,14 @@ int main(int argc, char **argv) {
     }
 
     //yy add
+    float* temp2;
     for (size_t i = 0; i < storage.size(); i++) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
         if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
-
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array[i], tempsize[i],firststream));
+        temp2 =params->mpdata->at(storage_info.name);
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],temp2, tempsize[i],firststream));
     }
     //add fininshed
 
