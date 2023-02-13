@@ -182,10 +182,10 @@ int main()
 
 
     float* cpudata;
-    CUdeviceptr* gpudata;
+    CUdeviceptr gpudata;
     size_t size = 5*1024*1024;
     cuMemAllocHost((void**)(&cpudata),size);
-    cuMemAlloc((CUdeviceptr*)gpudata, size);
+    cuMemAlloc((CUdeviceptr*)(&gpudata), size);
     /*
     for(int i=0;i<5*1024*1024;i++)
     {
