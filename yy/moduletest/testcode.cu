@@ -192,7 +192,7 @@ int main()
         cpudata[i]=1.0;
     }
     */
-    cuMemcpyHtoDAsync((CUdeviceptr)(*gpudata),cpudata,size,firststream);
+    //cuMemcpyHtoDAsync((CUdeviceptr)(*gpudata),cpudata,size,firststream);
     cuStreamSynchronize(firststream);
 
 
