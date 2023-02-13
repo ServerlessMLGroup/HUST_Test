@@ -187,12 +187,14 @@ int main()
     cuMemAllocHost((void**)(&cpudata),size);
     cuMemAlloc((CUdeviceptr*)(&gpudata), size);
 
+    /*
     for(int i=0;i<5*1024*1024;i++)
     {
         cpudata[i]=1.0;
     }
-    
-    //cuMemcpyHtoDAsync((CUdeviceptr)(*gpudata),cpudata,size,firststream);
+    */
+
+    cuMemcpyHtoDAsync((CUdeviceptr)(*gpudata),cpudata,size,firststream);
     cuStreamSynchronize(firststream);
 
 
