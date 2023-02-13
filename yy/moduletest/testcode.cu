@@ -187,7 +187,7 @@ int main()
     cuMemAlloc(gpudata, size);
     for(int i=0;i<5*1024*1024;i++)
     {
-        cpudta[i]=1.0;
+        cpudata[i]=1.0;
     }
 
     cuMemcpyHtoDAsync((CUdeviceptr)(*gpudata),cpudata,size,firststream);
