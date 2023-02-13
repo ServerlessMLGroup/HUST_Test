@@ -185,7 +185,7 @@ int main()
     CUdeviceptr* gpudata;
     size_t size = 5*1024*1024;
     cuMemAllocHost((void**)(&cpudata),size);
-    cuMemAlloc(gpuparam, location);
+    cuMemAlloc(gpudata, size);
     fot(int i=0;i<5*1024*1024;i++)
     {
         cpudta[i]=1.0;
@@ -196,6 +196,8 @@ int main()
 
     //2.test in the mom thread
     cudaMemGetInfo(&now,&total);
+    size_t now=0;
+    size_t total=0;
     std::cout<<"Size now"<<now<<std::endl;
 
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
