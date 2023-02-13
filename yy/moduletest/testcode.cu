@@ -180,20 +180,21 @@ int main()
     CUstream firststream;
     cuStreamCreate(&firststream,0);
 
-    /*
+
     float* cpudata;
     CUdeviceptr* gpudata;
     size_t size = 5*1024*1024;
     cuMemAllocHost((void**)(&cpudata),size);
     cuMemAlloc(gpudata, size);
+    /*
     for(int i=0;i<5*1024*1024;i++)
     {
         cpudata[i]=1.0;
     }
-
+    */
     cuMemcpyHtoDAsync((CUdeviceptr)(*gpudata),cpudata,size,firststream);
     cuStreamSynchronize(firststream);
-    */
+
 
     //2.test in the mom thread
     size_t now=0;
