@@ -154,7 +154,6 @@ int main()
     CUcontext cont2;
     CUdevice dev;
     int err;
-    int temp;
     err = cuCtxGetDevice(&dev);
     if(err)
     {
@@ -186,7 +185,7 @@ int main()
     size_t size = 5*1024*1024;
     cuMemAllocHost((void**)(&cpudata),size);
     cuMemAlloc(gpudata, size);
-    fot(int i=0;i<5*1024*1024;i++)
+    for(int i=0;i<5*1024*1024;i++)
     {
         cpudta[i]=1.0;
     }
@@ -195,9 +194,9 @@ int main()
     cuStreamSynchronize(firststream);
 
     //2.test in the mom thread
-    cudaMemGetInfo(&now,&total);
     size_t now=0;
     size_t total=0;
+    cudaMemGetInfo(&now,&total);
     std::cout<<"Size now"<<now<<std::endl;
 
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
