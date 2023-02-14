@@ -146,7 +146,7 @@ void thread2(CUcontext ctx)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(2);
+    cudaSetDevice(1);
 
 
     //1.create context
@@ -173,10 +173,12 @@ int main()
         return 0;
     }
 
+    /*
     //1.1 kernel?
     testkernel<<<20, 128>>>(1.0,2.0);
 
     //1.2 data transfer?
+
     CUstream firststream;
     cuStreamCreate(&firststream,0);
 
@@ -187,35 +189,42 @@ int main()
     cuMemAllocHost((void**)(&cpudata),size);
     cuMemAlloc((CUdeviceptr*)(&gpudata), size);
 
-    /*
-    for(int i=0;i<5*1024*1024;i++)
+
+    for(int i=0;i<(5*1024*1024/4);i++)
     {
-        cpudata[i]=1.0;
+        //cpudata[i]=1.0;
     }
-    */
+
 
     cuMemcpyHtoDAsync((CUdeviceptr)(gpudata),cpudata,size,firststream);
     cuStreamSynchronize(firststream);
-
+    */
 
     //2.test in the mom thread
     size_t now=0;
     size_t total=0;
-    cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now"<<now<<std::endl;
+    //cudaMemGetInfo(&now,&total);
+    //std::cout<<"Size now"<<now<<std::endl;
 
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
+    /*
     cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
     cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
     cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
     cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
     cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
+    */
 
-    cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now"<<now<<std::endl;
+    //cudaMemGetInfo(&now,&total);
+    //std::cout<<"Size now"<<now<<std::endl;
 
-    //3.test in two child thread
+    // 3. load cuda kernels
+    //CUfunction kernel;
+    //cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
+
+
+    //4.test in two child thread
     /*
     thread first=thread(thread1,cont1);
     thread second=thread(thread2,cont1);
