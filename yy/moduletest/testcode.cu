@@ -207,7 +207,7 @@ int main()
     //std::cout<<"Size now"<<now<<std::endl;
 
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
+    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
     /*
     cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
     cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
