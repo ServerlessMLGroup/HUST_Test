@@ -220,8 +220,8 @@ int main()
     std::cout<<"Size now"<<now<<std::endl;
 
     // 3. load cuda kernels
-    //CUfunction kernel;
-    //cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
+    CUfunction kernel;
+    cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
 
 
     //4.test in two child thread
