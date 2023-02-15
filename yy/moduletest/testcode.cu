@@ -233,21 +233,21 @@ int main()
     size_t storage_size1 = 602112;
     CUdeviceptr device_ptr1;
     std::vector<char> temp1;
-    temp.resize(storage_size1, 0);
+    temp1.resize(storage_size1, 0);
     cuMemAlloc((CUdeviceptr*)&device_ptr1, storage_size1);
-    cuMemcpyHtoD(device_ptr, temp1.data(), storage_size1);
+    cuMemcpyHtoD(device_ptr1, temp1.data(), storage_size1);
 
     size_t storage_size2 = 602112;
     CUdeviceptr device_ptr2;
     std::vector<char> temp2;
-    temp.resize(storage_size2, 0);
+    temp2.resize(storage_size2, 0);
     cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size2);
     cuMemcpyHtoD(device_ptr, temp2.data(), storage_size2);
 
     size_t storage_size3 = 12;
     CUdeviceptr device_ptr3;
     std::vector<char> temp3;
-    temp.resize(storage_size3, 0);
+    temp3.resize(storage_size3, 0);
     cuMemAlloc((CUdeviceptr*)&device_ptr3, storage_size3);
     cuMemcpyHtoD(device_ptr3, temp3.data(), storage_size3);
 
