@@ -204,7 +204,7 @@ int main()
     size_t now=0;
     size_t total=0;
     cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now"<<now<<std::endl;
+    std::cout<<"Size now before module load "<<now<<std::endl;
 
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
@@ -217,12 +217,15 @@ int main()
     */
 
     cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now"<<now<<std::endl;
+    std::cout<<"Size now after module load "<<now<<std::endl;
 
     // 3. load cuda kernels
     CUfunction kernel;
     int result=cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
     std::cout<<"result "<<result<<std::endl;
+
+    cudaMemGetInfo(&now,&total);
+    std::cout<<"Size now after function get "<<now<<std::endl;
 
 
     //yy add stream
@@ -257,7 +260,7 @@ int main()
     kernel_arg.push_back(&device_ptr3);
 
     cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now 3  "<<now<<std::endl;
+    std::cout<<"Size now before kernel launch "<<now<<std::endl;
 
     cuLaunchKernel(kernel,
         147, 1, 1,
@@ -266,7 +269,7 @@ int main()
     );
 
     cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now 4  "<<now<<std::endl;
+    std::cout<<"Size now after kernel launch "<<now<<std::endl;
 
     //4.test in two child thread
     /*
