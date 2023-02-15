@@ -242,7 +242,7 @@ int main()
     std::vector<char> temp2;
     temp2.resize(storage_size2, 0);
     cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size2);
-    cuMemcpyHtoD(device_ptr, temp2.data(), storage_size2);
+    cuMemcpyHtoD(device_ptr2, temp2.data(), storage_size2);
 
     size_t storage_size3 = 12;
     CUdeviceptr device_ptr3;
