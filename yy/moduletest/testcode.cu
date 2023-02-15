@@ -146,7 +146,7 @@ void thread2(CUcontext ctx)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(1);
+    cudaSetDevice(2);
 
 
     //1.create context
