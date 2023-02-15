@@ -224,6 +224,50 @@ int main()
     int result=cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
     std::cout<<"result "<<result<<std::endl;
 
+
+    //yy add stream
+    CUstream firststream;
+    cuStreamCreate(&firststream,0);
+
+
+    size_t storage_size1 = 602112;
+    CUdeviceptr device_ptr1;
+    std::vector<char> temp1;
+    temp.resize(storage_size1, 0);
+    cuMemAlloc((CUdeviceptr*)&device_ptr1, storage_size1);
+    cuMemcpyHtoD(device_ptr, temp1.data(), storage_size1);
+
+    size_t storage_size2 = 602112;
+    CUdeviceptr device_ptr2;
+    std::vector<char> temp2;
+    temp.resize(storage_size2, 0);
+    cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size2);
+    cuMemcpyHtoD(device_ptr, temp2.data(), storage_size2);
+
+    size_t storage_size3 = 12;
+    CUdeviceptr device_ptr3;
+    std::vector<char> temp3;
+    temp.resize(storage_size3, 0);
+    cuMemAlloc((CUdeviceptr*)&device_ptr3, storage_size3);
+    cuMemcpyHtoD(device_ptr3, temp3.data(), storage_size3);
+
+    std::vector<CUdeviceptr*> kernel_arg;
+    kernel_arg.push_back(&device_ptr1);
+    kernel_arg.push_back(&device_ptr2);
+    kernel_arg.push_back(&device_ptr3);
+
+    cudaMemGetInfo(&now,&total);
+    std::cout<<"Size now 3"<<now<<std::endl;
+
+    cuLaunchKernel(kernel,
+        147, 1, 1,
+        1024, 1, 1,
+        0, firststream, (void **)kernel_arg.data(), 0 // raw_args是json中指示的storage的下标
+    )
+
+    cudaMemGetInfo(&now,&total);
+    std::cout<<"Size now 4"<<now<<std::endl;
+
     //4.test in two child thread
     /*
     thread first=thread(thread1,cont1);
