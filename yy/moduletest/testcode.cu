@@ -146,7 +146,7 @@ void thread2(CUcontext ctx)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(3);
+    cudaSetDevice(1);
 
 
     //1.create context
@@ -203,8 +203,8 @@ int main()
     //2.test in the mom thread
     size_t now=0;
     size_t total=0;
-    //cudaMemGetInfo(&now,&total);
-    //std::cout<<"Size now"<<now<<std::endl;
+    cudaMemGetInfo(&now,&total);
+    std::cout<<"Size now"<<now<<std::endl;
 
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -216,8 +216,8 @@ int main()
     cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
     */
 
-    //cudaMemGetInfo(&now,&total);
-    //std::cout<<"Size now"<<now<<std::endl;
+    cudaMemGetInfo(&now,&total);
+    std::cout<<"Size now"<<now<<std::endl;
 
     // 3. load cuda kernels
     //CUfunction kernel;
