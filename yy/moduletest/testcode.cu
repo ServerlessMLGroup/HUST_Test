@@ -201,6 +201,7 @@ int main()
     */
 
     //2.test in the mom thread
+    /*
     size_t now=0;
     size_t total=0;
     cudaMemGetInfo(&now,&total);
@@ -216,17 +217,18 @@ int main()
     cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
     cuModuleLoad(&mod7, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
     cuModuleLoad(&mod8, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
-    /*
+
     cuModuleLoad(&mod9, "/home/wuhao/HUST_Test/yy/moduletest/temp9.ptx");
     cuModuleLoad(&mod10, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
     cuModuleLoad(&mod11, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
     cuModuleLoad(&mod12, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
-    */
+
 
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now after module load "<<now<<std::endl;
-
+    */
     // 3. load cuda kernels
+    /*
     CUfunction kernel;
     int result=cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
     std::cout<<"result "<<result<<std::endl;
@@ -298,14 +300,15 @@ int main()
 
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now after kernel launch "<<now<<std::endl;
+    */
 
     //4.test in two child thread
-    /*
+
     thread first=thread(thread1,cont1);
-    thread second=thread(thread2,cont1);
+    //thread second=thread(thread2,cont1);
     first.join();
-    second.join();
-    */
+    //second.join();
+
 
     return 0;
 }
