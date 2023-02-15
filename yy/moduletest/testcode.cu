@@ -257,7 +257,7 @@ int main()
     kernel_arg.push_back(&device_ptr3);
 
     cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now 3"<<now<<std::endl;
+    std::cout<<"Size now 3  "<<now<<std::endl;
 
     cuLaunchKernel(kernel,
         147, 1, 1,
@@ -266,7 +266,7 @@ int main()
     );
 
     cudaMemGetInfo(&now,&total);
-    std::cout<<"Size now 4"<<now<<std::endl;
+    std::cout<<"Size now 4  "<<now<<std::endl;
 
     //4.test in two child thread
     /*
