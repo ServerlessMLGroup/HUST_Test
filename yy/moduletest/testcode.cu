@@ -232,6 +232,8 @@ int main()
     CUstream firststream;
     cuStreamCreate(&firststream,0);
 
+    cudaMemGetInfo(&now,&total);
+    std::cout<<"Size now after stream create "<<now<<std::endl;
 
     size_t storage_size1 = 602112;
     CUdeviceptr device_ptr1;
