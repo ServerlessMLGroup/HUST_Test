@@ -215,8 +215,8 @@ int main()
     cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
     cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
     cuModuleLoad(&mod7, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
-    /*
     cuModuleLoad(&mod8, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
+    /*
     cuModuleLoad(&mod9, "/home/wuhao/HUST_Test/yy/moduletest/temp9.ptx");
     cuModuleLoad(&mod10, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
     cuModuleLoad(&mod11, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
