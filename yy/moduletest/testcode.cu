@@ -221,8 +221,8 @@ int main()
 
     // 3. load cuda kernels
     CUfunction kernel;
-    cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
-
+    int result=cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
+    std::cout<<"result "<<result<<std::endl;
 
     //4.test in two child thread
     /*
