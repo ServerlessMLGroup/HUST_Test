@@ -265,6 +265,16 @@ int main()
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now after three malloc "<<now<<std::endl;
 
+    size_t storage_size4 = 5242880;
+    CUdeviceptr device_ptr4;
+    std::vector<char> temp4;
+    temp3.resize(storage_size4, 0);
+    cuMemAlloc((CUdeviceptr*)&device_ptr4, storage_size4);
+    cuMemcpyHtoD(device_ptr4, temp4.data(), storage_size4);
+
+    cudaMemGetInfo(&now,&total);
+    std::cout<<"Size now after three malloc "<<now<<std::endl;
+
     std::vector<CUdeviceptr*> kernel_arg;
     kernel_arg.push_back(&device_ptr1);
     kernel_arg.push_back(&device_ptr2);
