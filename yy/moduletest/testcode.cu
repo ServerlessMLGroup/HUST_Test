@@ -242,6 +242,7 @@ int main()
     cuMemAlloc((CUdeviceptr*)&device_ptr1, storage_size1);
     cuMemcpyHtoD(device_ptr1, temp1.data(), storage_size1);
 
+    cudaMemGetInfo(&now,&total);
     std::cout<<"Size now after one malloc "<<now<<std::endl;
 
     size_t storage_size2 = 602112;
