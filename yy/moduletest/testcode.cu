@@ -263,7 +263,7 @@ int main()
         147, 1, 1,
         1024, 1, 1,
         0, firststream, (void **)kernel_arg.data(), 0 // raw_args是json中指示的storage的下标
-    )
+    );
 
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now 4"<<now<<std::endl;
