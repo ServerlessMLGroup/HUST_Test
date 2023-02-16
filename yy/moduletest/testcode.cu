@@ -189,7 +189,7 @@ int main()
         return 0;
     }
 
-
+   /*
    err=cuCtxPushCurrent(cont1);
    CUcontext* mainpctx;
    err=cuCtxGetCurrent(mainpctx);
@@ -198,6 +198,7 @@ int main()
        std::cout<<"Get current context, err" << err<<std::endl;
    }
    std::cout<<"main context"<<*mainpctx<<std::endl;
+   */
 
 
 
