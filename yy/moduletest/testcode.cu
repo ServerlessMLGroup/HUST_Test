@@ -23,7 +23,8 @@ __global__ void testkernel(float n1,float n2) {
 
 
 //yy add
-void thread1(CUcontext ctx,float* host,float* device,size_t size)
+//void thread1(CUcontext ctx,float* host,float* device,size_t size)
+void thread1(CUcontext ctx)
 {
    //1.cpu bundle
    /*
@@ -57,14 +58,14 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    }
 
 
-
+   /*
    err=cuCtxGetCurrent(pctx);
    if(err)
    {
        std::cout<<"Get current context, err" << err<<std::endl;
    }
    std::cout<<"new context"<<*pctx<<std::endl;
-
+    */
 
 
 
@@ -188,6 +189,7 @@ int main()
         return 0;
     }
 
+   /*
    CUcontext* mainpctx;
    err=cuCtxGetCurrent(mainpctx);
    if(err)
@@ -195,7 +197,7 @@ int main()
        std::cout<<"Get current context, err" << err<<std::endl;
    }
    std::cout<<"main context"<<*mainpctx<<std::endl;
-
+   */
 
 
     /*
@@ -336,7 +338,8 @@ int main()
     //cudaMalloc(&device,newsize);
     //cuMemAllocHost((void**)(&host), newsize);
 
-    thread first=thread(thread1,cont1,host,device,newsize);
+    //thread first=thread(thread1,cont1,host,device,newsize);
+    thread first=thread(thread1,cont1);
     //thread second=thread(thread2,cont1);
     first.join();
     //second.join();
