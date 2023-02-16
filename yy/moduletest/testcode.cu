@@ -14,7 +14,7 @@
 using namespace std;
 float* host;
 float* device;
-size_t newsize=60*1024*1024;
+size_t newsize=600*1024*1024;
 
 __global__ void testkernel(float n1,float n2) {
     float n3;
@@ -87,6 +87,7 @@ void thread1(CUcontext ctx)
    CUstream onestream;
    cuStreamCreate(&onestream,0);
    cudaMemcpyAsync(device, host,newsize, cudaMemcpyHostToDevice, onestream);
+   cuStreamSynchronize(onestream);
 
    size_t now=0;
    size_t total=0;
