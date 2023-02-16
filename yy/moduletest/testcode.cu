@@ -23,8 +23,7 @@ __global__ void testkernel(float n1,float n2) {
 
 
 //yy add
-//void thread1(CUcontext ctx,float* host,float* device,size_t size)
-void thread1(CUcontext ctx)
+void thread1(CUcontext ctx,float* host,float* device,size_t size)
 {
    //1.cpu bundle
    /*
@@ -338,8 +337,7 @@ int main()
     //cudaMalloc(&device,newsize);
     //cuMemAllocHost((void**)(&host), newsize);
 
-    //thread first=thread(thread1,cont1,host,device,newsize);
-    thread first=thread(thread1,cont1);
+    thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
     first.join();
     //second.join();
