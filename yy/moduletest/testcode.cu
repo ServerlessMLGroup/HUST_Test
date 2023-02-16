@@ -14,7 +14,7 @@
 using namespace std;
 float* host;
 float* device;
-size_t newsize=6*1024*1024;
+size_t newsize=60*1024*1024;
 
 __global__ void testkernel(float n1,float n2) {
     float n3;
