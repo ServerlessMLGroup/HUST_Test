@@ -151,7 +151,6 @@ int main()
     cuInit(0);
     cudaSetDevice(2);
 
-
     //1.create context
     CUcontext cont1;
     CUcontext cont2;
@@ -234,6 +233,7 @@ int main()
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now after module load "<<now<<std::endl;
     */
+
     // 3. load cuda kernels
     /*
     CUfunction kernel;
@@ -314,8 +314,8 @@ int main()
     float* host;
     float* device;
     size_t newsize=6*1024*1024;
-    cudaMalloc(&device,newsize);
-    cuMemAllocHost((void**)(&host), newsize);
+    //cudaMalloc(&device,newsize);
+    //cuMemAllocHost((void**)(&host), newsize);
 
     thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
