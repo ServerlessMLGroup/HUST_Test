@@ -167,6 +167,7 @@ int main()
 
     //1.create context
     CUcontext cont1;
+    CUcontext* mainpctx;
     CUcontext cont2;
     CUdevice dev;
     int err;
@@ -190,14 +191,14 @@ int main()
     }
 
 
-   CUcontext* mainpctx;
+
    err=cuCtxGetCurrent(mainpctx);
    if(err)
    {
        std::cout<<"Get current context, err" << err<<std::endl;
    }
    std::cout<<"main context"<<*mainpctx<<std::endl;
-   
+
 
 
     /*
