@@ -40,7 +40,7 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    int err;
    //2.create new context?
 
-   cudaSetDevice(2);
+   cudaSetDevice(3);
    //here,maybe just cudaSetDevice can make change
    CUcontext tempcont;
    CUdevice dev;
@@ -61,12 +61,12 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
 
 
    //3.push old context and load
-   /*
+
    err=cuCtxPushCurrent(ctx);
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
-   */
+
 
    cuCtxGetCurrent(pctx);
    std::cout<<"set context"<<*pctx<<std::endl;
@@ -152,7 +152,7 @@ void thread2(CUcontext ctx)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(2);
+    cudaSetDevice(3);
 
     //1.create context
     CUcontext cont1;
@@ -178,11 +178,11 @@ int main()
         return 0;
     }
 
-    /*
+
     CUcontext* mainpctx;
     cuCtxGetCurrent(mainpctx);
-    std::cout<<"main context"<<*mainpctx<<std::endl;
-    */
+    std::cout<<"main context"<< *mainpctx <<std::endl;
+    
 
     /*
     //1.1 kernel?
@@ -322,9 +322,9 @@ int main()
     //cudaMalloc(&device,newsize);
     //cuMemAllocHost((void**)(&host), newsize);
 
-    thread first=thread(thread1,cont1,host,device,newsize);
+    //thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
-    first.join();
+    //first.join();
     //second.join();
 
 
