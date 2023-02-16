@@ -58,7 +58,7 @@ void thread1(CUcontext ctx)
    }
 
 
-   
+
    err=cuCtxGetCurrent(pctx);
    if(err)
    {
@@ -189,7 +189,7 @@ int main()
         return 0;
     }
 
-   /*
+
    CUcontext* mainpctx;
    err=cuCtxGetCurrent(mainpctx);
    if(err)
@@ -197,7 +197,7 @@ int main()
        std::cout<<"Get current context, err" << err<<std::endl;
    }
    std::cout<<"main context"<<*mainpctx<<std::endl;
-   */
+   
 
 
     /*
