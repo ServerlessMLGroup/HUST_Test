@@ -183,12 +183,14 @@ int main()
         std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
+    /*
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,dev);
     if(err)
     {
         std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
+    */
 
    /*
    err=cuCtxPushCurrent(cont1);
