@@ -12,6 +12,9 @@
 #include <ctime>
 #include <time.h>
 using namespace std;
+float* host;
+float* device;
+size_t newsize=6*1024*1024;
 
 __global__ void testkernel(float n1,float n2) {
     float n3;
@@ -23,7 +26,7 @@ __global__ void testkernel(float n1,float n2) {
 
 
 //yy add
-//void thread1(CUcontext ctx,float* host,float* device,size_t size)
+//void thread1(CUcontext ctx)
 void thread1(CUcontext ctx)
 {
    //1.cpu bundle
@@ -332,11 +335,10 @@ int main()
 
     //4.test in two child thread
 
-    float* host;
-    float* device;
-    size_t newsize=6*1024*1024;
-    //cudaMalloc(&device,newsize);
-    //cuMemAllocHost((void**)(&host), newsize);
+
+
+    cudaMalloc(&device,newsize);
+    cuMemAllocHost((void**)(&host), newsize);
 
     //thread first=thread(thread1,cont1,host,device,newsize);
     thread first=thread(thread1,cont1);
