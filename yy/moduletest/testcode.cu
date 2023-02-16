@@ -177,7 +177,7 @@ int main()
 
 
     CUcontext* mainpctx;
-    cuCtxGetCurrent(mainpctx);
+    //cuCtxGetCurrent(mainpctx);
     //std::cout<<"main context"<<*mainpctx<<std::endl;
 
 
