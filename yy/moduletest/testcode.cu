@@ -38,6 +38,7 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
 
    CUcontext* pctx;
    int err;
+
    //2.create new context?
 
    cudaSetDevice(3);
@@ -54,24 +55,31 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
-   /*
-   cuCtxGetCurrent(pctx);
+
+
+
+   err=cuCtxGetCurrent(pctx);
+   if(err)
+   {
+       std::cout<<"Get current context, err" << err<<std::endl;
+   }
    std::cout<<"new context"<<*pctx<<std::endl;
-    */
+
 
 
 
    //3.push old context and load
-
    err=cuCtxPushCurrent(ctx);
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
 
-   /*
-   cuCtxGetCurrent(pctx);
+   err=cuCtxGetCurrent(pctx);
+   if(err)
+   {
+       std::cout<<"Get current context, err" << err<<std::endl;
+   }
    std::cout<<"set context"<<*pctx<<std::endl;
-   */
 
    //2.5 create stream
    //CUstream onestream;
@@ -180,10 +188,14 @@ int main()
         return 0;
     }
 
+   CUcontext* mainpctx;
+   err=cuCtxGetCurrent(mainpctx);
+   if(err)
+   {
+       std::cout<<"Get current context, err" << err<<std::endl;
+   }
+   std::cout<<"main context"<<*pctx<<std::endl;
 
-    //CUcontext* mainpctx;
-    //cuCtxGetCurrent(mainpctx);
-    //std::cout<<"main context"<< *mainpctx <<std::endl;
 
 
     /*
