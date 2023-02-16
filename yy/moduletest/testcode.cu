@@ -84,8 +84,9 @@ void thread1(CUcontext ctx)
    std::cout<<"set context"<<*pctx<<std::endl;
 
    //2.5 create stream
-   //CUstream onestream;
-   //cuStreamCreate(&onestream,0);
+   CUstream onestream;
+   cuStreamCreate(&onestream,0);
+   cudaMemcpyAsync(device, host,newsize, cudaMemcpyHostToDevice, onestream);
 
    size_t now=0;
    size_t total=0;
