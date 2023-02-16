@@ -86,7 +86,8 @@ void thread1(CUcontext ctx)
    //2.5 create stream
    CUstream onestream;
    cuStreamCreate(&onestream,0);
-   cudaMemcpyAsync(device, host,newsize, cudaMemcpyHostToDevice, onestream);
+   //cudaMemcpyAsync(device, host,newsize, cudaMemcpyHostToDevice, onestream);
+   testkernel<<<20, 128,0,onestream>>>(1.0,2.0);
    cuStreamSynchronize(onestream);
 
    size_t now=0;
