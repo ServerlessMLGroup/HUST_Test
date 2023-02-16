@@ -39,7 +39,7 @@ void thread1(CUcontext ctx)
    */
 
    //2.create new context?
-   /*
+
    cudaSetDevice(2);
    //here,maybe just cudaSetDevice can make change
    CUcontext tempcont;
@@ -57,7 +57,7 @@ void thread1(CUcontext ctx)
    }
    cuCtxGetCurrent(pctx);
    std::cout<<"new context"<<*pctx<<std::endl;
-   */
+
 
    //3.push old context and load
    int err;
@@ -146,7 +146,7 @@ void thread2(CUcontext ctx)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(1);
+    cudaSetDevice(2);
 
 
     //1.create context
