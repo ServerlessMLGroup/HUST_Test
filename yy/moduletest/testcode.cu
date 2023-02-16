@@ -66,7 +66,14 @@ void thread1(CUcontext ctx)
    }
    std::cout<<"new context"<<*pctx<<std::endl;
 
-
+   CUcontext* mainpctx;
+   err=cuCtxGetCurrent(mainpctx);
+   if(err)
+   {
+       std::cout<<"Get current context, err" << err<<std::endl;
+   }
+   std::cout<<"main context"<<*mainpctx<<std::endl;
+   
 
 
    //3.push old context and load
