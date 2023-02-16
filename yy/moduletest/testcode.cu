@@ -68,9 +68,10 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
 
-
+   /*
    cuCtxGetCurrent(pctx);
    std::cout<<"set context"<<*pctx<<std::endl;
+   */
 
    //2.5 create stream
    //CUstream onestream;
