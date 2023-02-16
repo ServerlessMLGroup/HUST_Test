@@ -25,7 +25,7 @@ __global__ void testkernel(float n1,float n2) {
 
 //yy add
 //yy add
-void thread1(CUcontext ctx)
+void thread1(CUcontext ctx,float* host,float* device,size_t size)
 {
    //1.cpu bundle
    /*
@@ -41,6 +41,7 @@ void thread1(CUcontext ctx)
    CUcontext* pctx;
    int err;
    //2.create new context?
+   /*
    cudaSetDevice(2);
    //here,maybe just cudaSetDevice can make change
    CUcontext tempcont;
@@ -57,7 +58,11 @@ void thread1(CUcontext ctx)
    }
    cuCtxGetCurrent(pctx);
    std::cout<<"new context"<<*pctx<<std::endl;
+    */
 
+   //2.5 create stream
+   CUstream onestream;
+   cuStreamCreate(&onestream,0);
 
    //3.push old context and load
    err=cuCtxPushCurrent(ctx);
@@ -170,6 +175,10 @@ int main()
         std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
+
+    CUcontext* mainpctx;
+    cuCtxGetCurrent(mainpctx);
+    std::cout<<"main context"<<*mainpctx<<std::endl;
 
     /*
     //1.1 kernel?
@@ -302,7 +311,13 @@ int main()
 
     //4.test in two child thread
 
-    thread first=thread(thread1,cont1);
+    float* host;
+    float* device;
+    size_t newsize=6*1024*1024;
+    cudaMalloc(&device,newsize);
+    cuMemAllocHost((void**)(&host), newsize);
+
+    thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
     first.join();
     //second.join();
