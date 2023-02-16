@@ -175,11 +175,11 @@ int main()
         return 0;
     }
 
-    /*
+
     CUcontext* mainpctx;
     cuCtxGetCurrent(mainpctx);
     std::cout<<"main context"<<*mainpctx<<std::endl;
-    */
+    
 
     /*
     //1.1 kernel?
