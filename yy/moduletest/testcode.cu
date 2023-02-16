@@ -194,7 +194,7 @@ int main()
    {
        std::cout<<"Get current context, err" << err<<std::endl;
    }
-   std::cout<<"main context"<<*pctx<<std::endl;
+   std::cout<<"main context"<<*mainpctx<<std::endl;
 
 
 
