@@ -54,9 +54,10 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
+   /*
    cuCtxGetCurrent(pctx);
    std::cout<<"new context"<<*pctx<<std::endl;
-
+    */
 
 
 
