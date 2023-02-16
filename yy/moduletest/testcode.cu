@@ -58,9 +58,7 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    std::cout<<"new context"<<*pctx<<std::endl;
     */
 
-   //2.5 create stream
-   CUstream onestream;
-   cuStreamCreate(&onestream,0);
+
 
    //3.push old context and load
    err=cuCtxPushCurrent(ctx);
@@ -70,7 +68,9 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    cuCtxGetCurrent(pctx);
    std::cout<<"set context"<<*pctx<<std::endl;
 
-   
+   //2.5 create stream
+   CUstream onestream;
+   cuStreamCreate(&onestream,0);
 
    size_t now=0;
    size_t total=0;
