@@ -57,7 +57,6 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    }
 
 
-
    err=cuCtxGetCurrent(pctx);
    if(err)
    {
@@ -334,8 +333,8 @@ int main()
     float* host;
     float* device;
     size_t newsize=6*1024*1024;
-    //cudaMalloc(&device,newsize);
-    //cuMemAllocHost((void**)(&host), newsize);
+    cudaMalloc(&device,newsize);
+    cuMemAllocHost((void**)(&host), newsize);
 
     thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
