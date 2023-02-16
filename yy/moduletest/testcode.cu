@@ -208,6 +208,7 @@ int main()
     std::cout<<"main context"<<cont1<<std::endl;
 
 
+    testkernel<<<20, 128>>>(1.0,2.0);
     /*
     //1.1 kernel?
     testkernel<<<20, 128>>>(1.0,2.0);
