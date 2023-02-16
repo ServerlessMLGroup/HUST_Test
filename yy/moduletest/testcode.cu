@@ -38,13 +38,13 @@ void thread1(CUcontext ctx)
    }
    */
 
+   CUcontext* pctx;
+   int err;
    //2.create new context?
-
    cudaSetDevice(2);
    //here,maybe just cudaSetDevice can make change
    CUcontext tempcont;
    CUdevice dev;
-
    err = cuCtxGetDevice(&dev);
    if(err)
    {
@@ -60,8 +60,6 @@ void thread1(CUcontext ctx)
 
 
    //3.push old context and load
-   int err;
-   CUcontext* pctx;
    err=cuCtxPushCurrent(ctx);
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
