@@ -167,7 +167,6 @@ int main()
 
     //1.create context
     CUcontext cont1;
-    CUcontext* mainpctx;
     CUcontext cont2;
     CUdevice dev;
     int err;
@@ -191,7 +190,8 @@ int main()
     }
 
 
-
+   err=cuCtxPushCurrent(cont1);
+   CUcontext* mainpctx;
    err=cuCtxGetCurrent(mainpctx);
    if(err)
    {
