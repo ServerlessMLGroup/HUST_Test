@@ -317,9 +317,9 @@ int main()
     //cudaMalloc(&device,newsize);
     //cuMemAllocHost((void**)(&host), newsize);
 
-    thread first=thread(thread1,cont1,host,device,newsize);
+    //thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
-    first.join();
+    //first.join();
     //second.join();
 
 
