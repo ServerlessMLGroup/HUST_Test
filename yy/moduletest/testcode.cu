@@ -56,7 +56,7 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    }
    cuCtxGetCurrent(pctx);
    std::cout<<"new context"<<*pctx<<std::endl;
-    
+
 
 
 
@@ -322,9 +322,9 @@ int main()
     //cudaMalloc(&device,newsize);
     //cuMemAllocHost((void**)(&host), newsize);
 
-    //thread first=thread(thread1,cont1,host,device,newsize);
+    thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
-    //first.join();
+    first.join();
     //second.join();
 
 
