@@ -44,7 +44,7 @@ void thread1(CUcontext ctx)
    int err;
 
    //2.create new context?
-
+   /*
    cudaSetDevice(3);
    //here,maybe just cudaSetDevice can make change
    CUcontext tempcont;
@@ -59,7 +59,7 @@ void thread1(CUcontext ctx)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
-
+   */
 
 
    err=cuCtxGetCurrent(pctx);
