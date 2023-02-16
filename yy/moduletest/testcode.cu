@@ -69,8 +69,8 @@ void thread1(CUcontext ctx,float* host,float* device,size_t size)
    std::cout<<"set context"<<*pctx<<std::endl;
 
    //2.5 create stream
-   CUstream onestream;
-   cuStreamCreate(&onestream,0);
+   //CUstream onestream;
+   //cuStreamCreate(&onestream,0);
 
    size_t now=0;
    size_t total=0;
@@ -314,8 +314,8 @@ int main()
     float* host;
     float* device;
     size_t newsize=6*1024*1024;
-    //cudaMalloc(&device,newsize);
-    //cuMemAllocHost((void**)(&host), newsize);
+    cudaMalloc(&device,newsize);
+    cuMemAllocHost((void**)(&host), newsize);
 
     thread first=thread(thread1,cont1,host,device,newsize);
     //thread second=thread(thread2,cont1);
