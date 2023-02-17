@@ -178,7 +178,7 @@ void thread2(CUcontext ctx)
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
 
-   sleep(2);
+   //sleep(2);
    //mtx1_1.unlock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    /*
