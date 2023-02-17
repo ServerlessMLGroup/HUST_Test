@@ -390,12 +390,12 @@ int main()
     mtx1_2.lock();
     //4.test in two child thread
 
-    /*
+
     thread first=thread(thread1,cont1);
     thread second=thread(thread2,cont1);
     first.join();
     second.join();
-    */
+    
 
     return 0;
 }
