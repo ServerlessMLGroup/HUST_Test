@@ -181,7 +181,7 @@ void thread2(CUcontext ctx)
    size_t now=0;
    size_t total=0;
    cudaMemGetInfo(&now,&total);
-   mtx1_1.unlock()
+   mtx1_1.unlock();
 
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
