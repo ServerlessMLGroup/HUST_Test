@@ -98,7 +98,7 @@ void thread1(CUcontext ctx)
    cudaMemGetInfo(&now,&total);
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-   mtx1_1.lock();
+   //mtx1_1.lock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -374,10 +374,10 @@ int main()
     cuMemAllocHost((void**)(&host2), newsize);
 
     //thread first=thread(thread1,cont1,host,device,newsize);
-    //thread first=thread(thread1,cont1);
-    thread second=thread(thread2,cont1);
-    //first.join();
-    second.join();
+    thread first=thread(thread1,cont1);
+    //thread second=thread(thread2,cont1);
+    first.join();
+    //second.join();
 
     return 0;
 }
