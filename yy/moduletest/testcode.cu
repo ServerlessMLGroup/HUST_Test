@@ -106,7 +106,7 @@ void thread1(CUcontext ctx)
    mtx1_2.unlock();
    */
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
-   mtex1_2.unlock();
+   mte1_2.unlock();
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
