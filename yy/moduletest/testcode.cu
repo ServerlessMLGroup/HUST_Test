@@ -98,8 +98,7 @@ void thread1(CUcontext ctx)
    cudaMemGetInfo(&now,&total);
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-   //mtx1_1.lock();
-   //sleep(2);
+   mtx1_1.lock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -178,8 +177,8 @@ void thread2(CUcontext ctx)
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
 
-   //sleep(2);
-   //mtx1_1.unlock();
+   usleep(50);
+   mtx1_1.unlock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -270,11 +269,11 @@ int main()
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now before module load "<<now<<std::endl;
 
+    /*
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     CUmodule mod7,mod8,mod9,mod10,mod11,mod12;
     sleep(2);
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
-    /*
     cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
     cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
     cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
@@ -373,11 +372,11 @@ int main()
     cudaMalloc(&device2,newsize);
     cuMemAllocHost((void**)(&host2), newsize);
 
-    //thread first=thread(thread1,cont1,host,device,newsize);
-    //thread first=thread(thread1,cont1);
-    //thread second=thread(thread2,cont1);
-    //first.join();
-    //second.join();
+    thread first=thread(thread1,cont1,host,device,newsize);
+    thread first=thread(thread1,cont1);
+    thread second=thread(thread2,cont1);
+    first.join();
+    second.join();
 
     return 0;
 }
