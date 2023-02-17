@@ -89,18 +89,16 @@ void thread1(CUcontext ctx)
    std::cout<<"set context"<<*pctx<<std::endl;
 
    //2.5 create stream
-   /*
+
    CUstream onestream;
    cuStreamCreate(&onestream,0);
-   */
+   cudaMemcpyAsync(device1, host1,newsize, cudaMemcpyHostToDevice, onestream);
+   //testkernel<<<20, 128>>>(1.0,2.0);
+   cuStreamSynchronize(onestream);
+
    size_t now=0;
    size_t total=0;
    cudaMemGetInfo(&now,&total);
-   cudaMemcpyAsync(device1, host1,newsize, cudaMemcpyHostToDevice, onlystream);
-   //testkernel<<<20, 128>>>(1.0,2.0);
-   cuStreamSynchronize(onlystream);
-
-
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
    mtx1_1.lock();
@@ -170,24 +168,20 @@ void thread2(CUcontext ctx)
    std::cout<<"set context"<<*pctx<<std::endl;
 
    //2.5 create stream
-   /*
    CUstream onestream;
    cuStreamCreate(&onestream,0);
-   */
-   //cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
+   cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
    //testkernel<<<20, 128>>>(1.0,2.0);
-
-   //cudaMemGetInfo(&now,&total);
+   cuStreamSynchronize(onestream);
    size_t now=0;
    size_t total=0;
+   cudaMemGetInfo(&now,&total);
+
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-   /*
-   usleep(50);
+
+   usleep(5000);
    mtx1_1.unlock();
-   */
-   usleep(100);
-   cuStreamSynchronize(onlystream);
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
