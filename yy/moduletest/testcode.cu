@@ -272,6 +272,7 @@ int main()
 
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     CUmodule mod7,mod8,mod9,mod10,mod11,mod12;
+    sleep(2);
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
     /*
     cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
