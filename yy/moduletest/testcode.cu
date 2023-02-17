@@ -286,7 +286,8 @@ int main()
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     CUmodule mod7,mod8,mod9,mod10,mod11,mod12;
     //sleep(2);
-    cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
+    cuStreamCreate(&onlystream,0);
+    cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onlystream);
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
     /*
     cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -319,7 +320,6 @@ int main()
     CUstream firststream;
     cuStreamCreate(&firststream,0);
 
-    cuStreamCreate(&onlystream,0);
 
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now after stream create "<<now<<std::endl;
