@@ -16,7 +16,7 @@ float* host1;
 float* device1;
 float* host2;
 float* device2;
-size_t newsize=600*1024*1024;
+size_t newsize=1200*1024*1024;
 
 CUstream onlystream;
 //Mutex
