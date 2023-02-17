@@ -12,9 +12,13 @@
 #include <ctime>
 #include <time.h>
 using namespace std;
-float* host;
-float* device;
+float* host1;
+float* device1;
 size_t newsize=600*1024*1024;
+//Mutex
+mutex mtx1_1;
+mutex mtx1_2;
+
 
 __global__ void testkernel(float n1,float n2) {
     float n3;
@@ -59,16 +63,13 @@ void thread1(CUcontext ctx)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
-   */
-
-
    err=cuCtxGetCurrent(pctx);
    if(err)
    {
        std::cout<<"Get current context, err" << err<<std::endl;
    }
    std::cout<<"new context"<<*pctx<<std::endl;
-
+    */
 
    //3.push old context and load
    err=cuCtxPushCurrent(ctx);
@@ -86,23 +87,26 @@ void thread1(CUcontext ctx)
    //2.5 create stream
    CUstream onestream;
    cuStreamCreate(&onestream,0);
-   //cudaMemcpyAsync(device, host,newsize, cudaMemcpyHostToDevice, onestream);
-   testkernel<<<20, 128>>>(1.0,2.0);
-   //cuStreamSynchronize(onestream);
+   cudaMemcpyAsync(device1, host1,newsize, cudaMemcpyHostToDevice, onestream);
+   //testkernel<<<20, 128>>>(1.0,2.0);
+   cuStreamSynchronize(onestream);
 
    size_t now=0;
    size_t total=0;
    cudaMemGetInfo(&now,&total);
-   std::cout<<"1 Size before"<<now<<std::endl;
+   //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
+   mtx1_1.lock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
+   /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
    cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
    cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
    cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
    cudaMemGetInfo(&now,&total);
-   std::cout<<"1 Size after"<<now<<std::endl;
+   */
+   //std::cout<<"1 Size after"<<now<<std::endl;
 }
 
 void thread2(CUcontext ctx)
@@ -118,13 +122,15 @@ void thread2(CUcontext ctx)
    }
    */
 
+   CUcontext* pctx;
+   int err;
+
    //2.create new context?
    /*
-   cudaSetDevice(2);
+   cudaSetDevice(3);
    //here,maybe just cudaSetDevice can make change
    CUcontext tempcont;
    CUdevice dev;
-
    err = cuCtxGetDevice(&dev);
    if(err)
    {
@@ -135,33 +141,51 @@ void thread2(CUcontext ctx)
    {
        std::cout<<"Can't create Context, err" << err << std::endl;
    }
-   cuCtxGetCurrent(pctx);
+   err=cuCtxGetCurrent(pctx);
+   if(err)
+   {
+       std::cout<<"Get current context, err" << err<<std::endl;
+   }
    std::cout<<"new context"<<*pctx<<std::endl;
-   */
+    */
 
-
-   int err;
-   CUcontext* pctx;
+   //3.push old context and load
    err=cuCtxPushCurrent(ctx);
    if(err){
    std::cout<<"Push Context ERR! "<<err<<std::endl;
    }
-   cuCtxGetCurrent(pctx);
+
+   err=cuCtxGetCurrent(pctx);
+   if(err)
+   {
+       std::cout<<"Get current context, err" << err<<std::endl;
+   }
    std::cout<<"set context"<<*pctx<<std::endl;
+
+   //2.5 create stream
+   CUstream onestream;
+   cuStreamCreate(&onestream,0);
+   cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
+   //testkernel<<<20, 128>>>(1.0,2.0);
+   cuStreamSynchronize(onestream);
+   sleep(2);
 
    size_t now=0;
    size_t total=0;
    cudaMemGetInfo(&now,&total);
-   std::cout<<"2 Size before"<<now<<std::endl;
+   //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp7.ptx");
-   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp8.ptx");
-   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temm9.ptx");
-   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp10.ptx");
-   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp11.ptx");
-   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp12.ptx");
+   mtx1_1.unlock();
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
+   /*
+   cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
+   cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
+   cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
+   cuModuleLoad(&mod5, "/home/wuhao/HUST_Test/yy/moduletest/temp5.ptx");
+   cuModuleLoad(&mod6, "/home/wuhao/HUST_Test/yy/moduletest/temp6.ptx");
    cudaMemGetInfo(&now,&total);
-   std::cout<<"2 Size after"<<now<<std::endl;
+   */
+   //std::cout<<"1 Size after"<<now<<std::endl;
 }
 
 int main()
@@ -208,7 +232,7 @@ int main()
     std::cout<<"main context"<<cont1<<std::endl;
 
 
-    testkernel<<<20, 128>>>(1.0,2.0);
+    //testkernel<<<20, 128>>>(1.0,2.0);
     /*
     //1.1 kernel?
     testkernel<<<20, 128>>>(1.0,2.0);
@@ -339,19 +363,18 @@ int main()
     std::cout<<"Size now after kernel launch "<<now<<std::endl;
     */
 
+    mtx1_1.lock();
     //4.test in two child thread
-
-
-
-    cudaMalloc(&device,newsize);
-    cuMemAllocHost((void**)(&host), newsize);
+    cudaMalloc(&device1,newsize);
+    cuMemAllocHost((void**)(&host1), newsize);
+    cudaMalloc(&device1,newsize);
+    cuMemAllocHost((void**)(&host1), newsize);
 
     //thread first=thread(thread1,cont1,host,device,newsize);
     thread first=thread(thread1,cont1);
-    //thread second=thread(thread2,cont1);
+    thread second=thread(thread2,cont1);
     first.join();
-    //second.join();
-
+    second.join();
 
     return 0;
 }
