@@ -105,6 +105,7 @@ void thread1(CUcontext ctx)
    mtx1_1.lock();
    mtx1_2.unlock();
    */
+   mtx1_1.lock()
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
    mtx1_2.unlock();
    /*
@@ -180,6 +181,7 @@ void thread2(CUcontext ctx)
    size_t now=0;
    size_t total=0;
    cudaMemGetInfo(&now,&total);
+   mtx1_1.unlock()
 
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
@@ -286,12 +288,12 @@ int main()
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     CUmodule mod7,mod8,mod9,mod10,mod11,mod12;
     //sleep(2);
+    /*
     cuStreamCreate(&onlystream,0);
     cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onlystream);
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
     int result=cuModuleGetFunction(&kernel, mod1, "fused_add_10_kernel0");
     std::cout<<"result "<<result<<std::endl;
-    /*
     cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
     cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
     cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
