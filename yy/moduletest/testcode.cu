@@ -374,10 +374,10 @@ int main()
     cuMemAllocHost((void**)(&host2), newsize);
 
     //thread first=thread(thread1,cont1,host,device,newsize);
-    thread first=thread(thread1,cont1);
-    //thread second=thread(thread2,cont1);
-    first.join();
-    //second.join();
+    //thread first=thread(thread1,cont1);
+    thread second=thread(thread2,cont1);
+    //first.join();
+    second.join();
 
     return 0;
 }
