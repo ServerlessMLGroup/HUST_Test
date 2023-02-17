@@ -14,6 +14,8 @@
 using namespace std;
 float* host1;
 float* device1;
+float* host2;
+float* device2;
 size_t newsize=600*1024*1024;
 //Mutex
 mutex mtx1_1;
@@ -367,8 +369,8 @@ int main()
     //4.test in two child thread
     cudaMalloc(&device1,newsize);
     cuMemAllocHost((void**)(&host1), newsize);
-    cudaMalloc(&device1,newsize);
-    cuMemAllocHost((void**)(&host1), newsize);
+    cudaMalloc(&device2,newsize);
+    cuMemAllocHost((void**)(&host2), newsize);
 
     //thread first=thread(thread1,cont1,host,device,newsize);
     thread first=thread(thread1,cont1);
