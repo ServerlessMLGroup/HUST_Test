@@ -170,13 +170,14 @@ void thread2(CUcontext ctx)
    cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
    //testkernel<<<20, 128>>>(1.0,2.0);
    cuStreamSynchronize(onestream);
-   sleep(2);
-
    size_t now=0;
    size_t total=0;
    cudaMemGetInfo(&now,&total);
+
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
+
+   sleep(2);
    mtx1_1.unlock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    /*
