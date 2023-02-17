@@ -270,17 +270,25 @@ int main()
     cuStreamSynchronize(firststream);
     */
 
+
+    cudaMalloc(&device1,newsize);
+    cuMemAllocHost((void**)(&host1), newsize);
+    cudaMalloc(&device2,newsize);
+    cuMemAllocHost((void**)(&host2), newsize);
+
     //2.test in the mom thread
     size_t now=0;
     size_t total=0;
     cudaMemGetInfo(&now,&total);
     std::cout<<"Size now before module load "<<now<<std::endl;
 
-    /*
+
     CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
     CUmodule mod7,mod8,mod9,mod10,mod11,mod12;
-    sleep(2);
+    //sleep(2);
+    cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
     cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
+    /*
     cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
     cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
     cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
@@ -377,10 +385,6 @@ int main()
     mtx1_1.lock();
     mtx1_2.lock();
     //4.test in two child thread
-    cudaMalloc(&device1,newsize);
-    cuMemAllocHost((void**)(&host1), newsize);
-    cudaMalloc(&device2,newsize);
-    cuMemAllocHost((void**)(&host2), newsize);
 
     thread first=thread(thread1,cont1);
     thread second=thread(thread2,cont1);
