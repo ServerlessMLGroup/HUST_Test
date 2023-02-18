@@ -105,9 +105,10 @@ void thread1(CUcontext ctx)
    mtx1_1.lock();
    mtx1_2.unlock();
    */
+
+   mtx1_2.unlock();
    mtx1_1.lock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
-   mtx1_2.unlock();
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
@@ -186,8 +187,8 @@ void thread2(CUcontext ctx)
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
 
-   //mtx1_1.unlock();
    mtx1_2.lock();
+   mtx1_1.unlock();
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -395,7 +396,7 @@ int main()
     thread second=thread(thread2,cont1);
     first.join();
     second.join();
-    
+
 
     return 0;
 }
