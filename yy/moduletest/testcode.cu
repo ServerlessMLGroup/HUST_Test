@@ -108,7 +108,7 @@ void thread1(CUcontext ctx)
 
    mtx1_2.unlock();
    mtx1_1.lock();
-   usleep(500);
+   //usleep(500);
    cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp1.ptx");
    /*
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
@@ -189,6 +189,7 @@ void thread2(CUcontext ctx)
 
    mtx1_2.lock();
    mtx1_1.unlock();
+   usleep(500);
    cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
    cuStreamSynchronize(onestream);
 
