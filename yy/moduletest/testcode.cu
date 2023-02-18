@@ -182,15 +182,17 @@ void thread2(CUcontext ctx)
    size_t now=0;
    size_t total=0;
    cudaMemGetInfo(&now,&total);
-   mtx1_1.unlock();
 
    //std::cout<<"1 Size before"<<now<<std::endl;
    CUmodule mod1,mod2,mod3,mod4,mod5,mod6;
 
    mtx1_2.lock();
    mtx1_1.unlock();
-   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
+   cudaMemcpyAsync(device2, host2,newsize, cudaMemcpyHostToDevice, onestream);
+   cuStreamSynchronize(onestream);
+
    /*
+   cuModuleLoad(&mod1, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    cuModuleLoad(&mod2, "/home/wuhao/HUST_Test/yy/moduletest/temp2.ptx");
    cuModuleLoad(&mod3, "/home/wuhao/HUST_Test/yy/moduletest/temp3.ptx");
    cuModuleLoad(&mod4, "/home/wuhao/HUST_Test/yy/moduletest/temp4.ptx");
@@ -204,7 +206,7 @@ void thread2(CUcontext ctx)
 int main()
 {
     cuInit(0);
-    cudaSetDevice(3);
+    cudaSetDevice(2);
 
     //1.create context
     CUcontext cont1;
