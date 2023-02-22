@@ -903,11 +903,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -1.000000e+00f));
   inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
   inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 376320))]);
-  for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
-    for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
-      T_add[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))] = (inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))]);
-    }
-  }
+ 
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
