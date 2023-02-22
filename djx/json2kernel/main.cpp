@@ -48,8 +48,6 @@ enum Status {
 
 //old
 std::vector<CUdeviceptr> storage;
-
-
 std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args;
 std::unique_ptr<Model> model;
