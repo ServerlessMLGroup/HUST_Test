@@ -316,12 +316,15 @@ int main(int argc, char **argv) {
     std::cout<<" test 3: "<<std::endl;
     kernel_offset=0;
     int j=0;
+    float* temp2;
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
           StorageInfo& storage_info = model->storage[arg_idx];
           if(params->mpdata->find(storage_info.name) == params->mpdata->end()){
-          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], paramresize[kernel_offset],firststream));
+          temp2 =params->mpdata->at(storage_info.name);
+          //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], paramresize[kernel_offset],firststream));
+          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp2, tempsize[arg_idx],firststream));
           kernel_offset++;
           }
         }
