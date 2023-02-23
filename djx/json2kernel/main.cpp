@@ -299,7 +299,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    int i = kernel_offset;
+
     kernel_offset=0;
     float* temp[80];
     for (KernelInfo &kernel_info : model->kernels) {
