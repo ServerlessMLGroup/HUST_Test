@@ -267,7 +267,7 @@ int main(int argc, char **argv) {
    size_t paramloaction[80];
    size_t argloaction[80];
    size_t argsize[80];
-   for(i=0;i<80;i++)
+   for(int i=0;i<80;i++)
    {
    argloaction[i] = 1;
    }
