@@ -257,7 +257,7 @@ int main(int argc, char **argv) {
         //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array, tempsize,firststream));
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
-	    std::cout<<i<<" wawawa: "<<std::endl;
+	    std::cout<<i<<" wawawabalala: "<<std::endl;
     }
 
     //yy add,parameters count
