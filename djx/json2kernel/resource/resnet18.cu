@@ -11,6 +11,9 @@
 #endif
 
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+  for(int i=0;i<1000000;i++) {
+      __nanosleep(1000);
+    };
   float compute[56];
   __shared__ float pad_temp_shared[229];
   __shared__ float placeholder_shared[448];
