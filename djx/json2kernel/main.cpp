@@ -311,7 +311,6 @@ int main(int argc, char **argv) {
         temp[kernel_offset]=params->mpdata->at(storage_info.name);
         kernel_offset++;
         }
-    return Status::Succ;
     }
     std::cout<<" test 3: "<<std::endl;
     kernel_offset=0;
