@@ -315,6 +315,7 @@ int main(int argc, char **argv) {
     }
 
     kernel_offset=0;
+    int j=0;
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
@@ -331,8 +332,9 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, secondstream, (void **)raw_args[i].data(), 0 // raw_args是json中指示的storage的下标
+        0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
     ));
+        j++;
     }
 
     cuStreamSynchronize(secondstream);
