@@ -243,6 +243,7 @@ int main(int argc, char **argv) {
     int j=0;
     float* temp2;
 
+
     RETURN_STATUS(set_input());
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
@@ -253,6 +254,8 @@ int main(int argc, char **argv) {
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], evsize[kernel_offset],firststream));
           kernel_offset++;
         }
+        //don't pipe
+        /*
         cuStreamSynchronize(firststream);
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
@@ -263,8 +266,22 @@ int main(int argc, char **argv) {
         0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
     ));
         j++;
+        */
     }
 
+    cuStreamSynchronize(firststream);
+    j=0;
+    for (KernelInfo &kernel_info : model->kernels) {
+        std::string& func_name = kernel_info.name;
+        CUfunction func = kernels[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
+    ));
+        j++;
+    }
     cuStreamSynchronize(secondstream);
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
