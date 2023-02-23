@@ -241,68 +241,20 @@ int main(int argc, char **argv) {
         if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
 
-        //auto &array = params->at(storage_info.name);
-        //yy change
         array[i] =params->mpdata->at(storage_info.name);
         size[i] =params->mpsize->at(storage_info.name);
-
-        //old
-        //GPU_RETURN_STATUS(cuMemcpyHtoD(
-        //    (CUdeviceptr)storage[i], array.data(),
-        //    array.size() * sizeof(float)));
 
         //yychange
         tempsize[i] = size[i]*sizeof(float);
         totoalsize +=tempsize[i];
-        //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array, tempsize,firststream));
-
-        //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
 	    std::cout<<i<<" wawawa: "<<std::endl;
     }
 
-    //yy add,parameters count
-   int paramreused[80];
-   size_t paramresize[80];
-   int location=0;
-   size_t paramloaction[80];
-   size_t argloaction[80];
-   size_t argsize[80];
-   for(int i=0;i<80;i++)
-   {
-   argloaction[i] = 1;
-   }
-   std::cout<<" test 1: "<<std::endl;
-   int offset=0;
-   for (KernelInfo &kernel_info : model->kernels) {
-        for (size_t arg_idx : kernel_info.args) {
-            // assert(arg_idx < storage.size());
-
-            //this pan duan si hu hai bu he li guang != null hao xiang bu gou
-            //zhe li ke neng xv yao params
-            //hai xv yan zheng
-            StorageInfo& storage_info = model->storage[arg_idx];
-            if(params->mpdata->find(storage_info.name) == params->mpdata->end())
-            {
-            if((argloaction[arg_idx] ==1))
-            {
-            paramreused[offset]=(int)arg_idx;
-            size_t stype_size = Model::get_stype_size(model->storage[arg_idx].stype);
-            size_t storage_size = stype_size * model->storage[arg_idx].size;
-            paramresize[offset]=storage_size;
-            paramloaction[offset]=location;
-            argloaction[arg_idx]=location;
-            argsize[arg_idx]=storage_size;
-
-            location += storage_size;
-            offset++;
-            }
-            }
-        }
-    }
 
     std::cout<<" test 2: "<<std::endl;
     int kernel_offset=0;
     float* temp[80];
+    size_t evsize[80];
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
@@ -310,6 +262,7 @@ int main(int argc, char **argv) {
         if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
         temp[kernel_offset]=params->mpdata->at(storage_info.name);
+        evsize[kernel_offset]= params->mpsize->at(storage_info.name)*sizeof(float);
         kernel_offset++;
         }
     }
@@ -323,9 +276,7 @@ int main(int argc, char **argv) {
           StorageInfo& storage_info = model->storage[arg_idx];
           if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
-          //temp2 =params->mpdata->at(storage_info.name);
-          //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], paramresize[kernel_offset],firststream));
-          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp2, tempsize[arg_idx],firststream));
+          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], evsize[kernel_offset],firststream));
           kernel_offset++;
         }
         cuStreamSynchronize(firststream);
