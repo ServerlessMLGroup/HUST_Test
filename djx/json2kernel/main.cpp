@@ -257,7 +257,7 @@ int main(int argc, char **argv) {
         //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array, tempsize,firststream));
 
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
-	    std::cout<<i<<" wawawabalala: "<<std::endl;
+	    std::cout<<i<<" wawawa: "<<std::endl;
     }
 
     //yy add,parameters count
@@ -271,7 +271,7 @@ int main(int argc, char **argv) {
    {
    argloaction[i] = 1;
    }
-
+   std::cout<<" test 1: "<<std::endl;
    int offset=0;
    for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
@@ -299,7 +299,7 @@ int main(int argc, char **argv) {
         }
     }
 
-
+    std::cout<<" test 2: "<<std::endl;
     int kernel_offset=0;
     float* temp[80];
     for (KernelInfo &kernel_info : model->kernels) {
@@ -313,7 +313,7 @@ int main(int argc, char **argv) {
         }
     return Status::Succ;
     }
-
+    std::cout<<" test 3: "<<std::endl;
     kernel_offset=0;
     int j=0;
     for (KernelInfo &kernel_info : model->kernels) {
