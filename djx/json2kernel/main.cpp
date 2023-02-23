@@ -321,12 +321,12 @@ int main(int argc, char **argv) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
           StorageInfo& storage_info = model->storage[arg_idx];
-          if(params->mpdata->find(storage_info.name) == params->mpdata->end()){
-          temp2 =params->mpdata->at(storage_info.name);
+          if(params->mpdata->find(storage_info.name) == params->mpdata->end())
+            continue;
+          //temp2 =params->mpdata->at(storage_info.name);
           //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], paramresize[kernel_offset],firststream));
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp2, tempsize[arg_idx],firststream));
           kernel_offset++;
-          }
         }
         cuStreamSynchronize(firststream);
         std::string& func_name = kernel_info.name;
