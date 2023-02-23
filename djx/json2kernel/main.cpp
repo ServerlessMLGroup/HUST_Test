@@ -280,7 +280,8 @@ int main(int argc, char **argv) {
             //this pan duan si hu hai bu he li guang != null hao xiang bu gou
             //zhe li ke neng xv yao params
             //hai xv yan zheng
-            if((model->storage[arg_idx].name!="null")&&(model->storage[arg_idx].name!="data"))
+            StorageInfo& storage_info = model->storage[arg_idx];
+            if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             {
             if((argloaction[arg_idx] ==1))
             {
@@ -318,7 +319,8 @@ int main(int argc, char **argv) {
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
-          if((model->storage[arg_idx].name!="null")&&(model->storage[arg_idx].name!="data")){
+          StorageInfo& storage_info = model->storage[arg_idx];
+          if(params->mpdata->find(storage_info.name) == params->mpdata->end()){
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], paramresize[kernel_offset],firststream));
           kernel_offset++;
           }
