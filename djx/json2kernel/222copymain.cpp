@@ -64,7 +64,7 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
         0, stream, (void **)raw_args[i].data(), 0 // raw_args是json中指示的storage的下标
     ));
     // double duration = (double(end - start));
-    // std::cout << "func_name:" << func_name << " time:" << duration << std::endl;
+    // std::cout << "func_name:" << func_name << " time:" << duration << std::endl; 
     // std::cout << "func_name:" << func_name << " launch_params:" << launch_params[0] << " " << launch_params[1] << " " << launch_params[2] << " " << launch_params[3] << " " << launch_params[4] << " " << launch_params[5] << " raw_args_ptr:" << (void **)raw_args[i].data() << std::endl;
     return Status::Succ;
 }
@@ -73,7 +73,7 @@ Status execute_to(int idx, CUstream stream, Model* model) {
     for (int i = 0; i < idx; i++) {
         RETURN_STATUS(launch_kernel(i, stream, model));
         //GPU_RETURN_STATUS(cuStreamSynchronize(stream));
-    }
+    }  
     return Status::Succ;
 }
 
@@ -113,7 +113,7 @@ Status set_input() {
     size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
     if (input.size() * sizeof(float) < storage_size) RETURN_STATUS(Status::OutOfRange);
     GPU_RETURN_STATUS(cuMemcpyHtoD(
-        (CUdeviceptr)storage[input_storage_idx], (void*)input.data(),
+        (CUdeviceptr)storage[input_storage_idx], (void*)input.data(), 
         storage_size)
     );
     // TODO: printf input_storage_idx
@@ -183,8 +183,6 @@ int main(int argc, char **argv) {
     //yy add stream
     CUstream firststream;
     cuStreamCreate(&firststream,0);
-    CUstream secondstream;
-    cuStreamCreate(&secondstream,0);
     //add fininshed
 
     // 2. load cuda kernels
@@ -210,6 +208,85 @@ int main(int argc, char **argv) {
         storage.push_back(device_ptr);
     }
 
+
+
+    /*
+    //yy create csv
+    //get parameter for each kernel
+    std::ofstream outFile;
+    //outFile.open("output.csv", std::ios::out | std::ios::trunc);
+    outFile.open("oytput.csv", std::ios::in);
+    outFile << "kernel name" << ','
+            << "size" << std::endl;
+    int storage_tongji[model->storage.size()];
+    int kernelsize_tongji[model->kernels.size()];
+    int argused[80];
+    int kernelownarg[model->kernels.size()][8];
+    size_t type_size;
+    size_t torage_size;
+    //Initilize argused and kernelownarg
+    //argused is used for pointing wherther the arg was uesd by the kernel launched bofore
+    //kernelownarg
+    for(int i=0;i<80;i++)
+    {
+    argused[i]=-1;
+    }
+    for(int i=0;i<model->kernels.size();i++)
+    {
+        for(int j=0;j<8;j++)
+        {
+        kernelownarg[i][j]=-1;
+        }
+    }
+
+    for (int i=0;i<model->storage.size();i++) {
+        type_size = Model::get_stype_size(model->storage[i].stype);
+        torage_size = type_size * model->storage[i].size;
+        storage_tongji[i]=(int)torage_size;
+    }
+
+    //tempsizetotal for kernel size
+    //temlocation for location to save
+    //top for arguesd
+    //temp to save temporary arg
+    int tempsizetotal;
+    int temp=-2;
+    int temlocation;
+    int top=0;
+
+
+    for (int k=0;k<model->kernels.size();k++) {
+        tempsizetotal=0;
+        temlocation=-1;
+        for (int i=0;i<model->kernels[k].args.size();i++) {
+            temp=model->kernels[k].args[i];
+            //if(!(argexist(temp,argused,&top)))
+            //{
+            tempsizetotal+=storage_tongji[temp];
+            //temlocation++;
+            //kernelownarg[k][temlocation]=temp;
+            //}
+        }
+        kernelsize_tongji[k]=tempsizetotal;
+    }
+
+    for(int j=0;j<model->kernels.size();j++)
+    {
+    std::cout<<"Kernel: "<< model->kernels[j].name.c_str()<<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
+    outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
+
+    outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j];
+        for(int i=0;i<8;i++)
+        {
+        outFile<<","<<kernelownarg[j][i];
+        }
+    outFile<<std::endl;
+
+    }
+    outFile.close();
+    //add fininshed
+    */
+
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;
     raw_args.reserve(model->kernels.size());
@@ -219,6 +296,7 @@ int main(int argc, char **argv) {
         for (size_t arg_idx : kernel_info.args) {
             // assert(arg_idx < storage.size());
             kernel_arg.push_back(&storage[arg_idx]);
+
         }
         raw_args.push_back(kernel_arg);
     }
@@ -226,12 +304,15 @@ int main(int argc, char **argv) {
     printf("parse params!\n");
     parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
 
+
     //yy add
     float* array[storage.size()];
     uint64_t size[storage.size()];
     size_t totoalsize=0;
     size_t tempsize[storage.size()];
     //add fininshed
+
+
 
     for (size_t i = 0; i < storage.size(); i++) {
         // std::cout << i << std::endl;
@@ -260,82 +341,36 @@ int main(int argc, char **argv) {
 	    std::cout<<i<<" wawawa: "<<std::endl;
     }
 
-    //yy add,parameters count
-   int paramreused[80];
-   size_t paramresize[80];
-   int location=0;
-   size_t paramloaction[80];
-   size_t argloaction[80];
-   size_t argsize[80];
-   for(i=0;i<80;i++)
-   {
-   argloaction[i] = 1;
-   }
-
-   int offset=0;
-   for (KernelInfo &kernel_info : model->kernels) {
-        for (size_t arg_idx : kernel_info.args) {
-            // assert(arg_idx < storage.size());
-
-            //this pan duan si hu hai bu he li guang != null hao xiang bu gou
-            //zhe li ke neng xv yao params
-            //hai xv yan zheng
-            if((model->storage[arg_idx].name!="null")&&(model->storage[arg_idx].name!="data"))
-            {
-            if((argloaction[arg_idx] ==1))
-            {
-            paramreused[offset]=(int)arg_idx;
-            size_t stype_size = Model::get_stype_size(model->storage[arg_idx].stype);
-            size_t storage_size = stype_size * model->storage[arg_idx].size;
-            paramresize[offset]=storage_size;
-            paramloaction[offset]=location;
-            argloaction[arg_idx]=location;
-            argsize[arg_idx]=storage_size;
-
-            location += storage_size;
-            offset++;
-            }
-            }
-        }
-    }
-
-    int i = kernel_offset;
-    kernel_offset=0;
-    float* temp[80];
-    for (KernelInfo &kernel_info : model->kernels) {
-        for (size_t arg_idx : kernel_info.args) {
-          //zhe li shao yi ge chuan di
-          StorageInfo& storage_info = model->storage[arg_idx];
+    //yy add
+    float* temp2;
+    for (size_t i = 0; i < storage.size(); i++) {
+        // std::cout << i << std::endl;
+        StorageInfo& storage_info = model->storage[i];
         if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
-        temp[kernel_offset]=params->mpdata->at(storage_info.name);
-        kernel_offset++;
-        }
-    return Status::Succ;
+        temp2 =params->mpdata->at(storage_info.name);
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],temp2, tempsize[i],firststream));
     }
+    //add fininshed
 
-    kernel_offset=0;
-    for (KernelInfo &kernel_info : model->kernels) {
-        for (size_t arg_idx : kernel_info.args) {
-          //zhe li shao yi ge chuan di
-          if((model->storage[arg_idx].name!="null")&&(model->storage[arg_idx].name!="data")){
-          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], paramresize[kernel_offset],firststream));
-          kernel_offset++;
-          }
-        }
-        cuStreamSynchronize(firststream);
-        std::string& func_name = kernel_info.name;
-        CUfunction func = kernels[func_name];
-        uint32_t *launch_params = kernel_info.launch_params;
-        // std::cout << func_name << std::endl;
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, secondstream, (void **)raw_args[i].data(), 0 // raw_args是json中指示的storage的下标
-    ));
+    //yy add
+
+    cuStreamSynchronize(firststream);
+    float* totaldata;
+    CUdeviceptr devicetotal;
+    std::cout<<" total size: "<<totoalsize<<std::endl;
+
+    cuMemAlloc((CUdeviceptr*)&devicetotal, totoalsize);
+    cuMemAllocHost((void**)(&totaldata), totoalsize);
+
+    for(int j=0;j<(totoalsize/sizeof(float));j++)
+    {
+    totaldata[j]=2.0;
     }
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(devicetotal),totaldata, totoalsize,firststream));
+    cuStreamSynchronize(firststream);
 
-    cuStreamSynchronize(secondstream);
+    //add fininshed
 
     std::vector<float> output(1000);
     RETURN_STATUS(set_input());
