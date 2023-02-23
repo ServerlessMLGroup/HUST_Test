@@ -300,7 +300,7 @@ int main(int argc, char **argv) {
     }
 
 
-    kernel_offset=0;
+    int kernel_offset=0;
     float* temp[80];
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
