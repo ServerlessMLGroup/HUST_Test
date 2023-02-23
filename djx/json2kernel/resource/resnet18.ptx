@@ -338,7 +338,6 @@ $L__BB0_21:
 	st.shared.f32 	[%r164+12], %f290;
 
 $L__BB0_23:
-	bar.sync 	0;
 	mov.u32 	%r188, 0;
 
 $L__BB0_24:
@@ -1879,100 +1878,9 @@ $L__BB1_72:
 	.param .u64 fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2_param_2
 )
 {
-	.reg .f32 	%f<62>;
-	.reg .b32 	%r<14>;
-	.reg .b64 	%rd<12>;
 
 
-	ld.param.u64 	%rd1, [fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2_param_0];
-	ld.param.u64 	%rd2, [fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2_param_1];
-	ld.param.u64 	%rd3, [fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2_param_2];
-	cvta.to.global.u64 	%rd4, %rd2;
-	cvta.to.global.u64 	%rd5, %rd3;
-	cvta.to.global.u64 	%rd6, %rd1;
-	mov.u32 	%r1, %ctaid.x;
-	shl.b32 	%r2, %r1, 7;
-	mov.u32 	%r3, %tid.x;
-	add.s32 	%r4, %r2, %r3;
-	mul.wide.s32 	%rd7, %r4, 4;
-	add.s64 	%rd8, %rd6, %rd7;
-	ld.global.nc.f32 	%f1, [%rd8];
-	add.f32 	%f2, %f1, 0f00000000;
-	mov.f32 	%f3, 0f00000000;
-	ld.global.nc.f32 	%f4, [%rd8+100352];
-	add.f32 	%f5, %f2, %f4;
-	ld.global.nc.f32 	%f6, [%rd8+200704];
-	add.f32 	%f7, %f5, %f6;
-	ld.global.nc.f32 	%f8, [%rd8+401408];
-	add.f32 	%f9, %f7, %f8;
-	ld.global.nc.f32 	%f10, [%rd8+501760];
-	add.f32 	%f11, %f9, %f10;
-	ld.global.nc.f32 	%f12, [%rd8+602112];
-	add.f32 	%f13, %f11, %f12;
-	ld.global.nc.f32 	%f14, [%rd8+802816];
-	add.f32 	%f15, %f13, %f14;
-	ld.global.nc.f32 	%f16, [%rd8+903168];
-	add.f32 	%f17, %f15, %f16;
-	ld.global.nc.f32 	%f18, [%rd8+1003520];
-	add.f32 	%f19, %f17, %f18;
-	sub.f32 	%f20, %f3, %f4;
-	add.f32 	%f21, %f20, %f6;
-	ld.global.nc.f32 	%f22, [%rd8+301056];
-	add.f32 	%f23, %f21, %f22;
-	sub.f32 	%f24, %f23, %f10;
-	add.f32 	%f25, %f24, %f12;
-	ld.global.nc.f32 	%f26, [%rd8+702464];
-	add.f32 	%f27, %f25, %f26;
-	sub.f32 	%f28, %f27, %f16;
-	add.f32 	%f29, %f28, %f18;
-	ld.global.nc.f32 	%f30, [%rd8+1103872];
-	add.f32 	%f31, %f29, %f30;
-	sub.f32 	%f32, %f3, %f8;
-	sub.f32 	%f33, %f32, %f10;
-	sub.f32 	%f34, %f33, %f12;
-	add.f32 	%f35, %f34, %f14;
-	add.f32 	%f36, %f35, %f16;
-	add.f32 	%f37, %f36, %f18;
-	ld.global.nc.f32 	%f38, [%rd8+1204224];
-	add.f32 	%f39, %f37, %f38;
-	ld.global.nc.f32 	%f40, [%rd8+1304576];
-	add.f32 	%f41, %f39, %f40;
-	ld.global.nc.f32 	%f42, [%rd8+1404928];
-	add.f32 	%f43, %f41, %f42;
-	add.f32 	%f44, %f10, 0f00000000;
-	sub.f32 	%f45, %f44, %f12;
-	sub.f32 	%f46, %f45, %f26;
-	sub.f32 	%f47, %f46, %f16;
-	add.f32 	%f48, %f47, %f18;
-	add.f32 	%f49, %f48, %f30;
-	sub.f32 	%f50, %f49, %f40;
-	add.f32 	%f51, %f50, %f42;
-	ld.global.nc.f32 	%f52, [%rd8+1505280];
-	add.f32 	%f53, %f51, %f52;
-	mul.hi.s32 	%r5, %r4, -1840700269;
-	add.s32 	%r6, %r5, %r4;
-	shr.u32 	%r7, %r6, 31;
-	shr.s32 	%r8, %r6, 3;
-	add.s32 	%r9, %r8, %r7;
-	mul.lo.s32 	%r10, %r9, 14;
-	sub.s32 	%r11, %r4, %r10;
-	shl.b32 	%r12, %r11, 1;
-	mad.lo.s32 	%r13, %r9, 56, %r12;
-	mul.wide.s32 	%rd9, %r13, 4;
-	add.s64 	%rd10, %rd5, %rd9;
-	ld.global.nc.f32 	%f54, [%rd10];
-	add.f32 	%f55, %f19, %f54;
-	add.s64 	%rd11, %rd4, %rd9;
-	st.global.f32 	[%rd11], %f55;
-	ld.global.nc.f32 	%f56, [%rd10+4];
-	add.f32 	%f57, %f31, %f56;
-	st.global.f32 	[%rd11+4], %f57;
-	ld.global.nc.f32 	%f58, [%rd10+112];
-	add.f32 	%f59, %f43, %f58;
-	st.global.f32 	[%rd11+112], %f59;
-	ld.global.nc.f32 	%f60, [%rd10+116];
-	add.f32 	%f61, %f53, %f60;
-	st.global.f32 	[%rd11+116], %f61;
+
 	ret;
 
 }
