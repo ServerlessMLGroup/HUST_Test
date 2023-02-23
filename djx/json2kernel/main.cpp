@@ -176,10 +176,6 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda kernels!\n");
 
-
-    //yy change:huan yi ge wenjian hai yao gai makefile,wo jiu yong zhe ge le
-    //wo hui zai wo gai de mei yige di fang jia shang zhushi yy
-
     //yy add stream
     CUstream firststream;
     cuStreamCreate(&firststream,0);
@@ -203,10 +199,10 @@ int main(int argc, char **argv) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
         size_t storage_size = stype_size * storage_info.size;
         CUdeviceptr device_ptr;
-        std::vector<char> temp;
-        temp.resize(storage_size, 0);
+        //std::vector<char> temp;
+        //temp.resize(storage_size, 0);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size));
-        GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
+        //GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
         storage.push_back(device_ptr);
     }
 
@@ -226,31 +222,6 @@ int main(int argc, char **argv) {
     printf("parse params!\n");
     parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
 
-    //yy add
-    float* array[storage.size()];
-    uint64_t size[storage.size()];
-    size_t totoalsize=0;
-    size_t tempsize[storage.size()];
-    //add fininshed
-
-    for (size_t i = 0; i < storage.size(); i++) {
-        // std::cout << i << std::endl;
-        StorageInfo& storage_info = model->storage[i];
-        std::cout <<i<<": "<< "storage_info.name:" << storage_info.name << std::endl;
-        std::cout<<storage_info.name<<std::endl;
-        if (params->mpdata->find(storage_info.name) == params->mpdata->end())
-            continue;
-
-        array[i] =params->mpdata->at(storage_info.name);
-        size[i] =params->mpsize->at(storage_info.name);
-
-        //yychange
-        tempsize[i] = size[i]*sizeof(float);
-        totoalsize +=tempsize[i];
-	    std::cout<<i<<" wawawa: "<<std::endl;
-    }
-
-
     std::cout<<" test 2: "<<std::endl;
     int kernel_offset=0;
     float* temp[80];
@@ -266,6 +237,7 @@ int main(int argc, char **argv) {
         kernel_offset++;
         }
     }
+
     std::cout<<" test 3: "<<std::endl;
     kernel_offset=0;
     int j=0;
@@ -283,14 +255,11 @@ int main(int argc, char **argv) {
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
-        std::cout << "reach here" <<j<< std::endl;
-
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
         0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
     ));
-        
         j++;
     }
 
