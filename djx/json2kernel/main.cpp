@@ -242,6 +242,8 @@ int main(int argc, char **argv) {
     kernel_offset=0;
     int j=0;
     float* temp2;
+
+    RETURN_STATUS(set_input());
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
@@ -264,10 +266,7 @@ int main(int argc, char **argv) {
     }
 
     cuStreamSynchronize(secondstream);
-
-    std::vector<float> output(1000);
-    RETURN_STATUS(set_input());
-    RETURN_STATUS(execute(0, model.get()));
+    //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
     // std::vector<float> ans = {0.0003392257, 0.0014304413, 0.0004299286, 0.0010349639, 0.0020997059,
     //                     0.0016049921, 0.0010267848, 0.00042607592, 0.0018747754, 0.0024558322};
