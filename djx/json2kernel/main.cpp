@@ -251,7 +251,7 @@ int main(int argc, char **argv) {
     cuMemAllocHost((void**)(&flag), 1*sizeof(int));
     cuMemAllocHost((void**)(&blocknum), 3*sizeof(int));
     cuMemAllocHost((void**)(&blocksize), 1*sizeof(int));
-    flag[0]==1;
+    flag[0]=1;
     blocknum[0]=49;
     blocknum[1]=1;
     blocknum[2]=1;
