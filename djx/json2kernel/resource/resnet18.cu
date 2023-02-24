@@ -10,7 +10,7 @@
         __shfl_up((var), (offset), (width))
 #endif
 
-extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
   int offset=0;
   int vx=blockIdx.x;
   int vy=blockIdx.y;
@@ -270,7 +270,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restri
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -1772,7 +1772,7 @@ extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,i
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -1890,7 +1890,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -2608,7 +2608,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -2726,7 +2726,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_add_nn_relu_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -2758,7 +2758,7 @@ extern "C" __global__ void fused_add_nn_relu_kernel0(float* __restrict__ T_relu,
   }
 }
 
-extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -2892,7 +2892,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(float* __restri
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -3101,7 +3101,7 @@ float d[16];
   }
 }
 
-extern "C" __global__ void fused_add_nn_relu_3_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_add_nn_relu_3_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -3129,7 +3129,7 @@ extern "C" __global__ void fused_add_nn_relu_3_kernel0(float* __restrict__ T_rel
   }
 }
 // add for loop
-extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -3402,7 +3402,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
     }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4120,7 +4120,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4291,7 +4291,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4377,7 +4377,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4587,7 +4587,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4713,7 +4713,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_conv2d_2_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+extern "C" __global__ void fused_nn_conv2d_2_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4799,7 +4799,7 @@ extern "C" __global__ void fused_nn_conv2d_2_kernel0(float* __restrict__ placeho
   }
 }
 
-extern "C" __global__ void fused_nn_batch_flatten_kernel0(float* __restrict__ tensor, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_batch_flatten_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ tensor, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4827,7 +4827,7 @@ extern "C" __global__ void fused_nn_batch_flatten_kernel0(float* __restrict__ te
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -4998,7 +4998,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -5116,7 +5116,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -5326,7 +5326,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_add_nn_relu_2_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_add_nn_relu_2_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -5355,7 +5355,7 @@ extern "C" __global__ void fused_add_nn_relu_2_kernel0(float* __restrict__ T_rel
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -5451,7 +5451,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_softmax_kernel0(float* __restrict__ placeholder, float* __restrict__ T_softmax_norm) {
+extern "C" __global__ void fused_nn_softmax_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ T_softmax_norm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -5599,7 +5599,7 @@ extern "C" __global__ void fused_nn_softmax_kernel0(float* __restrict__ placehol
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -5809,7 +5809,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -5927,7 +5927,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_conv2d_3_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+extern "C" __global__ void fused_nn_conv2d_3_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -6001,7 +6001,7 @@ extern "C" __global__ void fused_nn_conv2d_3_kernel0(float* __restrict__ placeho
   }
 }
 
-extern "C" __global__ void fused_nn_conv2d_1_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+extern "C" __global__ void fused_nn_conv2d_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -6097,7 +6097,7 @@ extern "C" __global__ void fused_nn_conv2d_1_kernel0(float* __restrict__ placeho
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -7571,7 +7571,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -7742,7 +7742,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -7952,7 +7952,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8048,7 +8048,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8258,7 +8258,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8468,7 +8468,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_conv2d_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+extern "C" __global__ void fused_nn_conv2d_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8632,7 +8632,7 @@ extern "C" __global__ void fused_nn_conv2d_kernel0(float* __restrict__ placehold
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8732,7 +8732,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_add_10_kernel0(float* __restrict__ T_add, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_add_10_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_add, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8760,7 +8760,7 @@ extern "C" __global__ void fused_add_10_kernel0(float* __restrict__ T_add, float
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8860,7 +8860,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8946,7 +8946,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ T_relu, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ T_relu, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -8989,7 +8989,7 @@ extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(float* __rest
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ placeholder2) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ placeholder2) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -9115,7 +9115,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -9325,7 +9325,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(float* __restrict__ placeholder, float* __restrict__ tensor) {
+extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ tensor) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -9375,7 +9375,7 @@ extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(float* __restrict_
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -10093,7 +10093,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -10303,7 +10303,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -10590,7 +10590,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restri
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -10690,7 +10690,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -10816,7 +10816,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -10934,7 +10934,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -11020,7 +11020,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel1(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -11116,7 +11116,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_dense_add_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_add, float* __restrict__ placeholder2) {
+extern "C" __global__ void fused_nn_dense_add_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_add, float* __restrict__ placeholder2) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -11198,7 +11198,7 @@ extern "C" __global__ void fused_nn_dense_add_kernel0(float* __restrict__ placeh
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel2(int* flag,int* blocknum,int* blocksize,float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
@@ -11316,7 +11316,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
 }
 
-extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ data_pack) {
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
