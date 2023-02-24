@@ -353,9 +353,10 @@ int main(int argc, char **argv) {
         uint32_t *launch_params = kernel_info.launch_params;
         if(j==47)
         {
-        std::cout<<"0"<<launch_params[0]<<std::endl;
-        std::cout<<"1"<<launch_params[1]<<std::endl;
-        std::cout<<"2"<<launch_params[2]<<std::endl;
+         std::cout<<"name"<<func_name<<std::endl;
+        std::cout<<"0 "<<launch_params[0]<<std::endl;
+        std::cout<<"1 "<<launch_params[1]<<std::endl;
+        std::cout<<"2 "<<launch_params[2]<<std::endl;
         }
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>40)
