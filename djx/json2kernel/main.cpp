@@ -330,7 +330,7 @@ int main(int argc, char **argv) {
     cuMemAllocHost((void**)(&allblocksize), 80*sizeof(int));
     for(int i=0;i<80;i++)
     {
-    allblocksize[i]=1000;
+    allblocksize[i]=115;
     }
     //init blocknum
     int* allblocknum;
