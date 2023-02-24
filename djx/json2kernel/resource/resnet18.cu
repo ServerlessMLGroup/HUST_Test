@@ -867,7 +867,7 @@ extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,i
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
-  int offset=0
+  int offset=0;
   while(flag[0]==0)
   {
     __nanosleep(100);
