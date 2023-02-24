@@ -25,9 +25,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(int* flag,int* 
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float compute[56];
   __shared__ float pad_temp_shared[229];
   __shared__ float placeholder_shared[448];
@@ -285,9 +285,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[36];
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
@@ -1759,9 +1759,9 @@ extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,i
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
     offset+=blocksize[0];
     }
@@ -1787,9 +1787,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -1905,9 +1905,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[16];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -2623,9 +2623,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -2741,9 +2741,9 @@ extern "C" __global__ void fused_add_nn_relu_kernel0(int* flag,int* blocknum,int
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     if (((((int)vx) * 1024) + ((int)threadIdx.x)) < 25088) {
     T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
   }
@@ -2773,9 +2773,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(int* flag,int* 
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float compute[4];
   __shared__ float pad_temp_shared[580];
   __shared__ float placeholder_shared[1152];
@@ -2907,9 +2907,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
 float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -3116,9 +3116,9 @@ extern "C" __global__ void fused_add_nn_relu_3_kernel0(int* flag,int* blocknum,i
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
     offset+=blocksize[0];
     }
@@ -3144,9 +3144,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(int* flag,int* bl
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     // sm[vy * 28 + vz] = get_smid();
   float compute[1];
   __shared__ float pad_temp_shared[180];
@@ -3417,9 +3417,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[16];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -4135,9 +4135,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[16];
   __shared__ float placeholder_shared[512];
   __shared__ float data_pack_shared[1568];
@@ -4306,9 +4306,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[8];
   __shared__ float placeholder_shared[1024];
   __shared__ float data_pack_shared[256];
@@ -4391,9 +4391,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -4602,9 +4602,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -4728,9 +4728,9 @@ extern "C" __global__ void fused_nn_conv2d_2_kernel0(int* flag,int* blocknum,int
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float compute_local[2];
   __shared__ float pad_temp_shared[216];
   __shared__ float placeholder_shared[256];
@@ -4814,9 +4814,9 @@ extern "C" __global__ void fused_nn_batch_flatten_kernel0(int* flag,int* blocknu
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     tensor[(((int)threadIdx.x))] = placeholder[(((int)threadIdx.x))];
     offset+=blocksize[0];
     }
@@ -4842,9 +4842,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[16];
   __shared__ float placeholder_shared[512];
   __shared__ float data_pack_shared[1568];
@@ -5013,9 +5013,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -5131,9 +5131,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -5341,9 +5341,9 @@ extern "C" __global__ void fused_add_nn_relu_2_kernel0(int* flag,int* blocknum,i
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 784))]), 0.000000e+00f);
 
     offset+=blocksize[0];
@@ -5370,9 +5370,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[16];
   __shared__ float placeholder_shared[128];
   __shared__ float data_pack_shared[392];
@@ -5466,9 +5466,9 @@ extern "C" __global__ void fused_nn_softmax_kernel0(int* flag,int* blocknum,int*
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float normal_reduce_temp0[1];
   float red_buf0[1];
   float T_softmax_exp[32];
@@ -5614,9 +5614,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -5824,9 +5824,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -5942,9 +5942,9 @@ extern "C" __global__ void fused_nn_conv2d_3_kernel0(int* flag,int* blocknum,int
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float compute_local[1];
   __shared__ float pad_temp_shared[208];
   __shared__ float placeholder_shared[512];
@@ -6016,9 +6016,9 @@ extern "C" __global__ void fused_nn_conv2d_1_kernel0(int* flag,int* blocknum,int
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float compute_local[4];
   __shared__ float pad_temp_shared[880];
   __shared__ float placeholder_shared[1024];
@@ -6112,9 +6112,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[36];
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
@@ -7586,9 +7586,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[16];
   __shared__ float placeholder_shared[512];
   __shared__ float data_pack_shared[1568];
@@ -7757,9 +7757,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -7967,9 +7967,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[16];
   __shared__ float placeholder_shared[128];
   __shared__ float data_pack_shared[392];
@@ -8063,9 +8063,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -8273,9 +8273,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -8483,9 +8483,9 @@ extern "C" __global__ void fused_nn_conv2d_kernel0(int* flag,int* blocknum,int* 
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float compute_local[16];
   __shared__ float pad_temp_shared[896];
   __shared__ float placeholder_shared[1024];
@@ -8647,9 +8647,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[32];
   __shared__ float placeholder_shared[256];
   __shared__ float data_pack_shared[1568];
@@ -8747,9 +8747,9 @@ extern "C" __global__ void fused_add_10_kernel0(int* flag,int* blocknum,int* blo
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     T_add[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = (placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 50176))]);
     offset+=blocksize[0];
     }
@@ -8775,9 +8775,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[32];
   __shared__ float placeholder_shared[256];
   __shared__ float data_pack_shared[1568];
@@ -8875,9 +8875,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[8];
   __shared__ float placeholder_shared[1024];
   __shared__ float data_pack_shared[256];
@@ -8961,9 +8961,9 @@ extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(int* flag,int
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float tensor[1];
   tensor[(0)] = -3.402823e+38f;
   for (int dh = 0; dh < 3; ++dh) {
@@ -9004,9 +9004,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -9130,9 +9130,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -9340,9 +9340,9 @@ extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(int* flag,int* blo
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float tensor1[1];
   tensor1[(0)] = 0.000000e+00f;
   for (int rv0 = 0; rv0 < 7; ++rv0) {
@@ -9390,9 +9390,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[16];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -10108,9 +10108,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -10318,9 +10318,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(int* flag,int* 
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float compute[4];
   __shared__ float pad_temp_shared[342];
   __shared__ float placeholder_shared[576];
@@ -10605,9 +10605,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[32];
   __shared__ float placeholder_shared[256];
   __shared__ float data_pack_shared[1568];
@@ -10705,9 +10705,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -10831,9 +10831,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -10949,9 +10949,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[8];
   __shared__ float placeholder_shared[1024];
   __shared__ float data_pack_shared[256];
@@ -11035,9 +11035,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float bgemm_local[16];
   __shared__ float placeholder_shared[128];
   __shared__ float data_pack_shared[392];
@@ -11131,9 +11131,9 @@ extern "C" __global__ void fused_nn_dense_add_kernel0(int* flag,int* blocknum,in
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float T_dense_rf[1];
   __shared__ float red_buf0[64];
   __shared__ float T_dense[1];
@@ -11213,9 +11213,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -11331,9 +11331,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     offset=vx;
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
-    vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
     float d[36];
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
