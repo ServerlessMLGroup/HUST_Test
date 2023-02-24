@@ -337,11 +337,10 @@ int main(int argc, char **argv) {
         allblocknum[3*i+0]=launch_params[0];
         allblocknum[3*i+1]=launch_params[1];
         allblocknum[3*i+2]=launch_params[2];
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)raw_args[i].data()[0],(allflag+i),1*sizeof(int),firststream));
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)raw_args[i].data()[1],(allblocknum+3*i),3*sizeof(int),firststream));
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)raw_args[i].data()[2],(allblocksize+i),1*sizeof(int),firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(*(raw_args[i].data()+0)),(allflag+i),1*sizeof(int),firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(*(raw_args[i].data()+1)),(allblocknum+3*i),3*sizeof(int),firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(*(raw_args[i].data()+2)),(allblocksize+i),1*sizeof(int),firststream));
     }
-
 
     j=0;
     for (KernelInfo &kernel_info : model->kernels) {
