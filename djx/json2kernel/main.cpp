@@ -210,14 +210,55 @@ int main(int argc, char **argv) {
     std::cout << "storages.size = " << storage.size() << std::endl;
     raw_args.reserve(model->kernels.size());
 
+    //temp,for test
+    CUdeviceptr device_ptr1;
+    CUdeviceptr device_ptr2;
+    CUdeviceptr device_ptr3;
+
+
     for (KernelInfo &kernel_info : model->kernels) {
         std::vector<CUdeviceptr*> kernel_arg;
+        if(kernel_info.name=="fused_add_nn_relu_1_kernel0")
+        {
+        std::cout << "oh yes" << std::endl;
+        //flag
+        //CUdeviceptr device_ptr1;
+        size_t storage_size = 1 * sizeof(int);
+        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr1, storage_size));
+        kernel_arg.push_back(&device_ptr1);
+        //block num
+        //CUdeviceptr device_ptr2;
+        storage_size = 3 * sizeof(int);
+        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size));
+        kernel_arg.push_back(&device_ptr2);
+        //block num
+        //CUdeviceptr device_ptr3;
+        storage_size = 1 * sizeof(int);
+        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr3, storage_size));
+        kernel_arg.push_back(&device_ptr3);
+        }
+
         for (size_t arg_idx : kernel_info.args) {
             // assert(arg_idx < storage.size());
             kernel_arg.push_back(&storage[arg_idx]);
         }
         raw_args.push_back(kernel_arg);
     }
+
+    int *flag;
+    int *blocknum;
+    int *blocksize;
+    cuMemAllocHost((void**)(&flag), 1*sizeof(int));
+    cuMemAllocHost((void**)(&blocknum), 3*sizeof(int));
+    cuMemAllocHost((void**)(&blocksize), 1*sizeof(int));
+    flag[0]==1;
+    blocknum[0]=49;
+    blocknum[1]=1;
+    blocknum[2]=1;
+    blocksize[0]=40;
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr1,flag,1*sizeof(int),firststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr2,blocknum,3*sizeof(int),firststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr3,blocksize,1*sizeof(int),firststream));
 
     printf("parse params!\n");
     parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");

@@ -11,9 +11,7 @@
 #endif
 
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
-  for(int i=0;i<1000000;i++) {
-      __nanosleep(1000);
-    };
+
   float compute[56];
   __shared__ float pad_temp_shared[229];
   __shared__ float placeholder_shared[448];
@@ -53,7 +51,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restri
       for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) {
         if ((((((int)threadIdx.z) * 29) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 229) {
           if (((((int)threadIdx.x) * 2) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 29) {
-            pad_temp_shared[((((((int)threadIdx.z) * 29) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = (((((3 <= ((((int)blockIdx.y) * 2) + ry_outer)) && (((((int)blockIdx.y) * 2) + ry_outer) < 227)) && (3 <= (((((int)threadIdx.z) * 29) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))) && ((((((int)threadIdx.z) * 29) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 227)) ? placeholder[((((((((rc_outer * 50176) + (((int)blockIdx.y) * 448)) + (ry_outer * 224)) + (((int)threadIdx.z) * 29)) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) - 675))] : 0.000000e+00f);
+            pad_temp_shared[((((((int)threadIdx.z) * 29) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = (((((3 <= ((((int)vy) * 2) + ry_outer)) && (((((int)vy) * 2) + ry_outer) < 227)) && (3 <= (((((int)threadIdx.z) * 29) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))) && ((((((int)threadIdx.z) * 29) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 227)) ? placeholder[((((((((rc_outer * 50176) + (((int)vy) * 448)) + (ry_outer * 224)) + (((int)threadIdx.z) * 29)) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) - 675))] : 0.000000e+00f);
           }
         }
       }
@@ -102,34 +100,34 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restri
     }
   }
   for (int ax1_inner_inner_inner = 0; ax1_inner_inner_inner < 2; ++ax1_inner_inner_inner) {
-    T_relu[(((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)))] = max((compute[(ax1_inner_inner_inner)] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 200704))] = max((compute[((ax1_inner_inner_inner + 14))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 401408))] = max((compute[((ax1_inner_inner_inner + 28))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 602112))] = max((compute[((ax1_inner_inner_inner + 42))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 16))] = max((compute[((ax1_inner_inner_inner + 2))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 200720))] = max((compute[((ax1_inner_inner_inner + 16))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 401424))] = max((compute[((ax1_inner_inner_inner + 30))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 602128))] = max((compute[((ax1_inner_inner_inner + 44))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 32))] = max((compute[((ax1_inner_inner_inner + 4))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 200736))] = max((compute[((ax1_inner_inner_inner + 18))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 401440))] = max((compute[((ax1_inner_inner_inner + 32))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 602144))] = max((compute[((ax1_inner_inner_inner + 46))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 48))] = max((compute[((ax1_inner_inner_inner + 6))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 200752))] = max((compute[((ax1_inner_inner_inner + 20))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 401456))] = max((compute[((ax1_inner_inner_inner + 34))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 602160))] = max((compute[((ax1_inner_inner_inner + 48))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 64))] = max((compute[((ax1_inner_inner_inner + 8))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 200768))] = max((compute[((ax1_inner_inner_inner + 22))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 401472))] = max((compute[((ax1_inner_inner_inner + 36))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 602176))] = max((compute[((ax1_inner_inner_inner + 50))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 80))] = max((compute[((ax1_inner_inner_inner + 10))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 200784))] = max((compute[((ax1_inner_inner_inner + 24))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 401488))] = max((compute[((ax1_inner_inner_inner + 38))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 602192))] = max((compute[((ax1_inner_inner_inner + 52))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 96))] = max((compute[((ax1_inner_inner_inner + 12))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 200800))] = max((compute[((ax1_inner_inner_inner + 26))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 401504))] = max((compute[((ax1_inner_inner_inner + 40))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
-    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)blockIdx.y) * 112)) + ((int)threadIdx.x)) + 602208))] = max((compute[((ax1_inner_inner_inner + 54))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
+    T_relu[(((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)))] = max((compute[(ax1_inner_inner_inner)] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 200704))] = max((compute[((ax1_inner_inner_inner + 14))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 401408))] = max((compute[((ax1_inner_inner_inner + 28))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 602112))] = max((compute[((ax1_inner_inner_inner + 42))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 16))] = max((compute[((ax1_inner_inner_inner + 2))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 200720))] = max((compute[((ax1_inner_inner_inner + 16))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 401424))] = max((compute[((ax1_inner_inner_inner + 30))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 602128))] = max((compute[((ax1_inner_inner_inner + 44))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 32))] = max((compute[((ax1_inner_inner_inner + 4))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 200736))] = max((compute[((ax1_inner_inner_inner + 18))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 401440))] = max((compute[((ax1_inner_inner_inner + 32))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 602144))] = max((compute[((ax1_inner_inner_inner + 46))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 48))] = max((compute[((ax1_inner_inner_inner + 6))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 200752))] = max((compute[((ax1_inner_inner_inner + 20))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 401456))] = max((compute[((ax1_inner_inner_inner + 34))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 602160))] = max((compute[((ax1_inner_inner_inner + 48))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 64))] = max((compute[((ax1_inner_inner_inner + 8))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 200768))] = max((compute[((ax1_inner_inner_inner + 22))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 401472))] = max((compute[((ax1_inner_inner_inner + 36))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 602176))] = max((compute[((ax1_inner_inner_inner + 50))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 80))] = max((compute[((ax1_inner_inner_inner + 10))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 200784))] = max((compute[((ax1_inner_inner_inner + 24))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 401488))] = max((compute[((ax1_inner_inner_inner + 38))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 602192))] = max((compute[((ax1_inner_inner_inner + 52))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 96))] = max((compute[((ax1_inner_inner_inner + 12))] + placeholder2[(((((int)threadIdx.z) * 2) + ax1_inner_inner_inner))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 200800))] = max((compute[((ax1_inner_inner_inner + 26))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 16))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 401504))] = max((compute[((ax1_inner_inner_inner + 40))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 32))]), 0.000000e+00f);
+    T_relu[((((((((int)threadIdx.z) * 25088) + (ax1_inner_inner_inner * 12544)) + (((int)vy) * 112)) + ((int)threadIdx.x)) + 602208))] = max((compute[((ax1_inner_inner_inner + 54))] + placeholder2[((((((int)threadIdx.z) * 2) + ax1_inner_inner_inner) + 48))]), 0.000000e+00f);
   }
 }
 
@@ -138,7 +136,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
     for (int nu = 0; nu < 6; ++nu) {
-      d[(((eps * 6) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps) < 57)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu) < 57)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (eps * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + nu) - 57))] : 0.000000e+00f);
+      d[(((eps * 6) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps) < 57)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu) < 57)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (eps * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + nu) - 57))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -855,60 +853,83 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(35)] = (data_pack_local[(35)] + d[(35)]);
   for (int eps1 = 0; eps1 < 6; ++eps1) {
     for (int nu1 = 0; nu1 < 6; ++nu1) {
-      data_pack[(((((eps1 * 75264) + (nu1 * 12544)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 6) + nu1))];
+      data_pack[(((((eps1 * 75264) + (nu1 * 12544)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 6) + nu1))];
     }
   }
 }
 
-extern "C" __global__ void fused_add_nn_relu_1_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
-  T_relu[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
+extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
+  int offset=0
+  while(flag[0]==0)
+  {
+    __nanosleep(100);
+  }
+  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
+  {
+    offset=vx;
+    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
+    {
+    vz=(offset-1)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blcoknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blcoknum[0]-1;
+    T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
+    offset+=blocksize[0];
+    }
+  }
+  else
+  {
+  T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
+  }
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 376320))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 376320))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
-      T_add[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))] = (inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))]);
+      T_add[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))] = (inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))]);
     }
   }
 }
@@ -916,348 +937,348 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   float inverse[16];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))]);
   inverse[(4)] = 0.000000e+00f;
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
   inverse[(5)] = 0.000000e+00f;
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -2.000000e+00f));
   inverse[(6)] = 0.000000e+00f;
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * 4.000000e+00f));
   inverse[(7)] = 0.000000e+00f;
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 5.000000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * -2.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 5.000000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * -2.000000e+00f));
   inverse[(8)] = 0.000000e+00f;
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
   inverse[(9)] = 0.000000e+00f;
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -2.000000e+00f));
   inverse[(10)] = 0.000000e+00f;
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * 4.000000e+00f));
   inverse[(11)] = 0.000000e+00f;
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 2.500000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * 4.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 2.500000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * 4.000000e+00f));
   inverse[(12)] = 0.000000e+00f;
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 376320))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))]);
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 376320))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))]);
   inverse[(13)] = 0.000000e+00f;
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * -2.000000e+00f));
   inverse[(14)] = 0.000000e+00f;
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))]);
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))]);
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * 4.000000e+00f));
   inverse[(15)] = 0.000000e+00f;
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 439040))]);
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 439040))]);
   for (int ax2_inner = 0; ax2_inner < 4; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 4; ++ax3_inner) {
-      T_relu[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))] = max((inverse[(((ax2_inner * 4) + ax3_inner))] + placeholder[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
+      T_relu[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))] = max((inverse[(((ax2_inner * 4) + ax3_inner))] + placeholder[((((((int)vx) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
     }
   }
 }
@@ -1265,55 +1286,55 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
-      T_add[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))] = (inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))]);
+      T_add[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))] = (inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))]);
     }
   }
 }
 
 extern "C" __global__ void fused_add_nn_relu_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
-  if (((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) < 25088) {
-    T_relu[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
+  if (((((int)vx) * 1024) + ((int)threadIdx.x)) < 25088) {
+    T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
   }
 }
 
@@ -1332,7 +1353,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(float* __restri
       if (((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 580) {
         if ((((((int)threadIdx.y) * 19) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 37) {
           if (((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 19) {
-            pad_temp_shared[(((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = (((1 <= ((((int)blockIdx.y) * 4) + ((((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 145) / 29))) && (1 <= (((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 29))) ? placeholder[(((((((rc_outer * 3136) + ((((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 145) * 784)) + (((int)blockIdx.y) * 112)) + (((((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 145) / 29) * 28)) + (((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 29)) - 29))] : 0.000000e+00f);
+            pad_temp_shared[(((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = (((1 <= ((((int)vy) * 4) + ((((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 145) / 29))) && (1 <= (((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 29))) ? placeholder[(((((((rc_outer * 3136) + ((((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 145) * 784)) + (((int)vy) * 112)) + (((((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 145) / 29) * 28)) + (((((((int)threadIdx.z) * 37) + (((int)threadIdx.y) * 19)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 29)) - 29))] : 0.000000e+00f);
           }
         }
       }
@@ -1344,8 +1365,8 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(float* __restri
             if (((((((int)threadIdx.z) * 72) + (((int)threadIdx.y) * 36)) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) < 1152) {
               if ((((((int)threadIdx.y) * 36) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) < 72) {
                 if (((((int)threadIdx.x) * 6) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) < 36) {
-                  if (((((((int)blockIdx.z) * 32) + (((int)threadIdx.z) * 2)) + (((((int)threadIdx.x) * 2) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 / 3)) / 12)) + ((int)threadIdx.y)) < 256) {
-                    placeholder_shared[(((((((int)threadIdx.z) * 72) + (((int)threadIdx.y) * 36)) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1))] = placeholder1[((((((((((int)blockIdx.z) * 36864) + (((int)threadIdx.z) * 2304)) + ((((((int)threadIdx.x) * 2) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 / 3)) / 12) * 1152)) + (((int)threadIdx.y) * 1152)) + (rc_outer * 36)) + ((((((int)threadIdx.x) * 2) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 / 3)) % 12) * 3)) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 % 3)))];
+                  if (((((((int)vz) * 32) + (((int)threadIdx.z) * 2)) + (((((int)threadIdx.x) * 2) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 / 3)) / 12)) + ((int)threadIdx.y)) < 256) {
+                    placeholder_shared[(((((((int)threadIdx.z) * 72) + (((int)threadIdx.y) * 36)) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1))] = placeholder1[((((((((((int)vz) * 36864) + (((int)threadIdx.z) * 2304)) + ((((((int)threadIdx.x) * 2) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 / 3)) / 12) * 1152)) + (((int)threadIdx.y) * 1152)) + (rc_outer * 36)) + ((((((int)threadIdx.x) * 2) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 / 3)) % 12) * 3)) + (ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 % 3)))];
                   }
                 }
               }
@@ -1369,7 +1390,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(float* __restri
   }
   for (int ax1_inner_inner_inner = 0; ax1_inner_inner_inner < 2; ++ax1_inner_inner_inner) {
     for (int ax3_inner_inner_inner = 0; ax3_inner_inner_inner < 2; ++ax3_inner_inner_inner) {
-      T_relu[((((((((((int)blockIdx.z) * 6272) + (((int)threadIdx.z) * 392)) + (ax1_inner_inner_inner * 196)) + (((int)blockIdx.y) * 28)) + (((int)threadIdx.y) * 14)) + (((int)threadIdx.x) * 2)) + ax3_inner_inner_inner))] = max((compute[(((ax1_inner_inner_inner * 2) + ax3_inner_inner_inner))] + placeholder2[((((((int)blockIdx.z) * 32) + (((int)threadIdx.z) * 2)) + ax1_inner_inner_inner))]), 0.000000e+00f);
+      T_relu[((((((((((int)vz) * 6272) + (((int)threadIdx.z) * 392)) + (ax1_inner_inner_inner * 196)) + (((int)vy) * 28)) + (((int)threadIdx.y) * 14)) + (((int)threadIdx.x) * 2)) + ax3_inner_inner_inner))] = max((compute[(((ax1_inner_inner_inner * 2) + ax3_inner_inner_inner))] + placeholder2[((((((int)vz) * 32) + (((int)threadIdx.z) * 2)) + ax1_inner_inner_inner))]), 0.000000e+00f);
     }
   }
 }
@@ -1379,7 +1400,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps) < 29)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu) < 29)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (eps * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + nu) - 29))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps) < 29)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu) < 29)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (eps * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + nu) - 29))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -1464,17 +1485,17 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 100352) + (nu1 * 25088)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 100352) + (nu1 * 25088)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
 
 extern "C" __global__ void fused_add_nn_relu_3_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
-  T_relu[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
+  T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
 }
 // add for loop
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
-  // sm[blockIdx.y * 28 + blockIdx.z] = get_smid();
+  // sm[vy * 28 + vz] = get_smid();
   float compute[1];
   __shared__ float pad_temp_shared[180];
   __shared__ float placeholder_shared[576];
@@ -1483,12 +1504,12 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
       __syncthreads();
       if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 180) {
         if (((int)threadIdx.x) < 6) {
-          pad_temp_shared[(((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)))] = (((1 <= ((((int)blockIdx.y) * 2) + ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 45) / 15))) && (1 <= (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 15))) ? placeholder[(((((((rc_outer * 784) + ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) / 45) * 196)) + (((int)blockIdx.y) * 28)) + (((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 45) / 15) * 14)) + (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 15)) - 15))] : 0.000000e+00f);
+          pad_temp_shared[(((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)))] = (((1 <= ((((int)vy) * 2) + ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 45) / 15))) && (1 <= (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 15))) ? placeholder[(((((((rc_outer * 784) + ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) / 45) * 196)) + (((int)vy) * 28)) + (((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 45) / 15) * 14)) + (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) % 15)) - 15))] : 0.000000e+00f);
         }
       }
       if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 179) {
         if (((int)threadIdx.x) < 6) {
-          pad_temp_shared[((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1))] = (((1 <= ((((int)blockIdx.y) * 2) + (((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 45) / 15))) && (1 <= ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 15))) ? placeholder[(((((((rc_outer * 784) + (((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) / 45) * 196)) + (((int)blockIdx.y) * 28)) + ((((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 45) / 15) * 14)) + ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 15)) - 15))] : 0.000000e+00f);
+          pad_temp_shared[((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1))] = (((1 <= ((((int)vy) * 2) + (((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 45) / 15))) && (1 <= ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 15))) ? placeholder[(((((((rc_outer * 784) + (((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) / 45) * 196)) + (((int)vy) * 28)) + ((((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 45) / 15) * 14)) + ((((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) + 1) % 15)) - 15))] : 0.000000e+00f);
         }
       }
       if (((((int)threadIdx.x) / 6) + ((int)threadIdx.z)) < 16) {
@@ -1496,7 +1517,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
           if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 192) {
             if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) < 576) {
               if (((int)threadIdx.x) < 6) {
-                placeholder_shared[(((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)))] = placeholder1[(((((((int)blockIdx.z) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)))];
+                placeholder_shared[(((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)))] = placeholder1[(((((((int)vz) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)))];
               }
             }
           }
@@ -1507,7 +1528,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
           if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 192) {
             if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) < 575) {
               if (((int)threadIdx.x) < 6) {
-                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 1))] = placeholder1[((((((((int)blockIdx.z) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 1))];
+                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 1))] = placeholder1[((((((((int)vz) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 1))];
               }
             }
           }
@@ -1518,7 +1539,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
           if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 192) {
             if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) < 574) {
               if (((int)threadIdx.x) < 6) {
-                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 2))] = placeholder1[((((((((int)blockIdx.z) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 2))];
+                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 2))] = placeholder1[((((((((int)vz) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 2))];
               }
             }
           }
@@ -1529,7 +1550,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
           if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 191) {
             if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) < 573) {
               if (((int)threadIdx.x) < 6) {
-                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 3))] = placeholder1[((((((((int)blockIdx.z) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 3))];
+                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 3))] = placeholder1[((((((((int)vz) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 3))];
               }
             }
           }
@@ -1540,7 +1561,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
           if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 191) {
             if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) < 572) {
               if (((int)threadIdx.x) < 6) {
-                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 4))] = placeholder1[((((((((int)blockIdx.z) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 4))];
+                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 4))] = placeholder1[((((((((int)vz) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 4))];
               }
             }
           }
@@ -1551,7 +1572,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
           if (((((int)threadIdx.z) * 12) + (((int)threadIdx.x) * 2)) < 191) {
             if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) < 571) {
               if (((int)threadIdx.x) < 6) {
-                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 5))] = placeholder1[((((((((int)blockIdx.z) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 5))];
+                placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 6)) + 5))] = placeholder1[((((((((int)vz) * 36864) + (((int)threadIdx.z) * 2304)) + (rc_outer * 36)) + (((int)threadIdx.x) * 6)) + 5))];
               }
             }
           }
@@ -1596,354 +1617,354 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
       compute[(0)] = (compute[(0)] + (pad_temp_shared[(((((int)threadIdx.x) * 2) + 167))] * placeholder_shared[(((((int)threadIdx.z) * 36) + 35))]));
     }
 
-  T_relu[(((((((int)blockIdx.z) * 784) + (((int)threadIdx.z) * 49)) + (((int)blockIdx.y) * 7)) + ((int)threadIdx.x)))] = max((compute[(0)] + placeholder2[(((((int)blockIdx.z) * 16) + ((int)threadIdx.z)))]), 0.000000e+00f);
+  T_relu[(((((((int)vz) * 784) + (((int)threadIdx.z) * 49)) + (((int)vy) * 7)) + ((int)threadIdx.x)))] = max((compute[(0)] + placeholder2[(((((int)vz) * 16) + ((int)threadIdx.z)))]), 0.000000e+00f);
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   float inverse[16];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))]);
   inverse[(4)] = 0.000000e+00f;
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
   inverse[(5)] = 0.000000e+00f;
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -2.000000e+00f));
   inverse[(6)] = 0.000000e+00f;
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * 4.000000e+00f));
   inverse[(7)] = 0.000000e+00f;
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 5.000000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * -2.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 5.000000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * -2.000000e+00f));
   inverse[(8)] = 0.000000e+00f;
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
   inverse[(9)] = 0.000000e+00f;
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -2.000000e+00f));
   inverse[(10)] = 0.000000e+00f;
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * 4.000000e+00f));
   inverse[(11)] = 0.000000e+00f;
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 2.500000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * 4.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 2.500000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * 4.000000e+00f));
   inverse[(12)] = 0.000000e+00f;
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 376320))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))]);
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 376320))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))]);
   inverse[(13)] = 0.000000e+00f;
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * -2.000000e+00f));
   inverse[(14)] = 0.000000e+00f;
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))]);
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))]);
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * 4.000000e+00f));
   inverse[(15)] = 0.000000e+00f;
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 439040))]);
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 439040))]);
   for (int ax2_inner = 0; ax2_inner < 4; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 4; ++ax3_inner) {
-      T_relu[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))] = max(((inverse[(((ax2_inner * 4) + ax3_inner))] + placeholder[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))]) + placeholder1[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
+      T_relu[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))] = max(((inverse[(((ax2_inner * 4) + ax3_inner))] + placeholder[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))]) + placeholder1[((((((int)vx) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
     }
   }
 }
@@ -1970,21 +1991,21 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   bgemm_local[(15)] = 0.000000e+00f;
   for (int ci_outer = 0; ci_outer < 8; ++ci_outer) {
     __syncthreads();
-    placeholder_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) & 31)))];
-    placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 4) & 31)))];
+    placeholder_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) >> 5) * 128)) + (((int)vy) * 32)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) & 31)))];
+    placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196) >> 5) * 128)) + (((int)vy) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 4) & 31)))];
     if (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) < 120) {
       if (((int)threadIdx.y) < 3) {
-        placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 8) & 31)))];
+        placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392) >> 5) * 128)) + (((int)vy) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 8) & 31)))];
       }
     }
-    data_pack_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 392))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 784))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 588))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1176))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 784))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1568))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 980))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1960))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1176))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2352))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1372))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2744))];
+    data_pack_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 392))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 784))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 588))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1176))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 784))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1568))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 980))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1960))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1176))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2352))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1372))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2744))];
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 16; ++ci_inner) {
       bgemm_local[(0)] = (bgemm_local[(0)] + (placeholder_shared[(((ci_inner * 32) + (((int)threadIdx.y) * 2)))] * data_pack_shared[(((ci_inner * 98) + ((int)threadIdx.x)))]));
@@ -2005,22 +2026,22 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       bgemm_local[(15)] = (bgemm_local[(15)] + (placeholder_shared[((((ci_inner * 32) + (((int)threadIdx.y) * 2)) + 25))] * data_pack_shared[((((ci_inner * 98) + ((int)threadIdx.x)) + 49))]));
     }
   }
-  bgemm[((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)))] = bgemm_local[(0)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1568))] = bgemm_local[(4)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[(8)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4704))] = bgemm_local[(12)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 49))] = bgemm_local[(2)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1617))] = bgemm_local[(6)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3185))] = bgemm_local[(10)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4753))] = bgemm_local[(14)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 196))] = bgemm_local[(1)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1764))] = bgemm_local[(5)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3332))] = bgemm_local[(9)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4900))] = bgemm_local[(13)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 245))] = bgemm_local[(3)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1813))] = bgemm_local[(7)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3381))] = bgemm_local[(11)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4949))] = bgemm_local[(15)];
+  bgemm[((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)))] = bgemm_local[(0)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1568))] = bgemm_local[(4)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[(8)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4704))] = bgemm_local[(12)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 49))] = bgemm_local[(2)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1617))] = bgemm_local[(6)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3185))] = bgemm_local[(10)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4753))] = bgemm_local[(14)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 196))] = bgemm_local[(1)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1764))] = bgemm_local[(5)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3332))] = bgemm_local[(9)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4900))] = bgemm_local[(13)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 245))] = bgemm_local[(3)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1813))] = bgemm_local[(7)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3381))] = bgemm_local[(11)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4949))] = bgemm_local[(15)];
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
@@ -2035,10 +2056,10 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   for (int ci_outer = 0; ci_outer < 32; ++ci_outer) {
     __syncthreads();
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
-      placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = placeholder[(((((((((int)blockIdx.z) * 262144) + (ci_outer * 8192)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 1024)) + ((((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) >> 6) * 512)) + (((int)blockIdx.y) * 64)) + (((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) & 63)))];
+      placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = placeholder[(((((((((int)vz) * 262144) + (ci_outer * 8192)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 1024)) + ((((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) >> 6) * 512)) + (((int)vy) * 64)) + (((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) & 63)))];
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 8192) + (ci_outer * 256)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128)) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))];
+      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 8192) + (ci_outer * 256)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128)) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 16; ++ci_inner) {
@@ -2051,7 +2072,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 4; ++co_inner_inner_inner) {
     for (int p_inner_inner_inner = 0; p_inner_inner_inner < 2; ++p_inner_inner_inner) {
-      bgemm[(((((((((int)blockIdx.z) * 8192) + (((int)blockIdx.y) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
+      bgemm[(((((((((int)vz) * 8192) + (((int)vy) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
     }
   }
 }
@@ -2061,7 +2082,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -2146,7 +2167,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
@@ -2154,50 +2175,50 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 8192))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 16384))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 32768))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 65536))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 8192))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 16384))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 32768))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 65536))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 8192))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 16384))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 24576))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 57344))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 90112))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 8192))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 16384))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 24576))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 57344))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 90112))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 32768))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 65536))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 98304))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 106496))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 114688))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 32768))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 65536))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 98304))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 106496))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 114688))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 57344))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 90112))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 106496))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 114688))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 122880))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 57344))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 90112))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 106496))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 114688))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 122880))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
       if (((((((int)threadIdx.x) & 15) >> 2) * 2) + ax2_inner) < 7) {
         if ((((((int)threadIdx.x) & 3) * 2) + ax3_inner) < 7) {
-          T_add[(((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))] = (inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[(((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))]);
+          T_add[(((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))] = (inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[(((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))]);
         }
       }
     }
@@ -2214,13 +2235,13 @@ extern "C" __global__ void fused_nn_conv2d_2_kernel0(float* __restrict__ placeho
   for (int rc_outer = 0; rc_outer < 16; ++rc_outer) {
     __syncthreads();
     if (((((int)threadIdx.z) * 14) + ((int)threadIdx.x)) < 216) {
-      pad_temp_shared[(((((int)threadIdx.z) * 14) + ((int)threadIdx.x)))] = placeholder[(((((rc_outer * 6272) + ((((((int)threadIdx.z) * 14) + ((int)threadIdx.x)) / 27) * 784)) + (((int)blockIdx.y) * 56)) + (((((int)threadIdx.z) * 14) + ((int)threadIdx.x)) % 27)))];
+      pad_temp_shared[(((((int)threadIdx.z) * 14) + ((int)threadIdx.x)))] = placeholder[(((((rc_outer * 6272) + ((((((int)threadIdx.z) * 14) + ((int)threadIdx.x)) / 27) * 784)) + (((int)vy) * 56)) + (((((int)threadIdx.z) * 14) + ((int)threadIdx.x)) % 27)))];
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) {
       if (((((int)threadIdx.z) * 2) + (((((int)threadIdx.x) * 2) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) >> 3)) < 32) {
         if ((((((int)threadIdx.z) * 16) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 256) {
           if (((((int)threadIdx.x) * 2) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 16) {
-            placeholder_shared[((((((int)threadIdx.z) * 16) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder1[((((((((int)blockIdx.z) * 4096) + (((int)threadIdx.z) * 256)) + ((((((int)threadIdx.x) * 2) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) >> 3) * 128)) + (rc_outer * 8)) + (((((int)threadIdx.x) * 2) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) & 7)))];
+            placeholder_shared[((((((int)threadIdx.z) * 16) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder1[((((((((int)vz) * 4096) + (((int)threadIdx.z) * 256)) + ((((((int)threadIdx.x) * 2) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) >> 3) * 128)) + (rc_outer * 8)) + (((((int)threadIdx.x) * 2) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) & 7)))];
           }
         }
       }
@@ -2233,7 +2254,7 @@ extern "C" __global__ void fused_nn_conv2d_2_kernel0(float* __restrict__ placeho
     }
   }
   for (int ff_inner_inner_inner = 0; ff_inner_inner_inner < 2; ++ff_inner_inner_inner) {
-    compute[((((((((int)blockIdx.z) * 6272) + (((int)threadIdx.z) * 392)) + (ff_inner_inner_inner * 196)) + (((int)blockIdx.y) * 14)) + ((int)threadIdx.x)))] = compute_local[(ff_inner_inner_inner)];
+    compute[((((((((int)vz) * 6272) + (((int)threadIdx.z) * 392)) + (ff_inner_inner_inner * 196)) + (((int)vy) * 14)) + ((int)threadIdx.x)))] = compute_local[(ff_inner_inner_inner)];
   }
 }
 
@@ -2263,21 +2284,21 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   bgemm_local[(15)] = 0.000000e+00f;
   for (int ci_outer = 0; ci_outer < 8; ++ci_outer) {
     __syncthreads();
-    placeholder_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) & 31)))];
-    placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 4) & 31)))];
+    placeholder_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) >> 5) * 128)) + (((int)vy) * 32)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) & 31)))];
+    placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196) >> 5) * 128)) + (((int)vy) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 4) & 31)))];
     if (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) < 120) {
       if (((int)threadIdx.y) < 3) {
-        placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 8) & 31)))];
+        placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392) >> 5) * 128)) + (((int)vy) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 8) & 31)))];
       }
     }
-    data_pack_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 392))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 784))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 588))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1176))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 784))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1568))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 980))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1960))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1176))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2352))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1372))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2744))];
+    data_pack_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 392))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 784))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 588))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1176))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 784))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1568))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 980))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1960))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1176))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2352))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1372))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2744))];
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 16; ++ci_inner) {
       bgemm_local[(0)] = (bgemm_local[(0)] + (placeholder_shared[(((ci_inner * 32) + (((int)threadIdx.y) * 2)))] * data_pack_shared[(((ci_inner * 98) + ((int)threadIdx.x)))]));
@@ -2298,69 +2319,69 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       bgemm_local[(15)] = (bgemm_local[(15)] + (placeholder_shared[((((ci_inner * 32) + (((int)threadIdx.y) * 2)) + 25))] * data_pack_shared[((((ci_inner * 98) + ((int)threadIdx.x)) + 49))]));
     }
   }
-  bgemm[((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)))] = bgemm_local[(0)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1568))] = bgemm_local[(4)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[(8)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4704))] = bgemm_local[(12)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 49))] = bgemm_local[(2)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1617))] = bgemm_local[(6)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3185))] = bgemm_local[(10)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4753))] = bgemm_local[(14)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 196))] = bgemm_local[(1)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1764))] = bgemm_local[(5)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3332))] = bgemm_local[(9)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4900))] = bgemm_local[(13)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 245))] = bgemm_local[(3)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1813))] = bgemm_local[(7)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3381))] = bgemm_local[(11)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4949))] = bgemm_local[(15)];
+  bgemm[((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)))] = bgemm_local[(0)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1568))] = bgemm_local[(4)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[(8)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4704))] = bgemm_local[(12)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 49))] = bgemm_local[(2)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1617))] = bgemm_local[(6)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3185))] = bgemm_local[(10)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4753))] = bgemm_local[(14)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 196))] = bgemm_local[(1)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1764))] = bgemm_local[(5)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3332))] = bgemm_local[(9)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4900))] = bgemm_local[(13)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 245))] = bgemm_local[(3)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1813))] = bgemm_local[(7)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3381))] = bgemm_local[(11)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4949))] = bgemm_local[(15)];
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 376320))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 376320))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
-      T_relu[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))] = max((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
+      T_relu[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))] = max((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((int)vx) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
     }
   }
 }
@@ -2370,7 +2391,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps) < 15)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu) < 15)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (eps * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + nu) - 15))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps) < 15)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu) < 15)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (eps * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + nu) - 15))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -2455,13 +2476,13 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 50176) + (nu1 * 12544)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 50176) + (nu1 * 12544)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
 
 extern "C" __global__ void fused_add_nn_relu_2_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
-  T_relu[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 784))]), 0.000000e+00f);
+  T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 784))]), 0.000000e+00f);
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
@@ -2478,12 +2499,12 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     #pragma unroll
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 3; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
       if (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) < 128) {
-        placeholder_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 65536) + (ci_outer * 2048)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) >> 4) * 256)) + (((int)blockIdx.y) * 16)) + (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) & 15)))];
+        placeholder_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 65536) + (ci_outer * 2048)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) >> 4) * 256)) + (((int)vy) * 16)) + (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) & 15)))];
       }
     }
     #pragma unroll
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49) + ((int)threadIdx.x)))] = data_pack[(((((((int)blockIdx.z) * 12544) + (ci_outer * 392)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49)) + ((int)threadIdx.x)))];
+      data_pack_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49) + ((int)threadIdx.x)))] = data_pack[(((((((int)vz) * 12544) + (ci_outer * 392)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     #pragma unroll
@@ -2497,8 +2518,8 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
   #pragma unroll
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 8; ++co_inner_inner_inner) {
-    bgemm[(((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
-    bgemm[((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)) + 392))] = bgemm_local[((co_inner_inner_inner + 8))];
+    bgemm[(((((((int)vz) * 12544) + (((int)vy) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
+    bgemm[((((((((int)vz) * 12544) + (((int)vy) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)) + 392))] = bgemm_local[((co_inner_inner_inner + 8))];
   }
 }
 
@@ -2571,7 +2592,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps) < 29)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu) < 29)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (eps * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + nu) - 29))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps) < 29)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu) < 29)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (eps * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + nu) - 29))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -2656,7 +2677,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 100352) + (nu1 * 25088)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 100352) + (nu1 * 25088)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
@@ -2664,48 +2685,48 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
-      T_relu[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))] = max((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
+      T_relu[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))] = max((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((int)vx) * 128) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
     }
   }
 }
@@ -2718,13 +2739,13 @@ extern "C" __global__ void fused_nn_conv2d_3_kernel0(float* __restrict__ placeho
   for (int rc_outer = 0; rc_outer < 16; ++rc_outer) {
     __syncthreads();
     if (((((int)threadIdx.z) * 7) + ((int)threadIdx.x)) < 208) {
-      pad_temp_shared[(((((int)threadIdx.z) * 7) + ((int)threadIdx.x)))] = placeholder[(((((rc_outer * 3136) + ((((((int)threadIdx.z) * 7) + ((int)threadIdx.x)) / 13) * 196)) + (((int)blockIdx.y) * 28)) + (((((int)threadIdx.z) * 7) + ((int)threadIdx.x)) % 13)))];
+      pad_temp_shared[(((((int)threadIdx.z) * 7) + ((int)threadIdx.x)))] = placeholder[(((((rc_outer * 3136) + ((((((int)threadIdx.z) * 7) + ((int)threadIdx.x)) / 13) * 196)) + (((int)vy) * 28)) + (((((int)threadIdx.z) * 7) + ((int)threadIdx.x)) % 13)))];
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner < 3; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) {
       if (((((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) >> 4) + ((int)threadIdx.z)) < 32) {
         if ((((((int)threadIdx.z) * 16) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 512) {
           if (((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 16) {
-            placeholder_shared[((((((int)threadIdx.z) * 16) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder1[((((((((int)blockIdx.z) * 8192) + (((int)threadIdx.z) * 256)) + (rc_outer * 16)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))];
+            placeholder_shared[((((((int)threadIdx.z) * 16) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder1[((((((((int)vz) * 8192) + (((int)threadIdx.z) * 256)) + (rc_outer * 16)) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))];
           }
         }
       }
@@ -2734,7 +2755,7 @@ extern "C" __global__ void fused_nn_conv2d_3_kernel0(float* __restrict__ placeho
       compute_local[(0)] = (compute_local[(0)] + (pad_temp_shared[(((rc_inner * 13) + (((int)threadIdx.x) * 2)))] * placeholder_shared[(((((int)threadIdx.z) * 16) + rc_inner))]));
     }
   }
-  compute[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 49)) + (((int)blockIdx.y) * 7)) + ((int)threadIdx.x)))] = compute_local[(0)];
+  compute[(((((((int)vz) * 1568) + (((int)threadIdx.z) * 49)) + (((int)vy) * 7)) + ((int)threadIdx.x)))] = compute_local[(0)];
 }
 
 extern "C" __global__ void fused_nn_conv2d_1_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
@@ -2749,14 +2770,14 @@ extern "C" __global__ void fused_nn_conv2d_1_kernel0(float* __restrict__ placeho
     __syncthreads();
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) {
       if ((((((int)threadIdx.z) * 28) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 880) {
-        pad_temp_shared[((((((int)threadIdx.z) * 28) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder[(((((rc_outer * 50176) + (((((((int)threadIdx.z) * 28) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 55) * 3136)) + (((int)blockIdx.y) * 112)) + ((((((int)threadIdx.z) * 28) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)))];
+        pad_temp_shared[((((((int)threadIdx.z) * 28) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder[(((((rc_outer * 50176) + (((((((int)threadIdx.z) * 28) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 55) * 3136)) + (((int)vy) * 112)) + ((((((int)threadIdx.z) * 28) + (((int)threadIdx.x) * 2)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)))];
       }
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 < 3; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) {
       if (((((int)threadIdx.z) * 2) + (((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) >> 4)) < 64) {
         if ((((((int)threadIdx.z) * 32) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) < 1024) {
           if (((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) < 32) {
-            placeholder_shared[((((((int)threadIdx.z) * 32) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1))] = placeholder1[((((((((int)blockIdx.z) * 4096) + (((int)threadIdx.z) * 128)) + ((((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) >> 4) * 64)) + (rc_outer * 16)) + (((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) & 15)))];
+            placeholder_shared[((((((int)threadIdx.z) * 32) + (((int)threadIdx.x) * 3)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1))] = placeholder1[((((((((int)vz) * 4096) + (((int)threadIdx.z) * 128)) + ((((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) >> 4) * 64)) + (rc_outer * 16)) + (((((int)threadIdx.x) * 3) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) & 15)))];
           }
         }
       }
@@ -2769,10 +2790,10 @@ extern "C" __global__ void fused_nn_conv2d_1_kernel0(float* __restrict__ placeho
       compute_local[(3)] = (compute_local[(3)] + (pad_temp_shared[((((rc_inner * 55) + (((int)threadIdx.x) * 2)) + 28))] * placeholder_shared[((((((int)threadIdx.z) * 16) + rc_inner) + 512))]));
     }
   }
-  compute[(((((((int)blockIdx.z) * 50176) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)))] = compute_local[(0)];
-  compute[((((((((int)blockIdx.z) * 50176) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)) + 25088))] = compute_local[(2)];
-  compute[((((((((int)blockIdx.z) * 50176) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)) + 14))] = compute_local[(1)];
-  compute[((((((((int)blockIdx.z) * 50176) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)) + 25102))] = compute_local[(3)];
+  compute[(((((((int)vz) * 50176) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)))] = compute_local[(0)];
+  compute[((((((((int)vz) * 50176) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)) + 25088))] = compute_local[(2)];
+  compute[((((((((int)vz) * 50176) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)) + 14))] = compute_local[(1)];
+  compute[((((((((int)vz) * 50176) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)) + 25102))] = compute_local[(3)];
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
@@ -2780,7 +2801,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
     for (int nu = 0; nu < 6; ++nu) {
-      d[(((eps * 6) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps) < 57)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu) < 57)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (eps * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + nu) - 57))] : 0.000000e+00f);
+      d[(((eps * 6) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps) < 57)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu) < 57)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (eps * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + nu) - 57))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -3497,7 +3518,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(35)] = (data_pack_local[(35)] + d[(35)]);
   for (int eps1 = 0; eps1 < 6; ++eps1) {
     for (int nu1 = 0; nu1 < 6; ++nu1) {
-      data_pack[(((((eps1 * 75264) + (nu1 * 12544)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 6) + nu1))];
+      data_pack[(((((eps1 * 75264) + (nu1 * 12544)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 6) + nu1))];
     }
   }
 }
@@ -3524,21 +3545,21 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   bgemm_local[(15)] = 0.000000e+00f;
   for (int ci_outer = 0; ci_outer < 8; ++ci_outer) {
     __syncthreads();
-    placeholder_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) & 31)))];
-    placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 4) & 31)))];
+    placeholder_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) >> 5) * 128)) + (((int)vy) * 32)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) & 31)))];
+    placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196) >> 5) * 128)) + (((int)vy) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 4) & 31)))];
     if (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) < 120) {
       if (((int)threadIdx.y) < 3) {
-        placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = placeholder[((((((((int)blockIdx.z) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392) >> 5) * 128)) + (((int)blockIdx.y) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 8) & 31)))];
+        placeholder_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = placeholder[((((((((int)vz) * 16384) + (ci_outer * 2048)) + (((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392) >> 5) * 128)) + (((int)vy) * 32)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 8) & 31)))];
       }
     }
-    data_pack_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 392))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 784))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 588))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1176))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 784))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1568))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 980))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1960))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1176))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2352))];
-    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1372))] = data_pack[(((((((((int)blockIdx.z) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)blockIdx.x) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2744))];
+    data_pack_shared[(((((int)threadIdx.y) * 49) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 196))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 392))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 392))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 784))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 588))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1176))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 784))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1568))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 980))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 1960))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1176))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2352))];
+    data_pack_shared[((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) + 1372))] = data_pack[(((((((((int)vz) * 25088) + (ci_outer * 3136)) + ((((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) / 98) * 196)) + (((int)vx) * 98)) + (((((int)threadIdx.y) * 49) + ((int)threadIdx.x)) % 98)) + 2744))];
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 16; ++ci_inner) {
       bgemm_local[(0)] = (bgemm_local[(0)] + (placeholder_shared[(((ci_inner * 32) + (((int)threadIdx.y) * 2)))] * data_pack_shared[(((ci_inner * 98) + ((int)threadIdx.x)))]));
@@ -3559,22 +3580,22 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       bgemm_local[(15)] = (bgemm_local[(15)] + (placeholder_shared[((((ci_inner * 32) + (((int)threadIdx.y) * 2)) + 25))] * data_pack_shared[((((ci_inner * 98) + ((int)threadIdx.x)) + 49))]));
     }
   }
-  bgemm[((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)))] = bgemm_local[(0)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1568))] = bgemm_local[(4)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[(8)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4704))] = bgemm_local[(12)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 49))] = bgemm_local[(2)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1617))] = bgemm_local[(6)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3185))] = bgemm_local[(10)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4753))] = bgemm_local[(14)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 196))] = bgemm_local[(1)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1764))] = bgemm_local[(5)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3332))] = bgemm_local[(9)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4900))] = bgemm_local[(13)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 245))] = bgemm_local[(3)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 1813))] = bgemm_local[(7)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 3381))] = bgemm_local[(11)];
-  bgemm[(((((((((int)blockIdx.z) * 25088) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)blockIdx.x) * 98)) + ((int)threadIdx.x)) + 4949))] = bgemm_local[(15)];
+  bgemm[((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)))] = bgemm_local[(0)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1568))] = bgemm_local[(4)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[(8)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4704))] = bgemm_local[(12)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 49))] = bgemm_local[(2)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1617))] = bgemm_local[(6)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3185))] = bgemm_local[(10)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4753))] = bgemm_local[(14)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 196))] = bgemm_local[(1)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1764))] = bgemm_local[(5)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3332))] = bgemm_local[(9)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4900))] = bgemm_local[(13)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 245))] = bgemm_local[(3)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 1813))] = bgemm_local[(7)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 3381))] = bgemm_local[(11)];
+  bgemm[(((((((((int)vz) * 25088) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 392)) + (((int)vx) * 98)) + ((int)threadIdx.x)) + 4949))] = bgemm_local[(15)];
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
@@ -3582,7 +3603,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps) < 29)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu) < 29)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (eps * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + nu) - 29))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 2) + eps) < 29)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2) + nu) < 29)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (eps * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + nu) - 29))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -3667,7 +3688,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 100352) + (nu1 * 25088)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 100352) + (nu1 * 25088)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
@@ -3686,12 +3707,12 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     #pragma unroll
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 3; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
       if (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) < 128) {
-        placeholder_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 65536) + (ci_outer * 2048)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) >> 4) * 256)) + (((int)blockIdx.y) * 16)) + (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) & 15)))];
+        placeholder_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 65536) + (ci_outer * 2048)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) >> 4) * 256)) + (((int)vy) * 16)) + (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) & 15)))];
       }
     }
     #pragma unroll
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49) + ((int)threadIdx.x)))] = data_pack[(((((((int)blockIdx.z) * 12544) + (ci_outer * 392)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49)) + ((int)threadIdx.x)))];
+      data_pack_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49) + ((int)threadIdx.x)))] = data_pack[(((((((int)vz) * 12544) + (ci_outer * 392)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     #pragma unroll
@@ -3705,8 +3726,8 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
   #pragma unroll
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 8; ++co_inner_inner_inner) {
-    bgemm[(((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
-    bgemm[((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)) + 392))] = bgemm_local[((co_inner_inner_inner + 8))];
+    bgemm[(((((((int)vz) * 12544) + (((int)vy) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
+    bgemm[((((((((int)vz) * 12544) + (((int)vy) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)) + 392))] = bgemm_local[((co_inner_inner_inner + 8))];
   }
 }
 
@@ -3715,7 +3736,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps) < 15)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu) < 15)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (eps * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + nu) - 15))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps) < 15)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu) < 15)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (eps * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + nu) - 15))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -3800,7 +3821,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 50176) + (nu1 * 12544)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 50176) + (nu1 * 12544)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
@@ -3810,7 +3831,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -3895,7 +3916,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
@@ -3923,7 +3944,7 @@ extern "C" __global__ void fused_nn_conv2d_kernel0(float* __restrict__ placehold
   for (int rc_outer = 0; rc_outer < 4; ++rc_outer) {
     __syncthreads();
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner < 4; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) {
-      pad_temp_shared[((((((int)threadIdx.z) * 112) + (((int)threadIdx.x) * 4)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder[((((((rc_outer * 50176) + (((int)threadIdx.z) * 6272)) + ((((((int)threadIdx.x) * 4) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 56) * 3136)) + (((int)blockIdx.y) * 56)) + (((((int)threadIdx.x) * 4) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 56)))];
+      pad_temp_shared[((((((int)threadIdx.z) * 112) + (((int)threadIdx.x) * 4)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = placeholder[((((((rc_outer * 50176) + (((int)threadIdx.z) * 6272)) + ((((((int)threadIdx.x) * 4) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 56) * 3136)) + (((int)vy) * 56)) + (((((int)threadIdx.x) * 4) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 56)))];
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1 < 5; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) {
       if (((((int)threadIdx.z) * 8) + (((((int)threadIdx.x) * 5) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner1) >> 4)) < 64) {
@@ -3954,22 +3975,22 @@ extern "C" __global__ void fused_nn_conv2d_kernel0(float* __restrict__ placehold
       compute_local[(15)] = (compute_local[(15)] + (pad_temp_shared[((((rc_inner * 56) + ((int)threadIdx.x)) + 28))] * placeholder_shared[((((((int)threadIdx.z) * 16) + rc_inner) + 896))]));
     }
   }
-  compute[((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)))] = compute_local[(0)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 25088))] = compute_local[(2)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 50176))] = compute_local[(4)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 75264))] = compute_local[(6)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 100352))] = compute_local[(8)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 125440))] = compute_local[(10)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 150528))] = compute_local[(12)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 175616))] = compute_local[(14)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 28))] = compute_local[(1)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 25116))] = compute_local[(3)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 50204))] = compute_local[(5)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 75292))] = compute_local[(7)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 100380))] = compute_local[(9)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 125468))] = compute_local[(11)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 150556))] = compute_local[(13)];
-  compute[(((((((int)threadIdx.z) * 3136) + (((int)blockIdx.y) * 56)) + ((int)threadIdx.x)) + 175644))] = compute_local[(15)];
+  compute[((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)))] = compute_local[(0)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 25088))] = compute_local[(2)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 50176))] = compute_local[(4)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 75264))] = compute_local[(6)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 100352))] = compute_local[(8)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 125440))] = compute_local[(10)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 150528))] = compute_local[(12)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 175616))] = compute_local[(14)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 28))] = compute_local[(1)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 25116))] = compute_local[(3)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 50204))] = compute_local[(5)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 75292))] = compute_local[(7)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 100380))] = compute_local[(9)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 125468))] = compute_local[(11)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 150556))] = compute_local[(13)];
+  compute[(((((((int)threadIdx.z) * 3136) + (((int)vy) * 56)) + ((int)threadIdx.x)) + 175644))] = compute_local[(15)];
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
@@ -3987,12 +4008,12 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
       if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) < 256) {
         if (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 2) + ((int)threadIdx.y)) < 3) {
-          placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 4096) + (ci_outer * 512)) + (((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) >> 5) * 64)) + (((int)blockIdx.y) * 32)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) & 31)))];
+          placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 4096) + (ci_outer * 512)) + (((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) >> 5) * 64)) + (((int)vy) * 32)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) & 31)))];
         }
       }
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 12544) + (ci_outer * 1568)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196)) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))];
+      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 12544) + (ci_outer * 1568)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196)) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 8; ++ci_inner) {
@@ -4005,15 +4026,15 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     }
   }
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 8; ++co_inner_inner_inner) {
-    bgemm[((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[((co_inner_inner_inner + 16))];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 98))] = bgemm_local[((co_inner_inner_inner + 8))];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3234))] = bgemm_local[((co_inner_inner_inner + 24))];
+    bgemm[((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[((co_inner_inner_inner + 16))];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 98))] = bgemm_local[((co_inner_inner_inner + 8))];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3234))] = bgemm_local[((co_inner_inner_inner + 24))];
   }
 }
 
 extern "C" __global__ void fused_add_10_kernel0(float* __restrict__ T_add, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
-  T_add[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = (placeholder[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 50176))]);
+  T_add[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = (placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 50176))]);
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
@@ -4031,12 +4052,12 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
       if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) < 256) {
         if (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 2) + ((int)threadIdx.y)) < 3) {
-          placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 4096) + (ci_outer * 512)) + (((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) >> 5) * 64)) + (((int)blockIdx.y) * 32)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) & 31)))];
+          placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 4096) + (ci_outer * 512)) + (((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) >> 5) * 64)) + (((int)vy) * 32)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) & 31)))];
         }
       }
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 12544) + (ci_outer * 1568)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196)) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))];
+      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 12544) + (ci_outer * 1568)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196)) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 8; ++ci_inner) {
@@ -4049,10 +4070,10 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     }
   }
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 8; ++co_inner_inner_inner) {
-    bgemm[((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[((co_inner_inner_inner + 16))];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 98))] = bgemm_local[((co_inner_inner_inner + 8))];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3234))] = bgemm_local[((co_inner_inner_inner + 24))];
+    bgemm[((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[((co_inner_inner_inner + 16))];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 98))] = bgemm_local[((co_inner_inner_inner + 8))];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3234))] = bgemm_local[((co_inner_inner_inner + 24))];
   }
 }
 
@@ -4068,10 +4089,10 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   for (int ci_outer = 0; ci_outer < 32; ++ci_outer) {
     __syncthreads();
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
-      placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = placeholder[(((((((((int)blockIdx.z) * 262144) + (ci_outer * 8192)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 1024)) + ((((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) >> 6) * 512)) + (((int)blockIdx.y) * 64)) + (((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) & 63)))];
+      placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = placeholder[(((((((((int)vz) * 262144) + (ci_outer * 8192)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 1024)) + ((((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) >> 6) * 512)) + (((int)vy) * 64)) + (((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) & 63)))];
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 8192) + (ci_outer * 256)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128)) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))];
+      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 8192) + (ci_outer * 256)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128)) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 16; ++ci_inner) {
@@ -4084,7 +4105,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 4; ++co_inner_inner_inner) {
     for (int p_inner_inner_inner = 0; p_inner_inner_inner < 2; ++p_inner_inner_inner) {
-      bgemm[(((((((((int)blockIdx.z) * 8192) + (((int)blockIdx.y) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
+      bgemm[(((((((((int)vz) * 8192) + (((int)vy) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
     }
   }
 }
@@ -4094,59 +4115,59 @@ extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(float* __rest
   tensor[(0)] = -3.402823e+38f;
   for (int dh = 0; dh < 3; ++dh) {
     for (int dw = 0; dw < 3; ++dw) {
-      tensor[(0)] = max(tensor[(0)], (((1 <= ((((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) % 3136) / 56) * 2) + dh)) && (1 <= (((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) % 56) * 2) + dw))) ? placeholder[(((((((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 56) * 224) + (dh * 112)) + ((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) % 56) * 2)) + dw) - 113))] : -3.402823e+38f));
+      tensor[(0)] = max(tensor[(0)], (((1 <= ((((((((int)vx) * 1024) + ((int)threadIdx.x)) % 3136) / 56) * 2) + dh)) && (1 <= (((((((int)vx) * 1024) + ((int)threadIdx.x)) % 56) * 2) + dw))) ? placeholder[(((((((((((int)vx) * 1024) + ((int)threadIdx.x)) / 56) * 224) + (dh * 112)) + ((((((int)vx) * 1024) + ((int)threadIdx.x)) % 56) * 2)) + dw) - 113))] : -3.402823e+38f));
     }
   }
-  T_relu[(((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)))] = max((tensor[(0)] + placeholder1[((((((int)blockIdx.x) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
+  T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((tensor[(0)] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ placeholder2) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 8192))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 16384))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 32768))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 65536))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 8192))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 16384))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 32768))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 65536))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 8192))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 16384))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 24576))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 57344))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 90112))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 8192))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 16384))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 24576))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 57344))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 90112))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 32768))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 65536))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 98304))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 106496))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 114688))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 32768))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 65536))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 98304))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 106496))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 114688))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 57344))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 90112))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 106496))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 114688))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 122880))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 57344))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 90112))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 106496))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 114688))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 122880))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
       if (((((((int)threadIdx.x) & 15) >> 2) * 2) + ax2_inner) < 7) {
         if ((((((int)threadIdx.x) & 3) * 2) + ax3_inner) < 7) {
-          T_relu[(((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))] = max((((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[(((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))]) * placeholder1[(((((int)blockIdx.x) * 8) + (((int)threadIdx.x) >> 4)))]) + placeholder2[(((((int)blockIdx.x) * 8) + (((int)threadIdx.x) >> 4)))]), 0.000000e+00f);
+          T_relu[(((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))] = max((((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[(((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))]) * placeholder1[(((((int)vx) * 8) + (((int)threadIdx.x) >> 4)))]) + placeholder2[(((((int)vx) * 8) + (((int)threadIdx.x) >> 4)))]), 0.000000e+00f);
         }
       }
     }
@@ -4158,7 +4179,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps) < 15)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu) < 15)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (eps * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + nu) - 15))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 49) / 7) * 2) + eps) < 15)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2) + nu) < 15)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (eps * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + nu) - 15))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -4243,7 +4264,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 50176) + (nu1 * 12544)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 50176) + (nu1 * 12544)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
@@ -4254,360 +4275,360 @@ extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(float* __restrict_
   for (int rv0 = 0; rv0 < 7; ++rv0) {
     for (int rv1 = 0; rv1 < 7; ++rv1) {
       if (((int)threadIdx.y) < 1) {
-        tensor1[(0)] = (tensor1[(0)] + placeholder[((((((((int)threadIdx.y) * 25088) + (((int)blockIdx.x) * 392)) + (((int)threadIdx.x) * 49)) + (rv0 * 7)) + rv1))]);
+        tensor1[(0)] = (tensor1[(0)] + placeholder[((((((((int)threadIdx.y) * 25088) + (((int)vx) * 392)) + (((int)threadIdx.x) * 49)) + (rv0 * 7)) + rv1))]);
       }
     }
   }
   if (((int)threadIdx.y) < 1) {
-    tensor[((((((int)threadIdx.y) * 512) + (((int)blockIdx.x) * 8)) + ((int)threadIdx.x)))] = (tensor1[(0)] * 2.040816e-02f);
+    tensor[((((((int)threadIdx.y) * 512) + (((int)vx) * 8)) + ((int)threadIdx.x)))] = (tensor1[(0)] * 2.040816e-02f);
   }
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
   float inverse[16];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * -2.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 5.000000e-01f));
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * -2.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 5.000000e-01f));
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 4.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 2.500000e-01f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 4.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 2.500000e-01f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 1.250000e-01f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 1.250000e-01f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))]);
   inverse[(4)] = 0.000000e+00f;
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f));
-  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(4)] = (inverse[(4)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f));
+  inverse[(4)] = (inverse[(4)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f));
   inverse[(5)] = 0.000000e+00f;
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 5.000000e-01f));
-  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 5.000000e-01f));
+  inverse[(5)] = (inverse[(5)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -2.000000e+00f));
   inverse[(6)] = 0.000000e+00f;
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * 4.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 2.500000e-01f));
-  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(6)] = (inverse[(6)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * 4.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 2.500000e-01f));
+  inverse[(6)] = (inverse[(6)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * 4.000000e+00f));
   inverse[(7)] = 0.000000e+00f;
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 5.000000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 1.250000e-01f));
-  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -8.000000e+00f));
-  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * -2.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 5.000000e-01f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 5.000000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 5.000000e-01f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 5.000000e-01f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 5.000000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -2.000000e+00f) * -1.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -2.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -2.000000e+00f) * 1.250000e-01f));
+  inverse[(7)] = (inverse[(7)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -2.000000e+00f) * -8.000000e+00f));
+  inverse[(7)] = (inverse[(7)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * -2.000000e+00f));
   inverse[(8)] = 0.000000e+00f;
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f));
-  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(8)] = (inverse[(8)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f));
+  inverse[(8)] = (inverse[(8)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f));
   inverse[(9)] = 0.000000e+00f;
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -2.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 5.000000e-01f));
-  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -2.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 5.000000e-01f));
+  inverse[(9)] = (inverse[(9)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -2.000000e+00f));
   inverse[(10)] = 0.000000e+00f;
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 2.500000e-01f));
-  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(10)] = (inverse[(10)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 2.500000e-01f));
+  inverse[(10)] = (inverse[(10)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * 4.000000e+00f));
   inverse[(11)] = 0.000000e+00f;
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 2.500000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 1.250000e-01f));
-  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -8.000000e+00f));
-  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * 4.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 2.500000e-01f) * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 2.500000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 2.500000e-01f) * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 2.500000e-01f) * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 2.500000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * 4.000000e+00f) * -1.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * 4.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * 4.000000e+00f) * 1.250000e-01f));
+  inverse[(11)] = (inverse[(11)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * 4.000000e+00f) * -8.000000e+00f));
+  inverse[(11)] = (inverse[(11)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * 4.000000e+00f));
   inverse[(12)] = 0.000000e+00f;
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 376320))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))]);
-  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))]);
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f));
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 376320))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))]);
+  inverse[(12)] = (inverse[(12)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))]);
   inverse[(13)] = 0.000000e+00f;
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -2.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
-  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 5.000000e-01f));
-  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -2.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
+  inverse[(13)] = (inverse[(13)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 5.000000e-01f));
+  inverse[(13)] = (inverse[(13)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * -2.000000e+00f));
   inverse[(14)] = 0.000000e+00f;
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * 4.000000e+00f));
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))]);
-  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 2.500000e-01f));
-  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * 4.000000e+00f));
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))]);
+  inverse[(14)] = (inverse[(14)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 2.500000e-01f));
+  inverse[(14)] = (inverse[(14)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * 4.000000e+00f));
   inverse[(15)] = 0.000000e+00f;
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 213248))]);
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 288512))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 363776))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 401408))]);
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 413952))] * 1.250000e-01f));
-  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 426496))] * -8.000000e+00f));
-  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 439040))]);
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 213248))]);
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 238336))] * 1.250000e-01f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 263424))] * 1.250000e-01f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))] * 1.250000e-01f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 288512))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 313600))] * -8.000000e+00f) * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 338688))] * -8.000000e+00f) * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))] * -8.000000e+00f) * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 363776))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 388864))] * -1.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 401408))]);
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 413952))] * 1.250000e-01f));
+  inverse[(15)] = (inverse[(15)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 426496))] * -8.000000e+00f));
+  inverse[(15)] = (inverse[(15)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 439040))]);
   for (int ax2_inner = 0; ax2_inner < 4; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 4; ++ax3_inner) {
-      T_add[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))] = (inverse[(((ax2_inner * 4) + ax3_inner))] + placeholder[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))]);
+      T_add[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))] = (inverse[(((ax2_inner * 4) + ax3_inner))] + placeholder[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (ax2_inner * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + ax3_inner))]);
     }
   }
 }
@@ -4617,7 +4638,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
     for (int nu = 0; nu < 4; ++nu) {
-      d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
+      d[(((eps * 4) + nu))] = (((((1 <= ((((((int)threadIdx.x) & 15) >> 2) * 2) + eps)) && (((((((int)threadIdx.x) & 15) >> 2) * 2) + eps) < 8)) && (1 <= (((((int)threadIdx.x) & 3) * 2) + nu))) && ((((((int)threadIdx.x) & 3) * 2) + nu) < 8)) ? placeholder[((((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (eps * 7)) + ((((int)threadIdx.x) & 3) * 2)) + nu) - 8))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -4702,7 +4723,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(15)] = (data_pack_local[(15)] + d[(15)]);
   for (int eps1 = 0; eps1 < 4; ++eps1) {
     for (int nu1 = 0; nu1 < 4; ++nu1) {
-      data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
+      data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
 }
@@ -4719,12 +4740,12 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restri
     __syncthreads();
     if (((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) < 342) {
       if (((int)threadIdx.x) < 11) {
-        pad_temp_shared[(((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)))] = (((1 <= ((((int)blockIdx.y) * 2) + ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 171) / 57))) && (1 <= (((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 57))) ? placeholder[(((((((rc_outer * 6272) + ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) / 171) * 3136)) + (((int)blockIdx.y) * 112)) + (((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 171) / 57) * 56)) + (((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 57)) - 57))] : 0.000000e+00f);
+        pad_temp_shared[(((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)))] = (((1 <= ((((int)vy) * 2) + ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 171) / 57))) && (1 <= (((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 57))) ? placeholder[(((((((rc_outer * 6272) + ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) / 171) * 3136)) + (((int)vy) * 112)) + (((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 171) / 57) * 56)) + (((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) % 57)) - 57))] : 0.000000e+00f);
       }
     }
     if (((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) < 341) {
       if (((int)threadIdx.x) < 11) {
-        pad_temp_shared[((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1))] = (((1 <= ((((int)blockIdx.y) * 2) + (((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 171) / 57))) && (1 <= ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 57))) ? placeholder[(((((((rc_outer * 6272) + (((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) / 171) * 3136)) + (((int)blockIdx.y) * 112)) + ((((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 171) / 57) * 56)) + ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 57)) - 57))] : 0.000000e+00f);
+        pad_temp_shared[((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1))] = (((1 <= ((((int)vy) * 2) + (((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 171) / 57))) && (1 <= ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 57))) ? placeholder[(((((((rc_outer * 6272) + (((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) / 171) * 3136)) + (((int)vy) * 112)) + ((((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 171) / 57) * 56)) + ((((((int)threadIdx.z) * 22) + (((int)threadIdx.x) * 2)) + 1) % 57)) - 57))] : 0.000000e+00f);
       }
     }
     if (((((int)threadIdx.z) * 2) + (((int)threadIdx.x) / 6)) < 32) {
@@ -4732,7 +4753,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restri
         if (((((int)threadIdx.z) * 12) + ((int)threadIdx.x)) < 192) {
           if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)) < 576) {
             if (((int)threadIdx.x) < 12) {
-              placeholder_shared[(((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)))] = placeholder1[((((((((int)blockIdx.z) * 18432) + (((int)threadIdx.z) * 1152)) + ((((int)threadIdx.x) / 6) * 576)) + (rc_outer * 18)) + ((((int)threadIdx.x) % 6) * 3)))];
+              placeholder_shared[(((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)))] = placeholder1[((((((((int)vz) * 18432) + (((int)threadIdx.z) * 1152)) + ((((int)threadIdx.x) / 6) * 576)) + (rc_outer * 18)) + ((((int)threadIdx.x) % 6) * 3)))];
             }
           }
         }
@@ -4743,7 +4764,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restri
         if (((((int)threadIdx.z) * 12) + ((int)threadIdx.x)) < 192) {
           if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)) < 575) {
             if (((int)threadIdx.x) < 12) {
-              placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)) + 1))] = placeholder1[(((((((((int)blockIdx.z) * 18432) + (((int)threadIdx.z) * 1152)) + ((((int)threadIdx.x) / 6) * 576)) + (rc_outer * 18)) + ((((int)threadIdx.x) % 6) * 3)) + 1))];
+              placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)) + 1))] = placeholder1[(((((((((int)vz) * 18432) + (((int)threadIdx.z) * 1152)) + ((((int)threadIdx.x) / 6) * 576)) + (rc_outer * 18)) + ((((int)threadIdx.x) % 6) * 3)) + 1))];
             }
           }
         }
@@ -4754,7 +4775,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restri
         if (((((int)threadIdx.z) * 12) + ((int)threadIdx.x)) < 192) {
           if (((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)) < 574) {
             if (((int)threadIdx.x) < 12) {
-              placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)) + 2))] = placeholder1[(((((((((int)blockIdx.z) * 18432) + (((int)threadIdx.z) * 1152)) + ((((int)threadIdx.x) / 6) * 576)) + (rc_outer * 18)) + ((((int)threadIdx.x) % 6) * 3)) + 2))];
+              placeholder_shared[((((((int)threadIdx.z) * 36) + (((int)threadIdx.x) * 3)) + 2))] = placeholder1[(((((((((int)vz) * 18432) + (((int)threadIdx.z) * 1152)) + ((((int)threadIdx.x) / 6) * 576)) + (rc_outer * 18)) + ((((int)threadIdx.x) % 6) * 3)) + 2))];
             }
           }
         }
@@ -4834,10 +4855,10 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restri
     compute[(1)] = (compute[(1)] + (pad_temp_shared[(((((int)threadIdx.x) * 2) + 315))] * placeholder_shared[(((((int)threadIdx.z) * 18) + 17))]));
     compute[(3)] = (compute[(3)] + (pad_temp_shared[(((((int)threadIdx.x) * 2) + 315))] * placeholder_shared[(((((int)threadIdx.z) * 18) + 305))]));
   }
-  T_relu[(((((((int)blockIdx.z) * 25088) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)))] = max((compute[(0)] + placeholder2[(((((int)blockIdx.z) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
-  T_relu[((((((((int)blockIdx.z) * 25088) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)) + 12544))] = max((compute[(2)] + placeholder2[((((((int)blockIdx.z) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
-  T_relu[((((((((int)blockIdx.z) * 25088) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)) + 14))] = max((compute[(1)] + placeholder2[(((((int)blockIdx.z) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
-  T_relu[((((((((int)blockIdx.z) * 25088) + (((int)threadIdx.z) * 784)) + (((int)blockIdx.y) * 28)) + ((int)threadIdx.x)) + 12558))] = max((compute[(3)] + placeholder2[((((((int)blockIdx.z) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
+  T_relu[(((((((int)vz) * 25088) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)))] = max((compute[(0)] + placeholder2[(((((int)vz) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
+  T_relu[((((((((int)vz) * 25088) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)) + 12544))] = max((compute[(2)] + placeholder2[((((((int)vz) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
+  T_relu[((((((((int)vz) * 25088) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)) + 14))] = max((compute[(1)] + placeholder2[(((((int)vz) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
+  T_relu[((((((((int)vz) * 25088) + (((int)threadIdx.z) * 784)) + (((int)vy) * 28)) + ((int)threadIdx.x)) + 12558))] = max((compute[(3)] + placeholder2[((((((int)vz) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
@@ -4855,12 +4876,12 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
       if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) < 256) {
         if (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 2) + ((int)threadIdx.y)) < 3) {
-          placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 4096) + (ci_outer * 512)) + (((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) >> 5) * 64)) + (((int)blockIdx.y) * 32)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) & 31)))];
+          placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 4096) + (ci_outer * 512)) + (((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) >> 5) * 64)) + (((int)vy) * 32)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)) & 31)))];
         }
       }
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 12544) + (ci_outer * 1568)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196)) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))];
+      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 12544) + (ci_outer * 1568)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 196)) + (((int)threadIdx.y) * 98)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 8; ++ci_inner) {
@@ -4873,60 +4894,60 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     }
   }
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 8; ++co_inner_inner_inner) {
-    bgemm[((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[((co_inner_inner_inner + 16))];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 98))] = bgemm_local[((co_inner_inner_inner + 8))];
-    bgemm[(((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3234))] = bgemm_local[((co_inner_inner_inner + 24))];
+    bgemm[((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3136))] = bgemm_local[((co_inner_inner_inner + 16))];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 98))] = bgemm_local[((co_inner_inner_inner + 8))];
+    bgemm[(((((((((int)vz) * 12544) + (((int)vy) * 6272)) + (((int)threadIdx.y) * 1568)) + (co_inner_inner_inner * 196)) + ((int)threadIdx.x)) + 3234))] = bgemm_local[((co_inner_inner_inner + 24))];
   }
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 8192))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 16384))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 32768))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 65536))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 8192))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 16384))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 32768))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 65536))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 8192))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 16384))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 24576))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 57344))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 90112))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 8192))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 16384))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 24576))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 57344))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 90112))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 32768))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 65536))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 98304))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 106496))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 114688))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 32768))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 65536))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 98304))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 106496))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 114688))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 57344))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 81920))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 90112))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 106496))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 114688))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 122880))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 40960))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 49152))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 57344))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 73728))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 81920))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 90112))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 106496))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 114688))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 122880))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
       if (((((((int)threadIdx.x) & 15) >> 2) * 2) + ax2_inner) < 7) {
         if ((((((int)threadIdx.x) & 3) * 2) + ax3_inner) < 7) {
-          T_relu[(((((((((int)blockIdx.x) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))] = max((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[(((((int)blockIdx.x) * 8) + (((int)threadIdx.x) >> 4)))]), 0.000000e+00f);
+          T_relu[(((((((((int)vx) * 392) + ((((int)threadIdx.x) >> 4) * 49)) + (((((int)threadIdx.x) & 15) >> 2) * 14)) + (ax2_inner * 7)) + ((((int)threadIdx.x) & 3) * 2)) + ax3_inner))] = max((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[(((((int)vx) * 8) + (((int)threadIdx.x) >> 4)))]), 0.000000e+00f);
         }
       }
     }
@@ -4936,48 +4957,48 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 200704))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 301056))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 200704))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 301056))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 250880))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 275968))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 326144))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 351232))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 376320))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 225792))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 250880))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 275968))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 326144))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 351232))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 376320))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
-      T_relu[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))] = max(((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))]) + placeholder1[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
+      T_relu[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))] = max(((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 56) + (ax2_inner * 28)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 2)) + ax3_inner))]) + placeholder1[((((((int)vx) * 128) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
     }
   }
 }
@@ -4994,10 +5015,10 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   for (int ci_outer = 0; ci_outer < 32; ++ci_outer) {
     __syncthreads();
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
-      placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = placeholder[(((((((((int)blockIdx.z) * 262144) + (ci_outer * 8192)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 1024)) + ((((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) >> 6) * 512)) + (((int)blockIdx.y) * 64)) + (((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) & 63)))];
+      placeholder_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = placeholder[(((((((((int)vz) * 262144) + (ci_outer * 8192)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 1024)) + ((((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) >> 6) * 512)) + (((int)vy) * 64)) + (((((int)threadIdx.y) * 8) + ((int)threadIdx.x)) & 63)))];
     }
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 2; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = data_pack[((((((((int)blockIdx.z) * 8192) + (ci_outer * 256)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128)) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))];
+      data_pack_shared[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))] = data_pack[((((((((int)vz) * 8192) + (ci_outer * 256)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 128)) + (((int)threadIdx.y) * 8)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     for (int ci_inner = 0; ci_inner < 16; ++ci_inner) {
@@ -5010,7 +5031,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 4; ++co_inner_inner_inner) {
     for (int p_inner_inner_inner = 0; p_inner_inner_inner < 2; ++p_inner_inner_inner) {
-      bgemm[(((((((((int)blockIdx.z) * 8192) + (((int)blockIdx.y) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
+      bgemm[(((((((((int)vz) * 8192) + (((int)vy) * 1024)) + (((int)threadIdx.y) * 64)) + (co_inner_inner_inner * 16)) + (((int)threadIdx.x) * 2)) + p_inner_inner_inner))] = bgemm_local[(((co_inner_inner_inner * 2) + p_inner_inner_inner))];
     }
   }
 }
@@ -5029,12 +5050,12 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
     #pragma unroll
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer < 3; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer) {
       if (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) < 128) {
-        placeholder_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)blockIdx.z) * 65536) + (ci_outer * 2048)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) >> 4) * 256)) + (((int)blockIdx.y) * 16)) + (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) & 15)))];
+        placeholder_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)))] = placeholder[((((((((int)vz) * 65536) + (ci_outer * 2048)) + ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) >> 4) * 256)) + (((int)vy) * 16)) + (((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer * 49) + ((int)threadIdx.x)) & 15)))];
       }
     }
     #pragma unroll
     for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 < 8; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1) {
-      data_pack_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49) + ((int)threadIdx.x)))] = data_pack[(((((((int)blockIdx.z) * 12544) + (ci_outer * 392)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49)) + ((int)threadIdx.x)))];
+      data_pack_shared[(((ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49) + ((int)threadIdx.x)))] = data_pack[(((((((int)vz) * 12544) + (ci_outer * 392)) + (ax0_ax1_fused_ax2_fused_ax3_fused_outer_outer_outer1 * 49)) + ((int)threadIdx.x)))];
     }
     __syncthreads();
     #pragma unroll
@@ -5048,8 +5069,8 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   }
   #pragma unroll
   for (int co_inner_inner_inner = 0; co_inner_inner_inner < 8; ++co_inner_inner_inner) {
-    bgemm[(((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
-    bgemm[((((((((int)blockIdx.z) * 12544) + (((int)blockIdx.y) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)) + 392))] = bgemm_local[((co_inner_inner_inner + 8))];
+    bgemm[(((((((int)vz) * 12544) + (((int)vy) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)))] = bgemm_local[(co_inner_inner_inner)];
+    bgemm[((((((((int)vz) * 12544) + (((int)vy) * 784)) + (co_inner_inner_inner * 49)) + ((int)threadIdx.x)) + 392))] = bgemm_local[((co_inner_inner_inner + 8))];
   }
 }
 
@@ -5059,7 +5080,7 @@ extern "C" __global__ void fused_nn_dense_add_kernel0(float* __restrict__ placeh
   __shared__ float T_dense[1];
   T_dense_rf[(0)] = 0.000000e+00f;
   for (int k_outer = 0; k_outer < 8; ++k_outer) {
-    T_dense_rf[(0)] = (T_dense_rf[(0)] + (placeholder[(((k_outer * 64) + ((int)threadIdx.x)))] * placeholder1[((((((int)blockIdx.x) * 512) + (k_outer * 64)) + ((int)threadIdx.x)))]));
+    T_dense_rf[(0)] = (T_dense_rf[(0)] + (placeholder[(((k_outer * 64) + ((int)threadIdx.x)))] * placeholder1[((((((int)vx) * 512) + (k_outer * 64)) + ((int)threadIdx.x)))]));
   }
   __syncthreads();
   ((volatile float*)red_buf0)[(((int)threadIdx.x))] = T_dense_rf[(0)];
@@ -5080,55 +5101,55 @@ extern "C" __global__ void fused_nn_dense_add_kernel0(float* __restrict__ placeh
     T_dense[(0)] = ((volatile float*)red_buf0)[(0)];
   }
   if (((int)threadIdx.x) == 0) {
-    T_add[(((int)blockIdx.x))] = (T_dense[(0)] + placeholder2[(((int)blockIdx.x))]);
+    T_add[(((int)vx))] = (T_dense[(0)] + placeholder2[(((int)vx))]);
   }
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
-  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)blockIdx.x) * 128) + ((int)threadIdx.x)))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(0)] = (inverse[(0)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
   inverse[(1)] = 0.000000e+00f;
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 25088))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 37632))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))]);
-  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 12544))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 25088))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 37632))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))]);
+  inverse[(1)] = (inverse[(1)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(1)] = (inverse[(1)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
   inverse[(2)] = 0.000000e+00f;
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 50176))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 100352))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 150528))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))]);
-  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 50176))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 100352))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 150528))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))]);
+  inverse[(2)] = (inverse[(2)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
   inverse[(3)] = 0.000000e+00f;
-  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f) * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 125440))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 137984))]);
-  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 175616))]);
-  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) + 188160))]);
+  inverse[(3)] = (inverse[(3)] + ((bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 62720))] * -1.000000e+00f) * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 75264))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 87808))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 112896))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 125440))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 137984))]);
+  inverse[(3)] = (inverse[(3)] + (bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 163072))] * -1.000000e+00f));
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 175616))]);
+  inverse[(3)] = (inverse[(3)] + bgemm[((((((int)vx) * 128) + ((int)threadIdx.x)) + 188160))]);
   for (int ax2_inner = 0; ax2_inner < 2; ++ax2_inner) {
     for (int ax3_inner = 0; ax3_inner < 2; ++ax3_inner) {
-      T_relu[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))] = max(((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))]) + placeholder1[((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
+      T_relu[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))] = max(((inverse[(((ax2_inner * 2) + ax3_inner))] + placeholder[((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 7) * 28) + (ax2_inner * 14)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 7) * 2)) + ax3_inner))]) + placeholder1[((((((int)vx) * 128) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
     }
   }
 }
@@ -5138,7 +5159,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
     for (int nu = 0; nu < 6; ++nu) {
-      d[(((eps * 6) + nu))] = (((((1 <= ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps)) && (((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps) < 57)) && (1 <= (((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu))) && ((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu) < 57)) ? placeholder[(((((((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) / 14) * 224) + (eps * 56)) + ((((((int)blockIdx.x) * 128) + ((int)threadIdx.x)) % 14) * 4)) + nu) - 57))] : 0.000000e+00f);
+      d[(((eps * 6) + nu))] = (((((1 <= ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps)) && (((((((((int)vx) * 128) + ((int)threadIdx.x)) % 196) / 14) * 4) + eps) < 57)) && (1 <= (((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu))) && ((((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4) + nu) < 57)) ? placeholder[(((((((((((int)vx) * 128) + ((int)threadIdx.x)) / 14) * 224) + (eps * 56)) + ((((((int)vx) * 128) + ((int)threadIdx.x)) % 14) * 4)) + nu) - 57))] : 0.000000e+00f);
     }
   }
   data_pack_local[(0)] = 0.000000e+00f;
@@ -5855,7 +5876,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   data_pack_local[(35)] = (data_pack_local[(35)] + d[(35)]);
   for (int eps1 = 0; eps1 < 6; ++eps1) {
     for (int nu1 = 0; nu1 < 6; ++nu1) {
-      data_pack[(((((eps1 * 75264) + (nu1 * 12544)) + (((int)blockIdx.x) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 6) + nu1))];
+      data_pack[(((((eps1 * 75264) + (nu1 * 12544)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 6) + nu1))];
     }
   }
 }
