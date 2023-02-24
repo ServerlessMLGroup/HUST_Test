@@ -330,8 +330,7 @@ int main(int argc, char **argv) {
     cuMemAllocHost((void**)(&allblocksize), 80*sizeof(int));
     for(int i=0;i<80;i++)
     {
-    allblocksize[i]=40;
-
+    allblocksize[i]=1000;
     }
     //init blocknum
     int* allblocknum;
@@ -353,7 +352,7 @@ int main(int argc, char **argv) {
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        40, 1, 1,
+        launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
         0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
     ));
