@@ -2735,7 +2735,6 @@ extern "C" __global__ void fused_add_nn_relu_kernel0(int* flag,int* blocknum,int
   {
     __nanosleep(100);
   }
-
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
     offset=vx;
