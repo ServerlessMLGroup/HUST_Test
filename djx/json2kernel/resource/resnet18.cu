@@ -4485,8 +4485,8 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
       data_pack[(((((eps1 * 32768) + (nu1 * 8192)) + (((int)vx) * 128)) + ((int)threadIdx.x)))] = data_pack_local[(((eps1 * 4) + nu1))];
     }
   }
+  offset+=blocksize[0];
   }
-    offset+=blocksize[0];
     }
   else
   {

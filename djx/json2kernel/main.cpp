@@ -351,14 +351,7 @@ int main(int argc, char **argv) {
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
-        if(j==47)
-        {
-         std::cout<<"name"<<func_name<<std::endl;
-        std::cout<<"0 "<<launch_params[0]<<std::endl;
-        std::cout<<"1 "<<launch_params[1]<<std::endl;
-        std::cout<<"2 "<<launch_params[2]<<std::endl;
-        continue;
-        }
+
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>40)
         {
@@ -376,8 +369,7 @@ int main(int argc, char **argv) {
     ));
         }
         j++;
-        if(j>49)
-         break;
+       
     }
 
     cuStreamSynchronize(secondstream);
