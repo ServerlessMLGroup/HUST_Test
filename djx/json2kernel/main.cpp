@@ -210,33 +210,32 @@ int main(int argc, char **argv) {
     std::cout << "storages.size = " << storage.size() << std::endl;
     raw_args.reserve(model->kernels.size());
 
+
     //temp,for test
+    /*
     CUdeviceptr device_ptr1;
     CUdeviceptr device_ptr2;
     CUdeviceptr device_ptr3;
-
+    */
 
     for (KernelInfo &kernel_info : model->kernels) {
         std::vector<CUdeviceptr*> kernel_arg;
-        if(kernel_info.name=="fused_add_nn_relu_1_kernel0")
-        {
-        std::cout << "oh yes" << std::endl;
+
         //flag
-        //CUdeviceptr device_ptr1;
+        CUdeviceptr device_ptr1;
         size_t storage_size = 1 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr1, storage_size));
         kernel_arg.push_back(&device_ptr1);
         //block num
-        //CUdeviceptr device_ptr2;
+        CUdeviceptr device_ptr2;
         storage_size = 3 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size));
         kernel_arg.push_back(&device_ptr2);
-        //block num
+        block num
         //CUdeviceptr device_ptr3;
         storage_size = 1 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr3, storage_size));
         kernel_arg.push_back(&device_ptr3);
-        }
 
         for (size_t arg_idx : kernel_info.args) {
             // assert(arg_idx < storage.size());
@@ -245,6 +244,8 @@ int main(int argc, char **argv) {
         raw_args.push_back(kernel_arg);
     }
 
+    //temp, for test
+    /*
     int *flag;
     int *blocknum;
     int *blocksize;
@@ -259,7 +260,7 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr1,flag,1*sizeof(int),firststream));
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr2,blocknum,3*sizeof(int),firststream));
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr3,blocksize,1*sizeof(int),firststream));
-
+    */
     printf("parse params!\n");
     parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
 
@@ -311,6 +312,52 @@ int main(int argc, char **argv) {
     }
 
     cuStreamSynchronize(firststream);
+
+    //init flag
+    int* allflag;
+    cuMemAllocHost((void**)(&flag), 80*sizeof(int));
+    for(int i=0;i<80;i++)
+    {
+    allflag[i]=1;
+    }
+    //init blocksize
+    int* allblocksize;
+    cuMemAllocHost((void**)(&allblocksize), 80*sizeof(int));
+    for(int i=0;i<80;i++)
+    {
+    allblocksize[i]=40;
+
+    }
+    //init blocknum
+    int* allblocknum;
+    cuMemAllocHost((void**)(&allblocknum), 240*sizeof(int));
+    for(int i=0;i<model->kernels.size();i++)
+    {
+        uint32_t *launch_params = model->kernels[i].launch_params;
+        allblocknum[3*i+0]=launch_params[0];
+        allblocknum[3*i+1]=launch_params[1];
+        allblocknum[3*i+2]=launch_params[2];
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)raw_args[i].data()[0],(allflag+i),1*sizeof(int),firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)raw_args[i].data()[1],(allblocknum+3*i),3*sizeof(int),firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)raw_args[i].data()[2],(allblocksize+i),1*sizeof(int),firststream));
+    }
+
+
+    j=0;
+    for (KernelInfo &kernel_info : model->kernels) {
+        std::string& func_name = kernel_info.name;
+        CUfunction func = kernels[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        40, 1, 1,
+        launch_params[3], launch_params[4], launch_params[5],
+        0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
+    ));
+        j++;
+    }
+
+
+
     j=0;
     for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
