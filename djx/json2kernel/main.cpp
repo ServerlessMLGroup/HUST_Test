@@ -375,7 +375,7 @@ int main(int argc, char **argv) {
     ));
         }
         j++;
-        if(j>47)
+        if(j>46)
          break;
     }
 
