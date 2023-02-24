@@ -315,7 +315,7 @@ int main(int argc, char **argv) {
 
     //init flag
     int* allflag;
-    cuMemAllocHost((void**)(&flag), 80*sizeof(int));
+    cuMemAllocHost((void**)(&allflag), 80*sizeof(int));
     for(int i=0;i<80;i++)
     {
     allflag[i]=1;
