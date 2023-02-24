@@ -11,7 +11,9 @@
 #endif
 
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
-
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float compute[56];
   __shared__ float pad_temp_shared[229];
   __shared__ float placeholder_shared[448];
@@ -132,6 +134,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(float* __restri
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[36];
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
@@ -886,6 +891,9 @@ extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,i
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -935,6 +943,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[16];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -1284,6 +1295,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -1333,12 +1347,18 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_add_nn_relu_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   if (((((int)vx) * 1024) + ((int)threadIdx.x)) < 25088) {
     T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 49))]), 0.000000e+00f);
   }
 }
 
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float compute[4];
   __shared__ float pad_temp_shared[580];
   __shared__ float placeholder_shared[1152];
@@ -1396,6 +1416,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(float* __restri
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -1491,10 +1514,16 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_add_nn_relu_3_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 3136))]), 0.000000e+00f);
 }
 // add for loop
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   // sm[vy * 28 + vz] = get_smid();
   float compute[1];
   __shared__ float pad_temp_shared[180];
@@ -1621,6 +1650,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(float* __restrict
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[16];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -1970,6 +2002,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[16];
   __shared__ float placeholder_shared[512];
   __shared__ float data_pack_shared[1568];
@@ -2045,6 +2080,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[8];
   __shared__ float placeholder_shared[1024];
   __shared__ float data_pack_shared[256];
@@ -2078,6 +2116,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -2173,6 +2214,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -2226,6 +2270,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_conv2d_2_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float compute_local[2];
   __shared__ float pad_temp_shared[216];
   __shared__ float placeholder_shared[256];
@@ -2259,10 +2306,16 @@ extern "C" __global__ void fused_nn_conv2d_2_kernel0(float* __restrict__ placeho
 }
 
 extern "C" __global__ void fused_nn_batch_flatten_kernel0(float* __restrict__ tensor, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   tensor[(((int)threadIdx.x))] = placeholder[(((int)threadIdx.x))];
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[16];
   __shared__ float placeholder_shared[512];
   __shared__ float data_pack_shared[1568];
@@ -2338,6 +2391,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -2387,6 +2443,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -2482,10 +2541,16 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_add_nn_relu_2_kernel0(float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 784))]), 0.000000e+00f);
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[16];
   __shared__ float placeholder_shared[128];
   __shared__ float data_pack_shared[392];
@@ -2524,6 +2589,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_softmax_kernel0(float* __restrict__ placeholder, float* __restrict__ T_softmax_norm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float normal_reduce_temp0[1];
   float red_buf0[1];
   float T_softmax_exp[32];
@@ -2588,6 +2656,9 @@ extern "C" __global__ void fused_nn_softmax_kernel0(float* __restrict__ placehol
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -2683,6 +2754,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -2732,6 +2806,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_conv2d_3_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float compute_local[1];
   __shared__ float pad_temp_shared[208];
   __shared__ float placeholder_shared[512];
@@ -2759,6 +2836,9 @@ extern "C" __global__ void fused_nn_conv2d_3_kernel0(float* __restrict__ placeho
 }
 
 extern "C" __global__ void fused_nn_conv2d_1_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float compute_local[4];
   __shared__ float pad_temp_shared[880];
   __shared__ float placeholder_shared[1024];
@@ -2797,6 +2877,9 @@ extern "C" __global__ void fused_nn_conv2d_1_kernel0(float* __restrict__ placeho
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[36];
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
@@ -3524,6 +3607,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[16];
   __shared__ float placeholder_shared[512];
   __shared__ float data_pack_shared[1568];
@@ -3599,6 +3685,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -3694,6 +3783,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[16];
   __shared__ float placeholder_shared[128];
   __shared__ float data_pack_shared[392];
@@ -3732,6 +3824,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -3827,6 +3922,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -3922,6 +4020,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_conv2d_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float compute_local[16];
   __shared__ float pad_temp_shared[896];
   __shared__ float placeholder_shared[1024];
@@ -3994,6 +4095,9 @@ extern "C" __global__ void fused_nn_conv2d_kernel0(float* __restrict__ placehold
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[32];
   __shared__ float placeholder_shared[256];
   __shared__ float data_pack_shared[1568];
@@ -4034,10 +4138,16 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_add_10_kernel0(float* __restrict__ T_add, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   T_add[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = (placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 50176))]);
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[32];
   __shared__ float placeholder_shared[256];
   __shared__ float data_pack_shared[1568];
@@ -4078,6 +4188,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[8];
   __shared__ float placeholder_shared[1024];
   __shared__ float data_pack_shared[256];
@@ -4111,6 +4224,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ T_relu, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float tensor[1];
   tensor[(0)] = -3.402823e+38f;
   for (int dh = 0; dh < 3; ++dh) {
@@ -4122,6 +4238,9 @@ extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(float* __rest
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ placeholder2) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -4175,6 +4294,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -4270,6 +4392,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(float* __restrict__ placeholder, float* __restrict__ tensor) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float tensor1[1];
   tensor1[(0)] = 0.000000e+00f;
   for (int rv0 = 0; rv0 < 7; ++rv0) {
@@ -4285,6 +4410,9 @@ extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(float* __restrict_
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel2(float* __restrict__ bgemm, float* __restrict__ T_add, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[16];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -4634,6 +4762,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[16];
   float data_pack_local[16];
   for (int eps = 0; eps < 4; ++eps) {
@@ -4729,6 +4860,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float compute[4];
   __shared__ float pad_temp_shared[342];
   __shared__ float placeholder_shared[576];
@@ -4862,6 +4996,9 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(float* __restri
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[32];
   __shared__ float placeholder_shared[256];
   __shared__ float data_pack_shared[1568];
@@ -4902,6 +5039,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -4955,6 +5095,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -5004,6 +5147,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[8];
   __shared__ float placeholder_shared[1024];
   __shared__ float data_pack_shared[256];
@@ -5037,6 +5183,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel1(float* __restrict__ placeholder, float* __restrict__ data_pack, float* __restrict__ bgemm) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float bgemm_local[16];
   __shared__ float placeholder_shared[128];
   __shared__ float data_pack_shared[392];
@@ -5075,6 +5224,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_dense_add_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_add, float* __restrict__ placeholder2) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float T_dense_rf[1];
   __shared__ float red_buf0[64];
   __shared__ float T_dense[1];
@@ -5106,6 +5258,9 @@ extern "C" __global__ void fused_nn_dense_add_kernel0(float* __restrict__ placeh
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel2(float* __restrict__ bgemm, float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float inverse[4];
   inverse[(0)] = 0.000000e+00f;
   inverse[(0)] = (inverse[(0)] + bgemm[(((((int)vx) * 128) + ((int)threadIdx.x)))]);
@@ -5155,6 +5310,9 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
 }
 
 extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel0(float* __restrict__ placeholder, float* __restrict__ data_pack) {
+  int vx=blockIdx.x;
+  int vy=blovkIdx.y;
+  int vz=blockIdx.z;
   float d[36];
   float data_pack_local[36];
   for (int eps = 0; eps < 6; ++eps) {
