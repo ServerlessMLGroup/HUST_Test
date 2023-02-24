@@ -314,6 +314,18 @@ int main(int argc, char **argv) {
     j=0;
     for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
+        if(func_name=="fused_add_nn_relu_1_kernel0")
+        {
+        CUfunction func = kernels[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        40, launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
+    ));
+        j++;
+        }
+        else{
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
         GPU_RETURN_STATUS(cuLaunchKernel(func,
@@ -322,6 +334,7 @@ int main(int argc, char **argv) {
         0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
     ));
         j++;
+        }
     }
     cuStreamSynchronize(secondstream);
     //std::vector<float> output(1000);
