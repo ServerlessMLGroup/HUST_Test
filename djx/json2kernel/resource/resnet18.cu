@@ -878,8 +878,8 @@ extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,i
     while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
     {
     vz=(offset-1)/(blocknum[0]*blocknum[1]);
-    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blcoknum[0];
-    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blcoknum[0]-1;
+    vy= (offset-(vz*blocknum[0]*blocknum[1])-1)/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0]-1;
     T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((placeholder[(((((int)vx) * 1024) + ((int)threadIdx.x)))] + placeholder1[((((((int)vx) * 1024) + ((int)threadIdx.x)) / 196))]), 0.000000e+00f);
     offset+=blocksize[0];
     }
