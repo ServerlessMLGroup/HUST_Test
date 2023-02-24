@@ -235,7 +235,7 @@ int main(int argc, char **argv) {
         //CUdeviceptr device_ptr2;
         storage_size = 3 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr2[i])), storage_size));
-        kernel_arg.push_back(&(device_ptr2[i]);
+        kernel_arg.push_back(&(device_ptr2[i]));
         //blocksize
         //CUdeviceptr device_ptr3;
         storage_size = 1 * sizeof(int);
