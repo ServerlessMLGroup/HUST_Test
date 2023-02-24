@@ -367,6 +367,8 @@ int main(int argc, char **argv) {
     ));
         }
         j++;
+        if(j>20)
+         break;
     }
 
     cuStreamSynchronize(secondstream);
