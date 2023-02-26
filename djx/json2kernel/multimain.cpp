@@ -19,6 +19,7 @@
 // To make some experiments, i(yy) make some changes here. Before changing, i copied all the code
 // Just read the code at copymain.cpp. If some bad change were made, we can fix it by the copy
 
+//this is for multi test
 
 enum Status {
     Succ,
@@ -373,14 +374,14 @@ int main(int argc, char **argv) {
     }
 
     cuStreamSynchronize(secondstream);
-    //std::vector<float> output(1000);
-    // RETURN_STATUS(get_output(output));
-    // std::vector<float> ans = {0.0003392257, 0.0014304413, 0.0004299286, 0.0010349639, 0.0020997059,
-    //                     0.0016049921, 0.0010267848, 0.00042607592, 0.0018747754, 0.0024558322};
-    // for (size_t i = 0; i < ans.size(); i++) {
-    //     // ASSERT_FLOAT_EQ(ans[i], output[i]);
-    //     std::cout << output[i] << " vs " << ans[i] << std::endl;
-    // }
+    std::vector<float> output(1000);
+     RETURN_STATUS(get_output(output));
+     std::vector<float> ans = {0.0003392257, 0.0014304413, 0.0004299286, 0.0010349639, 0.0020997059,
+                         0.0016049921, 0.0010267848, 0.00042607592, 0.0018747754, 0.0024558322};
+     for (size_t i = 0; i < ans.size(); i++) {
+         // ASSERT_FLOAT_EQ(ans[i], output[i]);
+         std::cout << output[i] << " vs " << ans[i] << std::endl;
+     }
     printf("reset model!\n");
     model.reset();
     return 0;
