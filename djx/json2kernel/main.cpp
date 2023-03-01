@@ -1,24 +1,18 @@
+/*
+Created by yuyue
+because i have to test a lot via main.cpp, i copy all its original code here
+once i make some mistakes i don't know why , i can fix my code by this
+*/
+
 #include "model.h"
 #include "log.h"
 #include <bits/unique_ptr.h>
 #include <cuda.h>
 #include "cuda_runtime.h"
-
 //yy add
 #include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
-#include <thread>
-#include <math.h>
-#include "unistd.h"
-#include <thread>
-
 // #include <glog/logging.h>
-
-//Notice
-// To make some experiments, i(yy) make some changes here. Before changing, i copied all the code
-// Just read the code at copymain.cpp. If some bad change were made, we can fix it by the copy
-
 
 enum Status {
     Succ,
@@ -46,11 +40,11 @@ enum Status {
     }\
 }
 
-//old
 std::vector<CUdeviceptr> storage;
 std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args;
 std::unique_ptr<Model> model;
+
 
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
@@ -142,26 +136,17 @@ Status get_output(std::vector<float>& out) {
     return get_data(input_storage_idx, out.data(), storage_info.size * sizeof(float));
 }
 
-bool argexist(int temparg,int* aused,int* top)
-{
-    for(int i=0;i<*top;i++)
-    {
-    if(temparg == aused[i])
-    {
-    return true;
-    }
-    }
-    aused[*top]=temparg;
-    *top=*top +1;
-    return false;
-}
-
-
-int main(int argc, char **argv) {
+int main(int argc, char **argv) {t
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
     }
     int gpu_no = atoi(argv[1]);
+
+    //set environment variable
+    putenv("CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=10");
+    //set end
+
+
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
     CUcontext ctx;
@@ -171,19 +156,19 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuInit(0));
     GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
-
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda kernels!\n");
 
-
-    //yy change:huan yi ge wenjian hai yao gai makefile,wo jiu yong zhe ge le
-    //wo hui zai wo gai de mei yige di fang jia shang zhushi yy
-
-    //yy add stream
-    CUstream firststream;
-    cuStreamCreate(&firststream,0);
-    //add fininshed
+    //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
+    //wo hui zai wo gaide mei yige difang jia shang zhushi yy
+    //yy preparation
+    /*
+    CUevent  start, stop;
+    float time;
+    cuEventCreate(&start,0);
+    cuEventCreate(&stop,0);
+    */
 
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
@@ -210,9 +195,8 @@ int main(int argc, char **argv) {
 
 
 
-    /*
     //yy create csv
-    //get parameter for each kernel
+    /*
     std::ofstream outFile;
     //outFile.open("output.csv", std::ios::out | std::ios::trunc);
     outFile.open("oytput.csv", std::ios::in);
@@ -220,71 +204,27 @@ int main(int argc, char **argv) {
             << "size" << std::endl;
     int storage_tongji[model->storage.size()];
     int kernelsize_tongji[model->kernels.size()];
-    int argused[80];
-    int kernelownarg[model->kernels.size()][8];
     size_t type_size;
     size_t torage_size;
-    //Initilize argused and kernelownarg
-    //argused is used for pointing wherther the arg was uesd by the kernel launched bofore
-    //kernelownarg
-    for(int i=0;i<80;i++)
-    {
-    argused[i]=-1;
-    }
-    for(int i=0;i<model->kernels.size();i++)
-    {
-        for(int j=0;j<8;j++)
-        {
-        kernelownarg[i][j]=-1;
-        }
-    }
-
     for (int i=0;i<model->storage.size();i++) {
         type_size = Model::get_stype_size(model->storage[i].stype);
         torage_size = type_size * model->storage[i].size;
         storage_tongji[i]=(int)torage_size;
     }
-
-    //tempsizetotal for kernel size
-    //temlocation for location to save
-    //top for arguesd
-    //temp to save temporary arg
     int tempsizetotal;
-    int temp=-2;
-    int temlocation;
-    int top=0;
-
-
     for (int k=0;k<model->kernels.size();k++) {
         tempsizetotal=0;
-        temlocation=-1;
-        for (int i=0;i<model->kernels[k].args.size();i++) {
-            temp=model->kernels[k].args[i];
-            //if(!(argexist(temp,argused,&top)))
-            //{
+        for (int temp : model->kernels[k].args) {
             tempsizetotal+=storage_tongji[temp];
-            //temlocation++;
-            //kernelownarg[k][temlocation]=temp;
-            //}
         }
         kernelsize_tongji[k]=tempsizetotal;
     }
-
     for(int j=0;j<model->kernels.size();j++)
     {
     std::cout<<"Kernel: "<< model->kernels[j].name.c_str()<<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
     outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
-
-    outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j];
-        for(int i=0;i<8;i++)
-        {
-        outFile<<","<<kernelownarg[j][i];
-        }
-    outFile<<std::endl;
-
     }
     outFile.close();
-    //add fininshed
     */
 
     printf("map raw args!\n");
@@ -302,76 +242,26 @@ int main(int argc, char **argv) {
     }
 
     printf("parse params!\n");
-    parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
-
-
-    //yy add
-    float* array[storage.size()];
-    uint64_t size[storage.size()];
-    size_t totoalsize=0;
-    size_t tempsize[storage.size()];
-    //add fininshed
-
-
-
+    std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param"));
     for (size_t i = 0; i < storage.size(); i++) {
         // std::cout << i << std::endl;
         StorageInfo& storage_info = model->storage[i];
-        std::cout <<i<<": "<< "storage_info.name:" << storage_info.name << std::endl;
-        std::cout<<storage_info.name<<std::endl;
-        if (params->mpdata->find(storage_info.name) == params->mpdata->end())
+        // std::cout << "storage_info.name:" << storage_info.name << std::endl;
+        if (params->find(storage_info.name) == params->end())
             continue;
+        auto &array = params->at(storage_info.name);
 
-        //auto &array = params->at(storage_info.name);
-        //yy change
-        array[i] =params->mpdata->at(storage_info.name);
-        size[i] =params->mpsize->at(storage_info.name);
-
-        //old
-        //GPU_RETURN_STATUS(cuMemcpyHtoD(
-        //    (CUdeviceptr)storage[i], array.data(),
-        //    array.size() * sizeof(float)));
-
-        //yychange
-        tempsize[i] = size[i]*sizeof(float);
-        totoalsize +=tempsize[i];
-        //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],array, tempsize,firststream));
-
+        //yy event record test
+        //cuEventRecord(start,0);
+        GPU_RETURN_STATUS(cuMemcpyHtoD(
+            (CUdeviceptr)storage[i], array.data(),
+            array.size() * sizeof(float)));
+        //cuEventRecord(stop,0);
+        //cuEventSynchronize(stop);
+	//cuEventElapsedTime(&time, start, stop);
         //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
-	    std::cout<<i<<" wawawa: "<<std::endl;
+	//std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
     }
-
-    //yy add
-    float* temp2;
-    for (size_t i = 0; i < storage.size(); i++) {
-        // std::cout << i << std::endl;
-        StorageInfo& storage_info = model->storage[i];
-        if (params->mpdata->find(storage_info.name) == params->mpdata->end())
-            continue;
-        temp2 =params->mpdata->at(storage_info.name);
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[i],temp2, tempsize[i],firststream));
-    }
-    //add fininshed
-
-    //yy add
-
-    cuStreamSynchronize(firststream);
-    float* totaldata;
-    CUdeviceptr devicetotal;
-    std::cout<<" total size: "<<totoalsize<<std::endl;
-
-    cuMemAlloc((CUdeviceptr*)&devicetotal, totoalsize);
-    cuMemAllocHost((void**)(&totaldata), totoalsize);
-
-    for(int j=0;j<(totoalsize/sizeof(float));j++)
-    {
-    totaldata[j]=2.0;
-    }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(devicetotal),totaldata, totoalsize,firststream));
-    cuStreamSynchronize(firststream);
-
-    //add fininshed
-
     std::vector<float> output(1000);
     RETURN_STATUS(set_input());
     RETURN_STATUS(execute(0, model.get()));
@@ -380,7 +270,7 @@ int main(int argc, char **argv) {
                          0.0016049921, 0.0010267848, 0.00042607592, 0.0018747754, 0.0024558322};
      for (size_t i = 0; i < ans.size(); i++) {
          // ASSERT_FLOAT_EQ(ans[i], output[i]);
-        std::cout << output[i] << " vs " << ans[i] << std::endl;
+         std::cout << output[i] << " vs " << ans[i] << std::endl;
      }
     printf("reset model!\n");
     model.reset();

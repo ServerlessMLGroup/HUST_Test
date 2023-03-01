@@ -9,10 +9,6 @@
 #include "json.h"
 #include "log.h"
 #include "model.h"
-//yy add
-#include <cuda.h>
-#include "cuda_runtime.h"
-//add fininshed
 
 Model* Model::from_json(const char* json_file) {
     log("enter Model::from_json");
@@ -82,7 +78,7 @@ size_t Model::get_stype_size(std::string &stype) {
 
 #define PARAM_MAGIC "TVM_MODEL_PARAMS"
 
-parseresult* ModelParamParser::parse_from_file(const char* param_file) {
+ModelParam* ModelParamParser::parse_from_file(const char* param_file) {
     FILE* fp;
     fp = fopen(param_file, "rb");
     char magic[sizeof(PARAM_MAGIC)];
@@ -98,16 +94,7 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
     assert(params_size != 0);
     std::cout << "params_size:" << params_size << std::endl;
 
-
-
-    ModelParamdata* paramdata = new ModelParamdata(params_size);
-    ModelParamsize* paramsize = new ModelParamsize(params_size);
-
-    //yyadd
-    parseresult* result;
-    float* tempdata[params_size];
-    //add fininshed
-
+    ModelParam* params = new ModelParam(params_size);
     for (uint64_t i = 0; i < params_size; i++) {
         char key_buf[256];
         uint64_t key_len = 0;
@@ -124,32 +111,12 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
         res = fread(&array_size, sizeof(uint64_t), 1, fp);
         assert(res == 1);
         assert(array_size != 0);
-
-        //old
-        //std::vector<float> array(array_size);
-        //array.resize(array_size);
-        //old
-
-        //yychange
-        cuMemAllocHost((void**)(&(tempdata[i])), array_size*sizeof(float));
-
-        //old
-        //res = fread(array.data(), sizeof(float), array_size, fp);
-        //old
-
-        res = fread(tempdata[i], sizeof(float), array_size, fp);
+        std::vector<float> array(array_size);
+        array.resize(array_size);
+        res = fread(array.data(), sizeof(float), array_size, fp);
         assert(res == array_size);
-
-        //old
-        //params->insert({key, array});
-        //old
-
-        //yy change
-        paramdata->insert({key, tempdata[i]});
-        paramsize->insert({key, array_size});
-
+        params->insert({key, array});
         std::cout << "params key:" << key << std::endl;
     }
-    result = new parseresult(paramdata,paramsize);
-    return result;
+    return params;
 }

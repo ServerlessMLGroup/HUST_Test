@@ -1,7 +1,4 @@
 #pragma once
-//yy add
-#include <functional>
-//add fininshed
 
 #include <cstddef>
 #include <string>
@@ -53,32 +50,10 @@ public:
     static ModelProfile* from_json(const char* json_file);
 };
 
-
-
-//old
-//typedef std::unordered_map<std::string, std::vector<float>> ModelParam;
-//
-
-//yy change
-typedef std::unordered_map<std::string, float*> ModelParamdata;
-typedef std::unordered_map<std::string, uint64_t> ModelParamsize;
-
-//yy add
-class parseresult{
-    public:
-        ModelParamdata* mpdata;
-        ModelParamsize* mpsize;
-
-        parseresult(ModelParamdata* indata,ModelParamsize* inparams_size)
-        {
-        mpdata = indata;
-        mpsize = inparams_size;
-        }
-};
-
+typedef std::unordered_map<std::string, std::vector<float>> ModelParam;
 
 class ModelParamParser {
 public:
-    static parseresult* parse_from_file(const char* param_file);
+    static ModelParam* parse_from_file(const char* param_file);
 };
 
