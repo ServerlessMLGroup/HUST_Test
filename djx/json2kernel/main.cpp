@@ -136,7 +136,7 @@ Status get_output(std::vector<float>& out) {
     return get_data(input_storage_idx, out.data(), storage_info.size * sizeof(float));
 }
 
-int main(int argc, char **argv) {t
+int main(int argc, char **argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
     }
