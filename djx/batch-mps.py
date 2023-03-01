@@ -17,7 +17,7 @@ sys.path.append("..")
 import os
 
 os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
-os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE']='10'
+//os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE']='10'
 import numpy as np
 import torch
 import time
@@ -37,16 +37,16 @@ def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nru
             features = model(input_data)
     torch.cuda.synchronize()
     print("Start timing ...")
-    #timings = []
-    #with torch.no_grad():
-     #   for i in range(1, nruns + 1):
-            #start_time = time.time()
-            #features = model(input_data)
-            #torch.cuda.synchronize()
-          #  end_time = time.time()
-           # timings.append(end_time - start_time)
-            #if i % 10 == 0:
-             #   print('Iteration %d/%d, ave batch time %.2f ms' % (i, nruns, np.mean(timings) * 1000))
+    timings = []
+    with torch.no_grad():
+        for i in range(1, nruns + 1):
+            start_time = time.time()
+            features = model(input_data)
+            torch.cuda.synchronize()
+            end_time = time.time()
+            timings.append(end_time - start_time)
+            if i % 10 == 0:
+                print('Iteration %d/%d, ave batch time %.2f ms' % (i, nruns, np.mean(timings) * 1000))
 
    # print("Input shape:", input_data.size())
    # print("Output features size:", features.size())
