@@ -17,7 +17,7 @@ sys.path.append("..")
 import os
 
 os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
-//os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE']='10'
+#os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE']='10'
 import numpy as np
 import torch
 import time
