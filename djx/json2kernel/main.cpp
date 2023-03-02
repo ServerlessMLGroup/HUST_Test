@@ -213,6 +213,13 @@ int main(int argc, char **argv) {
     int j=0;
     float* temp2;
 
+    //create event
+    CUevent events[80];
+    for(i=0;i<80;i++)
+    {
+    cuEventCreate(&events[i],0);
+    }
+
 
     RETURN_STATUS(set_input());
     for (KernelInfo &kernel_info : model->kernels) {
@@ -224,9 +231,10 @@ int main(int argc, char **argv) {
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], evsize[kernel_offset],firststream));
           kernel_offset++;
         }
-
         //pipe
-        cuStreamSynchronize(firststream);
+        //cuStreamSynchronize(firststream);
+        cudaEventRecord(events[j],firststream);
+        cuStreamWaitEvent(secondstream,events[j],0);
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
