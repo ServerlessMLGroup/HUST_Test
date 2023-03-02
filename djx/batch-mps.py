@@ -1,7 +1,7 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--gpu_no', type=int, default=3)
+parser.add_argument('--gpu_no', type=int, default=0)
 parser.add_argument('--batch_size', type=int, default=1)
 parser.add_argument('--mps', type=int, default=100)
 args = parser.parse_args()
