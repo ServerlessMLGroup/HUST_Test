@@ -215,7 +215,7 @@ int main(int argc, char **argv) {
 
     //create event
     CUevent events[80];
-    for(i=0;i<80;i++)
+    for(int i=0;i<80;i++)
     {
     cuEventCreate(&events[i],0);
     }
