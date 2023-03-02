@@ -245,6 +245,7 @@ int main(int argc, char **argv) {
     ));
         j++;
     }
+    cuStreamSynchronize(secondstream);
 
     /*
     cuStreamSynchronize(firststream);
