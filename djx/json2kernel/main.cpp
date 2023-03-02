@@ -233,7 +233,7 @@ int main(int argc, char **argv) {
         }
         //pipe
         //cuStreamSynchronize(firststream);
-        cudaEventRecord(events[j],firststream);
+        cuEventRecordWithFlags(events[j],firststream,0);
         cuStreamWaitEvent(secondstream,events[j],0);
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
