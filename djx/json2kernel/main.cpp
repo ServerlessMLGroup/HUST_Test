@@ -1,9 +1,3 @@
-/*
-Created by yuyue
-because i have to test a lot via main.cpp, i copy all its original code here
-once i make some mistakes i don't know why , i can fix my code by this
-*/
-
 #include "model.h"
 #include "log.h"
 #include <bits/unique_ptr.h>
@@ -12,8 +6,15 @@ once i make some mistakes i don't know why , i can fix my code by this
 //yy add
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
+#include <thread>
+#include <math.h>
+#include "unistd.h"
+#include <thread>
 // #include <glog/logging.h>
-
+//Notice
+// To make some experiments, i(yy) make some changes here. Before changing, i copied all the code
+// Just read the code at copymain.cpp. If some bad change were made, we can fix it by the copy
 enum Status {
     Succ,
     Fail,
@@ -21,7 +22,6 @@ enum Status {
     OutOfRange,
     Full
 };
-
 #define GPU_RETURN_STATUS(cmd) \
 { \
     CUresult result = cmd; \
@@ -30,7 +30,6 @@ enum Status {
         exit(1); \
     } \
 }
-
 #define RETURN_STATUS(cmd) \
 {\
     Status s = cmd;\
@@ -39,13 +38,11 @@ enum Status {
         return s;\
     }\
 }
-
+//old
 std::vector<CUdeviceptr> storage;
 std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args;
 std::unique_ptr<Model> model;
-
-
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
     std::string& func_name = model->kernels[i].name;
@@ -62,7 +59,6 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     // std::cout << "func_name:" << func_name << " launch_params:" << launch_params[0] << " " << launch_params[1] << " " << launch_params[2] << " " << launch_params[3] << " " << launch_params[4] << " " << launch_params[5] << " raw_args_ptr:" << (void **)raw_args[i].data() << std::endl;
     return Status::Succ;
 }
-
 Status execute_to(int idx, CUstream stream, Model* model) {
     for (int i = 0; i < idx; i++) {
         RETURN_STATUS(launch_kernel(i, stream, model));
@@ -70,20 +66,16 @@ Status execute_to(int idx, CUstream stream, Model* model) {
     }
     return Status::Succ;
 }
-
 Status execute(CUstream stream, Model* model) {
     execute_to(model->kernels.size(), stream, model);
     return Status::Succ;
 }
-
-
 // Status execute_kernel(int idx, GPUStream_t stream) {
 //     if (idx >= num_kernels()) RETURN_STATUS(Status::OutOfRange);
 //     GPU_RETURN_STATUS(launch_kernel(idx, stream));
 //     GPU_RETURN_STATUS(GPUStreamSynchronize(stream));
 //     return Status::Succ;
 // }
-
 Status find_storage_idx(const std::string& name, size_t& idx) {
     // TODO: O(n) -> O(1)
     for (size_t i = 0; i < storage.size(); i++) {
@@ -96,7 +88,6 @@ Status find_storage_idx(const std::string& name, size_t& idx) {
     RETURN_STATUS(Status::NotFound);
     return Status::NotFound; // otherwise, the compiler thinks no return value.
 }
-
 Status set_input() {
     std::vector<float> input(3 * 224 * 224);
     for (size_t i = 0; i < 3*224*224; i++)
@@ -113,7 +104,6 @@ Status set_input() {
     // TODO: printf input_storage_idx
     return Status::Succ;
 }
-
 Status get_data(int idx, void* out, size_t len) {
     if (idx >= storage.size()) RETURN_STATUS(Status::OutOfRange);
     StorageInfo& storage_info = model->storage[idx];
@@ -125,7 +115,6 @@ Status get_data(int idx, void* out, size_t len) {
     ));
     return Status::Succ;
 }
-
 Status get_output(std::vector<float>& out) {
     size_t input_storage_idx;
     if (find_storage_idx("output", input_storage_idx) != Status::Succ) RETURN_STATUS(Status::NotFound);
@@ -135,18 +124,24 @@ Status get_output(std::vector<float>& out) {
     std::cout << "storage_info.size:" << storage_info.size << std::endl;
     return get_data(input_storage_idx, out.data(), storage_info.size * sizeof(float));
 }
-
+bool argexist(int temparg,int* aused,int* top)
+{
+    for(int i=0;i<*top;i++)
+    {
+    if(temparg == aused[i])
+    {
+    return true;
+    }
+    }
+    aused[*top]=temparg;
+    *top=*top +1;
+    return false;
+}
 int main(int argc, char **argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
     }
     int gpu_no = atoi(argv[1]);
-
-    //set environment variable
-    putenv("CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=10");
-    //set end
-
-
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
     CUcontext ctx;
@@ -159,17 +154,12 @@ int main(int argc, char **argv) {
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda kernels!\n");
-
-    //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
-    //wo hui zai wo gaide mei yige difang jia shang zhushi yy
-    //yy preparation
-    /*
-    CUevent  start, stop;
-    float time;
-    cuEventCreate(&start,0);
-    cuEventCreate(&stop,0);
-    */
-
+    //yy add stream
+    CUstream firststream;
+    cuStreamCreate(&firststream,0);
+    CUstream secondstream;
+    cuStreamCreate(&secondstream,0);
+    //add fininshed
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
@@ -179,99 +169,100 @@ int main(int argc, char **argv) {
         kernels.emplace(kernel_info.name, kernel);
     }
     printf("allocate device storage!\n");
-
-
     // 3. allocate device storage
     for (StorageInfo &storage_info : model->storage) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
         size_t storage_size = stype_size * storage_info.size;
         CUdeviceptr device_ptr;
-        std::vector<char> temp;
-        temp.resize(storage_size, 0);
+        //std::vector<char> temp;
+        //temp.resize(storage_size, 0);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size));
-        GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
+        //GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
         storage.push_back(device_ptr);
     }
-
-
-
-    //yy create csv
-    /*
-    std::ofstream outFile;
-    //outFile.open("output.csv", std::ios::out | std::ios::trunc);
-    outFile.open("oytput.csv", std::ios::in);
-    outFile << "kernel name" << ','
-            << "size" << std::endl;
-    int storage_tongji[model->storage.size()];
-    int kernelsize_tongji[model->kernels.size()];
-    size_t type_size;
-    size_t torage_size;
-    for (int i=0;i<model->storage.size();i++) {
-        type_size = Model::get_stype_size(model->storage[i].stype);
-        torage_size = type_size * model->storage[i].size;
-        storage_tongji[i]=(int)torage_size;
-    }
-    int tempsizetotal;
-    for (int k=0;k<model->kernels.size();k++) {
-        tempsizetotal=0;
-        for (int temp : model->kernels[k].args) {
-            tempsizetotal+=storage_tongji[temp];
-        }
-        kernelsize_tongji[k]=tempsizetotal;
-    }
-    for(int j=0;j<model->kernels.size();j++)
-    {
-    std::cout<<"Kernel: "<< model->kernels[j].name.c_str()<<": "<<kernelsize_tongji[j]<<" byte"<<std::endl;
-    outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
-    }
-    outFile.close();
-    */
-
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;
     raw_args.reserve(model->kernels.size());
-
     for (KernelInfo &kernel_info : model->kernels) {
         std::vector<CUdeviceptr*> kernel_arg;
         for (size_t arg_idx : kernel_info.args) {
             // assert(arg_idx < storage.size());
             kernel_arg.push_back(&storage[arg_idx]);
-
         }
         raw_args.push_back(kernel_arg);
     }
-
     printf("parse params!\n");
-    std::unique_ptr<ModelParam> params(ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param"));
-    for (size_t i = 0; i < storage.size(); i++) {
-        // std::cout << i << std::endl;
-        StorageInfo& storage_info = model->storage[i];
-        // std::cout << "storage_info.name:" << storage_info.name << std::endl;
-        if (params->find(storage_info.name) == params->end())
+    parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
+    std::cout<<" test 2: "<<std::endl;
+    int kernel_offset=0;
+    float* temp[80];
+    size_t evsize[80];
+    for (KernelInfo &kernel_info : model->kernels) {
+        for (size_t arg_idx : kernel_info.args) {
+          //zhe li shao yi ge chuan di
+          StorageInfo& storage_info = model->storage[arg_idx];
+        if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
-        auto &array = params->at(storage_info.name);
-
-        //yy event record test
-        //cuEventRecord(start,0);
-        GPU_RETURN_STATUS(cuMemcpyHtoD(
-            (CUdeviceptr)storage[i], array.data(),
-            array.size() * sizeof(float)));
-        //cuEventRecord(stop,0);
-        //cuEventSynchronize(stop);
-	//cuEventElapsedTime(&time, start, stop);
-        //std::cout<<model->kernels[i].name.c_str()<<" size: "<<array.size() * sizeof(float)<<" byte"<<std::endl;
-	//std::cout<<model->kernels[i].name.c_str()<<" time: "<<1000*time<<" us"<<std::endl;
+        temp[kernel_offset]=params->mpdata->at(storage_info.name);
+        evsize[kernel_offset]= params->mpsize->at(storage_info.name)*sizeof(float);
+        kernel_offset++;
+        }
     }
-    std::vector<float> output(1000);
+    std::cout<<" test 3: "<<std::endl;
+    kernel_offset=0;
+    int j=0;
+    float* temp2;
+
+
     RETURN_STATUS(set_input());
-    RETURN_STATUS(execute(0, model.get()));
-     RETURN_STATUS(get_output(output));
-     std::vector<float> ans = {0.0003392257, 0.0014304413, 0.0004299286, 0.0010349639, 0.0020997059,
-                         0.0016049921, 0.0010267848, 0.00042607592, 0.0018747754, 0.0024558322};
-     for (size_t i = 0; i < ans.size(); i++) {
-         // ASSERT_FLOAT_EQ(ans[i], output[i]);
-         std::cout << output[i] << " vs " << ans[i] << std::endl;
-     }
+    for (KernelInfo &kernel_info : model->kernels) {
+        for (size_t arg_idx : kernel_info.args) {
+          //zhe li shao yi ge chuan di
+          StorageInfo& storage_info = model->storage[arg_idx];
+          if(params->mpdata->find(storage_info.name) == params->mpdata->end())
+            continue;
+          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage[arg_idx],temp[kernel_offset], evsize[kernel_offset],firststream));
+          kernel_offset++;
+        }
+
+        //pipe
+        cuStreamSynchronize(firststream);
+        std::string& func_name = kernel_info.name;
+        CUfunction func = kernels[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
+    ));
+        j++;
+    }
+
+    /*
+    cuStreamSynchronize(firststream);
+    j=0;
+    for (KernelInfo &kernel_info : model->kernels) {
+        std::string& func_name = kernel_info.name;
+        CUfunction func = kernels[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
+    ));
+        j++;
+    }
+    cuStreamSynchronize(secondstream);
+    */
+
+    //std::vector<float> output(1000);
+    // RETURN_STATUS(get_output(output));
+    // std::vector<float> ans = {0.0003392257, 0.0014304413, 0.0004299286, 0.0010349639, 0.0020997059,
+    //                     0.0016049921, 0.0010267848, 0.00042607592, 0.0018747754, 0.0024558322};
+    // for (size_t i = 0; i < ans.size(); i++) {
+    //     // ASSERT_FLOAT_EQ(ans[i], output[i]);
+    //     std::cout << output[i] << " vs " << ans[i] << std::endl;
+    // }
     printf("reset model!\n");
     model.reset();
     return 0;
