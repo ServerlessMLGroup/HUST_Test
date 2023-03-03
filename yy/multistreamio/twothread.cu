@@ -45,15 +45,9 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     //set GPU
     //cudaSetDevice(1);
 
-
     //yy change:huan yi ge wenjian hai yao gai makefile,wojiu yong zhe ge le
     //wo hui zai wo gaide mei yige difang jia shang zhushi yy
     //yy preparation
-
-    CUevent  start, stop;
-    float time;
-    cuEventCreate(&start,0);
-    cuEventCreate(&stop,0);
 
     cout<<"one thread starts: "<<endl;
     int err;
@@ -63,7 +57,6 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     }
 
     cudaStream_t tempstream;
-
     cudaError_t cudaStatus;
     cudaStatus = cudaStreamCreate(&tempstream);
     fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
@@ -76,26 +69,19 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
 
     if(i==1)
     {
-    workend1.unlock();
-    workend2.lock();
-    }
-    else
-    {
     workend2.unlock();
     workend1.lock();
     }
-
-    for(int i=1;i < 10;i++)
+    else
     {
-    //cuEventRecord(start,0);
-    cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
-    //cuEventRecord(stop,0);
-    //cuEventSynchronize(stop);
-    //cuEventElapsedTime(&time, start, stop);
-	//std::cout<< i <<" time: "<<1000*time<<" us"<<std::endl;
+    workend2.lock();
+    workend1.unlock();
     }
 
-
+    for(int j=1;j<10;j++)
+    {
+    cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
+    }
     cuStreamSynchronize(tempstream);
 }
 
@@ -139,8 +125,8 @@ int main()
         return 0;
     }
 
-    //40M data
-    int N = 4*52428800/2000;
+    //262144 1M
+    int N = 262144;
     size_t size = N * sizeof(float);
 
     //allocate device variable(data)
@@ -150,7 +136,6 @@ int main()
     cudaMalloc(&d_B, size);
     float* d_C;
     cudaMalloc(&d_C, size);
-
 
     // Allocate input vectors h_A and h_B in host memory
     float* h_A;
@@ -173,43 +158,10 @@ int main()
 	*(h_C + i) = 1;
     }
 
-
-    CUevent  start, stop;
-    float time;
-    cuEventCreate(&start,0);
-    cuEventCreate(&stop,0);
-
-    for(int i=1;i < 10;i++)
-    {
-    cuEventRecord(start,0);
-    cudaMemcpyAsync(d_A, h_A,size, cudaMemcpyHostToDevice, 0);
-    cuEventRecord(stop,0);
-    cuEventSynchronize(stop);
-    cuEventElapsedTime(&time, start, stop);
-	std::cout<< i <<" time: "<<1000*time<<" us"<<std::endl;
-    }
-
-    for(int i=1;i < 10;i++)
-    {
-    cuEventRecord(start,0);
-    kernel<<<1,1,0,0>>>(1.0,2.0,3.0,100);
-    cuEventRecord(stop,0);
-    cuEventSynchronize(stop);
-    cuEventElapsedTime(&time, start, stop);
-	std::cout<< i <<" kernel time: "<<1000*time<<" us"<<std::endl;
-    }
-
-    /*
-    pthread_create(&ntid1, NULL, thread1, flag1,d_A,h_A);
-    pthread_create(&ntid2, NULL, thread1, flag2,d_B,h_B);
-    pthread_join(ntid1, NULL);
-    pthread_join(ntid2, NULL);
-    */
-
-    //thread second=thread(thread1,cont1,d_B,h_B,size,1);
-    //thread first=thread(thread1,cont1,d_A,h_A,size,2);
-    //second.join();
-    //first.join();
+    thread second=thread(thread1,cont1,d_B,h_B,size,1);
+    thread first=thread(thread1,cont1,d_A,h_A,size,2);
+    second.join();
+    first.join();
 
     //change,check whether the cudamemcpy works
     for(int i=0;i < N; ++i){
@@ -222,11 +174,6 @@ int main()
 	*(h_B + i) = 0;
 	*(h_C + i) = 0;
     }
-    cudaMemcpy(h_A, d_A,size, cudaMemcpyDeviceToHost);
-    for(int i=0;i < 10; ++i){
-    //cout<<"now  data"<<*(h_A + i)<<endl;
-    }
-
 
     cudaFree(d_A);
     cudaFree(d_B);
