@@ -24,7 +24,7 @@ void CUDART_CB thread1_1callback(void *data) {
 int main()
 {
     cuInit(0);
-    cudaSetDevice(1);
+    cudaSetDevice(2);
     //clock for collection
 
     //cpu_set_t mask;
