@@ -126,7 +126,7 @@ int main()
     }
 
     //262144 1M
-    int N = 5*262144;
+    int N = 262144/50;
     size_t size = N * sizeof(float);
 
     //allocate device variable(data)
