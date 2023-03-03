@@ -78,7 +78,7 @@ void thread1(CUcontext ctx,float* d_a,float* h_a,size_t size,int i)
     workend1.unlock();
     }
 
-    for(int j=1;j<10;j++)
+    for(int j=0;j<10;j++)
     {
     cudaMemcpyAsync(d_a, h_a,size, cudaMemcpyHostToDevice, tempstream);
     }
