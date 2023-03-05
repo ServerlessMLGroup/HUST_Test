@@ -43,8 +43,8 @@ int main(void)
 
     gpuErrchk( cudaMemcpyAsync(outputs, _inout, sz, cudaMemcpyDeviceToHost, stream[1]) );
 
-    for(int i = 0; i < 2; i++)
-        gpuErrchk( cudaStreamDestroy(stream[i]) );
+    //for(int i = 0; i < 2; i++)
+    //    gpuErrchk( cudaStreamDestroy(stream[i]) );
 
     cudaDeviceSynchronize();
     //sleep(1); // remove the sleep and see what happens....
