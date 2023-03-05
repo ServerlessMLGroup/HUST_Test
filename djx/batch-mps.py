@@ -23,7 +23,7 @@ import torch
 import time
 
 
-def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nruns=100):
+def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=5, nruns=5):
     input_data = torch.randn(input_shape)
     #device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
     device = torch.device("cuda")
@@ -45,7 +45,7 @@ def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=50, nru
             torch.cuda.synchronize()
             end_time = time.time()
             timings.append(end_time - start_time)
-            if i % 10 == 0:
+            if i % 5 == 0:
                 print('Iteration %d/%d, ave batch time %.2f ms' % (i, nruns, np.mean(timings) * 1000))
 
    # print("Input shape:", input_data.size())
