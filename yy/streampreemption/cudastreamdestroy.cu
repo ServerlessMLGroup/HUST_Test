@@ -46,7 +46,7 @@ int main(void)
     for(int i = 0; i < 2; i++)
         gpuErrchk( cudaStreamDestroy(stream[i]) );
 
-    cudaDevcieSynchronize();
+    cudaDeviceSynchronize();
     //sleep(1); // remove the sleep and see what happens....
 
     for(int i = 0; i < N; i++)
