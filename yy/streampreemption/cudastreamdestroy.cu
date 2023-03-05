@@ -22,7 +22,7 @@ inline void gpuAssert(cudaError_t code, char *file, int line, bool abort=true)
 
 int main(void)
 {
-    const int N = 2<<10, sz = N * sizeof(int);
+    const int N = 2<<20, sz = N * sizeof(int);
 
     int * inputs, * outputs, * _inout;
 
@@ -46,7 +46,6 @@ int main(void)
     for(int i = 0; i < 2; i++)
         gpuErrchk( cudaStreamDestroy(stream[i]) );
 
-    //cudaDeviceSynchronize();
     sleep(1); // remove the sleep and see what happens....
 
     for(int i = 0; i < N; i++)
