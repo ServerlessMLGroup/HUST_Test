@@ -46,7 +46,8 @@ int main(void)
     for(int i = 0; i < 2; i++)
         gpuErrchk( cudaStreamDestroy(stream[i]) );
 
-    sleep(1); // remove the sleep and see what happens....
+    cudaDevcieSynchronize();
+    //sleep(1); // remove the sleep and see what happens....
 
     for(int i = 0; i < N; i++)
         assert( (2 * inputs[i]) == outputs[i] );
