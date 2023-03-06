@@ -286,7 +286,7 @@ int main(int argc, char **argv) {
     mediumsize = totalsize - paramsize;
 
     std::cout << "Param size:  " << paramsize << std::endl;
-    std::cout << " Medium szie:  " << mudiumsize << std::endl;
+    std::cout << " Medium szie:  " << mediumsize << std::endl;
 
     printf("reset model!\n");
     model.reset();
