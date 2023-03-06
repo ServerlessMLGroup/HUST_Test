@@ -174,6 +174,7 @@ int main(int argc, char **argv) {
         kernels.emplace(kernel_info.name, kernel);
     }
     printf("allocate device storage!\n");
+
     // 3. allocate device storage
     for (StorageInfo &storage_info : model->storage) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
@@ -284,7 +285,7 @@ int main(int argc, char **argv) {
     //     std::cout << output[i] << " vs " << ans[i] << std::endl;
     // }
     mediumsize = totalsize - paramsize;
-
+    std::cout << "Total size:  " << totalsize << std::endl;
     std::cout << "Param size:  " << paramsize << std::endl;
     std::cout << "Medium size:  " << mediumsize << std::endl;
 
