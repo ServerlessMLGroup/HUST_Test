@@ -141,11 +141,6 @@ int main(int argc, char **argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
     }
-
-    size_t paramsize=0;
-    size_t totalsize=0;
-    size_t mediumsize=0;
-
     int gpu_no = atoi(argv[1]);
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
@@ -174,12 +169,10 @@ int main(int argc, char **argv) {
         kernels.emplace(kernel_info.name, kernel);
     }
     printf("allocate device storage!\n");
-
     // 3. allocate device storage
     for (StorageInfo &storage_info : model->storage) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
         size_t storage_size = stype_size * storage_info.size;
-        totalsize += storage_size;
         CUdeviceptr device_ptr;
         //std::vector<char> temp;
         //temp.resize(storage_size, 0);
@@ -212,9 +205,6 @@ int main(int argc, char **argv) {
             continue;
         temp[kernel_offset]=params->mpdata->at(storage_info.name);
         evsize[kernel_offset]= params->mpsize->at(storage_info.name)*sizeof(float);
-
-        paramsize+=evsize[kernel_offset];
-
         kernel_offset++;
         }
     }
@@ -231,7 +221,6 @@ int main(int argc, char **argv) {
     }
 
 
-    /*
     RETURN_STATUS(set_input());
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
@@ -257,7 +246,6 @@ int main(int argc, char **argv) {
         j++;
     }
     cuStreamSynchronize(secondstream);
-    */
 
     /*
     cuStreamSynchronize(firststream);
@@ -284,11 +272,6 @@ int main(int argc, char **argv) {
     //     // ASSERT_FLOAT_EQ(ans[i], output[i]);
     //     std::cout << output[i] << " vs " << ans[i] << std::endl;
     // }
-    mediumsize = totalsize - paramsize;
-    std::cout << "Total size:  " << totalsize << std::endl;
-    std::cout << "Param size:  " << paramsize << std::endl;
-    std::cout << "Medium size:  " << mediumsize << std::endl;
-
     printf("reset model!\n");
     model.reset();
     return 0;
