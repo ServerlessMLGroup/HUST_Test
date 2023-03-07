@@ -212,15 +212,12 @@ int main(int argc, char **argv) {
     kernel_offset=0;
     int j=0;
     float* temp2;
-
     //create event
     CUevent events[80];
     for(int i=0;i<80;i++)
     {
     cuEventCreate(&events[i],0);
     }
-
-
     RETURN_STATUS(set_input());
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
@@ -263,7 +260,6 @@ int main(int argc, char **argv) {
     }
     cuStreamSynchronize(secondstream);
     */
-
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
     // std::vector<float> ans = {0.0003392257, 0.0014304413, 0.0004299286, 0.0010349639, 0.0020997059,
