@@ -88,7 +88,7 @@ Status find_storage_idx(const std::string& name, size_t& idx) {
     RETURN_STATUS(Status::NotFound);
     return Status::NotFound; // otherwise, the compiler thinks no return value.
 }
-Status set_input() {
+Status set_input(CUstream temp) {
     std::vector<float> input(3 * 224 * 224);
     for (size_t i = 0; i < 3*224*224; i++)
         input[i] = 10.0;
@@ -97,6 +97,7 @@ Status set_input() {
     StorageInfo& storage_info = model->storage[input_storage_idx];
     size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
     if (input.size() * sizeof(float) < storage_size) RETURN_STATUS(Status::OutOfRange);
+
     GPU_RETURN_STATUS(cuMemcpyHtoD(
         (CUdeviceptr)storage[input_storage_idx], (void*)input.data(),
         storage_size)
@@ -218,7 +219,7 @@ int main(int argc, char **argv) {
     {
     cuEventCreate(&events[i],0);
     }
-    RETURN_STATUS(set_input());
+    //RETURN_STATUS(set_input());
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
