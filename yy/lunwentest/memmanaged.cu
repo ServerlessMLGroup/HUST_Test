@@ -9,6 +9,7 @@
 #include <ctime>
 using namespace std;
 
+
 enum class Unit{
     Byte, KB, MB, GB, TB, PB, EB
 };
@@ -67,6 +68,8 @@ __global__ void VecAdd(float* A, float* B, float* C, int N)
 
 int main()
 {
+
+    putenv("CUDA_MPS_PINNED_DEVICE_MEM_LIMIT=1G");
     cudaSetDevice(2);
     CUcontext pctx;
     CUdevice dev;
