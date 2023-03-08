@@ -68,7 +68,7 @@ __global__ void VecAdd(float* A, float* B, float* C, int N)
 
 int main()
 {
-
+    export CUDA_MPS_PINNED_DEVICE_MEM_LIMIT="2=512MB";
     //putenv("CUDA_MPS_PINNED_DEVICE_MEM_LIMIT=1G");
     cudaSetDevice(2);
     CUcontext pctx;
