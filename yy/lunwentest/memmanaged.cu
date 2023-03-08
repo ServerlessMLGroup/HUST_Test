@@ -79,13 +79,20 @@ int main()
 
     getMem();
 
+    //1048576 -> 1M
     size_t storage_size = 1048576*2000;
+    float* h_A;
+    cudaMallocHost(&h_A, storage_size);
     CUdeviceptr device_ptr;
     int i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
     if(i)
     {
     cout<<"error: "<<i<<endl;
     }
+    cudaStream_t firststream;
+    cudaMemcpyAsync(d_A, h_A, storage_size, cudaMemcpyHostToDevice, firststream);
+    cudaDeviceSynchronize();
+
     getMem();
 
     /*
