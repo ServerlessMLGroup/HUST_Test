@@ -90,7 +90,11 @@ int main()
     cout<<"error: "<<i<<endl;
     }
     cudaStream_t firststream;
-    cudaMemcpyAsync(d_A, h_A, storage_size, cudaMemcpyHostToDevice, firststream);
+    i=cudaMemcpyAsync(d_A, h_A, storage_size, cudaMemcpyHostToDevice, firststream);
+    if(i)
+    {
+    cout<<"error: "<<i<<endl;
+    }
     cudaDeviceSynchronize();
 
     getMem();
