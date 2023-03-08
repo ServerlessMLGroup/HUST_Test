@@ -90,7 +90,7 @@ int main()
     cout<<"error: "<<i<<endl;
     }
     cudaStream_t firststream;
-    i=cuMemcpyHtoDAsync((CUdeviceptr)device_ptr,h_A,storage_size,firststream);
+    //i=cuMemcpyHtoDAsync((CUdeviceptr)device_ptr,h_A,storage_size,firststream);
     if(i)
     {
     cout<<"error: "<<i<<endl;
