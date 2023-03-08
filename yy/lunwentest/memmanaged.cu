@@ -52,7 +52,7 @@ void getMembycu() {
         cout<<"getMembycu error:"<<err<<endl;
     }
     else {
-        printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB)); 
+        printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
     }
 }
 
@@ -61,7 +61,7 @@ __global__ void VecAdd(float* A, float* B, float* C, int N)
 {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
     if (i < N)
-        C[i] = A[i] + B[i]; 
+        C[i] = A[i] + B[i];
 }
 
 
@@ -77,7 +77,17 @@ int main()
         return 0;
     }
 
+    getMem();
+    size_t storage_size = 262144*1000;
+    CUdeviceptr device_ptr;
+    int i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
+    if(i)
+    {
+    cout<<"error: "<<i<<endl;
+    }
 
+
+    /*
     getMem();
     cout<<"after first new context:"<<endl;
     err = cuCtxCreate(&pctx, CU_CTX_SCHED_YIELD, dev);
@@ -94,7 +104,7 @@ int main()
         return 0;
     }
     getMem();
-
+    */
 
     return 0;
 
