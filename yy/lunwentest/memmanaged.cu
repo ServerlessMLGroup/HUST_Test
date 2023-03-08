@@ -78,7 +78,8 @@ int main()
     }
 
     getMem();
-    size_t storage_size = 262144*4*1000;
+
+    size_t storage_size = 1048576*2000;
     CUdeviceptr device_ptr;
     int i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
     if(i)
