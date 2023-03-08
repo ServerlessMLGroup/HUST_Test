@@ -85,7 +85,7 @@ int main()
     {
     cout<<"error: "<<i<<endl;
     }
-
+    getMem();
 
     /*
     getMem();
