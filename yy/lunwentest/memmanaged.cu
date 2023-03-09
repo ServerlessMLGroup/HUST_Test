@@ -88,6 +88,7 @@ int main()
         cout<<"cuCtxGetDevice error:"<<err<<endl;
         return 0;
     }
+    cuCtxGetCurrent(&pctx);
 
     getMem();
 
@@ -95,11 +96,21 @@ int main()
     //size_t storage_size = 1048576*400;
     size_t storage_size = 1048576*40;
     float* h_A;
+
+    cudaSetDevice(1);
     i=cudaMallocManaged(&h_A,storage_size);
+
     if(i)
     {
     cout<<"cuda malloc managed error: "<<i<<endl;
     }
+
+    i=cuCtxPushCurrent(ctx);
+    if(i)
+    {
+    cout<<"push context error: "<<i<<endl;
+    }
+
     for(int k=0;k<1000000;k++)
     {
         h_A[k]=1.0;
