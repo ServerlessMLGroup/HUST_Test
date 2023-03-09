@@ -89,12 +89,14 @@ int main()
     cudaMallocHost(&h_A, storage_size);
 
     //nan dao cu driver api bu xing?
-    /*
+    
     CUdeviceptr device_ptr;
     i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
-    */
+
+    /*
     float* device_ptr;
     i=cudaMalloc(&device_ptr,storage_size);
+    */
     if(i)
     {
     cout<<"cuda malloc error: "<<i<<endl;
