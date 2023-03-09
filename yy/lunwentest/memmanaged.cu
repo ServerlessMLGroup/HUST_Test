@@ -156,7 +156,7 @@ int main()
 
     VecAdd<<<100,100>>>(h_A,1.0);
     cudaDeviceSynchronize();
-    for(int k=0;k<10;k++)
+    for(int k=999990;k<1000000;k++)
     {
        cout<<"after add "<<h_A[k]<<endl;
     }
