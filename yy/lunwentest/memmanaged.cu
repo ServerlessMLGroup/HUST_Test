@@ -94,10 +94,7 @@ int main()
     i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
     */
     float* device_ptr;
-    cudaMalloc(&device_ptr,storage_size);
-
-
-
+    i=cudaMalloc(&device_ptr,storage_size);
     if(i)
     {
     cout<<"error: "<<i<<endl;
