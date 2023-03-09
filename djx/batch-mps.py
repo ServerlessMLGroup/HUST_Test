@@ -22,9 +22,9 @@ import numpy as np
 import torch
 
 os.system("./getSize")
-torch.backends.cudnn.deterministic = False
-torch.backends.cudnn.enabled = False
-torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.enabled = True
+torch.backends.cudnn.benchmark = True
 
 import time
 
