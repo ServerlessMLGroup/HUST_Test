@@ -97,7 +97,7 @@ int main()
     size_t storage_size = 1048576*40;
     float* h_A;
 
-    cudaSetDevice(1);
+    //cudaSetDevice(1);
     i=cudaMallocManaged(&h_A,storage_size);
 
     if(i)
