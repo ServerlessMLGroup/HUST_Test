@@ -139,7 +139,7 @@ int main()
     cout<<"prefetch error: "<<i<<endl;
     }
     */
-    VecAdd(h_A,1.0);
+    VecAdd<<<100,100>>>(h_A,1.0);
     getMem();
 
     /*
