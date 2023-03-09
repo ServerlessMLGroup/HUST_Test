@@ -110,7 +110,7 @@ int main()
     i=cuMemcpyHtoDAsync((CUdeviceptr)device_ptr,h_A,storage_size,firststream);
     if(i)
     {
-    cout<<"error: "<<i<<endl;
+    cout<<"memcpy error: "<<i<<endl;
     }
     cudaDeviceSynchronize();
 
