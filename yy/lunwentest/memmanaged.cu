@@ -67,9 +67,9 @@ __global__ void VecAdd(float* h_A, float N)
     int tx =threadIdx.x;
     int bx =blockIdx.x;
     int offset=100*bx+tx;
-    for(int i=0;i<50000;i++)
+    for(int i=0;i<10000;i++)
     {
-    h_A[offset*50000+i]=h_A[offset*50000+i]+N;
+    h_A[offset*10000+i]=h_A[offset*10000+i]+N;
     }
 }
 
@@ -92,15 +92,15 @@ int main()
     getMem();
 
     //1048576 -> 1M
-    //size_t storage_size = 1048576*2000;
-    size_t storage_size = 2000000000;
+    //size_t storage_size = 1048576*400;
+    size_t storage_size = 1048576*400;
     float* h_A;
     i=cudaMallocManaged(&h_A,storage_size);
     if(i)
     {
     cout<<"cuda malloc managed error: "<<i<<endl;
     }
-    for(int k=0;k<500000000;k++)
+    for(int k=0;k<100000000;k++)
     {
         h_A[k]=1.0;
     }
