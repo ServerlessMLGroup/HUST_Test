@@ -42,7 +42,11 @@ double convert(double size, Unit unit)
 
 void getMem() {
     size_t free, total;
-    cudaMemGetInfo(&free, &total);
+    int j=cudaMemGetInfo(&free, &total);
+    if(j)
+    {
+       cout<<"get mem error: "<<j<<endl;
+    }
     printf("Free mem = %.4f MB, Total = %.4f MB \n", convert(free, Unit::MB), convert(total, Unit::MB));
 }
 
@@ -89,7 +93,7 @@ int main()
     cudaMallocHost(&h_A, storage_size);
 
     //nan dao cu driver api bu xing?
-    
+
     CUdeviceptr device_ptr;
     i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
 
