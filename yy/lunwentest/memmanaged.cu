@@ -155,7 +155,7 @@ int main()
     */
 
     VecAdd<<<100,100>>>(h_A,1.0);
-    int errd = cudaGetLastError();  // add
+    cudaError_t errd = cudaGetLastError();  // add
     if (errd != 0) cout << "CUDA error: " << cudaGetErrorString(err) << endl; // add
 
     getMem();
