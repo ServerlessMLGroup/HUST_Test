@@ -118,7 +118,7 @@ int main()
     cudaDeviceSynchronize();
     */
 
-    i=cudaMemPrefetchAsync(h_A,storage_szie,2);
+    i=cudaMemPrefetchAsync(h_A,storage_size,2);
     if(i)
     {
     cout<<"prefetch error: "<<i<<endl;
