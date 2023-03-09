@@ -21,6 +21,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 import numpy as np
 import torch
 
+os.system("./getSize")
 torch.backends.cudnn.deterministic = False
 torch.backends.cudnn.enabled = False
 torch.backends.cudnn.benchmark = False
@@ -60,7 +61,6 @@ def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=5, nrun
 
 if __name__ == '__main__':
     # os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
-    os.system("./getSize")
     # mps_controller.openMPS(gpu_no, mps_percentage)
     # torch.cuda.set_device(args.cuda_device)
     # os.environ["CUDA_VISIBLE_DEVICES"] = "%d" % args.cuda_device
