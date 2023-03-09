@@ -1,7 +1,7 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--gpu_no', type=int, default=1)
+parser.add_argument('--gpu_no', type=int, default=0)
 parser.add_argument('--batch_size', type=int, default=1)
 parser.add_argument('--mps', type=int, default=100)
 args = parser.parse_args()
@@ -20,6 +20,10 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 #os.environ['CUDA_MPS_ACTIVE_THREAD_PERCENTAGE']='10'
 import numpy as np
 import torch
+
+torch.backends.cudnn.enabled = False
+torch.backends.cudnn.benchmark = False
+
 import time
 
 
@@ -55,7 +59,7 @@ def benchmark(model, input_shape=(8, 3, 224, 224), dtype='fp32', nwarmup=5, nrun
 
 if __name__ == '__main__':
     # os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
-
+    os.system("./getSize")
     # mps_controller.openMPS(gpu_no, mps_percentage)
     # torch.cuda.set_device(args.cuda_device)
     # os.environ["CUDA_VISIBLE_DEVICES"] = "%d" % args.cuda_device
@@ -71,5 +75,5 @@ if __name__ == '__main__':
     model.to(device)
     model.eval()
     benchmark(model=model, input_shape=(batch_size, 3, 224, 224))
-
+    os.system("./getSize")
     # mps_controller.closeMPS(gpu_no)
