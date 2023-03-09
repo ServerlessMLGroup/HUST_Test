@@ -69,7 +69,7 @@ __global__ void VecAdd(float* h_A, float N)
     int offset=100*bx+tx;
     for(int i=0;i<100;i++)
     {
-    h_A[offset*100+i]=h_A[offset*100+i]+N;
+    h_A[offset*1000+i]=h_A[offset*100+i]+N;
     }
 }
 
