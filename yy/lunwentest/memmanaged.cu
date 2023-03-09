@@ -155,6 +155,11 @@ int main()
     */
 
     VecAdd<<<100,100>>>(h_A,1.0);
+    for(int k=999990;k<1000000;k++)
+    {
+       cout<<"after add"<<h_A[k]<<endl;
+    }
+
     cudaError_t errd = cudaGetLastError();  // add
     if (errd) cout << "CUDA error: " << cudaGetErrorString(errd) << endl; // add
 
