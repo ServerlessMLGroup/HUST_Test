@@ -143,13 +143,13 @@ int main()
     cudaDeviceSynchronize();
     */
 
-
+    /*
     i=cudaMemPrefetchAsync(h_A,storage_size,2);
     if(i)
     {
     cout<<"prefetch error: "<<i<<endl;
     }
-    
+    */
     VecAdd<<<100,100>>>(h_A,1.0);
     getMem();
 
