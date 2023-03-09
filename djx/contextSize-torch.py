@@ -19,9 +19,12 @@ print("before import torch:")
 os.system("./getSize")
 
 import torch
+torch.backends.cudnn.enabled = True
+torch.backends.cudnn.benchmark = True
 
 if __name__ == '__main__':
     device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
+
     torch.randn(1, device='cuda')
     print("device = ", device)
     print("after import torch:")
