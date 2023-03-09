@@ -19,9 +19,9 @@ print("before import torch:")
 os.system("./getSize")
 
 import torch
-torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.enabled = True
-torch.backends.cudnn.benchmark = True
+torch.backends.cudnn.deterministic = False
+torch.backends.cudnn.enabled = False
+torch.backends.cudnn.benchmark = False
 
 if __name__ == '__main__':
     device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
