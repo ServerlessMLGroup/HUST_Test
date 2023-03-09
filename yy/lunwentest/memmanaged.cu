@@ -96,15 +96,23 @@ int main()
     //size_t storage_size = 1048576*400;
     size_t storage_size = 1048576*40;
     float* h_A;
+    float* h_B;
 
     //cudaSetDevice(1);
-    i=cudaMallocManaged(&h_A,storage_size);
 
+    i=cudaMallocManaged(&h_A,storage_size);
+    if(i)
+    {
+    cout<<"cuda malloc h_A managed error: "<<i<<endl;
+    }
+
+    /*
+    i=cudaMallocManaged(&h_B,storage_size);
     if(i)
     {
     cout<<"cuda malloc managed error: "<<i<<endl;
     }
-
+    */
 
     i=cuCtxPushCurrent(pctx);
     if(i)
