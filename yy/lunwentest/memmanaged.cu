@@ -97,7 +97,7 @@ int main()
     i=cudaMalloc(&device_ptr,storage_size);
     if(i)
     {
-    cout<<"error: "<<i<<endl;
+    cout<<"cuda malloc error: "<<i<<endl;
     }
     CUstream firststream;
     cuStreamCreate(&firststream,0);
