@@ -105,7 +105,7 @@ int main()
     cout<<"cuda malloc managed error: "<<i<<endl;
     }
 
-    i=cuCtxPushCurrent(ctx);
+    i=cuCtxPushCurrent(pctx);
     if(i)
     {
     cout<<"push context error: "<<i<<endl;
