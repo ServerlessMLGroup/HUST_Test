@@ -21,8 +21,8 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 import numpy as np
 import torch
 
-torch.backends.cudnn.enabled = False
-torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.enabled = True
+torch.backends.cudnn.benchmark = True
 
 import time
 
