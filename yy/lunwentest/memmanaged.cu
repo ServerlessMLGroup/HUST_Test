@@ -110,7 +110,7 @@ int main()
     i=cudaMallocManaged(&h_B,storage_size);
     if(i)
     {
-    cout<<"cuda malloc managed error: "<<i<<endl;
+    cout<<"cuda malloc h_B managed error: "<<i<<endl;
     }
 
 
@@ -167,7 +167,7 @@ int main()
     cudaDeviceSynchronize();
     for(int k=999990;k<1000000;k++)
     {
-       cout<<"after add "<<h_A[k]<<endl;
+       //cout<<"after add "<<h_A[k]<<endl;
     }
 
     cudaError_t errd = cudaGetLastError();  // add
