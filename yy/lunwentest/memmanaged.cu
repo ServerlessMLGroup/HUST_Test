@@ -68,12 +68,13 @@ __global__ void VecAdd(float* A, float* B, float* C, int N)
 
 int main()
 {
-    export CUDA_MPS_PINNED_DEVICE_MEM_LIMIT="2=512MB";
+
     //putenv("CUDA_MPS_PINNED_DEVICE_MEM_LIMIT=1G");
     cudaSetDevice(2);
     CUcontext pctx;
     CUdevice dev;
 
+    int i=0;
     int err = cuCtxGetDevice(&dev);
     if(err){
         cout<<"cuCtxGetDevice error:"<<err<<endl;
@@ -90,7 +91,7 @@ int main()
     //nan dao cu driver api bu xing?
     /*
     CUdeviceptr device_ptr;
-    int i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
+    i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
     */
     float* device_ptr;
     cudaMalloc(&device_ptr,storage_size);
