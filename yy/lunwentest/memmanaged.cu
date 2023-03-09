@@ -90,6 +90,9 @@ int main()
     //1048576 -> 1M
     size_t storage_size = 1048576*2000;
     float* h_A;
+    cudaMallocManaged(&h_A,storage_size);
+
+    /*
     cudaMallocHost(&h_A, storage_size);
 
     //nan dao cu driver api bu xing?
@@ -97,10 +100,10 @@ int main()
     CUdeviceptr device_ptr;
     i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
 
-    /*
+
     float* device_ptr;
     i=cudaMalloc(&device_ptr,storage_size);
-    */
+
     if(i)
     {
     cout<<"cuda malloc error: "<<i<<endl;
@@ -113,7 +116,13 @@ int main()
     cout<<"memcpy error: "<<i<<endl;
     }
     cudaDeviceSynchronize();
+    */
 
+    i=cudaMemPrefetchAsync(h_A,storage_szie,2);
+    if(i)
+    {
+    cout<<"prefetch error: "<<i<<endl;
+    }
     getMem();
 
     /*
