@@ -62,11 +62,15 @@ void getMembycu() {
 }
 
 
-__global__ void VecAdd(float* A, float* B, float* C, int N)
+__global__ void VecAdd(float* h_A, float N)
 {
-    int i = blockDim.x * blockIdx.x + threadIdx.x;
-    if (i < N)
-        C[i] = A[i] + B[i];
+    int tx =threadIdx.x;
+    int bx =blockIdx.x;
+    int offset=100*bx+tx;
+    for(int i=0;i<50000;i++)
+    {
+    h_A[offset*50000+i]=h_A[offset*50000+i]+N;
+    }
 }
 
 
@@ -88,9 +92,19 @@ int main()
     getMem();
 
     //1048576 -> 1M
-    size_t storage_size = 1048576*2000;
+    //size_t storage_size = 1048576*2000;
+    size_t storage_size = 2000000000;
     float* h_A;
-    cudaMallocManaged(&h_A,storage_size);
+    i=cudaMallocManaged(&h_A,storage_size);
+    if(i)
+    {
+    cout<<"cuda malloc managed error: "<<i<<endl;
+    }
+    for(int k=0;k<500000000;k++)
+    {
+        h_A[k]=1.0;
+    }
+
 
     /*
     cudaMallocHost(&h_A, storage_size);
@@ -118,11 +132,14 @@ int main()
     cudaDeviceSynchronize();
     */
 
+    /*
     i=cudaMemPrefetchAsync(h_A,storage_size,2);
     if(i)
     {
     cout<<"prefetch error: "<<i<<endl;
     }
+    */
+    VecAdd(h_A,1.0);
     getMem();
 
     /*
