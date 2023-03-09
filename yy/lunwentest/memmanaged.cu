@@ -97,7 +97,7 @@ int main()
     size_t storage_size = 1048576*40;
     float* h_A;
 
-    //cudaSetDevice(1);
+    cudaSetDevice(1);
     i=cudaMallocManaged(&h_A,storage_size);
 
     if(i)
@@ -105,13 +105,13 @@ int main()
     cout<<"cuda malloc managed error: "<<i<<endl;
     }
 
-    /*
+
     i=cuCtxPushCurrent(pctx);
     if(i)
     {
     cout<<"push context error: "<<i<<endl;
     }
-    */
+    
 
     for(int k=0;k<1000000;k++)
     {
