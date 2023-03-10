@@ -7,6 +7,7 @@
 #include <thread>
 #include <random>
 #include <ctime>
+#include <cudnn.h>
 using namespace std;
 
 enum class Unit{
