@@ -8,5 +8,5 @@ with tf.device('/cpu:0'):
 with tf.device('/gpu:1'):
     c = a + b
 
-sess = tf.Session(config=tf.ConfigProto(log_device_palcement += True))
+sess = tf.Session(config=tf.ConfigProto(log_device_palcement = True))
 print sess.run(c)
