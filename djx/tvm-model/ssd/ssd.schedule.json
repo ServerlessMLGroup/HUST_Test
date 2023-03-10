@@ -1,0 +1,315 @@
+{
+  "temp_args": [], 
+  "funcs": [
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_18", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_18_kernel0", 
+          "launch_params": [7, 28, 1, 16, 1, 8], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_17", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_17_kernel0", 
+          "launch_params": [1, 7, 32, 112, 2, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_16", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_16_kernel0", 
+          "launch_params": [2, 56, 1, 28, 1, 16], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_15", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_15_kernel0", 
+          "launch_params": [1, 14, 64, 56, 2, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_14", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_14_kernel0", 
+          "launch_params": [1, 28, 2, 28, 1, 16], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_13", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_13_kernel0", 
+          "launch_params": [1, 7, 128, 56, 1, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_12", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_12_kernel0", 
+          "launch_params": [1, 28, 2, 28, 1, 8], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_11", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_11_kernel0", 
+          "launch_params": [1, 1, 128, 28, 14, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_10", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_10_kernel0", 
+          "launch_params": [1, 14, 4, 28, 1, 16], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_9", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_9_kernel0", 
+          "launch_params": [1, 1, 256, 28, 7, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_8", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_8_kernel0", 
+          "launch_params": [1, 14, 4, 28, 1, 16], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_7", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_7_kernel0", 
+          "launch_params": [1, 1, 256, 14, 14, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_6", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_6_kernel0", 
+          "launch_params": [1, 2, 32, 14, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_5", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_5_kernel0", 
+          "launch_params": [1, 1, 512, 14, 2, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_4", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_4_kernel0", 
+          "launch_params": [1, 2, 32, 14, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_5", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_5_kernel0", 
+          "launch_params": [1, 1, 512, 14, 2, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_4", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_4_kernel0", 
+          "launch_params": [1, 2, 32, 14, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_5", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_5_kernel0", 
+          "launch_params": [1, 1, 512, 14, 2, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_4", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_4_kernel0", 
+          "launch_params": [1, 2, 32, 14, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_5", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_5_kernel0", 
+          "launch_params": [1, 1, 512, 14, 2, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_4", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_4_kernel0", 
+          "launch_params": [1, 2, 32, 14, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_5", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_5_kernel0", 
+          "launch_params": [1, 1, 512, 14, 2, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_4", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_4_kernel0", 
+          "launch_params": [1, 2, 32, 14, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_3", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_3_kernel0", 
+          "launch_params": [1, 1, 512, 7, 7, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_2", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_2_kernel0", 
+          "launch_params": [1, 1, 64, 7, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu_1", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_1_kernel0", 
+          "launch_params": [1, 1, 256, 7, 7, 4], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_conv2d_add_nn_relu", 
+      "kernels": [
+        {
+          "name": "fused_nn_conv2d_add_nn_relu_kernel0", 
+          "launch_params": [1, 1, 64, 7, 7, 8], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_global_avg_pool2d", 
+      "kernels": [
+        {
+          "name": "fused_nn_global_avg_pool2d_kernel0", 
+          "launch_params": [128, 1, 1, 8, 8, 1], 
+          "args": [0, 1]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_batch_flatten", 
+      "kernels": [
+        {
+          "name": "fused_nn_batch_flatten_kernel0", 
+          "launch_params": [1, 1, 1, 1024, 1, 1], 
+          "args": [1, 0]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_dense_add", 
+      "kernels": [
+        {
+          "name": "fused_nn_dense_add_kernel0", 
+          "launch_params": [1000, 1, 1, 64, 1, 1], 
+          "args": [0, 1, 3, 2]
+        }
+      ]
+    }, 
+    {
+      "name": "fused_nn_softmax", 
+      "kernels": [
+        {
+          "name": "fused_nn_softmax_kernel0", 
+          "launch_params": [1, 1, 1, 32, 1, 1], 
+          "args": [0, 1]
+        }
+      ]
+    }
+  ]
+}

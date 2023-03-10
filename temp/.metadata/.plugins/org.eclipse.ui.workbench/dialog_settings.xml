@@ -10,4 +10,9 @@
 		<list key="textArray">
 		</list>
 	</section>
+	<section name="ImportExportAction">
+		<item value="com.nvidia.viper.importnvprofwizard" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+		</list>
+	</section>
 </section>

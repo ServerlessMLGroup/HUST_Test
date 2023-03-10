@@ -1,3 +1,7 @@
 logs/*
 djx/tared_model/*.params
 djx/tared_model/*.so
+djx/jetson/*
+djx/.cache/torch/hub/DeepLearningExamples-torchhub.zip
+djx/tvm-model/vgg/vgg.params
+djx/jetson-inference
