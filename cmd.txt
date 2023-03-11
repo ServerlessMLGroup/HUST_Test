@@ -13,7 +13,7 @@ docker build -t mytvm:v0.7.0 -f ./Dockerfile.tvm-v0.7.0 .
 docker build -t mytvm:v1 -f ./Dockerfile.mytvm .
 
 ssh wuhao@222.20.94.68 -p 50011
-(mytvmv5是目前可用的 v1是reef改版,tvm-gpu-v1可用)
+(mytvmv5是目前可用的 v1是reef改版,tvm-gpu-rv1可用)
 docker pull tlcpack/ci-gpu:20220908-060034-62bdc91b1
 
 export TVM_HOME=/tvm
