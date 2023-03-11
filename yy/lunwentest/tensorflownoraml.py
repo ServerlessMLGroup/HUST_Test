@@ -1,13 +1,18 @@
-import tensorflow as tf
 import os
 
-a = tf.constant([1.0, 2.0, 3.0], shape=[3], name='a')
-b = tf.constant([1.0, 2.0, 3.0], shape=[3], name='b')
-c = a + b
-os.system("./get2Size")
-# 通过log_device_placement参数来输出运行每一个运算的设备。
-sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True))
+import tensorflow as tf
+
+# 通过tf.device将运算指定到特定的设备上。
+with tf.device('/cpu:0'):
+    a = tf.constant([1.0,2.0,3.0], shape=[3], name='a')
+    b = tf.constant([1.0,2.0,3.0], shape=[3], name='b')
+
+with tf.device('/gpu:1'):
+    c = a + b
+
+sess = tf.Session(config=tf.ConfigProto(log_device_palcement= True))
 print
-os.system("./get2Size")
-#sess.run(c)
+sess.run(c)
+
+
 os.system("./get2Size")
