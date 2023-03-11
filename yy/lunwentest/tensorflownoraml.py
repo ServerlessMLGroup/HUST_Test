@@ -9,5 +9,5 @@ os.system("./get2Size")
 sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True))
 print
 os.system("./get2Size")
-#sess.run(c)
+sess.run(c)
 os.system("./get2Size")
