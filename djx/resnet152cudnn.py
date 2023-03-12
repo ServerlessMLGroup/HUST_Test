@@ -21,7 +21,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 import numpy as np
 import torch
 
-os.system("./getSize")
+#os.system("./getSize")
 #torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.enabled = True
 #torch.backends.cudnn.benchmark = True
@@ -76,5 +76,5 @@ if __name__ == '__main__':
     model.to(device)
     model.eval()
     benchmark(model=model, input_shape=(batch_size, 3, 224, 224))
-    os.system("./getSize")
+    #os.system("./getSize")
     # mps_controller.closeMPS(gpu_no)
