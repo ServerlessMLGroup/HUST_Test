@@ -1,7 +1,7 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--gpu_no', type=int, default=1)
+parser.add_argument('--gpu_no', type=int, default=0)
 args = parser.parse_args()
 
 gpu_no = args.gpu_no
@@ -16,7 +16,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "%d" % gpu_no
 
 #os.system("nvcc getSize.cu -o getSize -lcuda")
 print("before import torch:")
-#os.system("./getSize")
+os.system("./getSize")
 
 import torch
 #torch.backends.cudnn.deterministic = False
@@ -31,4 +31,4 @@ if __name__ == '__main__':
     print("device = ", device)
     print("after import torch:")
 
-    #os.system("./getSize")
+    os.system("./getSize")
