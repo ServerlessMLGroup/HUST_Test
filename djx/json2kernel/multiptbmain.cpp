@@ -255,7 +255,7 @@ int main(int argc, char **argv) {
     kernel_offset=0;
     int j=0;
     float* temp2;
-    RETURN_STATUS(set_input());
+    //RETURN_STATUS(set_input());
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
