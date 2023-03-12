@@ -39,6 +39,7 @@ enum Status {
     }\
 }
 //old
+std::vector<CUdeviceptr> storage;
 std::vector<CUdeviceptr> storage1;
 std::vector<CUdeviceptr> storage2;
 std::unordered_map<std::string, CUfunction> kernels;
@@ -190,7 +191,7 @@ int main(int argc, char **argv) {
         storage2.push_back(device_ptr2);
     }
     printf("map raw args!\n");
-    std::cout << "storages.size = " << storage.size() << std::endl;
+    std::cout << "storages.size = " << storage1.size() << std::endl;
     raw_args1.reserve(model->kernels.size());
     raw_args2.reserve(model->kernels.size());
 
@@ -222,12 +223,12 @@ int main(int argc, char **argv) {
         storage_size = 1 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr13[i])), storage_size));
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr23[i])), storage_size));
-        kernel_arg1.push_back(&(device_ptr31[i]));
-        kernel_arg2.push_back(&(device_ptr32[i]));
+        kernel_arg1.push_back(&(device_ptr13[i]));
+        kernel_arg2.push_back(&(device_ptr23[i]));
         for (size_t arg_idx : model->kernels[i].args) {
             // assert(arg_idx < storage.size());
             kernel_arg1.push_back(&storage1[arg_idx]);
-            kernel_arg2.push_back(&storage2[arg_idx])
+            kernel_arg2.push_back(&storage2[arg_idx]);
         }
         raw_args1.push_back(kernel_arg1);
         raw_args2.push_back(kernel_arg2);
