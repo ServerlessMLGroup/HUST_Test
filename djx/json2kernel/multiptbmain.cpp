@@ -161,9 +161,9 @@ int main(int argc, char **argv) {
     cuStreamCreate(&iofirststream,0);
     CUstream iosecondstream;
     cuStreamCreate(&iosecondstream,0);
-    CUstream iofirststream;
+    CUstream kefirststream;
     cuStreamCreate(&kefirststream,0);
-    CUstream iosecondstream;
+    CUstream kesecondstream;
     cuStreamCreate(&kesecondstream,0);
     //add fininshed
     // 2. load cuda kernels
@@ -305,12 +305,12 @@ int main(int argc, char **argv) {
         allblocknum[3*i+0]=launch_params[0];
         allblocknum[3*i+1]=launch_params[1];
         allblocknum[3*i+2]=launch_params[2];
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr11[i]),(allflag+i),1*sizeof(int),firststream));
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr12[i]),(allblocknum+3*i),3*sizeof(int),firststream));
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr13[i]),(allblocksize+i),1*sizeof(int),firststream));
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr21[i]),(allflag+i),1*sizeof(int),firststream));
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr22[i]),(allblocknum+3*i),3*sizeof(int),firststream));
-        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr23[i]),(allblocksize+i),1*sizeof(int),firststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr11[i]),(allflag+i),1*sizeof(int),iofirststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr12[i]),(allblocknum+3*i),3*sizeof(int),iofirststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr13[i]),(allblocksize+i),1*sizeof(int),iofirststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr21[i]),(allflag+i),1*sizeof(int),iosecondstream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr22[i]),(allblocknum+3*i),3*sizeof(int),iosecondstream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr23[i]),(allblocksize+i),1*sizeof(int),iosecondstream));
     }
     j=0;
     for (KernelInfo &kernel_info : model->kernels) {
