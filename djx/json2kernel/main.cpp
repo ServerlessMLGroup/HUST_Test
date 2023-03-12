@@ -337,8 +337,8 @@ int main(int argc, char **argv) {
         }
         j++;
 
-        if(j>47)
-         break;
+        //if(j>47)
+        //break;
     }
 
     cuStreamSynchronize(secondstream);
