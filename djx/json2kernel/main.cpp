@@ -338,7 +338,7 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         40, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
-        0, kescondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
+        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         }
         else{
