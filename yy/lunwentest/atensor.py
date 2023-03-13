@@ -27,6 +27,11 @@ if __name__ == '__main__':
     device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
     input_data = torch.randn(2)
     input_data = input_data.to(device)
+    os.system("./get1Size")
+
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'resnet152', pretrained=True)
+    model.to(device)
+
     #torch.randn(1, device='cuda')
     #torch.cuda._lazy_init()1
     #print("device = ", device)
