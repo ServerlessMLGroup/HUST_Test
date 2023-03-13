@@ -1,6 +1,0 @@
-==5211== NVPROF is profiling process 5211, command: ./demo 2
-==5211== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
-==5211== Profiling application: ./demo 2
-==5211== Profiling result:
-No events/metrics were profiled.
-==5211== Warning: Some profiling data are not recorded.
