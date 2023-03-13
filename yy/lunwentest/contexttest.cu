@@ -67,7 +67,7 @@ __global__ void VecAdd(float* A, float* B, float* C, int N)
 
 int main()
 {
-    cudaSetDevice(2);
+    cudaSetDevice(1);
     CUcontext pctx;
     CUdevice dev;
 
