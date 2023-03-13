@@ -28,7 +28,7 @@ if __name__ == '__main__':
     device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
 
     #create a input
-    input_data = torch.randn(3*1024*1024)
+    input_data = torch.randn(1*1024*1024)
     #input_data = torch.randn(1)
     input_data = input_data.to(device)
     os.system("./get1Size")
