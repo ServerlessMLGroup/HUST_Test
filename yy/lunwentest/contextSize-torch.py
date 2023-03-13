@@ -16,7 +16,7 @@ import os
 
 #os.system("nvcc getSize.cu -o getSize -lcuda")
 print("before import torch:")
-os.system("./get2Size")
+os.system("./get1Size")
 
 import torch
 #torch.backends.cudnn.deterministic = False
@@ -31,4 +31,4 @@ if __name__ == '__main__':
     #print("device = ", device)
     print("after import torch:")
 
-    os.system("./get2Size")
+    os.system("./get1Size")
