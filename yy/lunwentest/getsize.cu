@@ -46,7 +46,7 @@ void getMem() {
        cout<<"cudaMemGetInfo error:"<<err<<endl;
        return;
     }
-    printf("Free mem = %.4f MB, Total = %.4f MB \n\n\n\n", convert(free, Unit::MB), convert(total, Unit::MB));
+    printf("Free mem = %.4f MB, Total = %.4f MB ", convert(free, Unit::MB), convert(total, Unit::MB));
 }
 
 int main() {
