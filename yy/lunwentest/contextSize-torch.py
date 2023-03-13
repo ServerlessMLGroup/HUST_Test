@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     torch.randn(1, device='cuda')
     #torch.cuda._lazy_init()
-    #print("device = ", device)
+    print("device = ", device)
     print("after import torch:")
 
     os.system("./get1Size")
