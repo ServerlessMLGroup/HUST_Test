@@ -24,7 +24,7 @@ torch.backends.cudnn.enabled = False
 #torch.backends.cudnn.benchmark = False
 
 if __name__ == '__main__':
-    #device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:%d" % gpu_no if torch.cuda.is_available() else "cpu")
 
     torch.randn(1, device='cuda')
     #torch.cuda._lazy_init()
