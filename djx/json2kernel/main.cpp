@@ -280,8 +280,7 @@ int main(int argc, char **argv) {
         j++;
         */
     }
-    cuStreamSynchronize(iofirststream);
-    cuStreamSynchronize(iosecondstream);
+
     //init flag
     int* allflag;
     cuMemAllocHost((void**)(&allflag), 80*sizeof(int));
@@ -314,6 +313,10 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr23[i]),(allblocksize+i),1*sizeof(int),iosecondstream));
     }
     j=0;
+
+    cuStreamSynchronize(iofirststream);
+    cuStreamSynchronize(iosecondstream);
+
     for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
