@@ -50,7 +50,7 @@ void getMem() {
 }
 
 int main() {
-    cudaSetDevice(2);
+    cudaSetDevice(1);
     getMem();
     return 0;
 }
