@@ -264,7 +264,7 @@ int main(int argc, char **argv) {
         j++;
     }
     cuStreamSynchronize(secondstream);
-    
+
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
