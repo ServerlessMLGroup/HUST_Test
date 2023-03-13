@@ -1,7 +1,7 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--gpu_no', type=int, default=2)
+parser.add_argument('--gpu_no', type=int, default=1)
 args = parser.parse_args()
 
 gpu_no = args.gpu_no
