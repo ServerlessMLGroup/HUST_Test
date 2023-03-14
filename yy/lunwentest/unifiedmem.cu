@@ -106,14 +106,6 @@ int main()
 
     //cudaSetDevice(1);
 
-
-    i=cudaMallocManaged(&h_A,storage_size);
-    if(i)
-    {
-    cout<<"cuda malloc h_A managed error: "<<i<<endl;
-    }
-    
-
     float* device_ptr;
     i=cudaMalloc(&device_ptr,storage_size);
 
@@ -121,6 +113,16 @@ int main()
     {
     cout<<"cuda malloc error: "<<i<<endl;
     }
+
+    
+    i=cudaMallocManaged(&h_A,storage_size);
+    if(i)
+    {
+    cout<<"cuda malloc h_A managed error: "<<i<<endl;
+    }
+
+
+
 
     /*
     i=cudaMallocManaged(&h_B,storage_size);
@@ -130,13 +132,6 @@ int main()
     }
     */
 
-    /*
-    i=cuCtxPushCurrent(pctx);
-    if(i)
-    {
-    cout<<"push context error: "<<i<<endl;
-    }
-    */
 
     /*
     for(int k=0;k<1000000;k++)
@@ -144,6 +139,7 @@ int main()
         h_A[k]=1.0;
     }
     */
+
 
     /*
     cudaMallocHost(&h_A, storage_size);
