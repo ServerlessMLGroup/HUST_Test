@@ -10,7 +10,6 @@
 #include <thread>
 #include <math.h>
 #include "unistd.h"
-#include <thread>
 #include <mutex>
 
 #define BLOCKNUMBER 32
@@ -153,11 +152,11 @@ bool argexist(int temparg,int* aused,int* top)
 
 void thread1(CUcontext ctx,int i)
 {
-    cout<<"thread starts: "<<i<<endl;
+    std::cout<<"thread starts: "<<i<<std::endl;
     int err;
     err=cuCtxPushCurrent(ctx);
     if(err){
-    cout<<"Push Context ERR! "<<err<<endl;
+    std::cout<<"Push Context ERR! "<<err<<std::endl;
     }
 
     cudaStream_t tempstream;
@@ -399,21 +398,21 @@ int main(int argc, char **argv) {
     err = cuCtxCreate(&cont1,CU_CTX_SCHED_YIELD,device);
     if(err)
     {
-        cout<<"Can't create Context, err" << err << endl;
+        std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
     CUcontext cont2;
     err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,device);
     if(err)
     {
-        cout<<"Can't create Context, err" << err << endl;
+        std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
 
     workend1.lock();
     workend2.lock();
-    thread first=thread(thread1,cont1,1);
-    thread second=thread(thread1,cont2,2);
+    std::thread first=std::thread(thread1,cont1,1);
+    std::thread second=std::thread(thread1,cont2,2);
     first.join();
     second.join();
 
