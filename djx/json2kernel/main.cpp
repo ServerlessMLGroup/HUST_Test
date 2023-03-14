@@ -162,7 +162,7 @@ void thread1(CUcontext ctx,int i)
 
     CUstream tempstream;
     cuStreamCreate(&tempstream,0);
-    fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
+
     int j;
 
     if(i==1)
