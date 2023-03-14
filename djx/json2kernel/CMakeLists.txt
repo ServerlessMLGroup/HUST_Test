@@ -1,8 +1,8 @@
 project(json_test)
 cmake_minimum_required(VERSION 3.2)
-set(CMAKE_CXX_FLAGS -pthread)
 
 add_compile_options(-std=c++11)
+add_compile_options(-pthread)
 include_directories(/usr/local/cuda-11.6/include)
 find_package(CUDA REQUIRED)
 INCLUDE(/opt/cmake-3.24.2/share/cmake-3.24/Modules/FindCUDA.cmake)
