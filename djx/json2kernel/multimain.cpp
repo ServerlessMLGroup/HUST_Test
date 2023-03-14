@@ -1,3 +1,4 @@
+/*
 #include "model.h"
 #include "log.h"
 #include <bits/unique_ptr.h>
@@ -216,7 +217,7 @@ int main(int argc, char **argv) {
     CUdeviceptr device_ptr1;
     CUdeviceptr device_ptr2;
     CUdeviceptr device_ptr3;
-    */
+
     CUdeviceptr device_ptr1[model->kernels.size()];
     CUdeviceptr device_ptr2[model->kernels.size()];
     CUdeviceptr device_ptr3[model->kernels.size()];
@@ -265,7 +266,7 @@ int main(int argc, char **argv) {
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr1,flag,1*sizeof(int),firststream));
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr2,blocknum,3*sizeof(int),firststream));
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)device_ptr3,blocksize,1*sizeof(int),firststream));
-    */
+
     printf("parse params!\n");
     parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
 
@@ -313,7 +314,7 @@ int main(int argc, char **argv) {
         0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
     ));
         j++;
-        */
+
     }
 
     cuStreamSynchronize(firststream);
@@ -385,3 +386,4 @@ int main(int argc, char **argv) {
     model.reset();
     return 0;
 }
+*/

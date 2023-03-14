@@ -285,7 +285,7 @@ int main(int argc, char **argv) {
     }
     outFile.close();
     //add fininshed
-    
+
 
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;

@@ -3,7 +3,7 @@ Created by yuyue
 because i have to test a lot via main.cpp, i copy all its original code here
 once i make some mistakes i don't know why , i can fix my code by this
 */
-
+/*
 #include "model.h"
 #include "log.h"
 #include <bits/unique_ptr.h>
@@ -219,7 +219,7 @@ int main(int argc, char **argv) {
     outFile<<model->kernels[j].name.c_str()<<","<<kernelsize_tongji[j]<<std::endl;
     }
     outFile.close();
-    */
+
 
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage.size() << std::endl;
@@ -270,3 +270,4 @@ int main(int argc, char **argv) {
     model.reset();
     return 0;
 }
+*/
