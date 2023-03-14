@@ -8,7 +8,6 @@ INCLUDE(/opt/cmake-3.24.2/share/cmake-3.24/Modules/FindCUDA.cmake)
 # Cmake find modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
-
 aux_source_directory(. DIR_SRCS)
 
 # 指定生成目标
