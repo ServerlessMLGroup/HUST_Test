@@ -409,7 +409,7 @@ int main(int argc, char **argv) {
         std::cout<<"Can't create Context, err" << err << std::endl;
         return 0;
     }
-
+    sleep(1);
     workend1.lock();
     workend2.lock();
     std::thread first(thread1,cont1,1);
