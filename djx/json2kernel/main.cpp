@@ -410,63 +410,14 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-for (KernelInfo &kernel_info : model->kernels) {
-        std::string& func_name = kernel_info.name;
-        CUfunction func = kernels1[func_name];
-        uint32_t *launch_params = kernel_info.launch_params;
 
-        if(j==47)
-        {
-         std::cout<<"name"<<func_name<<std::endl;
-        std::cout<<"0 "<<launch_params[0]<<std::endl;
-        std::cout<<"1 "<<launch_params[1]<<std::endl;
-        std::cout<<"2 "<<launch_params[2]<<std::endl;
-        //continue;
-        }
-
-        if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
-        {
-
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        BLOCKNUMBER, 1, 1,
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        BLOCKNUMBER, 1, 1,
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-
-        }
-        else{
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        }
-
-        j++;
-
-    }
-
-    cuStreamSynchronize(kesecondstream);
-    cuStreamSynchronize(kefirststream);
-
-    /*
     workend1.lock();
     workend2.lock();
     std::thread first(thread1,cont1,1);
     std::thread second(thread1,cont2,2);
     first.join();
     second.join();
-    */
+
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
