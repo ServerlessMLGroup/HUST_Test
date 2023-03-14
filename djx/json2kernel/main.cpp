@@ -163,7 +163,7 @@ void thread1(CUcontext ctx,int i)
     CUdevice tempdevice;
     CUcontext tempctx;
     GPU_RETURN_STATUS(cuDeviceGet(&tempdevice, 3));
-    GPU_RETURN_STATUS(cuCtxCreate(&tempctx, 0, device));
+    GPU_RETURN_STATUS(cuCtxCreate(&tempctx, 0, tempdevice));
 
 
     CUstream tempstream;
