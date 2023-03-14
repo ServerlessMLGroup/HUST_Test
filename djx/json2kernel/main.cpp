@@ -64,7 +64,7 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, stream, (void **)raw_args1[i].data(), 0 // raw_args1是json中指示的storage的下标
+        0, stream, (void **)raw_args2[i].data(), 0 // raw_args1是json中指示的storage的下标
     ));
     // double duration = (double(end - start));
     // std::cout << "func_name:" << func_name << " time:" << duration << std::endl;
@@ -290,9 +290,6 @@ void thread1(int gpu_no,int i)
 
     cuStreamSynchronize(iofirststream);
 
-
-    int j=0;
-
     if(i==1)
     {
     workend2.unlock();
@@ -313,7 +310,7 @@ void thread1(int gpu_no,int i)
         GPU_RETURN_STATUS(cuLaunchKernel(func1,
         BLOCKNUMBER, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
-        0, tempstream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
+        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         }
         else{
