@@ -1,0 +1,6 @@
+==43444== NVPROF is profiling process 43444, command: ./demo 3
+==43444== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
+==43444== Profiling application: ./demo 3
+==43444== Profiling result:
+No events/metrics were profiled.
+==43444== Warning: Some profiling data are not recorded.

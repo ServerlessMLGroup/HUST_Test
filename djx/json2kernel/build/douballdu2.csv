@@ -1,0 +1,6 @@
+==20860== NVPROF is profiling process 20860, command: ./demo 3
+==20860== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
+==20860== Profiling application: ./demo 3
+==20860== Profiling result:
+No events/metrics were profiled.
+==20860== Warning: Some profiling data are not recorded.

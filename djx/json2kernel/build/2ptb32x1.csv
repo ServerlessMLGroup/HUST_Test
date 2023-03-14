@@ -1,0 +1,6 @@
+==522== NVPROF is profiling process 522, command: ./demo 1
+==522== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
+==522== Profiling application: ./demo 1
+==522== Profiling result:
+No events/metrics were profiled.
+==522== Warning: Some profiling data are not recorded.

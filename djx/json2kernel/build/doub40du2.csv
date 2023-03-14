@@ -1,0 +1,6 @@
+==41903== NVPROF is profiling process 41903, command: ./demo 3
+==41903== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
+==41903== Profiling application: ./demo 3
+==41903== Profiling result:
+No events/metrics were profiled.
+==41903== Warning: Some profiling data are not recorded.

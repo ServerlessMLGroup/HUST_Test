@@ -1,0 +1,6 @@
+==6133== NVPROF is profiling process 6133, command: ./demo 3
+==6133== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
+==6133== Profiling application: ./demo 3
+==6133== Profiling result:
+No events/metrics were profiled.
+==6133== Warning: Some profiling data are not recorded.

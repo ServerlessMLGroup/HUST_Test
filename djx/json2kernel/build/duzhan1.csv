@@ -1,0 +1,6 @@
+==40151== NVPROF is profiling process 40151, command: ./demo 1
+==40151== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
+==40151== Profiling application: ./demo 1
+==40151== Profiling result:
+No events/metrics were profiled.
+==40151== Warning: Some profiling data are not recorded.

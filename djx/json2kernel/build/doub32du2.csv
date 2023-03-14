@@ -1,0 +1,6 @@
+==6594== NVPROF is profiling process 6594, command: ./demo 1
+==6594== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
+==6594== Profiling application: ./demo 1
+==6594== Profiling result:
+No events/metrics were profiled.
+==6594== Warning: Some profiling data are not recorded.
