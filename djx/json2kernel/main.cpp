@@ -165,12 +165,20 @@ void thread1(CUcontext ctx,int i)
     GPU_RETURN_STATUS(cuDeviceGet(&tempdevice, 3));
     GPU_RETURN_STATUS(cuCtxCreate(&tempctx, 0, tempdevice));
 
-
     CUstream tempstream;
     cuStreamCreate(&tempstream,0);
 
-    int j=0;
+    //test stream
+    size_t storage_size3 =2;
+    CUdeviceptr device_ptr3;
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size3));
+    float* tempdata;
+    GPU_RETURN_STATUS(cuMemAllocHost((void**)(&(tempdata)), storage_size3));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr3),tempdata,2,tempstream));
 
+
+
+    int j=0;
     if(i==1)
     {
     workend2.unlock();
