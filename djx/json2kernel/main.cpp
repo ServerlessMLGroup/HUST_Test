@@ -174,7 +174,7 @@ void thread1(CUcontext ctx,int i)
         CUfunction func1 = kernels1[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
 
-         if(j==47)
+         if(j==0)
         {
          std::cout<<"name"<<func_name<<std::endl;
         std::cout<<"0 "<<launch_params[0]<<std::endl;
@@ -210,7 +210,7 @@ void thread1(CUcontext ctx,int i)
         CUfunction func2 = kernels2[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
 
-         if(j==47)
+         if(j==1)
         {
          std::cout<<"name"<<func_name<<std::endl;
         std::cout<<"0 "<<launch_params[0]<<std::endl;
@@ -231,7 +231,7 @@ void thread1(CUcontext ctx,int i)
         GPU_RETURN_STATUS(cuLaunchKernel(func2,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, tempstream, (void **)raw_args2[3].data(), 0 // raw_args1是json中指示的storage的下标
+        0, tempstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         }
         j++;
