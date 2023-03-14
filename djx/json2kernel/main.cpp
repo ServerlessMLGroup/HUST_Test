@@ -160,8 +160,9 @@ void thread1(CUcontext ctx,int i)
     std::cout<<"Push Context ERR! "<<err<<std::endl;
     }
     */
+    CUdevice tempdevice;
     CUcontext tempctx;
-    GPU_RETURN_STATUS(cuDeviceGet(&device, 3));
+    GPU_RETURN_STATUS(cuDeviceGet(&tempdevice, 3));
     GPU_RETURN_STATUS(cuCtxCreate(&tempctx, 0, device));
 
 
