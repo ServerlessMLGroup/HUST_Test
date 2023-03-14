@@ -96,7 +96,7 @@ int main()
     //size_t storage_size = 1048576*400;
     size_t storage_size = 1000*1048576;
 
-    storage_size *=25;
+    storage_size *=40;
 
     cout<<"storage_size: "<<storage_size<<endl;
     cout<<"size of size_t: "<<sizeof(size_t)<<endl;
