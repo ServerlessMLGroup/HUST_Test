@@ -394,6 +394,7 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(iofirststream);
     cuStreamSynchronize(iosecondstream);
 
+    int err;
     CUcontext cont1;
     err = cuCtxCreate(&cont1,CU_CTX_SCHED_YIELD,device);
     if(err)
