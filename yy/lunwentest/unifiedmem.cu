@@ -95,10 +95,9 @@ int main()
     //1048576 -> 1M
     //size_t storage_size = 1048576*400;
     size_t storage_size = 1500*1048576;
-    for(int i=0;i++;i<20)
-    {
-    storage_size+=1500*1048576;
-    }
+
+    storage_size *=20;
+
     cout<<"storage_size: "<<storage_size<<endl;
     cout<<"size of size_t: "<<sizeof(size_t)<<endl;
     cout<<"size of float: "<<sizeof(float)<<endl;
