@@ -106,10 +106,20 @@ int main()
 
     //cudaSetDevice(1);
 
+    /*
     i=cudaMallocManaged(&h_A,storage_size);
     if(i)
     {
     cout<<"cuda malloc h_A managed error: "<<i<<endl;
+    }
+    */
+    
+    float* device_ptr;
+    i=cudaMalloc(&device_ptr,storage_size);
+
+    if(i)
+    {
+    cout<<"cuda malloc error: "<<i<<endl;
     }
 
     /*
