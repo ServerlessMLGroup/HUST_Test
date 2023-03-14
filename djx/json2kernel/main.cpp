@@ -179,6 +179,7 @@ void thread1(CUcontext ctx,int i)
 
 
     int j=0;
+    /*
     if(i==1)
     {
     workend2.unlock();
@@ -242,6 +243,7 @@ void thread1(CUcontext ctx,int i)
         j++;
     }
     }
+    */
     cuStreamSynchronize(tempstream);
 }
 
