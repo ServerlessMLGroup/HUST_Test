@@ -154,10 +154,15 @@ void thread1(CUcontext ctx,int i)
 {
     std::cout<<"thread starts: "<<i<<std::endl;
     int err;
+    /*
     err=cuCtxPushCurrent(ctx);
     if(err){
     std::cout<<"Push Context ERR! "<<err<<std::endl;
     }
+    */
+    CUcontext tempctx;
+    GPU_RETURN_STATUS(cuDeviceGet(&device, 3));
+    GPU_RETURN_STATUS(cuCtxCreate(&tempctx, 0, device));
 
 
     CUstream tempstream;
@@ -173,15 +178,6 @@ void thread1(CUcontext ctx,int i)
         std::string& func_name = kernel_info.name;
         CUfunction func1 = kernels1[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
-
-         if(j==0)
-        {
-         std::cout<<"name"<<func_name<<std::endl;
-        std::cout<<"0 "<<launch_params[0]<<std::endl;
-        std::cout<<"1 "<<launch_params[1]<<std::endl;
-        std::cout<<"2 "<<launch_params[2]<<std::endl;
-        //continue;
-        }
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
         {
