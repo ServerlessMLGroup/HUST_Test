@@ -231,7 +231,7 @@ void thread1(CUcontext ctx,int i)
         GPU_RETURN_STATUS(cuLaunchKernel(func2,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, tempstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
+        0, tempstream, (void **)raw_args2[3].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         }
         j++;
@@ -435,7 +435,7 @@ int main(int argc, char **argv) {
     std::thread second(thread1,cont2,2);
     first.join();
     second.join();
-    
+
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
