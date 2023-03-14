@@ -159,9 +159,9 @@ void thread1(CUcontext ctx,int i)
     std::cout<<"Push Context ERR! "<<err<<std::endl;
     }
 
-    cudaStream_t tempstream;
-    cudaError_t cudaStatus;
-    cudaStatus = cudaStreamCreate(&tempstream);
+
+    CUstream tempstream;
+    cuStreamCreate(&tempststream,0);
     fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
     int j;
 
