@@ -162,7 +162,7 @@ int main(int argc, char **argv) {
     float time;
     cuEventCreate(&start,0);
     cuEventCreate(&stop,0);
-    
+
 
     // 2. load cuda kernels
     for (KernelInfo &kernel_info : model->kernels) {
