@@ -138,11 +138,12 @@ int main()
     }
     */
 
+    /*
     for(int k=0;k<1000000;k++)
     {
         h_A[k]=1.0;
     }
-
+    */
 
     /*
     cudaMallocHost(&h_A, storage_size);
