@@ -1,6 +1,59 @@
-==46276== NVPROF is profiling process 46276, command: ./demo 3
-==46276== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
-==46276== Profiling application: ./demo 3
-==46276== Profiling result:
-No events/metrics were profiled.
-==46276== Warning: Some profiling data are not recorded.
+==9150== NVPROF is profiling process 9150, command: ./demo 3
+==9150== Profiling application: ./demo 3
+==9150== Profiling result:
+==9150== Metric result:
+"Device","Kernel","Invocations","Metric Name","Metric Description","Min","Max","Avg"
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",36.958993%,41.059512%,39.009252%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",41.211623%,41.535468%,41.373545%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel1",2,"sm_efficiency","Multiprocessor Activity",76.129484%,76.217668%,76.173576%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",35.577214%,54.303970%,44.940592%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel1",2,"sm_efficiency","Multiprocessor Activity",67.333076%,69.067319%,68.200197%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_1_kernel2",2,"sm_efficiency","Multiprocessor Activity",38.357428%,40.036104%,39.196766%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel1",2,"sm_efficiency","Multiprocessor Activity",42.793312%,44.284786%,43.539049%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_2_kernel2",2,"sm_efficiency","Multiprocessor Activity",46.279436%,46.503275%,46.391355%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_3_kernel2",2,"sm_efficiency","Multiprocessor Activity",46.749408%,47.615568%,47.182488%
+"Tesla V100-SXM2-32GB (3)","fused_nn_max_pool2d_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",46.862798%,48.448296%,47.655547%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",38.452679%,38.645587%,38.549133%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel1",2,"sm_efficiency","Multiprocessor Activity",76.045916%,76.354709%,76.200312%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_kernel2",2,"sm_efficiency","Multiprocessor Activity",36.171319%,36.338454%,36.254887%
+"Tesla V100-SXM2-32GB (3)","fused_add_nn_relu_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",17.578528%,18.642060%,18.110294%
+"Tesla V100-SXM2-32GB (3)","fused_add_nn_relu_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",31.364208%,31.503866%,31.434037%
+"Tesla V100-SXM2-32GB (3)","fused_add_nn_relu_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",37.719358%,41.224210%,39.471784%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",40.864067%,46.362811%,43.613439%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",54.664364%,59.405073%,57.034718%
+"Tesla V100-SXM2-32GB (3)","fused_nn_batch_flatten_kernel0",2,"sm_efficiency","Multiprocessor Activity",0.196517%,0.338156%,0.267337%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",58.217827%,59.150081%,58.683954%
+"Tesla V100-SXM2-32GB (3)","fused_nn_dense_add_kernel0",2,"sm_efficiency","Multiprocessor Activity",58.927434%,61.977887%,60.452661%
+"Tesla V100-SXM2-32GB (3)","fused_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",9.312451%,9.408233%,9.360342%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",22.015702%,29.660936%,25.838319%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_kernel0",2,"sm_efficiency","Multiprocessor Activity",46.937203%,48.129081%,47.533142%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel1",2,"sm_efficiency","Multiprocessor Activity",75.152437%,75.844906%,75.498672%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_kernel2",2,"sm_efficiency","Multiprocessor Activity",27.700544%,29.246171%,28.473357%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",30.949799%,36.943683%,33.946741%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",34.320643%,54.958953%,44.639798%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel1",2,"sm_efficiency","Multiprocessor Activity",67.013226%,68.257180%,67.635203%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel1",2,"sm_efficiency","Multiprocessor Activity",39.470879%,42.535932%,41.003406%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_1_kernel2",2,"sm_efficiency","Multiprocessor Activity",41.552528%,43.199597%,42.376062%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_add_nn_relu_2_kernel2",2,"sm_efficiency","Multiprocessor Activity",39.023464%,48.079937%,43.551700%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel0",2,"sm_efficiency","Multiprocessor Activity",21.360895%,27.927388%,24.644142%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel1",2,"sm_efficiency","Multiprocessor Activity",75.792628%,75.877788%,75.835208%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_kernel2",2,"sm_efficiency","Multiprocessor Activity",31.055646%,32.484504%,31.770075%
+"Tesla V100-SXM2-32GB (3)","fused_nn_global_avg_pool2d_kernel0",2,"sm_efficiency","Multiprocessor Activity",23.337002%,28.085028%,25.711015%
+"Tesla V100-SXM2-32GB (3)","fused_nn_softmax_kernel0",2,"sm_efficiency","Multiprocessor Activity",0.953699%,0.987692%,0.970696%
+"Tesla V100-SXM2-32GB (3)","fused_add_10_kernel0",2,"sm_efficiency","Multiprocessor Activity",33.635412%,35.420560%,34.527986%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_add_nn_relu_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",65.661786%,65.933284%,65.797535%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_add_nn_relu_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",65.873021%,65.917393%,65.895207%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",36.129704%,36.452770%,36.291237%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_add_nn_relu_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",66.264730%,66.746169%,66.505449%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",41.362822%,42.085623%,41.724223%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel1",2,"sm_efficiency","Multiprocessor Activity",76.252801%,76.482258%,76.367530%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel0",4,"sm_efficiency","Multiprocessor Activity",38.638072%,56.410603%,51.176973%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel1",2,"sm_efficiency","Multiprocessor Activity",69.124789%,69.154709%,69.139749%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_1_kernel2",2,"sm_efficiency","Multiprocessor Activity",33.919186%,35.172302%,34.545744%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel1",4,"sm_efficiency","Multiprocessor Activity",39.908431%,43.419582%,41.246238%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_2_kernel2",2,"sm_efficiency","Multiprocessor Activity",31.708366%,42.214916%,36.961641%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_nn_relu_3_kernel2",4,"sm_efficiency","Multiprocessor Activity",36.959171%,48.103241%,42.729505%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel0",2,"sm_efficiency","Multiprocessor Activity",18.762245%,26.766175%,22.764210%
+"Tesla V100-SXM2-32GB (3)","fused_nn_conv2d_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",67.385312%,67.878664%,67.631988%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel1",2,"sm_efficiency","Multiprocessor Activity",73.969013%,74.759592%,74.364302%
+"Tesla V100-SXM2-32GB (3)","fused_nn_contrib_conv2d_winograd_without_weight_transform_add_multiply_add_nn_re_11882905421691233276__kernel2",2,"sm_efficiency","Multiprocessor Activity",32.143091%,35.317009%,33.730050%
