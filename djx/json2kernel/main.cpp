@@ -52,8 +52,8 @@ std::vector<std::vector<CUdeviceptr*>> raw_args1;
 std::vector<std::vector<CUdeviceptr*>> raw_args2;
 std::unique_ptr<Model> model;
 
-mutex workend2;
-mutex workend1;
+std::mutex workend2;
+std::mutex workend1;
 
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
