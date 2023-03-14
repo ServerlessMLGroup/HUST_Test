@@ -94,7 +94,7 @@ int main()
 
     //1048576 -> 1M
     //size_t storage_size = 1048576*400;
-    size_t storage_size = 1048576*300;
+    size_t storage_size = 1048576*30000;
     float* h_A;
     float* h_B;
 
