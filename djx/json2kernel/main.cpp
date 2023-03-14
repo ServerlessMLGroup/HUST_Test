@@ -12,7 +12,7 @@
 #include "unistd.h"
 #include <mutex>
 
-#define BLOCKNUMBER 32
+#define BLOCKNUMBER 32000
 
 // #include <glog/logging.h>
 //Notice
@@ -426,6 +426,7 @@ for (KernelInfo &kernel_info : model->kernels) {
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
         {
+
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         BLOCKNUMBER, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
@@ -436,6 +437,7 @@ for (KernelInfo &kernel_info : model->kernels) {
         launch_params[3], launch_params[4], launch_params[5],
         0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
+
         }
         else{
         GPU_RETURN_STATUS(cuLaunchKernel(func,
