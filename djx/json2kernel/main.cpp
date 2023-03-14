@@ -171,7 +171,7 @@ void thread1(CUcontext ctx,int i)
     //test stream
     size_t storage_size3 =2;
     CUdeviceptr device_ptr3;
-    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size3));
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr3, storage_size3));
     float* tempdata;
     GPU_RETURN_STATUS(cuMemAllocHost((void**)(&(tempdata)), storage_size3));
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr3),tempdata,2,tempstream));
