@@ -11,6 +11,7 @@
 #include <math.h>
 #include "unistd.h"
 #include <thread>
+#include <mutex>
 
 #define BLOCKNUMBER 32
 
@@ -51,6 +52,10 @@ std::unordered_map<std::string, CUfunction> kernels2;
 std::vector<std::vector<CUdeviceptr*>> raw_args1;
 std::vector<std::vector<CUdeviceptr*>> raw_args2;
 std::unique_ptr<Model> model;
+
+mutex workend2;
+mutex workend1;
+
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
     std::string& func_name = model->kernels[i].name;
@@ -145,6 +150,80 @@ bool argexist(int temparg,int* aused,int* top)
     *top=*top +1;
     return false;
 }
+
+void thread1(CUcontext ctx,int i)
+{
+    cout<<"thread starts: "<<i<<endl;
+    int err;
+    err=cuCtxPushCurrent(ctx);
+    if(err){
+    cout<<"Push Context ERR! "<<err<<endl;
+    }
+
+    cudaStream_t tempstream;
+    cudaError_t cudaStatus;
+    cudaStatus = cudaStreamCreate(&tempstream);
+    fprintf(stderr, "Kernel launch failed: %s\n", cudaGetErrorString(cudaStatus));
+    int j;
+
+    if(i==1)
+    {
+    workend2.unlock();
+    workend1.lock();
+    j=0;
+    for (KernelInfo &kernel_info : model->kernels) {
+        std::string& func_name = kernel_info.name;
+        CUfunction func1 = kernels1[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+
+        if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
+        {
+        GPU_RETURN_STATUS(cuLaunchKernel(func1,
+        BLOCKNUMBER, 1, 1,
+        launch_params[3], launch_params[4], launch_params[5],
+        0, tempstream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
+    ));
+        }
+        else{
+        GPU_RETURN_STATUS(cuLaunchKernel(func1,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, tempstream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
+    ));
+        }
+        j++;
+    }
+    }
+    else
+    {
+    workend2.lock();
+    workend1.unlock();
+    for (KernelInfo &kernel_info : model->kernels) {
+        std::string& func_name = kernel_info.name;
+        CUfunction func2 = kernels2[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+
+        if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
+        {
+        GPU_RETURN_STATUS(cuLaunchKernel(func2,
+        BLOCKNUMBER, 1, 1,
+        launch_params[3], launch_params[4], launch_params[5],
+        0, tempstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
+    ));
+        }
+        else{
+        GPU_RETURN_STATUS(cuLaunchKernel(func2,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, tempstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
+    ));
+        }
+        j++;
+    }
+    }
+    cuStreamSynchronize(tempstream);
+}
+
 int main(int argc, char **argv) {
     if (argc < 2) {
         printf("args num error! argc:%d", argc);
@@ -279,19 +358,6 @@ int main(int argc, char **argv) {
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage2[arg_idx],temp[kernel_offset], evsize[kernel_offset],iosecondstream));
           kernel_offset++;
         }
-        //don't pipe
-        /*
-        cuStreamSynchronize(firststream);
-        std::string& func_name = kernel_info.name;
-        CUfunction func = kernels[func_name];
-        uint32_t *launch_params = kernel_info.launch_params;
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, secondstream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        j++;
-        */
     }
 
     //init flag
@@ -329,60 +395,28 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(iofirststream);
     cuStreamSynchronize(iosecondstream);
 
-    j=0;
-    for (KernelInfo &kernel_info : model->kernels) {
-        std::string& func_name = kernel_info.name;
-        CUfunction func1 = kernels1[func_name];
-        CUfunction func2 = kernels2[func_name];
-        uint32_t *launch_params = kernel_info.launch_params;
-
-        if(j==47)
-        {
-         std::cout<<"name"<<func_name<<std::endl;
-        std::cout<<"0 "<<launch_params[0]<<std::endl;
-        std::cout<<"1 "<<launch_params[1]<<std::endl;
-        std::cout<<"2 "<<launch_params[2]<<std::endl;
-        //continue;
-        }
-
-        if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
-        {
-        GPU_RETURN_STATUS(cuLaunchKernel(func1,
-        BLOCKNUMBER, 1, 1,
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-
-        GPU_RETURN_STATUS(cuLaunchKernel(func2,
-        BLOCKNUMBER, 1, 1,
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-
-        }
-
-        else{
-        GPU_RETURN_STATUS(cuLaunchKernel(func1,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-
-        GPU_RETURN_STATUS(cuLaunchKernel(func2,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-
-        }
-
-
-        j++;
-
+    CUcontext cont1;
+    err = cuCtxCreate(&cont1,CU_CTX_SCHED_YIELD,device);
+    if(err)
+    {
+        cout<<"Can't create Context, err" << err << endl;
+        return 0;
+    }
+    CUcontext cont2;
+    err = cuCtxCreate(&cont2,CU_CTX_SCHED_YIELD,device);
+    if(err)
+    {
+        cout<<"Can't create Context, err" << err << endl;
+        return 0;
     }
 
-    cuStreamSynchronize(kesecondstream);
-    cuStreamSynchronize(kefirststream);
+    workend1.lock();
+    workend2.lock();
+    thread first=thread(thread1,cont1,1);
+    thread second=thread(thread1,cont2,2);
+    first.join();
+    second.join();
+
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
