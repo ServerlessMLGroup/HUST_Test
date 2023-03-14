@@ -1,5 +1,6 @@
 project(json_test)
 cmake_minimum_required(VERSION 3.2)
+set(CMAKE_CXX_FLAGS -pthread)
 
 add_compile_options(-std=c++11)
 include_directories(/usr/local/cuda-11.6/include)
