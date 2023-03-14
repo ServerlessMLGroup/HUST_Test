@@ -15,10 +15,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_3_kernel0(int* flag,int* 
   int vx=blockIdx.x;
   int vy=blockIdx.y;
   int vz=blockIdx.z;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -275,10 +272,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -1749,10 +1743,7 @@ extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,i
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -1777,10 +1768,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -1895,10 +1883,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -2613,10 +2598,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -2731,10 +2713,7 @@ extern "C" __global__ void fused_add_nn_relu_kernel0(int* flag,int* blocknum,int
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
     offset=vx;
@@ -2762,10 +2741,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_1_kernel0(int* flag,int* 
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -2896,10 +2872,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -3105,10 +3078,7 @@ extern "C" __global__ void fused_add_nn_relu_3_kernel0(int* flag,int* blocknum,i
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -3133,10 +3103,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_kernel0(int* flag,int* bl
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -3406,10 +3373,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -4124,10 +4088,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -4295,10 +4256,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -4381,10 +4339,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
     offset=vx;
@@ -4591,10 +4546,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -4717,10 +4669,7 @@ extern "C" __global__ void fused_nn_conv2d_2_kernel0(int* flag,int* blocknum,int
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -4803,10 +4752,7 @@ extern "C" __global__ void fused_nn_batch_flatten_kernel0(int* flag,int* blocknu
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -4831,10 +4777,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5002,10 +4945,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5120,10 +5060,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5330,10 +5267,7 @@ extern "C" __global__ void fused_add_nn_relu_2_kernel0(int* flag,int* blocknum,i
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5359,10 +5293,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5455,10 +5386,7 @@ extern "C" __global__ void fused_nn_softmax_kernel0(int* flag,int* blocknum,int*
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5603,10 +5531,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5813,10 +5738,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -5931,10 +5853,7 @@ extern "C" __global__ void fused_nn_conv2d_3_kernel0(int* flag,int* blocknum,int
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -6005,10 +5924,7 @@ extern "C" __global__ void fused_nn_conv2d_1_kernel0(int* flag,int* blocknum,int
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -6101,10 +6017,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -7575,10 +7488,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -7746,10 +7656,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -7956,10 +7863,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8052,10 +7956,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8262,10 +8163,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8472,10 +8370,7 @@ extern "C" __global__ void fused_nn_conv2d_kernel0(int* flag,int* blocknum,int* 
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8636,10 +8531,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8736,10 +8628,7 @@ extern "C" __global__ void fused_add_10_kernel0(int* flag,int* blocknum,int* blo
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8764,10 +8653,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8864,10 +8750,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8950,10 +8833,7 @@ extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(int* flag,int
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -8993,10 +8873,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -9119,10 +8996,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -9329,10 +9203,7 @@ extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(int* flag,int* blo
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -9379,10 +9250,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -10097,10 +9965,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -10307,10 +10172,7 @@ extern "C" __global__ void fused_nn_conv2d_add_nn_relu_2_kernel0(int* flag,int* 
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -10594,10 +10456,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -10694,10 +10553,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -10820,10 +10676,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -10938,10 +10791,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -11024,10 +10874,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -11120,10 +10967,7 @@ extern "C" __global__ void fused_nn_dense_add_kernel0(int* flag,int* blocknum,in
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -11202,10 +11046,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
@@ -11320,10 +11161,7 @@ extern "C" __global__ void fused_nn_contrib_conv2d_winograd_without_weight_trans
   int vy=blockIdx.y;
   int vz=blockIdx.z;
   int offset=0;
-  while(flag[0]==0)
-  {
-    __nanosleep(100);
-  }
+  
 
   if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
   {
