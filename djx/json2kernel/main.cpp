@@ -412,7 +412,7 @@ int main(int argc, char **argv) {
 
 for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
-        CUfunction func = kernels[func_name];
+        CUfunction func = kernels1[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
 
         if(j==47)
