@@ -103,36 +103,24 @@ int main()
     cout<<"size of float: "<<sizeof(float)<<endl;
     float* h_A;
     float* h_B;
+    float* h_C;
 
-    //cudaSetDevice(1);
-
+    //cuda malloc
     float* device_ptr;
     i=cudaMalloc(&device_ptr,storage_size);
-
     if(i)
     {
     cout<<"cuda malloc error: "<<i<<endl;
     }
 
-    
+    //cuda malloc managed
     i=cudaMallocManaged(&h_A,storage_size);
     if(i)
     {
     cout<<"cuda malloc h_A managed error: "<<i<<endl;
     }
 
-
-
-
-    /*
-    i=cudaMallocManaged(&h_B,storage_size);
-    if(i)
-    {
-    cout<<"cuda malloc h_B managed error: "<<i<<endl;
-    }
-    */
-
-
+    //use mamaged mem
     /*
     for(int k=0;k<1000000;k++)
     {
@@ -140,41 +128,13 @@ int main()
     }
     */
 
-
-    /*
-    cudaMallocHost(&h_A, storage_size);
-
-    //nan dao cu driver api bu xing?
-
-    CUdeviceptr device_ptr;
-    i=cuMemAlloc((CUdeviceptr*)&device_ptr, storage_size);
-
-
-    float* device_ptr;
-    i=cudaMalloc(&device_ptr,storage_size);
-
-    if(i)
-    {
-    cout<<"cuda malloc error: "<<i<<endl;
-    }
-    CUstream firststream;
-    cuStreamCreate(&firststream,0);
-    i=cuMemcpyHtoDAsync((CUdeviceptr)device_ptr,h_A,storage_size,firststream);
-    if(i)
-    {
-    cout<<"memcpy error: "<<i<<endl;
-    }
-    cudaDeviceSynchronize();
-    */
-
-
-    /*
-    i=cudaMemPrefetchAsync(h_A,storage_size,2);
+    //prefetch h_A
+    i=cudaMemPrefetchAsync(h_A,storage_size,3);
     if(i)
     {
     cout<<"prefetch error: "<<i<<endl;
     }
-    */
+
 
     //VecAdd<<<100,100>>>(h_A,1.0);
     cudaDeviceSynchronize();
@@ -187,26 +147,6 @@ int main()
     if (errd) cout << "CUDA error: " << cudaGetErrorString(errd) << endl; // add
 
     getMem();
-
-    /*
-    getMem();
-    cout<<"after first new context:"<<endl;
-    err = cuCtxCreate(&pctx, CU_CTX_SCHED_YIELD, dev);
-    if(err) {
-        cout<<"cuCtxCreate error:"<<err<<endl;
-        return 0;
-    }
-    getMem();
-
-    cout<<"after second new context:"<<endl;
-    err = cuCtxCreate(&pctx, CU_CTX_SCHED_YIELD, dev);
-    if(err) {
-        cout<<"cuCtxCreate error:"<<err<<endl;
-        return 0;
-    }
-    getMem();
-    */
-
     return 0;
 
 }
