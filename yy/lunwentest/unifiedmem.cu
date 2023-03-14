@@ -120,6 +120,8 @@ int main()
     cout<<"cuda malloc h_A managed error: "<<i<<endl;
     }
 
+
+
     //use mamaged mem
     /*
     for(int k=0;k<1000000;k++)
@@ -135,6 +137,14 @@ int main()
     cout<<"prefetch error: "<<i<<endl;
     }
 
+    //cuda malloc after prefetch
+    float* device_ptr1;
+    storage_size = 1048576*1000;
+    i=cudaMalloc(&device_ptr1,storage_size);
+    if(i)
+    {
+    cout<<"cuda malloc error: "<<i<<endl;
+    }
 
     //VecAdd<<<100,100>>>(h_A,1.0);
     cudaDeviceSynchronize();
