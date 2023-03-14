@@ -457,13 +457,14 @@ for (KernelInfo &kernel_info : model->kernels) {
     cuStreamSynchronize(kesecondstream);
     cuStreamSynchronize(kefirststream);
 
+    /*
     workend1.lock();
     workend2.lock();
     std::thread first(thread1,cont1,1);
     std::thread second(thread1,cont2,2);
     first.join();
     second.join();
-
+    */
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
