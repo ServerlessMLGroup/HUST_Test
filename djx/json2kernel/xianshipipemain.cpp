@@ -233,6 +233,7 @@ int main(int argc, char **argv) {
         }
         //pipe
         //cuStreamSynchronize(firststream);
+        /*
         cuEventRecordWithFlags(events[j],firststream,0);
         cuStreamWaitEvent(secondstream,events[j],0);
         std::string& func_name = kernel_info.name;
@@ -244,10 +245,11 @@ int main(int argc, char **argv) {
         0, secondstream, (void **)raw_args[j].data(), 0 // raw_args是json中指示的storage的下标
     ));
         j++;
+        */
     }
-    cuStreamSynchronize(secondstream);
+    //cuStreamSynchronize(secondstream);
 
-    /*
+
     cuStreamSynchronize(firststream);
     j=0;
     for (KernelInfo &kernel_info : model->kernels) {
@@ -262,7 +264,7 @@ int main(int argc, char **argv) {
         j++;
     }
     cuStreamSynchronize(secondstream);
-    */
+
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
