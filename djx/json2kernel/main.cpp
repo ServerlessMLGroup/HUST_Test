@@ -50,7 +50,7 @@ std::unordered_map<std::string, CUfunction> kernels;
 //std::unordered_map<std::string, CUfunction> kernels2;
 //std::vector<std::vector<CUdeviceptr*>> raw_args1;
 std::vector<std::vector<CUdeviceptr*>> raw_args2;
-//std::unique_ptr<Model> model;
+std::unique_ptr<Model> model;
 
 std::mutex workend2;
 std::mutex workend1;
