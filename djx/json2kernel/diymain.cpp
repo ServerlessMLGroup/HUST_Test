@@ -1,3 +1,4 @@
+/*
 #include "model.h"
 #include "log.h"
 #include <bits/unique_ptr.h>
@@ -479,3 +480,4 @@ int main(int argc, char **argv) {
     model.reset();
     return 0;
 }
+*/

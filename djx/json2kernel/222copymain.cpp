@@ -12,7 +12,7 @@
 #include <math.h>
 #include "unistd.h"
 #include <thread>
-
+/*
 // #include <glog/logging.h>
 
 //Notice
@@ -386,3 +386,4 @@ int main(int argc, char **argv) {
     model.reset();
     return 0;
 }
+*/
