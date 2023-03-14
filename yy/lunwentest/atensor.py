@@ -43,3 +43,12 @@ if __name__ == '__main__':
     print("after import torch:")
 
     os.system("./get2Size")
+
+
+
+
+
+
+
+
+
