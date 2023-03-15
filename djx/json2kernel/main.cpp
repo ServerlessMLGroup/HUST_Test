@@ -10,9 +10,9 @@
 #include <thread>
 #include <math.h>
 #include "unistd.h"
-#include <mutex>
+#include <thread>
 
-#define BLOCKNUMBER 32000
+#define BLOCKNUMBER 16
 
 // #include <glog/logging.h>
 //Notice
@@ -43,18 +43,12 @@ enum Status {
 }
 //old
 std::vector<CUdeviceptr> storage;
-//std::vector<CUdeviceptr> storage1;
+std::vector<CUdeviceptr> storage1;
 std::vector<CUdeviceptr> storage2;
 std::unordered_map<std::string, CUfunction> kernels;
-//std::unordered_map<std::string, CUfunction> kernels1;
-//std::unordered_map<std::string, CUfunction> kernels2;
-//std::vector<std::vector<CUdeviceptr*>> raw_args1;
+std::vector<std::vector<CUdeviceptr*>> raw_args1;
 std::vector<std::vector<CUdeviceptr*>> raw_args2;
 std::unique_ptr<Model> model;
-
-std::mutex workend2;
-std::mutex workend1;
-
 Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     int i = kernel_offset;
     std::string& func_name = model->kernels[i].name;
@@ -64,7 +58,7 @@ Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
     GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, stream, (void **)raw_args2[i].data(), 0 // raw_args1是json中指示的storage的下标
+        0, stream, (void **)raw_args1[i].data(), 0 // raw_args1是json中指示的storage的下标
     ));
     // double duration = (double(end - start));
     // std::cout << "func_name:" << func_name << " time:" << duration << std::endl;
@@ -149,16 +143,13 @@ bool argexist(int temparg,int* aused,int* top)
     *top=*top +1;
     return false;
 }
-
-void thread1(int gpu_no,int i)
-{
-    std::cout<<"thread starts: "<<i<<std::endl;
-    std::unordered_map<std::string, CUfunction> kernels1;
-    std::vector<std::vector<CUdeviceptr*>> raw_args1;
-    std::vector<CUdeviceptr> storage1;
-    std::unique_ptr<Model> model1;
-
-    model1.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        printf("args num error! argc:%d", argc);
+    }
+    int gpu_no = atoi(argv[1]);
+    log("preate unique_ptr");
+    model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
     CUcontext ctx;
     CUdevice device;
     CUresult result;
@@ -172,58 +163,78 @@ void thread1(int gpu_no,int i)
     //yy add stream
     CUstream iofirststream;
     cuStreamCreate(&iofirststream,0);
+    CUstream iosecondstream;
+    cuStreamCreate(&iosecondstream,0);
     CUstream kefirststream;
     cuStreamCreate(&kefirststream,0);
-
+    CUstream kesecondstream;
+    cuStreamCreate(&kesecondstream,0);
+    //add fininshed
     // 2. load cuda kernels
-    for (KernelInfo &kernel_info : model1->kernels) {
+    for (KernelInfo &kernel_info : model->kernels) {
         CUfunction kernel;
         GPU_RETURN_STATUS(
             cuModuleGetFunction(&kernel, mod, kernel_info.name.c_str())
         );
-        kernels1.emplace(kernel_info.name, kernel);
+        kernels.emplace(kernel_info.name, kernel);
     }
-
     printf("allocate device storage!\n");
     // 3. allocate device storage
-    for (StorageInfo &storage_info : model1->storage) {
+    for (StorageInfo &storage_info : model->storage) {
         size_t stype_size = Model::get_stype_size(storage_info.stype);
         size_t storage_size = stype_size * storage_info.size;
         CUdeviceptr device_ptr1;
+        CUdeviceptr device_ptr2;
+        //std::vector<char> temp;
+        //temp.resize(storage_size, 0);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr1, storage_size));
+        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&device_ptr2, storage_size));
+        //GPU_RETURN_STATUS(cuMemcpyHtoD(device_ptr, temp.data(), storage_size));
         storage1.push_back(device_ptr1);
+        storage2.push_back(device_ptr2);
     }
-
     printf("map raw args!\n");
     std::cout << "storages.size = " << storage1.size() << std::endl;
-    raw_args1.reserve(model1->kernels.size());
+    raw_args1.reserve(model->kernels.size());
+    raw_args2.reserve(model->kernels.size());
 
-    CUdeviceptr device_ptr11[model1->kernels.size()];
-    CUdeviceptr device_ptr12[model1->kernels.size()];
-    CUdeviceptr device_ptr13[model1->kernels.size()];
-
-    for (int i=0;i<model1->kernels.size();i++) {
+    CUdeviceptr device_ptr11[model->kernels.size()];
+    CUdeviceptr device_ptr12[model->kernels.size()];
+    CUdeviceptr device_ptr13[model->kernels.size()];
+    CUdeviceptr device_ptr21[model->kernels.size()];
+    CUdeviceptr device_ptr22[model->kernels.size()];
+    CUdeviceptr device_ptr23[model->kernels.size()];
+    for (int i=0;i<model->kernels.size();i++) {
         std::vector<CUdeviceptr*> kernel_arg1;
+        std::vector<CUdeviceptr*> kernel_arg2;
         //flag
         //CUdeviceptr device_ptr1;
         size_t storage_size = 1 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr11[i])), storage_size));
+        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr21[i])), storage_size));
         kernel_arg1.push_back(&(device_ptr11[i]));
+        kernel_arg2.push_back(&(device_ptr21[i]));
         //block num
         //CUdeviceptr device_ptr2;
         storage_size = 3 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr12[i])), storage_size));
+        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr22[i])), storage_size));
         kernel_arg1.push_back(&(device_ptr12[i]));
+        kernel_arg2.push_back(&(device_ptr22[i]));
         //blocksize
         //CUdeviceptr device_ptr3;
         storage_size = 1 * sizeof(int);
         GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr13[i])), storage_size));
+        GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)(&(device_ptr23[i])), storage_size));
         kernel_arg1.push_back(&(device_ptr13[i]));
-        for (size_t arg_idx : model1->kernels[i].args) {
+        kernel_arg2.push_back(&(device_ptr23[i]));
+        for (size_t arg_idx : model->kernels[i].args) {
             // assert(arg_idx < storage.size());
             kernel_arg1.push_back(&storage1[arg_idx]);
+            kernel_arg2.push_back(&storage2[arg_idx]);
         }
         raw_args1.push_back(kernel_arg1);
+        raw_args2.push_back(kernel_arg2);
     }
 
     printf("parse params!\n");
@@ -232,10 +243,10 @@ void thread1(int gpu_no,int i)
     int kernel_offset=0;
     float* temp[80];
     size_t evsize[80];
-    for (KernelInfo &kernel_info : model1->kernels) {
+    for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
-          StorageInfo& storage_info = model1->storage[arg_idx];
+          StorageInfo& storage_info = model->storage[arg_idx];
         if (params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
         temp[kernel_offset]=params->mpdata->at(storage_info.name);
@@ -248,15 +259,29 @@ void thread1(int gpu_no,int i)
     int j=0;
     float* temp2;
     //RETURN_STATUS(set_input());
-    for (KernelInfo &kernel_info : model1->kernels) {
+    for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
-          StorageInfo& storage_info = model1->storage[arg_idx];
+          StorageInfo& storage_info = model->storage[arg_idx];
           if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
+          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage2[arg_idx],temp[kernel_offset], evsize[kernel_offset],iosecondstream));
           kernel_offset++;
         }
+        //don't pipe
+        /*
+        cuStreamSynchronize(firststream);
+        std::string& func_name = kernel_info.name;
+        CUfunction func = kernels[func_name];
+        uint32_t *launch_params = kernel_info.launch_params;
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, secondstream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
+    ));
+        j++;
+        */
     }
 
     //init flag
@@ -277,67 +302,70 @@ void thread1(int gpu_no,int i)
     //init blocknum
     int* allblocknum;
     cuMemAllocHost((void**)(&allblocknum), 240*sizeof(int));
-    for(int i=0;i<model1->kernels.size();i++)
+    for(int i=0;i<model->kernels.size();i++)
     {
-        uint32_t *launch_params = model1->kernels[i].launch_params;
+        uint32_t *launch_params = model->kernels[i].launch_params;
         allblocknum[3*i+0]=launch_params[0];
         allblocknum[3*i+1]=launch_params[1];
         allblocknum[3*i+2]=launch_params[2];
         GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr11[i]),(allflag+i),1*sizeof(int),iofirststream));
         GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr12[i]),(allblocknum+3*i),3*sizeof(int),iofirststream));
         GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr13[i]),(allblocksize+i),1*sizeof(int),iofirststream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr21[i]),(allflag+i),1*sizeof(int),iosecondstream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr22[i]),(allblocknum+3*i),3*sizeof(int),iosecondstream));
+        GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr23[i]),(allblocksize+i),1*sizeof(int),iosecondstream));
     }
 
     cuStreamSynchronize(iofirststream);
+    cuStreamSynchronize(iosecondstream);
 
-    if(i==1)
-    {
-    workend2.unlock();
-    workend1.lock();
-    }
-    else
-    {
-    workend2.lock();
-    workend1.unlock();
-    }
-
-    for (KernelInfo &kernel_info : model1->kernels) {
+    j=0;
+    for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
-        CUfunction func1 = kernels1[func_name];
+        CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
+
+        if(j==47)
+        {
+         std::cout<<"name"<<func_name<<std::endl;
+        std::cout<<"0 "<<launch_params[0]<<std::endl;
+        std::cout<<"1 "<<launch_params[1]<<std::endl;
+        std::cout<<"2 "<<launch_params[2]<<std::endl;
+        //continue;
+        }
+
         if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
         {
-        GPU_RETURN_STATUS(cuLaunchKernel(func1,
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
         BLOCKNUMBER, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
         0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        BLOCKNUMBER, 1, 1,
+        launch_params[3], launch_params[4], launch_params[5],
+        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
+    ));
         }
         else{
-        GPU_RETURN_STATUS(cuLaunchKernel(func1,
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
         0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
+    ));
         }
+
         j++;
+
     }
+
+    cuStreamSynchronize(kesecondstream);
     cuStreamSynchronize(kefirststream);
-    sleep(1);
-}
-
-int main(int argc, char **argv) {
-    if (argc < 2) {
-        printf("args num error! argc:%d", argc);
-    }
-
-    workend1.lock();
-    workend2.lock();
-    std::thread first(thread1,2,1);
-    std::thread second(thread1,2,2);
-    first.join();
-    second.join();
-
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
