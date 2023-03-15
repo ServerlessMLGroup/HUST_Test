@@ -323,6 +323,7 @@ void thread1(int gpu_no,int i)
         j++;
     }
     cuStreamSynchronize(kefirststream);
+    sleep(1);
 }
 
 int main(int argc, char **argv) {
