@@ -331,7 +331,7 @@ int main(int argc, char **argv) {
         std::cout<<"0 "<<launch_params[0]<<std::endl;
         std::cout<<"1 "<<launch_params[1]<<std::endl;
         std::cout<<"2 "<<launch_params[2]<<std::endl;
-        break;
+        //break;
         }
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
