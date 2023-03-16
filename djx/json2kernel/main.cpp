@@ -357,6 +357,7 @@ int main(int argc, char **argv) {
         j++;
 
     }
+    }
 
     //cuStreamSynchronize(kesecondstream);
     cuStreamSynchronize(kefirststream);
