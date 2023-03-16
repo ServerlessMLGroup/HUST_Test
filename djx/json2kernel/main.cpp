@@ -334,6 +334,7 @@ int main(int argc, char **argv) {
         //break;
         }
 
+        /*
         if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
         {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
@@ -347,7 +348,8 @@ int main(int argc, char **argv) {
         0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         }
-        else{
+        */
+        //else{
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
@@ -358,7 +360,7 @@ int main(int argc, char **argv) {
         launch_params[3], launch_params[4], launch_params[5],
         0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
-        }
+        //}
 
         j++;
 
