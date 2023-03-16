@@ -365,9 +365,8 @@ int main(int argc, char **argv) {
         j++;
 
     }
+    cuCtxSynchronize();
 
-    cuStreamSynchronize(kesecondstream);
-    cuStreamSynchronize(kefirststream);
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
