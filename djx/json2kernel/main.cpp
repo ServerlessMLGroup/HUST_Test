@@ -11,6 +11,9 @@
 #include <math.h>
 #include "unistd.h"
 #include <thread>
+
+#define BLOCKNUMBER 32
+
 // #include <glog/logging.h>
 //Notice
 // To make some experiments, i(yy) make some changes here. Before changing, i copied all the code
@@ -294,7 +297,7 @@ int main(int argc, char **argv) {
     cuMemAllocHost((void**)(&allblocksize), 80*sizeof(int));
     for(int i=0;i<80;i++)
     {
-    allblocksize[i]=40000;
+    allblocksize[i]=BLOCKNUMBER;
     }
     //init blocknum
     int* allblocknum;
@@ -328,18 +331,18 @@ int main(int argc, char **argv) {
         std::cout<<"0 "<<launch_params[0]<<std::endl;
         std::cout<<"1 "<<launch_params[1]<<std::endl;
         std::cout<<"2 "<<launch_params[2]<<std::endl;
-        //continue;
+        break;
         }
 
-        if(launch_params[0]*launch_params[1]*launch_params[2]>40000)
+        if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
         {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        40000, 1, 1,
+        BLOCKNUMBER, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
         0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        40000, 1, 1,
+        BLOCKNUMBER, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
         0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
