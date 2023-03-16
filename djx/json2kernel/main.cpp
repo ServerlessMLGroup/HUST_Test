@@ -12,7 +12,7 @@
 #include "unistd.h"
 #include <thread>
 
-#define BLOCKNUMBER 32
+#define BLOCKNUMBER 40000
 
 // #include <glog/logging.h>
 //Notice
@@ -325,7 +325,7 @@ int main(int argc, char **argv) {
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
 
-        if(j==55)
+        if(j==47)
         {
          std::cout<<"name"<<func_name<<std::endl;
         std::cout<<"0 "<<launch_params[0]<<std::endl;
