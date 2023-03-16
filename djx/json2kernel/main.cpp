@@ -12,7 +12,7 @@
 #include "unistd.h"
 #include <thread>
 
-#define BLOCKNUMBER 40000
+#define BLOCKNUMBER 32
 
 // #include <glog/logging.h>
 //Notice
@@ -358,7 +358,6 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(kesecondstream);
     cuStreamSynchronize(kefirststream);
 
-    sleep(10);
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
     // std::vector<float> ans = {0.0003392257, 0.0014304413, 0.0004299286, 0.0010349639, 0.0020997059,
