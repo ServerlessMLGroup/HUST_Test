@@ -12,7 +12,7 @@
 #include "unistd.h"
 #include <thread>
 
-#define BLOCKNUMBER 32
+#define BLOCKNUMBER 3200
 
 // #include <glog/logging.h>
 //Notice
