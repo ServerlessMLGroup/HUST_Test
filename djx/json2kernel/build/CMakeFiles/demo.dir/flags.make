@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/cuda-11.6/include
+CXX_INCLUDES = -I/home/wuhao/HUST_Test/djx/json2kernel/pthread/include -I/usr/local/cuda-11.6/include
 
-CXX_FLAGS = -std=c++11
+CXX_FLAGS = -pthread -std=c++11
 
