@@ -6623,13 +6623,209 @@ extern "C" __global__ void fused_nn_conv2d_add_add_nn_relu_kernel0(int* flag,int
   }
 }
 extern "C" __global__ void fused_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+    int vx=blockIdx.x;
+  int vy=blockIdx.y;
+  int vz=blockIdx.z;
+  int offset=0;
 
+  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
+  {
+    offset=vx;
+    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
+    {
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
+    for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer < 4; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer) {
+    if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) < 802816) {
+      T_relu[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] = max((placeholder[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] + placeholder1[((((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) % 25088) / 49))]), 0.000000e+00f);
+    }
+  }
+    offset+=blocksize[0];
+    }
+  }
+  else
+  {
+    for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer < 4; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer) {
+    if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) < 802816) {
+      T_relu[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] = max((placeholder[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] + placeholder1[((((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) % 25088) / 49))]), 0.000000e+00f);
+    }
+  }
+  }
 }
 extern "C" __global__ void fused_nn_softmax_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ T_softmax_norm) {
+    int vx=blockIdx.x;
+  int vy=blockIdx.y;
+  int vz=blockIdx.z;
+  int offset=0;
 
+  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
+  {
+    offset=vx;
+    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
+    {
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
+    float normal_reduce_temp0[1];
+  float red_buf0[1];
+  float T_softmax_exp[32];
+  float normal_reduce_temp01[1];
+  float red_buf01[1];
+  normal_reduce_temp0[(0)] = -3.402823e+38f;
+  for (int k_inner = 0; k_inner < 32; ++k_inner) {
+    if (((((int)threadIdx.x) * 32) + k_inner) < 1000) {
+      normal_reduce_temp0[(0)] = max(normal_reduce_temp0[(0)], placeholder[((((((int)vx) * 1000) + (((int)threadIdx.x) * 32)) + k_inner))]);
+    }
+  }
+  unsigned int mask[1];
+  float t0[1];
+  red_buf0[(0)] = normal_reduce_temp0[(0)];
+  mask[(0)] = __activemask();
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 16, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 8, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 4, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 2, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 1, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  red_buf0[(0)] = __shfl_sync(mask[(0)], red_buf0[(0)], 0, 32);
+  for (int i1_inner_outer = 0; i1_inner_outer < 8; ++i1_inner_outer) {
+    for (int i1_inner_inner_s = 0; i1_inner_inner_s < 4; ++i1_inner_inner_s) {
+      if ((((((int)threadIdx.x) * 32) + (i1_inner_outer * 4)) + i1_inner_inner_s) < 1000) {
+        T_softmax_exp[(((i1_inner_outer * 4) + i1_inner_inner_s))] = __expf((placeholder[(((((((int)vx) * 1000) + (((int)threadIdx.x) * 32)) + (i1_inner_outer * 4)) + i1_inner_inner_s))] - red_buf0[(0)]));
+      }
+    }
+  }
+  normal_reduce_temp01[(0)] = 0.000000e+00f;
+  for (int k_inner1 = 0; k_inner1 < 32; ++k_inner1) {
+    if (((((int)threadIdx.x) * 32) + k_inner1) < 1000) {
+      normal_reduce_temp01[(0)] = (normal_reduce_temp01[(0)] + __shfl_sync(__activemask(), T_softmax_exp[(k_inner1)], ((int)threadIdx.x), 32));
+    }
+  }
+  unsigned int mask1[1];
+  float t01[1];
+  red_buf01[(0)] = normal_reduce_temp01[(0)];
+  mask1[(0)] = __activemask();
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 16, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 8, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 4, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 2, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 1, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  red_buf01[(0)] = __shfl_sync(mask1[(0)], red_buf01[(0)], 0, 32);
+  for (int i1_inner_outer1 = 0; i1_inner_outer1 < 8; ++i1_inner_outer1) {
+    for (int i1_inner_inner_s1 = 0; i1_inner_inner_s1 < 4; ++i1_inner_inner_s1) {
+      if ((((((int)threadIdx.x) * 32) + (i1_inner_outer1 * 4)) + i1_inner_inner_s1) < 1000) {
+        T_softmax_norm[(((((((int)vx) * 1000) + (((int)threadIdx.x) * 32)) + (i1_inner_outer1 * 4)) + i1_inner_inner_s1))] = (__shfl_sync(__activemask(), T_softmax_exp[(((i1_inner_outer1 * 4) + i1_inner_inner_s1))], ((int)threadIdx.x), 32) / red_buf01[(0)]);
+      }
+    }
+  }
+    offset+=blocksize[0];
+    }
+  }
+  else
+  {
+    float normal_reduce_temp0[1];
+  float red_buf0[1];
+  float T_softmax_exp[32];
+  float normal_reduce_temp01[1];
+  float red_buf01[1];
+  normal_reduce_temp0[(0)] = -3.402823e+38f;
+  for (int k_inner = 0; k_inner < 32; ++k_inner) {
+    if (((((int)threadIdx.x) * 32) + k_inner) < 1000) {
+      normal_reduce_temp0[(0)] = max(normal_reduce_temp0[(0)], placeholder[((((((int)vx) * 1000) + (((int)threadIdx.x) * 32)) + k_inner))]);
+    }
+  }
+  unsigned int mask[1];
+  float t0[1];
+  red_buf0[(0)] = normal_reduce_temp0[(0)];
+  mask[(0)] = __activemask();
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 16, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 8, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 4, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 2, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  t0[(0)] = __shfl_down_sync(mask[(0)], red_buf0[(0)], 1, 32);
+  red_buf0[(0)] = max(red_buf0[(0)], t0[(0)]);
+  red_buf0[(0)] = __shfl_sync(mask[(0)], red_buf0[(0)], 0, 32);
+  for (int i1_inner_outer = 0; i1_inner_outer < 8; ++i1_inner_outer) {
+    for (int i1_inner_inner_s = 0; i1_inner_inner_s < 4; ++i1_inner_inner_s) {
+      if ((((((int)threadIdx.x) * 32) + (i1_inner_outer * 4)) + i1_inner_inner_s) < 1000) {
+        T_softmax_exp[(((i1_inner_outer * 4) + i1_inner_inner_s))] = __expf((placeholder[(((((((int)vx) * 1000) + (((int)threadIdx.x) * 32)) + (i1_inner_outer * 4)) + i1_inner_inner_s))] - red_buf0[(0)]));
+      }
+    }
+  }
+  normal_reduce_temp01[(0)] = 0.000000e+00f;
+  for (int k_inner1 = 0; k_inner1 < 32; ++k_inner1) {
+    if (((((int)threadIdx.x) * 32) + k_inner1) < 1000) {
+      normal_reduce_temp01[(0)] = (normal_reduce_temp01[(0)] + __shfl_sync(__activemask(), T_softmax_exp[(k_inner1)], ((int)threadIdx.x), 32));
+    }
+  }
+  unsigned int mask1[1];
+  float t01[1];
+  red_buf01[(0)] = normal_reduce_temp01[(0)];
+  mask1[(0)] = __activemask();
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 16, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 8, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 4, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 2, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  t01[(0)] = __shfl_down_sync(mask1[(0)], red_buf01[(0)], 1, 32);
+  red_buf01[(0)] = (red_buf01[(0)] + t01[(0)]);
+  red_buf01[(0)] = __shfl_sync(mask1[(0)], red_buf01[(0)], 0, 32);
+  for (int i1_inner_outer1 = 0; i1_inner_outer1 < 8; ++i1_inner_outer1) {
+    for (int i1_inner_inner_s1 = 0; i1_inner_inner_s1 < 4; ++i1_inner_inner_s1) {
+      if ((((((int)threadIdx.x) * 32) + (i1_inner_outer1 * 4)) + i1_inner_inner_s1) < 1000) {
+        T_softmax_norm[(((((((int)vx) * 1000) + (((int)threadIdx.x) * 32)) + (i1_inner_outer1 * 4)) + i1_inner_inner_s1))] = (__shfl_sync(__activemask(), T_softmax_exp[(((i1_inner_outer1 * 4) + i1_inner_inner_s1))], ((int)threadIdx.x), 32) / red_buf01[(0)]);
+      }
+    }
+  }
+  }
 }
 extern "C" __global__ void fused_add_nn_relu_2_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+    int vx=blockIdx.x;
+  int vy=blockIdx.y;
+  int vz=blockIdx.z;
+  int offset=0;
 
+  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
+  {
+    offset=vx;
+    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
+    {
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
+    for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer < 13; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer) {
+    if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) < 3211264) {
+      T_relu[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] = max((placeholder[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] + placeholder1[((((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) % 100352) / 784))]), 0.000000e+00f);
+    }
+  }
+    offset+=blocksize[0];
+    }
+  }
+  else
+  {
+    for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer < 13; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer) {
+    if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) < 3211264) {
+      T_relu[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] = max((placeholder[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] + placeholder1[((((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) % 100352) / 784))]), 0.000000e+00f);
+    }
+  }
+  }
 }
 extern "C" __global__ void fused_nn_conv2d_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ compute) {
 
