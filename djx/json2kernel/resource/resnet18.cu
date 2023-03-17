@@ -1,5 +1,33 @@
 extern "C" __global__ void fused_add_nn_relu_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ T_relu, float* __restrict__ placeholder, float* __restrict__ placeholder1) {
+    int vx=blockIdx.x;
+  int vy=blockIdx.y;
+  int vz=blockIdx.z;
+  int offset=0;
 
+  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
+  {
+    offset=vx;
+    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
+    {
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
+    for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer < 7; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer) {
+    if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) < 1605632) {
+      T_relu[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] = max((placeholder[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] + placeholder1[((((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) % 50176) / 196))]), 0.000000e+00f);
+    }
+  }
+    offset+=blocksize[0];
+    }
+  }
+  else
+  {
+  for (int ax0_ax1_fused_ax2_fused_ax3_fused_outer = 0; ax0_ax1_fused_ax2_fused_ax3_fused_outer < 7; ++ax0_ax1_fused_ax2_fused_ax3_fused_outer) {
+    if ((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) < 1605632) {
+      T_relu[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] = max((placeholder[((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)))] + placeholder1[((((((ax0_ax1_fused_ax2_fused_ax3_fused_outer * 262144) + (((int)vx) * 1024)) + ((int)threadIdx.x)) % 50176) / 196))]), 0.000000e+00f);
+    }
+  }
+  }
 
 }
 extern "C" __global__ void fused_nn_conv2d_add_1_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_add, float* __restrict__ placeholder2) {
