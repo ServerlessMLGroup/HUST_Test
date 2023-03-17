@@ -3243,10 +3243,172 @@ extern "C" __global__ void fused_nn_conv2d_add_1_kernel0(int* flag,int* blocknum
 }
 
 extern "C" __global__ void fused_nn_conv2d_add_nn_relu_7_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2) {
+    int vx=blockIdx.x;
+  int vy=blockIdx.y;
+  int vz=blockIdx.z;
+  int offset=0;
 
+  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
+  {
+    offset=vx;
+    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
+    {
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
+    float compute[16];
+  __shared__ float pad_temp_shared[1155];
+  __shared__ float placeholder_shared[96];
+  for (int yy_init = 0; yy_init < 2; ++yy_init) {
+    compute[(yy_init)] = 0.000000e+00f;
+    compute[((yy_init + 4))] = 0.000000e+00f;
+    compute[((yy_init + 8))] = 0.000000e+00f;
+    compute[((yy_init + 12))] = 0.000000e+00f;
+    compute[((yy_init + 2))] = 0.000000e+00f;
+    compute[((yy_init + 6))] = 0.000000e+00f;
+    compute[((yy_init + 10))] = 0.000000e+00f;
+    compute[((yy_init + 14))] = 0.000000e+00f;
+  }
+  for (int ry_outer = 0; ry_outer < 7; ++ry_outer) {
+    for (int rx_outer = 0; rx_outer < 7; ++rx_outer) {
+      __syncthreads();
+      for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner < 6; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) {
+        if ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 1155) {
+          if (((((int)threadIdx.x) * 6) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 145) {
+            pad_temp_shared[((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = (((((3 <= (((((int)vy) * 8) + (((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 385) / 55)) + ry_outer)) && ((((((int)vy) * 8) + (((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 385) / 55)) + ry_outer) < 227)) && (3 <= (((((int)vx) * 56) + rx_outer) + ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)))) && ((((((int)vx) * 56) + rx_outer) + ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)) < 227)) ? placeholder[(((((((((((((int)vz) >> 1) * 150528) + (((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 385) * 50176)) + (((int)vy) * 1792)) + ((((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 385) / 55) * 224)) + (ry_outer * 224)) + (((int)vx) * 56)) + rx_outer) + ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)) - 675))] : 0.000000e+00f);
+          }
+        }
+      }
+      if (((((int)threadIdx.z) * 4) + (((int)threadIdx.x) / 3)) < 32) {
+        if (((((int)threadIdx.z) * 12) + ((int)threadIdx.x)) < 96) {
+          if (((int)threadIdx.x) < 12) {
+            placeholder_shared[(((((int)threadIdx.z) * 12) + ((int)threadIdx.x)))] = placeholder1[(((((((((int)vz) & 1) * 4704) + (((int)threadIdx.z) * 588)) + (((int)threadIdx.x) * 49)) + (ry_outer * 7)) + rx_outer))];
+          }
+        }
+      }
+      __syncthreads();
+      for (int rc_inner = 0; rc_inner < 3; ++rc_inner) {
+        for (int yy = 0; yy < 2; ++yy) {
+          compute[(yy)] = (compute[(yy)] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[(((((int)threadIdx.z) * 3) + rc_inner))]));
+          compute[((yy + 4))] = (compute[((yy + 4))] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 24))]));
+          compute[((yy + 8))] = (compute[((yy + 8))] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 48))]));
+          compute[((yy + 12))] = (compute[((yy + 12))] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 72))]));
+          compute[((yy + 2))] = (compute[((yy + 2))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[(((((int)threadIdx.z) * 3) + rc_inner))]));
+          compute[((yy + 6))] = (compute[((yy + 6))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 24))]));
+          compute[((yy + 10))] = (compute[((yy + 10))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 48))]));
+          compute[((yy + 14))] = (compute[((yy + 14))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 72))]));
+        }
+      }
+    }
+  }
+  for (int ax2_inner_inner_inner = 0; ax2_inner_inner_inner < 2; ++ax2_inner_inner_inner) {
+    T_relu[(((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)))] = max((compute[(ax2_inner_inner_inner)] + placeholder2[((((((int)vz) & 1) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 100352))] = max((compute[((ax2_inner_inner_inner + 4))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 8))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 200704))] = max((compute[((ax2_inner_inner_inner + 8))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 301056))] = max((compute[((ax2_inner_inner_inner + 12))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 24))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 224))] = max((compute[((ax2_inner_inner_inner + 2))] + placeholder2[((((((int)vz) & 1) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 100576))] = max((compute[((ax2_inner_inner_inner + 6))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 8))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 200928))] = max((compute[((ax2_inner_inner_inner + 10))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 301280))] = max((compute[((ax2_inner_inner_inner + 14))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 24))]), 0.000000e+00f);
+  }
+    offset+=blocksize[0];
+    }
+  }
+  else
+  {
+    float compute[16];
+  __shared__ float pad_temp_shared[1155];
+  __shared__ float placeholder_shared[96];
+  for (int yy_init = 0; yy_init < 2; ++yy_init) {
+    compute[(yy_init)] = 0.000000e+00f;
+    compute[((yy_init + 4))] = 0.000000e+00f;
+    compute[((yy_init + 8))] = 0.000000e+00f;
+    compute[((yy_init + 12))] = 0.000000e+00f;
+    compute[((yy_init + 2))] = 0.000000e+00f;
+    compute[((yy_init + 6))] = 0.000000e+00f;
+    compute[((yy_init + 10))] = 0.000000e+00f;
+    compute[((yy_init + 14))] = 0.000000e+00f;
+  }
+  for (int ry_outer = 0; ry_outer < 7; ++ry_outer) {
+    for (int rx_outer = 0; rx_outer < 7; ++rx_outer) {
+      __syncthreads();
+      for (int ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner = 0; ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner < 6; ++ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) {
+        if ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 1155) {
+          if (((((int)threadIdx.x) * 6) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) < 145) {
+            pad_temp_shared[((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner))] = (((((3 <= (((((int)vy) * 8) + (((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 385) / 55)) + ry_outer)) && ((((((int)vy) * 8) + (((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 385) / 55)) + ry_outer) < 227)) && (3 <= (((((int)vx) * 56) + rx_outer) + ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)))) && ((((((int)vx) * 56) + rx_outer) + ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)) < 227)) ? placeholder[(((((((((((((int)vz) >> 1) * 150528) + (((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) / 385) * 50176)) + (((int)vy) * 1792)) + ((((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 385) / 55) * 224)) + (ry_outer * 224)) + (((int)vx) * 56)) + rx_outer) + ((((((int)threadIdx.z) * 145) + (((int)threadIdx.x) * 6)) + ax0_ax1_fused_ax2_fused_ax3_fused_inner_inner_inner) % 55)) - 675))] : 0.000000e+00f);
+          }
+        }
+      }
+      if (((((int)threadIdx.z) * 4) + (((int)threadIdx.x) / 3)) < 32) {
+        if (((((int)threadIdx.z) * 12) + ((int)threadIdx.x)) < 96) {
+          if (((int)threadIdx.x) < 12) {
+            placeholder_shared[(((((int)threadIdx.z) * 12) + ((int)threadIdx.x)))] = placeholder1[(((((((((int)vz) & 1) * 4704) + (((int)threadIdx.z) * 588)) + (((int)threadIdx.x) * 49)) + (ry_outer * 7)) + rx_outer))];
+          }
+        }
+      }
+      __syncthreads();
+      for (int rc_inner = 0; rc_inner < 3; ++rc_inner) {
+        for (int yy = 0; yy < 2; ++yy) {
+          compute[(yy)] = (compute[(yy)] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[(((((int)threadIdx.z) * 3) + rc_inner))]));
+          compute[((yy + 4))] = (compute[((yy + 4))] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 24))]));
+          compute[((yy + 8))] = (compute[((yy + 8))] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 48))]));
+          compute[((yy + 12))] = (compute[((yy + 12))] + (pad_temp_shared[((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 72))]));
+          compute[((yy + 2))] = (compute[((yy + 2))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[(((((int)threadIdx.z) * 3) + rc_inner))]));
+          compute[((yy + 6))] = (compute[((yy + 6))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 24))]));
+          compute[((yy + 10))] = (compute[((yy + 10))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 48))]));
+          compute[((yy + 14))] = (compute[((yy + 14))] + (pad_temp_shared[(((((rc_inner * 385) + (yy * 110)) + (((int)threadIdx.x) * 2)) + 220))] * placeholder_shared[((((((int)threadIdx.z) * 3) + rc_inner) + 72))]));
+        }
+      }
+    }
+  }
+  for (int ax2_inner_inner_inner = 0; ax2_inner_inner_inner < 2; ++ax2_inner_inner_inner) {
+    T_relu[(((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)))] = max((compute[(ax2_inner_inner_inner)] + placeholder2[((((((int)vz) & 1) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 100352))] = max((compute[((ax2_inner_inner_inner + 4))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 8))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 200704))] = max((compute[((ax2_inner_inner_inner + 8))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 301056))] = max((compute[((ax2_inner_inner_inner + 12))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 24))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 224))] = max((compute[((ax2_inner_inner_inner + 2))] + placeholder2[((((((int)vz) & 1) * 32) + ((int)threadIdx.z)))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 100576))] = max((compute[((ax2_inner_inner_inner + 6))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 8))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 200928))] = max((compute[((ax2_inner_inner_inner + 10))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 16))]), 0.000000e+00f);
+    T_relu[((((((((((int)vz) * 401408) + (((int)threadIdx.z) * 12544)) + (((int)vy) * 448)) + (ax2_inner_inner_inner * 112)) + (((int)vx) * 28)) + ((int)threadIdx.x)) + 301280))] = max((compute[((ax2_inner_inner_inner + 14))] + placeholder2[(((((((int)vz) & 1) * 32) + ((int)threadIdx.z)) + 24))]), 0.000000e+00f);
+  }
+  }
 }
 extern "C" __global__ void fused_nn_max_pool2d_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ T_relu, float* __restrict__ placeholder1) {
+    int vx=blockIdx.x;
+  int vy=blockIdx.y;
+  int vz=blockIdx.z;
+  int offset=0;
 
+  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
+  {
+    offset=vx;
+    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
+    {
+    vz=(offset)/(blocknum[0]*blocknum[1]);
+    vy= (offset-(vz*blocknum[0]*blocknum[1]))/blocknum[0];
+    vx=offset - (vz*blocknum[0]*blocknum[1])-vy*blocknum[0];
+    float tensor[1];
+  tensor[(0)] = -3.402823e+38f;
+  for (int dh = 0; dh < 3; ++dh) {
+    for (int dw = 0; dw < 3; ++dw) {
+      tensor[(0)] = max(tensor[(0)], (((1 <= ((((((((int)vx) * 1024) + ((int)threadIdx.x)) % 3136) / 56) * 2) + dh)) && (1 <= (((((((int)vx) * 1024) + ((int)threadIdx.x)) % 56) * 2) + dw))) ? placeholder[(((((((((((int)vx) * 1024) + ((int)threadIdx.x)) / 56) * 224) + (dh * 112)) + ((((((int)vx) * 1024) + ((int)threadIdx.x)) % 56) * 2)) + dw) - 113))] : -3.402823e+38f));
+    }
+  }
+  T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((tensor[(0)] + placeholder1[(((((((int)vx) * 1024) + ((int)threadIdx.x)) % 200704) / 3136))]), 0.000000e+00f);
+    offset+=blocksize[0];
+    }
+  }
+  else
+  {
+    float tensor[1];
+  tensor[(0)] = -3.402823e+38f;
+  for (int dh = 0; dh < 3; ++dh) {
+    for (int dw = 0; dw < 3; ++dw) {
+      tensor[(0)] = max(tensor[(0)], (((1 <= ((((((((int)vx) * 1024) + ((int)threadIdx.x)) % 3136) / 56) * 2) + dh)) && (1 <= (((((((int)vx) * 1024) + ((int)threadIdx.x)) % 56) * 2) + dw))) ? placeholder[(((((((((((int)vx) * 1024) + ((int)threadIdx.x)) / 56) * 224) + (dh * 112)) + ((((((int)vx) * 1024) + ((int)threadIdx.x)) % 56) * 2)) + dw) - 113))] : -3.402823e+38f));
+    }
+  }
+  T_relu[(((((int)vx) * 1024) + ((int)threadIdx.x)))] = max((tensor[(0)] + placeholder1[(((((((int)vx) * 1024) + ((int)threadIdx.x)) % 200704) / 3136))]), 0.000000e+00f);
+  }
 }
 
 extern "C" __global__ void fused_nn_conv2d_add_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3) {
