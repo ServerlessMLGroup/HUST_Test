@@ -372,7 +372,7 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(kefirststream);
     gettimeofday(&t2,NULL);
     timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec)/1000000.0;
-    std::cout<<"Thread "<<i<<" Use Time: "<< timeuse <<std::endl;
+    std::cout<<"All "<<" Use Time: "<< timeuse <<std::endl;
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
