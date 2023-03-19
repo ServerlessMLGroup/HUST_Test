@@ -154,16 +154,7 @@ bool argexist(int temparg,int* aused,int* top)
 
 void thread1(int gpu_no,int i)
 {
-    //timeval结构定义为:
-    struct timeval{
-        long tv_sec; /*秒*/
-        long tv_usec; /*微秒*/
-        };
-    //timezone 结构定义为:
-    struct timezone{
-        int tz_minuteswest; /*和Greenwich 时间差了多少分钟*/
-        int tz_dsttime; /*日光节约时间的状态*/
-        };
+   
     struct timeval t1,t2;
     double timeuse;
 
