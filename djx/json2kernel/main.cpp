@@ -262,6 +262,7 @@ void thread1(int gpu_no,int i)
           StorageInfo& storage_info = model1->storage[arg_idx];
           if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
+          std::cout<<"param happen"<<std::endl;
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
           kernel_offset++;
         }
