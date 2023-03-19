@@ -17,14 +17,14 @@
 Model* Model::from_json(const char* json_file) {
     log("enter Model::from_json");
     std::ifstream fs(json_file);
-    printf("open file %s status: %d\n", json_file, fs.good());
+    //printf("open file %s status: %d\n", json_file, fs.good());
     std::string tmp, str = "";
-    log("ifstream finish");
+    //log("ifstream finish");
     while (getline(fs, tmp)) str += tmp;
     fs.close();
-    log("getline finish");
+    //log("getline finish");
     JsonObject* jobj = JsonParser::parse(str);
-    log("JsonParser::parse finish");
+    //log("JsonParser::parse finish");
 
     Model* m = new Model;
     for (auto sinfo : jobj->mval["storage"]->lval) {
@@ -35,7 +35,7 @@ Model* Model::from_json(const char* json_file) {
         });
         // printf("name:%s, size:%d, stype:%s\n", sinfo->mval["name"]->sval, sinfo->mval["size"]->ival, sinfo->mval["stype"]->sval);
     }
-    printf("finish parse storage!\n");
+    //printf("finish parse storage!\n");
 
     for (auto kinfo : jobj->mval["kernels"]->lval) {
         KernelInfo k;
@@ -51,18 +51,18 @@ Model* Model::from_json(const char* json_file) {
         m->kernels.push_back(k);
     }
 
-    printf("finish parse kernels!\n");
+    //printf("finish parse kernels!\n");
 
     for (auto arg : jobj->mval["args"]->lval) {
         m->args.push_back(arg->ival);
     }
 
-    printf("finish parse args!\n");
+    //printf("finish parse args!\n");
 
     for (auto shared_memory : jobj->mval["shared_memory"]->mval) {
         m->shared_memory[shared_memory.first] = shared_memory.second->ival;
     }
-    printf("finish parse shared_memory!\n");
+    //printf("finish parse shared_memory!\n");
 
     delete jobj;
 
@@ -96,7 +96,7 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
     res = fread(&params_size, sizeof(uint64_t), 1, fp);
     assert(res == 1);
     assert(params_size != 0);
-    std::cout << "params_size:" << params_size << std::endl;
+    //std::cout << "params_size:" << params_size << std::endl;
 
 
 
@@ -148,7 +148,7 @@ parseresult* ModelParamParser::parse_from_file(const char* param_file) {
         paramdata->insert({key, tempdata[i]});
         paramsize->insert({key, array_size});
 
-        std::cout << "params key:" << key << std::endl;
+        //std::cout << "params key:" << key << std::endl;
     }
     result = new parseresult(paramdata,paramsize);
     return result;

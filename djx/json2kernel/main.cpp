@@ -154,7 +154,7 @@ bool argexist(int temparg,int* aused,int* top)
 
 void thread1(int gpu_no,int i)
 {
-   
+
     struct timeval t1,t2;
     double timeuse;
 
