@@ -152,8 +152,20 @@ bool argexist(int temparg,int* aused,int* top)
 
 void thread1(int gpu_no,int i)
 {
-    double dur;
-    clock_t start,end;
+    //timeval结构定义为:
+    struct timeval{
+        long tv_sec; /*秒*/
+        long tv_usec; /*微秒*/
+        };
+    //timezone 结构定义为:
+    struct timezone{
+        int tz_minuteswest; /*和Greenwich 时间差了多少分钟*/
+        int tz_dsttime; /*日光节约时间的状态*/
+        };
+    struct timeval t1,t2;
+    double timeuse;
+
+
 
     std::cout<<"thread starts: "<<i<<std::endl;
     std::unordered_map<std::string, CUfunction> kernels1;
@@ -304,7 +316,7 @@ void thread1(int gpu_no,int i)
     workend1.unlock();
     }
 
-    start = clock();
+    gettimeofday(&t1,NULL);
     for (KernelInfo &kernel_info : model1->kernels) {
         std::string& func_name = kernel_info.name;
         CUfunction func1 = kernels1[func_name];
@@ -327,9 +339,9 @@ void thread1(int gpu_no,int i)
         j++;
     }
     cuStreamSynchronize(kefirststream);
-    end = clock();
-    dur = (double)(end - start);
-    std::cout<<"Thread "<<i<<" Use Time: "<<(dur/CLOCKS_PER_SEC)<<std::endl;
+    gettimeofday(&t2,NULL);
+    timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec)/1000000.0;
+    std::cout<<"Thread "<<i<<" Use Time: "<< timeuse <<std::endl;
     sleep(1);
 }
 
