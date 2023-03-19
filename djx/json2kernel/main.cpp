@@ -176,7 +176,7 @@ void thread1(int gpu_no,int i)
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
-    printf("load cuda kernels!\n");
+    //printf("load cuda kernels!\n");
     //yy add stream
     CUstream iofirststream;
     cuStreamCreate(&iofirststream,0);
@@ -202,8 +202,8 @@ void thread1(int gpu_no,int i)
         storage1.push_back(device_ptr1);
     }
 
-    printf("map raw args!\n");
-    std::cout << "storages.size = " << storage1.size() << std::endl;
+    //printf("map raw args!\n");
+    //std::cout << "storages.size = " << storage1.size() << std::endl;
     raw_args1.reserve(model1->kernels.size());
 
     CUdeviceptr device_ptr11[model1->kernels.size()];
@@ -234,9 +234,9 @@ void thread1(int gpu_no,int i)
         raw_args1.push_back(kernel_arg1);
     }
 
-    printf("parse params!\n");
+    //printf("parse params!\n");
     parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
-    std::cout<<" test 2: "<<std::endl;
+    //std::cout<<" test 2: "<<std::endl;
     int kernel_offset=0;
     float* temp[80];
     size_t evsize[80];
@@ -251,7 +251,7 @@ void thread1(int gpu_no,int i)
         kernel_offset++;
         }
     }
-    std::cout<<" test 3: "<<std::endl;
+    //std::cout<<" test 3: "<<std::endl;
     kernel_offset=0;
     int j=0;
     float* temp2;
@@ -360,7 +360,7 @@ int main(int argc, char **argv) {
     //     std::cout << output[i] << " vs " << ans[i] << std::endl;
     // }
 
-    printf("reset model!\n");
+    //printf("reset model!\n");
     model.reset();
     return 0;
 }

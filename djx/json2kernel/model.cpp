@@ -15,7 +15,7 @@
 //add fininshed
 
 Model* Model::from_json(const char* json_file) {
-    log("enter Model::from_json");
+    //log("enter Model::from_json");
     std::ifstream fs(json_file);
     //printf("open file %s status: %d\n", json_file, fs.good());
     std::string tmp, str = "";
