@@ -11,8 +11,10 @@
 #include <math.h>
 #include "unistd.h"
 #include <mutex>
+#include <sys/time.h>
+#include <unistd.h>
 
-#define BLOCKNUMBER 32000
+#define BLOCKNUMBER 40000
 
 // #include <glog/logging.h>
 //Notice
@@ -152,6 +154,12 @@ bool argexist(int temparg,int* aused,int* top)
 
 void thread1(int gpu_no,int i)
 {
+
+    struct timeval t1,t2;
+    double timeuse;
+
+
+
     std::cout<<"thread starts: "<<i<<std::endl;
     std::unordered_map<std::string, CUfunction> kernels1;
     std::vector<std::vector<CUdeviceptr*>> raw_args1;
@@ -168,7 +176,7 @@ void thread1(int gpu_no,int i)
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
-    printf("load cuda kernels!\n");
+    //printf("load cuda kernels!\n");
     //yy add stream
     CUstream iofirststream;
     cuStreamCreate(&iofirststream,0);
@@ -194,8 +202,8 @@ void thread1(int gpu_no,int i)
         storage1.push_back(device_ptr1);
     }
 
-    printf("map raw args!\n");
-    std::cout << "storages.size = " << storage1.size() << std::endl;
+    //printf("map raw args!\n");
+    //std::cout << "storages.size = " << storage1.size() << std::endl;
     raw_args1.reserve(model1->kernels.size());
 
     CUdeviceptr device_ptr11[model1->kernels.size()];
@@ -226,9 +234,9 @@ void thread1(int gpu_no,int i)
         raw_args1.push_back(kernel_arg1);
     }
 
-    printf("parse params!\n");
+    //printf("parse params!\n");
     parseresult* params = ModelParamParser::parse_from_file("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.param");
-    std::cout<<" test 2: "<<std::endl;
+    //std::cout<<" test 2: "<<std::endl;
     int kernel_offset=0;
     float* temp[80];
     size_t evsize[80];
@@ -243,7 +251,7 @@ void thread1(int gpu_no,int i)
         kernel_offset++;
         }
     }
-    std::cout<<" test 3: "<<std::endl;
+    //std::cout<<" test 3: "<<std::endl;
     kernel_offset=0;
     int j=0;
     float* temp2;
@@ -254,6 +262,7 @@ void thread1(int gpu_no,int i)
           StorageInfo& storage_info = model1->storage[arg_idx];
           if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
+          std::cout<<"param happen"<<std::endl;
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
           kernel_offset++;
         }
@@ -301,6 +310,7 @@ void thread1(int gpu_no,int i)
     workend1.unlock();
     }
 
+    gettimeofday(&t1,NULL);
     for (KernelInfo &kernel_info : model1->kernels) {
         std::string& func_name = kernel_info.name;
         CUfunction func1 = kernels1[func_name];
@@ -323,6 +333,9 @@ void thread1(int gpu_no,int i)
         j++;
     }
     cuStreamSynchronize(kefirststream);
+    gettimeofday(&t2,NULL);
+    timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec)/1000000.0;
+    std::cout<<"Thread "<<i<<" Use Time: "<< timeuse <<std::endl;
     sleep(1);
 }
 
@@ -333,8 +346,8 @@ int main(int argc, char **argv) {
 
     workend1.lock();
     workend2.lock();
-    std::thread first(thread1,2,1);
-    std::thread second(thread1,2,2);
+    std::thread first(thread1,1,1);
+    std::thread second(thread1,1,2);
     first.join();
     second.join();
 
@@ -348,7 +361,7 @@ int main(int argc, char **argv) {
     //     std::cout << output[i] << " vs " << ans[i] << std::endl;
     // }
 
-    printf("reset model!\n");
+    //printf("reset model!\n");
     model.reset();
     return 0;
 }
