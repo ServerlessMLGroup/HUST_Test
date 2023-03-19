@@ -1,6 +1,35 @@
-==41646== NVPROF is profiling process 41646, command: ./demo 1 16
-==41646== Warning: ERR_NVGPUCTRPERM - The user does not have permission to profile on the target device. See the following link for instructions to enable permissions and get more information: https://developer.nvidia.com/ERR_NVGPUCTRPERM 
-==41646== Profiling application: ./demo 1 16
-==41646== Profiling result:
-No events/metrics were profiled.
-==41646== Warning: Some profiling data are not recorded.
+==7911== NVPROF is profiling process 7911, command: ./demo 1 16
+==7911== Profiling application: ./demo 1 16
+==7911== Profiling result:
+==7911== Metric result:
+"Device","Kernel","Invocations","Metric Name","Metric Description","Min","Max","Avg"
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_add_nn_relu_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",17.883916%,18.051877%,17.967896%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_add_nn_relu_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",17.709594%,18.129762%,17.919678%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",17.938804%,17.952987%,17.945896%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.324001%,18.335818%,18.329909%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.059404%,18.073155%,18.066279%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",17.940533%,17.958115%,17.949324%
+"Tesla V100-SXM2-32GB (1)","fused_nn_max_pool2d_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",19.378874%,19.492606%,19.435740%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.277742%,18.419059%,18.348401%
+"Tesla V100-SXM2-32GB (1)","fused_add_nn_relu_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",16.646582%,16.961731%,16.804157%
+"Tesla V100-SXM2-32GB (1)","fused_add_nn_relu_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.091741%,18.210901%,18.151321%
+"Tesla V100-SXM2-32GB (1)","fused_nn_global_avg_pool2d_kernel0",2,"sm_efficiency","Multiprocessor Activity",17.701632%,17.722693%,17.712163%
+"Tesla V100-SXM2-32GB (1)","fused_add_nn_relu_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.997800%,19.098499%,19.048149%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_multiply_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.483296%,18.524731%,18.504013%
+"Tesla V100-SXM2-32GB (1)","fused_nn_softmax_kernel0",2,"sm_efficiency","Multiprocessor Activity",16.531917%,17.405745%,16.968831%
+"Tesla V100-SXM2-32GB (1)","fused_add_10_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.797001%,19.139474%,18.968238%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.642974%,18.655499%,18.649237%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",17.908238%,17.922765%,17.915502%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_1_kernel0",2,"sm_efficiency","Multiprocessor Activity",1.033011%,2.326708%,1.679859%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.905713%,18.907829%,18.906771%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_4_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.330304%,18.334890%,18.332597%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_2_kernel0",2,"sm_efficiency","Multiprocessor Activity",19.801519%,19.832914%,19.817217%
+"Tesla V100-SXM2-32GB (1)","fused_nn_batch_flatten_kernel0",2,"sm_efficiency","Multiprocessor Activity",4.425727%,5.215329%,4.820528%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_5_kernel0",2,"sm_efficiency","Multiprocessor Activity",1.023877%,2.310860%,1.667369%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_3_kernel0",2,"sm_efficiency","Multiprocessor Activity",19.856940%,19.871960%,19.864450%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_6_kernel0",4,"sm_efficiency","Multiprocessor Activity",18.095670%,18.106376%,18.100269%
+"Tesla V100-SXM2-32GB (1)","fused_nn_dense_add_kernel0",2,"sm_efficiency","Multiprocessor Activity",19.684222%,19.692257%,19.688239%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_7_kernel0",2,"sm_efficiency","Multiprocessor Activity",19.822613%,19.826336%,19.824475%
+"Tesla V100-SXM2-32GB (1)","fused_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",16.054252%,16.233962%,16.144107%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_add_nn_relu_kernel0",2,"sm_efficiency","Multiprocessor Activity",18.565121%,18.578818%,18.571969%
+"Tesla V100-SXM2-32GB (1)","fused_nn_conv2d_kernel0",2,"sm_efficiency","Multiprocessor Activity",19.632706%,19.639330%,19.636018%
