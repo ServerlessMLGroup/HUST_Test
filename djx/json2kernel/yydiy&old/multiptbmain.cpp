@@ -11,8 +11,8 @@
 #include <math.h>
 #include "unistd.h"
 #include <thread>
-
-#define BLOCKNUMBER 32
+#include <sys/time.h>
+#include <unistd.h>
 
 // #include <glog/logging.h>
 //Notice
@@ -144,10 +144,13 @@ bool argexist(int temparg,int* aused,int* top)
     return false;
 }
 int main(int argc, char **argv) {
-    if (argc < 2) {
+    if (argc < 3) {
         printf("args num error! argc:%d", argc);
     }
     int gpu_no = atoi(argv[1]);
+    int blcoknumber = atoi(argv[2]);
+    struct timeval t1,t2;
+    double timeuse;
     log("preate unique_ptr");
     model.reset(Model::from_json("/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18-final.json"));
     CUcontext ctx;
@@ -297,7 +300,7 @@ int main(int argc, char **argv) {
     cuMemAllocHost((void**)(&allblocksize), 80*sizeof(int));
     for(int i=0;i<80;i++)
     {
-    allblocksize[i]=BLOCKNUMBER;
+    allblocksize[i]=blcoknumber;
     }
     //init blocknum
     int* allblocknum;
@@ -319,6 +322,7 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(iofirststream);
     cuStreamSynchronize(iosecondstream);
 
+    gettimeofday(&t1,NULL);
     j=0;
     for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
@@ -334,15 +338,15 @@ int main(int argc, char **argv) {
         //continue;
         }
 
-        if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
+        if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
         {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        BLOCKNUMBER, 1, 1,
+        blcoknumber, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
         0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        BLOCKNUMBER, 1, 1,
+        blcoknumber, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
         0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
@@ -366,6 +370,9 @@ int main(int argc, char **argv) {
 
     cuStreamSynchronize(kesecondstream);
     cuStreamSynchronize(kefirststream);
+    gettimeofday(&t2,NULL);
+    timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec)/1000000.0;
+    std::cout<<"All "<<" Use Time: "<< timeuse <<std::endl;
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
