@@ -346,8 +346,8 @@ int main(int argc, char **argv) {
 
     workend1.lock();
     workend2.lock();
-    std::thread first(thread1,2,1);
-    std::thread second(thread1,2,2);
+    std::thread first(thread1,1,1);
+    std::thread second(thread1,1,2);
     first.join();
     second.join();
 
