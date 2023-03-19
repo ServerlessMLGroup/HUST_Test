@@ -13,7 +13,6 @@
 #include <thread>
 #include <sys/time.h>
 #include <unistd.h>
-#define BLOCKNUMBER 32
 
 // #include <glog/logging.h>
 //Notice
@@ -149,7 +148,7 @@ int main(int argc, char **argv) {
         printf("args num error! argc:%d", argc);
     }
     int gpu_no = atoi(argv[1]);
-    int blocknumber = atoi(argv[2]);
+    int blcoknumber = atoi(argv[2]);
     struct timeval t1,t2;
     double timeuse;
     log("preate unique_ptr");
@@ -301,7 +300,7 @@ int main(int argc, char **argv) {
     cuMemAllocHost((void**)(&allblocksize), 80*sizeof(int));
     for(int i=0;i<80;i++)
     {
-    allblocksize[i]=BLOCKNUMBER;
+    allblocksize[i]=blcoknumber;
     }
     //init blocknum
     int* allblocknum;
@@ -339,15 +338,15 @@ int main(int argc, char **argv) {
         //continue;
         }
 
-        if(launch_params[0]*launch_params[1]*launch_params[2]>BLOCKNUMBER)
+        if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
         {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        BLOCKNUMBER, 1, 1,
+        blcoknumber, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
         0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        BLOCKNUMBER, 1, 1,
+        blcoknumber, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
         0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
