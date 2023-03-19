@@ -49,100 +49,8 @@ std::unordered_map<std::string, CUfunction> kernels;
 std::vector<std::vector<CUdeviceptr*>> raw_args1;
 std::vector<std::vector<CUdeviceptr*>> raw_args2;
 std::unique_ptr<Model> model;
-Status launch_kernel(int kernel_offset, CUstream stream, Model* model) {
-    int i = kernel_offset;
-    std::string& func_name = model->kernels[i].name;
-    CUfunction func = kernels[func_name];
-    uint32_t *launch_params = model->kernels[i].launch_params;
-    // std::cout << func_name << std::endl;
-    GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, stream, (void **)raw_args1[i].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-    // double duration = (double(end - start));
-    // std::cout << "func_name:" << func_name << " time:" << duration << std::endl;
-    // std::cout << "func_name:" << func_name << " launch_params:" << launch_params[0] << " " << launch_params[1] << " " << launch_params[2] << " " << launch_params[3] << " " << launch_params[4] << " " << launch_params[5] << " raw_args1_ptr:" << (void **)raw_args1[i].data() << std::endl;
-    return Status::Succ;
-}
-Status execute_to(int idx, CUstream stream, Model* model) {
-    for (int i = 0; i < idx; i++) {
-        RETURN_STATUS(launch_kernel(i, stream, model));
-        //GPU_RETURN_STATUS(cuStreamSynchronize(stream));
-    }
-    return Status::Succ;
-}
-Status execute(CUstream stream, Model* model) {
-    execute_to(model->kernels.size(), stream, model);
-    return Status::Succ;
-}
-// Status execute_kernel(int idx, GPUStream_t stream) {
-//     if (idx >= num_kernels()) RETURN_STATUS(Status::OutOfRange);
-//     GPU_RETURN_STATUS(launch_kernel(idx, stream));
-//     GPU_RETURN_STATUS(GPUStreamSynchronize(stream));
-//     return Status::Succ;
-// }
-Status find_storage_idx(const std::string& name, size_t& idx) {
-    // TODO: O(n) -> O(1)
-    for (size_t i = 0; i < storage.size(); i++) {
-        StorageInfo& storage_info = model->storage[i];
-        if (storage_info.name == name) {
-            idx = i;
-            return Status::Succ;
-        }
-    }
-    RETURN_STATUS(Status::NotFound);
-    return Status::NotFound; // otherwise, the compiler thinks no return value.
-}
-Status set_input() {
-    std::vector<float> input(3 * 224 * 224);
-    for (size_t i = 0; i < 3*224*224; i++)
-        input[i] = 10.0;
-    size_t input_storage_idx;
-    if (find_storage_idx("data", input_storage_idx) != Status::Succ) RETURN_STATUS(Status::NotFound);
-    StorageInfo& storage_info = model->storage[input_storage_idx];
-    size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
-    if (input.size() * sizeof(float) < storage_size) RETURN_STATUS(Status::OutOfRange);
-    GPU_RETURN_STATUS(cuMemcpyHtoD(
-        (CUdeviceptr)storage[input_storage_idx], (void*)input.data(),
-        storage_size)
-    );
-    // TODO: printf input_storage_idx
-    return Status::Succ;
-}
-Status get_data(int idx, void* out, size_t len) {
-    if (idx >= storage.size()) RETURN_STATUS(Status::OutOfRange);
-    StorageInfo& storage_info = model->storage[idx];
-    size_t storage_size = Model::get_stype_size(storage_info.stype) * storage_info.size;
-    std::cout << "storage_size:" << storage_size << std::endl;
-    if (len < storage_size) RETURN_STATUS(Status::Fail);
-    GPU_RETURN_STATUS(cuMemcpyDtoH(
-        out, (CUdeviceptr)storage[idx], storage_size
-    ));
-    return Status::Succ;
-}
-Status get_output(std::vector<float>& out) {
-    size_t input_storage_idx;
-    if (find_storage_idx("output", input_storage_idx) != Status::Succ) RETURN_STATUS(Status::NotFound);
-    StorageInfo& storage_info = model->storage[input_storage_idx];
-    if (Model::get_stype_size(storage_info.stype) != sizeof(float)) RETURN_STATUS(Status::Fail);
-    out.resize(storage_info.size);
-    std::cout << "storage_info.size:" << storage_info.size << std::endl;
-    return get_data(input_storage_idx, out.data(), storage_info.size * sizeof(float));
-}
-bool argexist(int temparg,int* aused,int* top)
-{
-    for(int i=0;i<*top;i++)
-    {
-    if(temparg == aused[i])
-    {
-    return true;
-    }
-    }
-    aused[*top]=temparg;
-    *top=*top +1;
-    return false;
-}
+
+
 int main(int argc, char **argv) {
     if (argc < 3) {
         printf("args num error! argc:%d", argc);
@@ -328,15 +236,6 @@ int main(int argc, char **argv) {
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
-
-        if(j==47)
-        {
-         std::cout<<"name"<<func_name<<std::endl;
-        std::cout<<"0 "<<launch_params[0]<<std::endl;
-        std::cout<<"1 "<<launch_params[1]<<std::endl;
-        std::cout<<"2 "<<launch_params[2]<<std::endl;
-        //continue;
-        }
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
         {
