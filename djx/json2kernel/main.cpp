@@ -152,6 +152,9 @@ bool argexist(int temparg,int* aused,int* top)
 
 void thread1(int gpu_no,int i)
 {
+    double dur;
+    clock_t start,end;
+
     std::cout<<"thread starts: "<<i<<std::endl;
     std::unordered_map<std::string, CUfunction> kernels1;
     std::vector<std::vector<CUdeviceptr*>> raw_args1;
@@ -301,6 +304,7 @@ void thread1(int gpu_no,int i)
     workend1.unlock();
     }
 
+    start = clock();
     for (KernelInfo &kernel_info : model1->kernels) {
         std::string& func_name = kernel_info.name;
         CUfunction func1 = kernels1[func_name];
@@ -323,6 +327,9 @@ void thread1(int gpu_no,int i)
         j++;
     }
     cuStreamSynchronize(kefirststream);
+    end = clock();
+    dur = (double)(end - start);
+    std::cout<<"Thread "<<i<<" Use Time: "<<(dur/CLOCKS_PER_SEC)<<std::endl;
     sleep(1);
 }
 
