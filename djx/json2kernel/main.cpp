@@ -263,6 +263,7 @@ int main(int argc, char **argv) {
     ));
         }
 
+        if(j<30)
         j++;
 
     }
