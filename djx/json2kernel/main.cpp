@@ -237,7 +237,7 @@ int main(int argc, char **argv) {
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
 
-        if(j>15){
+        if(j>==8){
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
         {
