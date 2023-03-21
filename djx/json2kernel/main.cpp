@@ -263,7 +263,8 @@ int main(int argc, char **argv) {
     ));
         }
 
-        if(j<30)
+        if(j==28)
+        break;
         j++;
 
     }
