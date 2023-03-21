@@ -231,7 +231,7 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(iosecondstream);
 
     gettimeofday(&t1,NULL);
-    j=0;
+    j=15;
     for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
