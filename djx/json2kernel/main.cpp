@@ -231,11 +231,13 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(iosecondstream);
 
     gettimeofday(&t1,NULL);
-    j=15;
+    j=0;
     for (KernelInfo &kernel_info : model->kernels) {
         std::string& func_name = kernel_info.name;
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
+
+        if(j>15){
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
         {
@@ -262,9 +264,8 @@ int main(int argc, char **argv) {
         0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         }
+        }
 
-        if(j==28)
-        break;
         j++;
 
     }
