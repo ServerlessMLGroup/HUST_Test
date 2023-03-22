@@ -496,61 +496,37 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMalloc((void **)&g_flag_, sizeof(int) * FLAG_LENGTH));
     checkCudaErrors(cudaMemcpy(g_flag_, flag_, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice));
 
-    float *placeholder0 = new float[10000];
+    float *placeholder0 = new float[802816];
     float *g_ph0;
-    checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 10000));
+    checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph0, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
 
     float *g_ph1;
-    checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 10000));
-    checkCudaErrors(cudaMemcpy(g_ph1, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
+    checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 2359296));
+    checkCudaErrors(cudaMemcpy(g_ph1, placeholder0, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
     float *g_ph2;
-    checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 10000));
+    checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph2, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
 
     float *g_ph3;
-    cudaMalloc((void **)&g_ph3, sizeof(float) * 10000);
+    cudaMalloc((void **)&g_ph3, sizeof(float) * 802816);
     cudaMemcpy(g_ph3, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     float *g_ph4;
-    cudaMalloc((void **)&g_ph4, sizeof(float) * 10000);
-    cudaMemcpy(g_ph4, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
+    //cudaMemcpy(g_ph4, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     float *g_ph5;
-    cudaMalloc((void **)&g_ph5, sizeof(float) * 10000);
-    cudaMemcpy(g_ph5, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph0_;
-    cudaMalloc((void **)&g_ph0_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph0_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph1_;
-    cudaMalloc((void **)&g_ph1_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph1_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph2_;
-    cudaMalloc((void **)&g_ph2_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph2_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph3_;
-    cudaMalloc((void **)&g_ph3_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph3_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph4_;
-    cudaMalloc((void **)&g_ph4_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph4_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph5_;
-    cudaMalloc((void **)&g_ph5_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph5_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph5, sizeof(float) * 512);
+    //cudaMemcpy(g_ph5, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     dim3 Dim_block = dim3(LAUNCH_BLOCKX, LAUNCH_BLOCKY, LAUNCH_BLOCKZ);
     dim3 Dim_thread = dim3(LAUNCH_THREADX, LAUNCH_THREADY, LAUNCH_THREADZ);
     // launch kernel
     fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
 
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
+    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
 
     cudaDeviceSynchronize();
 
