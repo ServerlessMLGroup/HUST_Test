@@ -85,6 +85,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
             {
             basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + sm_flag[smid];
             atomicAdd(sm_flag + smid, 1);
+            printf("smid %d\n", smid);
             }
        }
     }
@@ -96,10 +97,8 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
     //why sleep?
     unsigned int ns = 5000;
     __syncthreads();
-    printf("smid %d\n", smid);
+
     __nanosleep(ns);
-
-
     while(offset < (ORI_BLOCKX * ORI_BLOCKY * ORI_BLOCKZ)) {
         int vx = (offset)/(ORI_BLOCKY * ORI_BLOCKZ);
         int vy = (offset - (vx * ORI_BLOCKY * ORI_BLOCKZ)) / ORI_BLOCKZ;
