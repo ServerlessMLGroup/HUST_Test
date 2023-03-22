@@ -85,7 +85,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
             {
             basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + sm_flag[smid];
             atomicAdd(sm_flag + smid, 1);
-            printf("smid %d\n", smid);
+            //printf("smid %d\n", smid);
             }
        }
     }
