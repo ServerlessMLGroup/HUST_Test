@@ -68,12 +68,13 @@ __device__ uint get_smid(void) {
 
 extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int number,int *flag, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
     int* sm_flag = flag;
-    __shared__ int basicoffset=-1;
+    __shared__ int basicoffset;
     int offset;
     int smid;
     //judge whether to continue work,which work to fetch
     if(threadIdx.x+threadIdx.y+threadIdx.z == 0)
     {
+       basicoffset=-1;
        smid = get_smid();
        //judge whther sm id is right
        if((smid < number*SM_NUM)&&(smid >= (number-1)*SM_NUM))
@@ -500,7 +501,7 @@ int main(int argc, char *argv[]) {
     int num_streams = 2;
     CUstream streams[num_streams];
     for (int i = 0; i < num_streams; i++) {
-        checkCudaErrors(cuStreamCreate(&streams[i],0););
+        checkCudaErrors(cuStreamCreate(&streams[i],0));
     }
 
 
