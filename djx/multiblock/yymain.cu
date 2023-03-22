@@ -96,7 +96,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
     //why sleep?
     unsigned int ns = 5000;
     __syncthreads();
-    //printf("smid %d\n", smid);
+    printf("smid %d\n", smid);
     __nanosleep(ns);
 
 
