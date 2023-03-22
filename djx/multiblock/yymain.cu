@@ -499,9 +499,9 @@ int main(int argc, char *argv[]) {
 
     // allocate stream
     int num_streams = 2;
-    CUstream streams[num_streams];
+    cudaStream_t streams[num_streams];
     for (int i = 0; i < num_streams; i++) {
-        checkCudaErrors(cuStreamCreate(&streams[i],0));
+        checkCudaErrors(cudaStreamCreate(&streams[i]));
     }
 
 
