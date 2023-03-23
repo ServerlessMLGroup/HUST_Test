@@ -213,7 +213,7 @@ int main(int argc, char **argv) {
     {
     placeholder5[i]=6;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder5, sizeof(float)*802816,iofirststream));
+    //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder5, sizeof(float)*802816,iofirststream));
 
 
     for (KernelInfo &kernel_info : model->kernels) {
