@@ -638,11 +638,11 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMemcpy(workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
     for(int j=0;j<80;j++)
     {
-    printf("%d  ",workers[j]);
     if(j%10==0&&j!=0)
     {
     printf("\n");
     }
+    printf("%d  ",workers[j]);
     }
     printf("\n");
 }
