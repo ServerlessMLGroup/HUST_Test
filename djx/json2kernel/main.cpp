@@ -170,10 +170,57 @@ int main(int argc, char **argv) {
     int j=0;
     float* temp2;
     //RETURN_STATUS(set_input());
+
+    //check answer
+    float *placeholder0 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder0[i]=1;
+    }
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[64],placeholder0, sizeof(float)*802816,iofirststream));
+
+    float *placeholder1 = new float[2359296];
+    for(int i=0;i<2359296;i++)
+    {
+    placeholder1[i]=2;
+    }
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[65],placeholder1, sizeof(float)*2359296,iofirststream));
+
+
+    float *placeholder2 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder2[i]=3;
+    }
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[68],placeholder0, sizeof(float)*802816,iofirststream));
+
+    float *placeholder3 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder3[i]=4;
+    }
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[59],placeholder0, sizeof(float)*802816,iofirststream));
+
+    float *placeholder4 = new float[512];
+    for(int i=0;i<512;i++)
+    {
+    placeholder4[i]=5;
+    }
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[66],placeholder0, sizeof(float)*512,iofirststream));
+
+    float *placeholder5 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder5[i]=6;
+    }
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder0, sizeof(float)*802816,iofirststream));
+
+
     for (KernelInfo &kernel_info : model->kernels) {
         for (size_t arg_idx : kernel_info.args) {
           //zhe li shao yi ge chuan di
           StorageInfo& storage_info = model->storage[arg_idx];
+
           if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
@@ -227,6 +274,7 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)(device_ptr23[i]),(allblocksize+i),1*sizeof(int),iosecondstream));
     }
 
+
     cuStreamSynchronize(iofirststream);
     cuStreamSynchronize(iosecondstream);
 
@@ -237,7 +285,7 @@ int main(int argc, char **argv) {
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
 
-        if(j==8){
+        if(j==26){
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
         {
@@ -270,11 +318,24 @@ int main(int argc, char **argv) {
 
     }
 
+
+
     cuStreamSynchronize(kesecondstream);
     cuStreamSynchronize(kefirststream);
     gettimeofday(&t2,NULL);
     timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec)/1000000.0;
     std::cout<<"All "<<" Use Time: "<< timeuse <<std::endl;
+
+    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
+    cuStreamSynchronize(iofirststream);
+    for(int j=0;j<784;j++)
+    {
+    if(j%10==0)
+    {
+    std::cout<<std::endl;
+    }
+    std::cout<<placeholder2[1024*j+j]<<" ";
+    }
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
