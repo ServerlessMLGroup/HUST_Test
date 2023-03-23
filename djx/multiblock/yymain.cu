@@ -634,6 +634,7 @@ int main(int argc, char *argv[]) {
     }
     }
 
+    printf("\n");
     checkCudaErrors(cudaMemcpy(  workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
     for(int j=0;j<80;j++)
     {
