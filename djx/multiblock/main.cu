@@ -9,14 +9,14 @@
 #define ORI_BLOCKX 1
 #define LAUNCH_BLOCKY 1
 #define ORI_BLOCKY 1
-#define LAUNCH_BLOCKZ 512 * 5 // 5是额外部分，满足多层覆盖
 #define ORI_BLOCKZ 512
+#define LAUNCH_BLOCKZ ORI_BLOCKZ * 5 // 5是额外部分，满足多层覆盖
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 8
+#define WORKER_NUM_PERSM 64
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
 #define FLAG_BLOCK_BASE 0
-#define FLAG_SM_BASE (FLAG_BLOCK_BASE + 1)
+#define FLAG_SM_BASE (FLAG_BLOCK_BASE + SM_NUM)
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 // nvcc -arch=native main.cu -o main
 
@@ -63,17 +63,33 @@ __device__ uint get_smid(void) {
 //         __shfl_up((var), (offset), (width))
 // #endif
 
-extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int *flag, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
-    int* sm_flag = flag + FLAG_SM_BASE, *block_flag = flag + FLAG_BLOCK_BASE;
-    unsigned int ns = 5000;
-    int smid = get_smid(), offset = -1;
-    if (threadIdx.x == 0 && (atomicAdd(sm_flag + smid, 1) < WORKER_NUM_PERSM)) offset = atomicAdd(block_flag + 0, 1); // offset初始值为全局workerid，缺error处理 TODO
-    __syncthreads();
+extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int number, int *flag, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
 
-    if (offset < 0) return ;
+    int* sm_flag = flag + FLAG_SM_BASE, *block_flag = flag + FLAG_BLOCK_BASE;
+    __shared__ int basicoffset;
+    int offset;
+    int smid;
+    //judge whether to continue work,which work to fetch
+    if(threadIdx.x+threadIdx.y+threadIdx.z == 0)
+    {
+       smid = get_smid();
+       basicoffset = -1;
+       //judge whther sm id is right
+       if((smid < number * SM_NUM)&&(smid >= (number - 1) * SM_NUM))
+       {
+            //judge whether worker is enough
+            //get the basic offset for the block
+            if(atomicAdd(sm_flag + smid, 1) < WORKER_NUM_PERSM)
+            {
+                basicoffset = atomicAdd(block_flag + 0, 1);
+                // printf("smid %d - boffset %d\n", smid, basicoffset);
+            }
+       }
+    }
     __syncthreads();
-    //printf("smid %d\n", smid);
-    __nanosleep(ns);
+    if (basicoffset < 0) return ;
+    //every thread has its own offset
+    offset = basicoffset;
     while(offset < (ORI_BLOCKX * ORI_BLOCKY * ORI_BLOCKZ)) {
         int vx = (offset)/(ORI_BLOCKY * ORI_BLOCKZ);
         int vy = (offset - (vx * ORI_BLOCKY * ORI_BLOCKZ)) / ORI_BLOCKZ;
@@ -496,61 +512,63 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMalloc((void **)&g_flag_, sizeof(int) * FLAG_LENGTH));
     checkCudaErrors(cudaMemcpy(g_flag_, flag_, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice));
 
-    float *placeholder0 = new float[10000];
+    //prepare parm for kernel 1
+    float *placeholder0 = new float[802816];
     float *g_ph0;
-    checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 10000));
+    checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph0, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
 
     float *g_ph1;
-    checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 10000));
-    checkCudaErrors(cudaMemcpy(g_ph1, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
+    checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 2359296));
+    //checkCudaErrors(cudaMemcpy(g_ph1, placeholder0, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
     float *g_ph2;
-    checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 10000));
+    checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph2, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
 
     float *g_ph3;
-    cudaMalloc((void **)&g_ph3, sizeof(float) * 10000);
+    cudaMalloc((void **)&g_ph3, sizeof(float) * 802816);
     cudaMemcpy(g_ph3, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     float *g_ph4;
-    cudaMalloc((void **)&g_ph4, sizeof(float) * 10000);
-    cudaMemcpy(g_ph4, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
+    //cudaMemcpy(g_ph4, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     float *g_ph5;
-    cudaMalloc((void **)&g_ph5, sizeof(float) * 10000);
-    cudaMemcpy(g_ph5, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph5, sizeof(float) * 512);
+    //cudaMemcpy(g_ph5, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
+    //prepare parm for kernel 2
     float *g_ph0_;
-    cudaMalloc((void **)&g_ph0_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph0_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    checkCudaErrors(cudaMalloc((void **)&g_ph0_, sizeof(float) * 802816));
+    //checkCudaErrors(cudaMemcpy(g_ph0_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
 
     float *g_ph1_;
-    cudaMalloc((void **)&g_ph1_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph1_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    checkCudaErrors(cudaMalloc((void **)&g_ph1_, sizeof(float) * 2359296));
+    //checkCudaErrors(cudaMemcpy(g_ph1_, placeholder0, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
     float *g_ph2_;
-    cudaMalloc((void **)&g_ph2_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph2_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    checkCudaErrors(cudaMalloc((void **)&g_ph2_, sizeof(float) * 802816));
+    //checkCudaErrors(cudaMemcpy(g_ph2_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
 
     float *g_ph3_;
-    cudaMalloc((void **)&g_ph3_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph3_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph3_, sizeof(float) * 802816);
+    //cudaMemcpy(g_ph3_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     float *g_ph4_;
-    cudaMalloc((void **)&g_ph4_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph4_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph4_, sizeof(float) * 512);
+    //cudaMemcpy(g_ph4_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     float *g_ph5_;
-    cudaMalloc((void **)&g_ph5_, sizeof(float) * 10000);
-    cudaMemcpy(g_ph5_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph5_, sizeof(float) * 512);
+    //cudaMemcpy(g_ph5_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
 
     dim3 Dim_block = dim3(LAUNCH_BLOCKX, LAUNCH_BLOCKY, LAUNCH_BLOCKZ);
     dim3 Dim_thread = dim3(LAUNCH_THREADX, LAUNCH_THREADY, LAUNCH_THREADZ);
     // launch kernel
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
+    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
 
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
+    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
 
     cudaDeviceSynchronize();
 
