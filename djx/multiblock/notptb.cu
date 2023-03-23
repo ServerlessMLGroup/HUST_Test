@@ -450,14 +450,24 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(floa
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))] = max((((compute[(55)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]), 0.000000e+00f);
 }
 
-int main(int argc, char *argv[]) {
+mutex workend2;
+mutex workend1;
+//diy thread
+
+__global__ void kernel(float n1, float n2, float n3, int stop) {
+	for (int i = 0; i < stop; i++) {
+		n1=cosf(n1);
+		n3=n2/n3;
+	}
+}
+
+
+//void *thread1(void *dummy,void* d_A,void *h_A)
+//
+void thread1(int i)
+{
     // init device
-    if (argc < 2) {
-        printf("args num error! argc:%d", argc);
-        exit(1);
-    }
-    int gpu_no = atoi(argv[1]);
-    checkCudaErrors(cudaSetDevice(gpu_no));
+    checkCudaErrors(cudaSetDevice(1));
 
     // allocate stream
     int num_streams = 2;
@@ -549,62 +559,45 @@ int main(int argc, char *argv[]) {
     cudaMalloc((void **)&g_ph5, sizeof(float) * 802816);
     cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 802816, cudaMemcpyHostToDevice);
 
-    //prepare parm for kernel 2
-    float *g_ph0_;
-    checkCudaErrors(cudaMalloc((void **)&g_ph0_, sizeof(float) * 802816));
-    //checkCudaErrors(cudaMemcpy(g_ph0_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
-
-    float *g_ph1_;
-    checkCudaErrors(cudaMalloc((void **)&g_ph1_, sizeof(float) * 2359296));
-    //checkCudaErrors(cudaMemcpy(g_ph1_, placeholder0, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
-
-    float *g_ph2_;
-    checkCudaErrors(cudaMalloc((void **)&g_ph2_, sizeof(float) * 802816));
-    //checkCudaErrors(cudaMemcpy(g_ph2_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
-
-    float *g_ph3_;
-    cudaMalloc((void **)&g_ph3_, sizeof(float) * 802816);
-    //cudaMemcpy(g_ph3_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph4_;
-    cudaMalloc((void **)&g_ph4_, sizeof(float) * 512);
-    //cudaMemcpy(g_ph4_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-    float *g_ph5_;
-    cudaMalloc((void **)&g_ph5_, sizeof(float) * 512);
-    //cudaMemcpy(g_ph5_, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
-
-
 
     dim3 Dim_block = dim3(1, 1, 512);
     dim3 Dim_thread = dim3(7, 1, 4);
 
     printf("hello?");
     // launch kernel
+    if(i==1)
+    {
+    workend2.unlock();
+    workend1.lock();
+    }
+    else
+    {
+    workend2.lock();
+    workend1.unlock();
+    }
+
     fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
-
     cudaDeviceSynchronize();
-    printf("hello2?");
-    checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
-    printf("hello3?\n");
-    for(int j=0;j<784;j++)
-    {
-    if(j%10==0)
-    {
-    printf("\n");
-    }
-    printf("%f  ",placeholder2[1024*j+j]);
-    }
 
-    printf("\n");
-    checkCudaErrors(cudaMemcpy(workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
-    for(int j=0;j<80;j++)
-    {
-    if(j%10==0&&j!=0)
-    {
-    printf("\n");
-    }
-    printf("%d  ",workers[j]);
-    }
-    printf("\n");
 }
+
+/*
+pthread_t ntid1;
+pthread_t ntid2;
+*/
+
+int main()
+{
+    //preparation
+    workend1.lock();
+    workend2.lock();
+    thread second=thread(thread1,1);
+    thread first=thread(thread1,2);
+    second.join();
+    first.join();
+
+
+    return 0;
+}
+
+
