@@ -616,8 +616,8 @@ int main(int argc, char *argv[]) {
     printf("hello3?");
     for(int i=0;i++;i<784)
     {
-    printf("hello?");
-    printf("%f  ",placeholder2[1024*i+i]);
+    printf("hello4?");
+    //printf("%f  ",placeholder2[1024*i+i]);
     if(i%10==0)
     {
     printf("\n");
