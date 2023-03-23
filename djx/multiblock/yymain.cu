@@ -614,11 +614,11 @@ int main(int argc, char *argv[]) {
     printf("hello2?");
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
     printf("hello3?");
-    for(int i=0;i++;i<784)
+    for(int j=0;j++;j<784)
     {
     printf("hello4?");
     //printf("%f  ",placeholder2[1024*i+i]);
-    if(i%10==0)
+    if(j%10==0)
     {
     //printf("\n");
     }
