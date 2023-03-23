@@ -7,7 +7,7 @@
 #include <math.h>
 
 
-#define LAUNCH_THREADX 2
+#define LAUNCH_THREADX 7
 #define LAUNCH_THREADY 1
 #define LAUNCH_THREADZ 4
 
@@ -19,7 +19,7 @@
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 16
+#define WORKER_NUM_PERSM 12
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
