@@ -620,7 +620,7 @@ int main(int argc, char *argv[]) {
     //printf("%f  ",placeholder2[1024*i+i]);
     if(i%10==0)
     {
-    printf("\n");
+    //printf("\n");
     }
     }
 
