@@ -85,7 +85,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
             if(blocknumber< WORKER_NUM_PERSM)
             {
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
-                printf("smid %d - boffset %d\n", smid, basicoffset);
+                //printf("smid %d - boffset %d\n", smid, basicoffset);
             }
        }
     }
@@ -518,29 +518,58 @@ int main(int argc, char *argv[]) {
 
     //prepare parm for kernel 1
     float *placeholder0 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder0[i]=1;
+    }
     float *g_ph0;
     checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 802816));
-    checkCudaErrors(cudaMemcpy(g_ph0, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
+    checkCudaErrors(cudaMemcpy(g_ph0, placeholder0, sizeof(float) * 802816, cudaMemcpyHostToDevice));
 
+    float *placeholder1 = new float[2359296];
+    for(int i=0;i<2359296;i++)
+    {
+    placeholder1[i]=2;
+    }
     float *g_ph1;
     checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 2359296));
-    //checkCudaErrors(cudaMemcpy(g_ph1, placeholder0, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
+    //checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
+    float *placeholder2 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder2[i]=3;
+    }
     float *g_ph2;
     checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 802816));
-    checkCudaErrors(cudaMemcpy(g_ph2, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice));
+    checkCudaErrors(cudaMemcpy(g_ph2, placeholder2, sizeof(float) * 802816, cudaMemcpyHostToDevice));
 
+    float *placeholder3 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder3[i]=4;
+    }
     float *g_ph3;
     cudaMalloc((void **)&g_ph3, sizeof(float) * 802816);
-    cudaMemcpy(g_ph3, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMemcpy(g_ph3, placeholder3, sizeof(float) * 802816, cudaMemcpyHostToDevice);
 
+    float *placeholder4 = new float[512];
+    for(int i=0;i<512;i++)
+    {
+    placeholder4[i]=5;
+    }
     float *g_ph4;
     cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
-    //cudaMemcpy(g_ph4, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMemcpy(g_ph4, placeholder4, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
+    float *placeholder5 = new float[802816];
+    for(int i=0;i<802816;i++)
+    {
+    placeholder5[i]=6;
+    }
     float *g_ph5;
-    cudaMalloc((void **)&g_ph5, sizeof(float) * 512);
-    //cudaMemcpy(g_ph5, placeholder0, sizeof(float) * 10000, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph5, sizeof(float) * 802816);
+    cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 802816, cudaMemcpyHostToDevice);
 
     //prepare parm for kernel 2
     float *g_ph0_;
@@ -574,10 +603,17 @@ int main(int argc, char *argv[]) {
 
 
     // launch kernel
-    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
-
+    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
+    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
     cudaDeviceSynchronize();
-
+    checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
+    for(int i=0;i++;i<784)
+    {
+    cout<<placeholder2[1024*i+i]<<" ";
+    if(i%10==0)
+    {
+    cout<<endl;
+    }
+    }
     
 }
