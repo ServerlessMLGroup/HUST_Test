@@ -90,7 +90,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
             if(blocknumber< WORKER_NUM_PERSM)
             {
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
-                atomicAdd(worker+smid, 0);
+                atomicAdd(worker+smid, 1);
                 //printf("smid %d - boffset %d\n", smid, basicoffset);
             }
        }
@@ -635,7 +635,7 @@ int main(int argc, char *argv[]) {
     }
 
     printf("\n");
-    //checkCudaErrors(cudaMemcpy(workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
+    checkCudaErrors(cudaMemcpy(workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
     for(int j=0;j<80;j++)
     {
     printf("%d  ",workers[j]);
