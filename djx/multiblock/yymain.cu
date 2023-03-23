@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include<cuda.h>
 #include<cuda_runtime.h>
+#include <iostream>
+#include <sys/time.h>
+#include <math.h>
+
+
 #define LAUNCH_THREADX 7
 #define LAUNCH_THREADY 1
 #define LAUNCH_THREADZ 4
@@ -615,5 +620,5 @@ int main(int argc, char *argv[]) {
     cout<<endl;
     }
     }
-    
+
 }
