@@ -192,28 +192,28 @@ int main(int argc, char **argv) {
     {
     placeholder2[i]=3;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[68],placeholder0, sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[68],placeholder2, sizeof(float)*802816,iofirststream));
 
     float *placeholder3 = new float[802816];
     for(int i=0;i<802816;i++)
     {
     placeholder3[i]=4;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[59],placeholder0, sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[59],placeholder3, sizeof(float)*802816,iofirststream));
 
     float *placeholder4 = new float[512];
     for(int i=0;i<512;i++)
     {
     placeholder4[i]=5;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[66],placeholder0, sizeof(float)*512,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[66],placeholder4, sizeof(float)*512,iofirststream));
 
     float *placeholder5 = new float[802816];
     for(int i=0;i<802816;i++)
     {
     placeholder5[i]=6;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder0, sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder5, sizeof(float)*802816,iofirststream));
 
 
     for (KernelInfo &kernel_info : model->kernels) {
@@ -326,7 +326,7 @@ int main(int argc, char **argv) {
     timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec)/1000000.0;
     std::cout<<"All "<<" Use Time: "<< timeuse <<std::endl;
 
-    /*
+
     GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
     cuStreamSynchronize(iofirststream);
 
@@ -338,7 +338,6 @@ int main(int argc, char **argv) {
     }
     std::cout<<placeholder2[1024*j+j]<<" ";
     }
-    */
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
