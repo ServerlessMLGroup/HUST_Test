@@ -175,14 +175,14 @@ int main(int argc, char **argv) {
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder0[i]=2;
+    placeholder0[i]=1;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[64],placeholder0, sizeof(float)*802816,iofirststream));
 
     float *placeholder1 = new float[2359296];
     for(int i=0;i<2359296;i++)
     {
-    placeholder1[i]=2;
+    placeholder1[i]=4;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[65],placeholder1, sizeof(float)*2359296,iofirststream));
 
