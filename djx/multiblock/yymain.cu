@@ -15,7 +15,7 @@
 #define ORI_BLOCKX 1
 #define LAUNCH_BLOCKY 1
 #define ORI_BLOCKY 1
-#define LAUNCH_BLOCKZ 2560 // 5是额外部分，满足多层覆盖
+#define LAUNCH_BLOCKZ 5120 // 5是额外部分，满足多层覆盖
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
