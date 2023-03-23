@@ -278,6 +278,19 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(iofirststream);
     cuStreamSynchronize(iosecondstream);
 
+    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
+    cuStreamSynchronize(iofirststream);
+
+    for(int j=0;j<784;j++)
+    {
+    if(j%10==0)
+    {
+    std::cout<<std::endl;
+    }
+    std::cout<<placeholder2[1024*j+j]<<" ";
+    }
+
+
     gettimeofday(&t1,NULL);
     j=0;
     for (KernelInfo &kernel_info : model->kernels) {
