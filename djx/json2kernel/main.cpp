@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
     float *placeholder1 = new float[2359296];
     for(int i=0;i<2359296;i++)
     {
-    placeholder1[i]=4;
+    placeholder1[i]=2;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[65],placeholder1, sizeof(float)*2359296,iofirststream));
 
@@ -197,7 +197,7 @@ int main(int argc, char **argv) {
     float *placeholder3 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder3[i]=4;
+    placeholder3[i]=5;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[59],placeholder3, sizeof(float)*802816,iofirststream));
 
