@@ -495,7 +495,7 @@ int main(int argc, char *argv[]) {
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
-
+    printf("hello?");
     // allocate stream
     int num_streams = 2;
     cudaStream_t streams[num_streams];
