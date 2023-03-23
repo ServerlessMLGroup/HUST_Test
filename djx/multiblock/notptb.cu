@@ -582,6 +582,7 @@ void thread1(int i)
 
     printf("hello?");
     // launch kernel
+    /*
     if(i==1)
     {
     workend2.unlock();
@@ -592,6 +593,7 @@ void thread1(int i)
     workend2.lock();
     workend1.unlock();
     }
+    */
 
     fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
     cudaDeviceSynchronize();
@@ -608,9 +610,9 @@ int main()
     //preparation
     workend1.lock();
     workend2.lock();
-    thread second=thread(thread1,1);
+    //thread second=thread(thread1,1);
     thread first=thread(thread1,2);
-    second.join();
+    //second.join();
     first.join();
 
 
