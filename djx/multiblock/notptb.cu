@@ -23,9 +23,6 @@
 using namespace std;
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
-mutex workend2;
-mutex workend1;
-
 
 #define LAUNCH_THREADX 7
 #define LAUNCH_THREADY 1
