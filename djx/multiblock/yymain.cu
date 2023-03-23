@@ -5,7 +5,21 @@
 #include <iostream>
 #include <sys/time.h>
 #include <math.h>
-
+#include <iostream>
+#include <pthread.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <math.h>
+#include <cuda.h>
+#include "cuda_runtime.h"
+#include "unistd.h"
+#include <thread>
+#include <mutex>
+#include <random>
+#include <ctime>
+#include <time.h>
+#include <stdio.h>
+#include<cuda_runtime.h>
 
 #define LAUNCH_THREADX 7
 #define LAUNCH_THREADY 1
