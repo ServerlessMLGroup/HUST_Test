@@ -204,7 +204,7 @@ int main(int argc, char **argv) {
     float *placeholder4 = new float[512];
     for(int i=0;i<512;i++)
     {
-    placeholder4[i]=6;
+    placeholder4[i]=5;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[66],placeholder4, sizeof(float)*512,iofirststream));
 
