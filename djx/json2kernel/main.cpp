@@ -287,14 +287,14 @@ int main(int argc, char **argv) {
         CUfunction func = kernels[func_name];
         uint32_t *launch_params = kernel_info.launch_params;
 
-        if(j==26){
+        if(j>40){
 
         if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
         {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         blcoknumber, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j-1].data(), 0 // raw_args1是json中指示的storage的下标
+        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         blcoknumber, 1, 1,
@@ -306,7 +306,7 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j-1].data(), 0 // raw_args1是json中指示的storage的下标
+        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
