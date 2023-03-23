@@ -85,7 +85,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
             if(blocknumber< WORKER_NUM_PERSM)
             {
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
-                printf("smid %d - boffset %d\n", smid, basicoffset);
+                //printf("smid %d - boffset %d\n", smid, basicoffset);
             }
        }
     }
@@ -574,7 +574,7 @@ int main(int argc, char *argv[]) {
 
 
     // launch kernel
-    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
+    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
     fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
 
     cudaDeviceSynchronize();
