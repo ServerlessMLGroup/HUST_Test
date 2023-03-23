@@ -278,17 +278,6 @@ int main(int argc, char **argv) {
     cuStreamSynchronize(iofirststream);
     cuStreamSynchronize(iosecondstream);
 
-    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
-    cuStreamSynchronize(iofirststream);
-
-    for(int j=0;j<784;j++)
-    {
-    if(j%10==0)
-    {
-    std::cout<<std::endl;
-    }
-    std::cout<<placeholder2[1024*j+j]<<" ";
-    }
 
 
     gettimeofday(&t1,NULL);
@@ -305,7 +294,7 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         blcoknumber, 1, 1,
         launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
+        0, kefirststream, (void **)raw_args1[j-1].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         blcoknumber, 1, 1,
@@ -317,7 +306,7 @@ int main(int argc, char **argv) {
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
         launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
+        0, kefirststream, (void **)raw_args1[j-1].data(), 0 // raw_args1是json中指示的storage的下标
     ));
         GPU_RETURN_STATUS(cuLaunchKernel(func,
         launch_params[0], launch_params[1], launch_params[2],
