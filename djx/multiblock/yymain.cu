@@ -614,10 +614,10 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
     for(int i=0;i++;i<784)
     {
-    std::cout<<placeholder2[1024*i+i]<<" ";
+    printf("%d  ",placeholder2[1024*i+i]);
     if(i%10==0)
     {
-    std::cout<<std::endl;
+    printf("\n");
     }
     }
 
