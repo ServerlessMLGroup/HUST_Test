@@ -10,9 +10,9 @@
 #define LAUNCH_BLOCKY 1
 #define ORI_BLOCKY 1
 #define ORI_BLOCKZ 512
-#define LAUNCH_BLOCKZ ORI_BLOCKZ * 5 // 5是额外部分，满足多层覆盖
+#define LAUNCH_BLOCKZ ORI_BLOCKZ * 3 // 5是额外部分，满足多层覆盖
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 64
+#define WORKER_NUM_PERSM 24
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
 #define FLAG_BLOCK_BASE 0
@@ -70,9 +70,10 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
     int offset;
     int smid;
     //judge whether to continue work,which work to fetch
-    if(threadIdx.x+threadIdx.y+threadIdx.z == 0)
+    if(threadIdx.x + threadIdx.y + threadIdx.z == 0)
     {
        smid = get_smid();
+       printf("%d smid %d\n", number, smid);
        basicoffset = -1;
        //judge whther sm id is right
        if((smid < number * SM_NUM)&&(smid >= (number - 1) * SM_NUM))
@@ -89,6 +90,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
     __syncthreads();
     if (basicoffset < 0) return ;
     //every thread has its own offset
+    // if (threadIdx.x + threadIdx.y + threadIdx.z == 0) printf("smid %d\n", smid);
     offset = basicoffset;
     while(offset < (ORI_BLOCKX * ORI_BLOCKY * ORI_BLOCKZ)) {
         int vx = (offset)/(ORI_BLOCKY * ORI_BLOCKZ);
