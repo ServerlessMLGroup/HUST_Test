@@ -71,7 +71,7 @@ __device__ uint get_smid(void) {
 //         __shfl_up((var), (offset), (width))
 // #endif
 
-extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int number,int *flag, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
+extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int *worker,int number,int *flag, float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
     int* sm_flag = flag;
     __shared__ int basicoffset;
     int offset;
@@ -90,6 +90,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
             if(blocknumber< WORKER_NUM_PERSM)
             {
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
+                worker[smid]=worker[smid]+1;
                 //printf("smid %d - boffset %d\n", smid, basicoffset);
             }
        }
@@ -522,6 +523,16 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMemcpy(g_flag_, flag_, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice));
 
     //prepare parm for kernel 1
+    float *workers = new int[80];
+    for(int i=0;i<80;i++)
+    {
+    workers[i]=0;
+    }
+    float *g_woker;
+    checkCudaErrors(cudaMalloc((void **)&g_worker, sizeof(int) * 80));
+    checkCudaErrors(cudaMemcpy( g_worker,workers, sizeof(int) * 80, cudaMemcpyHostToDevice));
+
+
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
     {
@@ -608,8 +619,8 @@ int main(int argc, char *argv[]) {
 
     printf("hello?");
     // launch kernel
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
-    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
+    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_worker,1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
+    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(g_worker,2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
     cudaDeviceSynchronize();
     printf("hello2?");
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
@@ -617,10 +628,19 @@ int main(int argc, char *argv[]) {
     for(int j=0;j<784;j++)
     {
     printf("%f  ",placeholder2[1024*j+j]);
-    if(j%10==0)
+    if(j%10==0&&j!=0)
     {
     printf("\n");
     }
     }
 
+    checkCudaErrors(cudaMemcpy(  workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
+    for(int j=0;j<80;j++)
+    {
+    printf("%d  ",[1024*j+j]);
+    if(j%10==0&&j!=0)
+    {
+    printf("\n");
+    }
+    }
 }
