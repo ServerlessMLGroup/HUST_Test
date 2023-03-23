@@ -223,7 +223,7 @@ int main(int argc, char **argv) {
 
           if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
-          //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
+          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage2[arg_idx],temp[kernel_offset], evsize[kernel_offset],iosecondstream));
           kernel_offset++;
         }
@@ -327,7 +327,7 @@ int main(int argc, char **argv) {
     std::cout<<"All "<<" Use Time: "<< timeuse <<std::endl;
 
 
-    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
+    //GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
     cuStreamSynchronize(iofirststream);
 
     for(int j=0;j<784;j++)
