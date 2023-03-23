@@ -617,7 +617,7 @@ int main(int argc, char *argv[]) {
     std::cout<<placeholder2[1024*i+i]<<" ";
     if(i%10==0)
     {
-    std:cout<<std::endl;
+    std::cout<<std::endl;
     }
     }
 
