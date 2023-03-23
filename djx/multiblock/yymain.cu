@@ -523,12 +523,12 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMemcpy(g_flag_, flag_, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice));
 
     //prepare parm for kernel 1
-    float *workers = new int[80];
+    int *workers = new int[80];
     for(int i=0;i<80;i++)
     {
     workers[i]=0;
     }
-    float *g_woker;
+    int *g_woker;
     checkCudaErrors(cudaMalloc((void **)&g_worker, sizeof(int) * 80));
     checkCudaErrors(cudaMemcpy( g_worker,workers, sizeof(int) * 80, cudaMemcpyHostToDevice));
 
