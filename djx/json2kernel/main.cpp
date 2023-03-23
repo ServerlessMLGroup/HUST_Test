@@ -208,12 +208,12 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[66],placeholder4, sizeof(float)*512,iofirststream));
 
-    float *placeholder5 = new float[802816];
-    for(int i=0;i<802816;i++)
+    float *placeholder5 = new float[512];
+    for(int i=0;i<512;i++)
     {
     placeholder5[i]=6;
     }
-    //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder5, sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder5, sizeof(float)*512,iofirststream));
 
 
     for (KernelInfo &kernel_info : model->kernels) {
