@@ -326,8 +326,10 @@ int main(int argc, char **argv) {
     timeuse = t2.tv_sec - t1.tv_sec + (t2.tv_usec - t1.tv_usec)/1000000.0;
     std::cout<<"All "<<" Use Time: "<< timeuse <<std::endl;
 
+    /*
     GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
     cuStreamSynchronize(iofirststream);
+
     for(int j=0;j<784;j++)
     {
     if(j%10==0)
@@ -336,6 +338,7 @@ int main(int argc, char **argv) {
     }
     std::cout<<placeholder2[1024*j+j]<<" ";
     }
+    */
 
     //std::vector<float> output(1000);
     // RETURN_STATUS(get_output(output));
