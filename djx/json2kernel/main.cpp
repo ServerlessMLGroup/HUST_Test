@@ -223,7 +223,7 @@ int main(int argc, char **argv) {
 
           if(params->mpdata->find(storage_info.name) == params->mpdata->end())
             continue;
-          GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
+          //GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[arg_idx],temp[kernel_offset], evsize[kernel_offset],iofirststream));
           GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage2[arg_idx],temp[kernel_offset], evsize[kernel_offset],iosecondstream));
           kernel_offset++;
         }
