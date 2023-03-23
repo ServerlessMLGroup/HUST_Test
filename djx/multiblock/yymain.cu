@@ -85,7 +85,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
             if(blocknumber< WORKER_NUM_PERSM)
             {
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
-                //printf("smid %d - boffset %d\n", smid, basicoffset);
+                printf("smid %d - boffset %d\n", smid, basicoffset);
             }
        }
     }
