@@ -19,7 +19,7 @@
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 16
+#define WORKER_NUM_PERSM 4
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
@@ -635,7 +635,7 @@ int main(int argc, char *argv[]) {
     }
 
     printf("\n");
-    checkCudaErrors(cudaMemcpy(  workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
+    checkCudaErrors(cudaMemcpy(workers,g_worker,sizeof(int) * 80, cudaMemcpyDeviceToHost));
     for(int j=0;j<80;j++)
     {
     printf("%d  ",workers[1024*j+j]);
