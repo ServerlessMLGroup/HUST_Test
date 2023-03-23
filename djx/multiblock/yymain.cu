@@ -81,9 +81,10 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        {
             //judge whether worker is enough
             //get the basic offset for the block
-            if(atomicAdd(sm_flag + smid, 1)< WORKER_NUM_PERSM)
+            int blocknumber=atomicAdd(sm_flag + smid, 1);
+            if(blocknumber< WORKER_NUM_PERSM)
             {
-                basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + sm_flag[smid]-1;
+                basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
                 printf("smid %d - boffset %d\n", smid, basicoffset);
             }
        }
