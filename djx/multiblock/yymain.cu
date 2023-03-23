@@ -495,7 +495,7 @@ int main(int argc, char *argv[]) {
     }
     int gpu_no = atoi(argv[1]);
     checkCudaErrors(cudaSetDevice(gpu_no));
-    printf("hello?");
+
     // allocate stream
     int num_streams = 2;
     cudaStream_t streams[num_streams];
@@ -614,7 +614,7 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
     for(int i=0;i++;i<784)
     {
-    printf("%d  ",placeholder2[1024*i+i]);
+    printf("%f  ",placeholder2[1024*i+i]);
     if(i%10==0)
     {
     printf("\n");
