@@ -144,6 +144,8 @@ int main(int argc, char **argv) {
 
     cuStreamSynchronize(kefirststream);
 
+    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)deviceptr2, sizeof(float)*802816,iofirststream));
+    cuStreamSynchronize(iofirststream);
     for(int j=0;j<784;j++)
     {
     if(j%10==0)
