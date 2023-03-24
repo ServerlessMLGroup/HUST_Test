@@ -1,4 +1,3 @@
-#include "model.h"
 #include "log.h"
 #include <bits/unique_ptr.h>
 #include <cuda.h>
