@@ -9,6 +9,7 @@
 #include <math.h>
 #include "unistd.h"
 #include <thread>
+#include <vector>
 #include <sys/time.h>
 #include <unistd.h>
 
@@ -121,7 +122,7 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr5,placeholder5, sizeof(float)*512,iofirststream));
 
-    std::vector<CUdeviceptr*> extrarg;
+    vector<CUdeviceptr*> extrarg;
     extrarg.push_back(&deviceptr0);
     extrarg.push_back(&deviceptr1);
     extrarg.push_back(&deviceptr2);
@@ -147,6 +148,6 @@ int main(int argc, char **argv) {
     }
 
     printf("reset model!\n");
-    model.reset();
+
     return 0;
 }
