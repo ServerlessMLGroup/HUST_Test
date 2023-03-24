@@ -191,7 +191,7 @@ int main(int argc, char **argv) {
     float *placeholder1 = new float[2359296];
     for(int i=0;i<2359296;i++)
     {
-    placeholder1[i]=2;
+    placeholder1[i]=1;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr1,placeholder1, sizeof(float)*2359296,iofirststream));
 
@@ -199,7 +199,7 @@ int main(int argc, char **argv) {
     float *placeholder2 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder2[i]=3;
+    placeholder2[i]=1;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr2,placeholder2, sizeof(float)*802816,iofirststream));
 
@@ -207,7 +207,7 @@ int main(int argc, char **argv) {
     float *placeholder3 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder3[i]=4;
+    placeholder3[i]=1;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr3,placeholder3, sizeof(float)*802816,iofirststream));
 
@@ -215,7 +215,7 @@ int main(int argc, char **argv) {
     float *placeholder4 = new float[512];
     for(int i=0;i<512;i++)
     {
-    placeholder4[i]=5;
+    placeholder4[i]=1;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr4,placeholder4, sizeof(float)*512,iofirststream));
 
