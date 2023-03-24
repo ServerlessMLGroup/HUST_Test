@@ -1,4 +1,3 @@
-#include "log.h"
 #include <bits/unique_ptr.h>
 #include <cuda.h>
 #include "cuda_runtime.h"
