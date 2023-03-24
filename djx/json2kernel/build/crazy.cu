@@ -12,6 +12,7 @@
 #include <vector>
 #include <sys/time.h>
 #include <unistd.h>
+using namespace std;
 
 // #include <glog/logging.h>
 //Notice
