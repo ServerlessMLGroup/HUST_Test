@@ -309,8 +309,8 @@ int main(int argc, char **argv) {
 
         if(j==26){
         GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
+        1, 1, 512,
+        7, 1, 4,
         0, kefirststream, (void **)extrarg.data(), 0 // raw_args1是json中指示的storage的下标
     ));
 
