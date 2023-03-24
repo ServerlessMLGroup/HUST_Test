@@ -329,7 +329,7 @@ int main(int argc, char **argv) {
     std::cout<<"All "<<" Use Time: "<< timeuse <<std::endl;
 
 
-    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)storage1[68], sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)deviceptr2, sizeof(float)*802816,iofirststream));
     cuStreamSynchronize(iofirststream);
 
     for(int j=0;j<784;j++)
