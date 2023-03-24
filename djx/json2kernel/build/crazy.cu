@@ -49,7 +49,10 @@ int main(int argc, char **argv) {
     }
     int gpu_no = atoi(argv[1]);
 
-
+    CUcontext ctx;
+    GPU_RETURN_STATUS(cuInit(0));
+    GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
+    GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
     CUmodule mod;
     GPU_RETURN_STATUS(cuModuleLoad(&mod, "/home/wuhao/HUST_Test/djx/json2kernel/resource/resnet18.ptx"));
     printf("load cuda kernels!\n");
