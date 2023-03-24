@@ -50,6 +50,8 @@ int main(int argc, char **argv) {
     int gpu_no = atoi(argv[1]);
 
     CUcontext ctx;
+    CUdevice device;
+    CUresult result;
     GPU_RETURN_STATUS(cuInit(0));
     GPU_RETURN_STATUS(cuDeviceGet(&device, gpu_no));
     GPU_RETURN_STATUS(cuCtxCreate(&ctx, 0, device));
