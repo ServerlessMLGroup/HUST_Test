@@ -27047,23 +27047,7 @@ extern "C" __global__ void fused_nn_conv2d_2_kernel0(int* flag,int* blocknum,int
   compute[((((((((int)vz) * 12544) + (((int)threadIdx.z) * 196)) + (((int)vy) * 98)) + ((int)threadIdx.x)) + 11060))] = compute_local[(55)];
   }
 }
-extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
-  int vx=blockIdx.x;
-  int vy=blockIdx.y;
-  int vz=blockIdx.z;
-  int offset=0;
-
-  if((blocknum[0]*blocknum[1]*blocknum[2])>blocksize[0])
-  {
-    offset=vx;
-    while(offset<(blocknum[0]*blocknum[1]*blocknum[2]))
-    {
-
-    offset+=blocksize[0];
-    }
-  }
-  else
-  {
+extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
   float compute[56];
   __shared__ float pad_temp_shared[196];
   __shared__ float placeholder_shared[128];
@@ -27441,7 +27425,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int*
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 966))] = max((((compute[(51)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 966))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]), 0.000000e+00f);
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 189))] = max((((compute[(27)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 189))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 3))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 3))]), 0.000000e+00f);
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))] = max((((compute[(55)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]), 0.000000e+00f);
-  }
+
 }
 extern "C" __global__ void fused_nn_global_avg_pool2d_kernel0(int* flag,int* blocknum,int* blocksize,float* __restrict__ placeholder, float* __restrict__ tensor) {
     int vx=blockIdx.x;

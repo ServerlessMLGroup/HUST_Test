@@ -173,6 +173,7 @@ int main(int argc, char **argv) {
     //RETURN_STATUS(set_input());
 
     //check answer
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr0, sizeof(float)*802816));
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
     {
@@ -180,6 +181,7 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[64],placeholder0, sizeof(float)*802816,iofirststream));
 
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr1, sizeof(float)*2359296));
     float *placeholder1 = new float[2359296];
     for(int i=0;i<2359296;i++)
     {
@@ -187,7 +189,7 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[65],placeholder1, sizeof(float)*2359296,iofirststream));
 
-
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr2, sizeof(float)*802816));
     float *placeholder2 = new float[802816];
     for(int i=0;i<802816;i++)
     {
@@ -195,6 +197,7 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[68],placeholder2, sizeof(float)*802816,iofirststream));
 
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr3, sizeof(float)*802816));
     float *placeholder3 = new float[802816];
     for(int i=0;i<802816;i++)
     {
@@ -202,6 +205,7 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[59],placeholder3, sizeof(float)*802816,iofirststream));
 
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr4, sizeof(float)*512));
     float *placeholder4 = new float[512];
     for(int i=0;i<512;i++)
     {
@@ -209,12 +213,21 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[66],placeholder4, sizeof(float)*512,iofirststream));
 
+    GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr5, sizeof(float)*512));
     float *placeholder5 = new float[512];
     for(int i=0;i<512;i++)
     {
     placeholder5[i]=2;
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder5, sizeof(float)*512,iofirststream));
+
+    std::vector<CUdeviceptr*> extrarg;
+    extrarg.push_back(&deviceptr0);
+    extrarg.push_back(&deviceptr1);
+    extrarg.push_back(&deviceptr2);
+    extrarg.push_back(&deviceptr3);
+    extrarg.push_back(&deviceptr4);
+    extrarg.push_back(&deviceptr5);
 
 
     for (KernelInfo &kernel_info : model->kernels) {
@@ -289,32 +302,12 @@ int main(int argc, char **argv) {
         uint32_t *launch_params = kernel_info.launch_params;
 
         if(j==26){
+        GPU_RETURN_STATUS(cuLaunchKernel(func,
+        launch_params[0], launch_params[1], launch_params[2],
+        launch_params[3], launch_params[4], launch_params[5],
+        0, kefirststream, (void **)extrarg.data(), 0 // raw_args1是json中指示的storage的下标
+    ));
 
-        if(launch_params[0]*launch_params[1]*launch_params[2]>blcoknumber)
-        {
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        blcoknumber, 1, 1,
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        blcoknumber, 1, 1,
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        }
-        else{
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kefirststream, (void **)raw_args1[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        GPU_RETURN_STATUS(cuLaunchKernel(func,
-        launch_params[0], launch_params[1], launch_params[2],
-        launch_params[3], launch_params[4], launch_params[5],
-        0, kesecondstream, (void **)raw_args2[j].data(), 0 // raw_args1是json中指示的storage的下标
-    ));
-        }
         }
 
         j++;
