@@ -19,7 +19,7 @@
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 24
+#define WORKER_NUM_PERSM 8
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
@@ -81,8 +81,8 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
     {
        basicoffset=-1;
        smid = get_smid();
-       if (number == 2) printf("smid %d\n", smid);
-       //judge whther sm id is right
+
+       //judge whether sm id is right
        if((smid < number*SM_NUM)&&(smid >= (number-1)*SM_NUM))
        {
             //judge whether worker is enough
