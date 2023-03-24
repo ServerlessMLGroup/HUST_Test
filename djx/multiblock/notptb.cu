@@ -467,21 +467,8 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(floa
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))] = max((((compute[(55)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]), 0.000000e+00f);
 }
 
-mutex workend2;
-mutex workend1;
-//diy thread
 
-__global__ void kernel(float n1, float n2, float n3, int stop) {
-	for (int i = 0; i < stop; i++) {
-		n1=cosf(n1);
-		n3=n2/n3;
-	}
-}
-
-
-//void *thread1(void *dummy,void* d_A,void *h_A)
-//
-void thread1(int i)
+int main()
 {
     // init device
     checkCudaErrors(cudaSetDevice(1));
@@ -510,17 +497,6 @@ void thread1(int i)
     }
     checkCudaErrors(cudaMalloc((void **)&g_flag_, sizeof(int) * FLAG_LENGTH));
     checkCudaErrors(cudaMemcpy(g_flag_, flag_, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice));
-
-    //prepare parm for kernel 1
-    int *workers = new int[80];
-    for(int i=0;i<80;i++)
-    {
-    workers[i]=0;
-    }
-    int *g_worker;
-    checkCudaErrors(cudaMalloc((void **)&g_worker, sizeof(int) * 80));
-    checkCudaErrors(cudaMemcpy( g_worker,workers, sizeof(int) * 80, cudaMemcpyHostToDevice));
-
 
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
@@ -597,24 +573,15 @@ void thread1(int i)
 
     fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
     cudaDeviceSynchronize();
-
-}
-
-/*
-pthread_t ntid1;
-pthread_t ntid2;
-*/
-
-int main()
-{
-    //preparation
-    workend1.lock();
-    workend2.lock();
-    //thread second=thread(thread1,1);
-    thread first=thread(thread1,2);
-    //second.join();
-    first.join();
-
+    checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
+    for(int j=0;j<784;j++)
+    {
+    if(j%10==0)
+    {
+    printf("\n");
+    }
+    printf("%f  ",placeholder2[1024*j+j]);
+    }
 
     return 0;
 }
