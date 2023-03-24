@@ -185,7 +185,7 @@ int main(int argc, char **argv) {
     {
     placeholder0[i]=1;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[64],placeholder0, sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr0,placeholder0, sizeof(float)*802816,iofirststream));
 
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr1, sizeof(float)*2359296));
     float *placeholder1 = new float[2359296];
@@ -193,7 +193,7 @@ int main(int argc, char **argv) {
     {
     placeholder1[i]=2;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[65],placeholder1, sizeof(float)*2359296,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr1,placeholder1, sizeof(float)*2359296,iofirststream));
 
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr2, sizeof(float)*802816));
     float *placeholder2 = new float[802816];
@@ -201,7 +201,7 @@ int main(int argc, char **argv) {
     {
     placeholder2[i]=3;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[68],placeholder2, sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr2,placeholder2, sizeof(float)*802816,iofirststream));
 
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr3, sizeof(float)*802816));
     float *placeholder3 = new float[802816];
@@ -209,7 +209,7 @@ int main(int argc, char **argv) {
     {
     placeholder3[i]=4;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[59],placeholder3, sizeof(float)*802816,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr3,placeholder3, sizeof(float)*802816,iofirststream));
 
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr4, sizeof(float)*512));
     float *placeholder4 = new float[512];
@@ -217,7 +217,7 @@ int main(int argc, char **argv) {
     {
     placeholder4[i]=5;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[66],placeholder4, sizeof(float)*512,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr4,placeholder4, sizeof(float)*512,iofirststream));
 
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr5, sizeof(float)*512));
     float *placeholder5 = new float[512];
@@ -225,7 +225,7 @@ int main(int argc, char **argv) {
     {
     placeholder5[i]=6;
     }
-    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)storage1[67],placeholder5, sizeof(float)*512,iofirststream));
+    GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr5,placeholder5, sizeof(float)*512,iofirststream));
 
     std::vector<CUdeviceptr*> extrarg;
     extrarg.push_back(&deviceptr0);
