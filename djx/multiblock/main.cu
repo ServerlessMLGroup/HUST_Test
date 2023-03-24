@@ -16,7 +16,7 @@
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
 #define FLAG_BLOCK_BASE 0
-#define FLAG_SM_BASE (FLAG_BLOCK_BASE + SM_NUM)
+#define FLAG_SM_BASE (FLAG_BLOCK_BASE + BLOCK_NUM)
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 // nvcc -arch=native main.cu -o main
 
