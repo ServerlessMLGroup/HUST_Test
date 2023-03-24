@@ -537,7 +537,7 @@ int main()
     float *placeholder4 = new float[512];
     for(int i=0;i<512;i++)
     {
-    placeholder4[i]=6;
+    placeholder4[i]=7;
     }
     float *g_ph4;
     cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
@@ -546,7 +546,7 @@ int main()
     float *placeholder5 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder5[i]=7;
+    placeholder5[i]=6;
     }
     float *g_ph5;
     cudaMalloc((void **)&g_ph5, sizeof(float) * 802816);
