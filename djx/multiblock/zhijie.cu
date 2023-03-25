@@ -521,7 +521,7 @@ int main(int argc, char **argv) {
 
     dim3 Dim_block = dim3(1, 1, 512);
     dim3 Dim_thread = dim3(7, 1, 4);
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0,kefirststream >>>(deviceptr0, deviceptr1, deviceptr2, deviceptr3, deviceptr4, deviceptr5);
+    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0,kefirststream >>>((float*)deviceptr0, (float*)deviceptr1, (float*)deviceptr2, (float*)deviceptr3, (float*)deviceptr4, (float*)deviceptr5);
 
     cuStreamSynchronize(kefirststream);
 
