@@ -19,7 +19,7 @@
 #define ORI_BLOCKZ 32
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 8
+#define WORKER_NUM_PERSM 4
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
@@ -1184,7 +1184,7 @@ int main(int argc, char *argv[]) {
 
     printf("hello?");
     // launch kernel
-    //fused_nn_conv2d_add_nn_relu_6_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_worker,1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3);
+    fused_nn_conv2d_add_nn_relu_6_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_worker,1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3);
 
     cudaDeviceSynchronize();
 
