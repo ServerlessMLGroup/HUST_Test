@@ -1936,8 +1936,8 @@ int main()
 
     dim3 Dim_block = dim3(1, 1, 256);
     dim3 Dim_thread = dim3(7, 1, 8);
-
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_ph0, g_ph1, g_ph2, g_ph3);
+    
+    fused_nn_conv2d_add_nn_relu_1_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_ph0, g_ph1, g_ph2, g_ph3);
     cudaDeviceSynchronize();
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
     for(int j=0;j<784;j++)
