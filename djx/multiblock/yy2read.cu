@@ -540,7 +540,7 @@ int main(int argc, char *argv[]) {
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder0[i]=3;
+    placeholder0[i]=1;
     }
     float *g_ph0;
     checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 802816));
@@ -553,12 +553,12 @@ int main(int argc, char *argv[]) {
     }
     float *g_ph1;
     checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 2359296));
-    //checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
+    checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
     float *placeholder2 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder2[i]=4;
+    placeholder2[i]=3;
     }
     float *g_ph2;
     checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 802816));
@@ -567,7 +567,7 @@ int main(int argc, char *argv[]) {
     float *placeholder3 = new float[802816];
     for(int i=0;i<802816;i++)
     {
-    placeholder3[i]=5;
+    placeholder3[i]=4;
     }
     float *g_ph3;
     cudaMalloc((void **)&g_ph3, sizeof(float) * 802816);
@@ -576,7 +576,7 @@ int main(int argc, char *argv[]) {
     float *placeholder4 = new float[512];
     for(int i=0;i<512;i++)
     {
-    placeholder4[i]=7;
+    placeholder4[i]=5;
     }
     float *g_ph4;
     cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
