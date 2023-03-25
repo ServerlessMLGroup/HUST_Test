@@ -1,4 +1,5 @@
-float compute[56];
+extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
+  float compute[56];
   __shared__ float pad_temp_shared[196];
   __shared__ float placeholder_shared[128];
   compute[(0)] = 0.000000e+00f;
@@ -375,3 +376,4 @@ float compute[56];
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 966))] = max((((compute[(51)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 966))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]), 0.000000e+00f);
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 189))] = max((((compute[(27)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 189))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 3))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 3))]), 0.000000e+00f);
   T_relu[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))] = max((((compute[(55)] + placeholder2[(((((((int)blockIdx.z) * 1568) + (((int)threadIdx.z) * 196)) + ((int)threadIdx.x)) + 973))]) * placeholder3[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]) + placeholder4[(((((((int)blockIdx.z) & 15) * 32) + (((int)threadIdx.z) * 4)) + 19))]), 0.000000e+00f);
+}
