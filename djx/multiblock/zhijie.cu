@@ -462,7 +462,7 @@ int main(int argc, char **argv) {
     CUdeviceptr deviceptr4;
     CUdeviceptr deviceptr5;
 
-    //check answer
+    //cuLaunchPrepare
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr0, sizeof(float)*802816));
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
@@ -511,6 +511,33 @@ int main(int argc, char **argv) {
     }
     GPU_RETURN_STATUS(cuMemcpyHtoDAsync((CUdeviceptr)deviceptr5,placeholder5, sizeof(float)*512,iofirststream));
 
+    //zhijie prepare
+    float *g_ph0;
+    checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 802816));
+    checkCudaErrors(cudaMemcpy(g_ph0, placeholder0, sizeof(float) * 802816, cudaMemcpyHostToDevice));
+
+    float *g_ph1;
+    checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 2359296));
+    checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
+
+    float *g_ph2;
+    checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 802816));
+    checkCudaErrors(cudaMemcpy(g_ph2, placeholder2, sizeof(float) * 802816, cudaMemcpyHostToDevice));
+
+    float *g_ph3;
+    cudaMalloc((void **)&g_ph3, sizeof(float) * 802816);
+    cudaMemcpy(g_ph3, placeholder3, sizeof(float) * 802816, cudaMemcpyHostToDevice);
+
+    float *g_ph4;
+    cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
+    cudaMemcpy(g_ph4, placeholder4, sizeof(float) * 512, cudaMemcpyHostToDevice);
+
+    float *g_ph5;
+    cudaMalloc((void **)&g_ph5, sizeof(float) * 802816);
+    cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 802816, cudaMemcpyHostToDevice);
+
+
+
     vector<CUdeviceptr*> extrarg;
     extrarg.push_back(&deviceptr0);
     extrarg.push_back(&deviceptr1);
@@ -521,12 +548,28 @@ int main(int argc, char **argv) {
 
     dim3 Dim_block = dim3(1, 1, 512);
     dim3 Dim_thread = dim3(7, 1, 4);
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0,kefirststream >>>((float*)deviceptr0, (float*)deviceptr1, (float*)deviceptr2, (float*)deviceptr3, (float*)deviceptr4, (float*)deviceptr5);
+    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0,kefirststream >>>((float*)deviceptr0, (float*)deviceptr1, (float*)deviceptr2, (float*)deviceptr3, (float*)deviceptr4, (float*)deviceptr5);
+    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, kescondstream>>>(g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
 
-    cuStreamSynchronize(kefirststream);
+    //cuStreamSynchronize(kefirststream);
+    cuStreamSynchronize(kescondstream);
 
-    GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)deviceptr2, sizeof(float)*802816,iofirststream));
-    cuStreamSynchronize(iofirststream);
+
+    //GPU_RETURN_STATUS(cuMemcpyDtoHAsync(placeholder2,(CUdeviceptr)deviceptr2, sizeof(float)*802816,iofirststream));
+    //cuStreamSynchronize(iofirststream);
+
+    checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
+
+
+    for(int j=0;j<784;j++)
+    {
+    if(j%10==0)
+    {
+    printf("\n");
+    }
+    printf("%f  ",placeholder2[1024*j+j]);
+    }
+
     for(int j=0;j<784;j++)
     {
     if(j%10==0)
