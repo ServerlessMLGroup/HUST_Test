@@ -55,16 +55,7 @@ __device__ uint get_smid(void) {
 
 }
 
-// #if defined(__CUDA_ARCH__) && (__CUDA_ARCH__ < 700)
-// #define __shfl_sync(mask, var, lane, width) \
-//         __shfl((var), (lane), (width))
 
-// #define __shfl_down_sync(mask, var, offset, width) \
-//         __shfl_down((var), (offset), (width))
-
-// #define __shfl_up_sync(mask, var, offset, width) \
-//         __shfl_up((var), (offset), (width))
-// #endif
 extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
   float compute[56];
   __shared__ float pad_temp_shared[196];
