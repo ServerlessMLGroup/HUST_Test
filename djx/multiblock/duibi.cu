@@ -484,7 +484,7 @@ int main(int argc, char **argv) {
     }
     float *g_ph1;
     checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 2359296));
-    //checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
+    checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
     float *placeholder2 = new float[802816];
     for(int i=0;i<802816;i++)
