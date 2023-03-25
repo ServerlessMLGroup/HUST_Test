@@ -1092,7 +1092,7 @@ int main()
 
 
     dim3 Dim_block = dim3(1, 28, 32);
-    dim3 Dim_thread = dim3(56, 1, 1);
+    dim3 Dim_thread = dim3(56, 1, 2);
 
     fused_nn_conv2d_add_nn_relu_6_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_ph0, g_ph1, g_ph2, g_ph3);
     cudaDeviceSynchronize();
