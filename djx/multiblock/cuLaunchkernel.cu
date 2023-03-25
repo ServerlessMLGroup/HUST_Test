@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
     CUdeviceptr deviceptr3;
     CUdeviceptr deviceptr4;
     CUdeviceptr deviceptr5;
+
     //check answer
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr0, sizeof(float)*802816));
     float *placeholder0 = new float[802816];
