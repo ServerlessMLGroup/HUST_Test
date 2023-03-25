@@ -543,14 +543,14 @@ int main()
     cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
     cudaMemcpy(g_ph4, placeholder4, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
-    float *placeholder5 = new float[802816];
-    for(int i=0;i<802816;i++)
+    float *placeholder5 = new float[512];
+    for(int i=0;i<512;i++)
     {
     placeholder5[i]=6;
     }
     float *g_ph5;
-    cudaMalloc((void **)&g_ph5, sizeof(float) * 802816);
-    cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 802816, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph5, sizeof(float) * 512);
+    cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
 
     dim3 Dim_block = dim3(1, 1, 512);
