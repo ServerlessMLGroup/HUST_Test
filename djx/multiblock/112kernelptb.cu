@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sys/time.h>
 #include <math.h>
-
+#include <unistd.h>
 
 #define LAUNCH_THREADX 56
 #define LAUNCH_THREADY 1
