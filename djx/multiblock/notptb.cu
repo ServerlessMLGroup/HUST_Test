@@ -23,28 +23,6 @@
 using namespace std;
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 
-
-#define LAUNCH_THREADX 7
-#define LAUNCH_THREADY 1
-#define LAUNCH_THREADZ 4
-
-#define LAUNCH_BLOCKX 1
-#define ORI_BLOCKX 1
-#define LAUNCH_BLOCKY 1
-#define ORI_BLOCKY 1
-#define LAUNCH_BLOCKZ 512 * 3 // 5是额外部分，满足多层覆盖
-#define ORI_BLOCKZ 512
-
-#define SM_NUM 32
-#define WORKER_NUM_PERSM 24
-
-#define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
-#define FLAG_LENGTH 65535
-#define FLAG_BLOCK_BASE 0
-#define FLAG_SM_BASE (FLAG_BLOCK_BASE + 1)
-#define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
-// nvcc -arch=native main.cu -o main
-
 #define GPU_RETURN_STATUS(cmd) \
 { \
     CUresult result = cmd; \

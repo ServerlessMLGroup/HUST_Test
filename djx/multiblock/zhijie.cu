@@ -14,6 +14,8 @@
 #include <unistd.h>
 using namespace std;
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
+
+
 // #include <glog/logging.h>
 //Notice
 // To make some experiments, i(yy) make some changes here. Before changing, i copied all the code
