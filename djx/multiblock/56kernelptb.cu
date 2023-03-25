@@ -2015,7 +2015,7 @@ int main(int argc, char *argv[]) {
     float *placeholder3 = new float[512];
     for(int i=0;i<512;i++)
     {
-    placeholder3[i]=5;
+    placeholder3[i]=4;
     }
     float *g_ph3;
     cudaMalloc((void **)&g_ph3, sizeof(float) * 512);
