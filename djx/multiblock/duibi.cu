@@ -468,57 +468,57 @@ int main(int argc, char **argv) {
 
 
     //zhijie prepare
-    float *g_ph0;
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
     {
     placeholder0[i]=1;
     }
+    float *g_ph0;
     checkCudaErrors(cudaMalloc((void **)&g_ph0, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph0, placeholder0, sizeof(float) * 802816, cudaMemcpyHostToDevice));
 
-    float *g_ph1;
     float *placeholder1 = new float[2359296];
     for(int i=0;i<2359296;i++)
     {
     placeholder1[i]=2;
     }
+    float *g_ph1;
     checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 2359296));
-    checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
+    //checkCudaErrors(cudaMemcpy(g_ph1, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
-    float *g_ph2;
     float *placeholder2 = new float[802816];
     for(int i=0;i<802816;i++)
     {
     placeholder2[i]=3;
     }
+    float *g_ph2;
     checkCudaErrors(cudaMalloc((void **)&g_ph2, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph2, placeholder2, sizeof(float) * 802816, cudaMemcpyHostToDevice));
 
-    float *g_ph3;
     float *placeholder3 = new float[802816];
     for(int i=0;i<802816;i++)
     {
     placeholder3[i]=4;
     }
+    float *g_ph3;
     cudaMalloc((void **)&g_ph3, sizeof(float) * 802816);
     cudaMemcpy(g_ph3, placeholder3, sizeof(float) * 802816, cudaMemcpyHostToDevice);
 
-    float *g_ph4;
     float *placeholder4 = new float[512];
     for(int i=0;i<512;i++)
     {
     placeholder4[i]=5;
     }
+    float *g_ph4;
     cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
     cudaMemcpy(g_ph4, placeholder4, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
-    float *g_ph5;
     float *placeholder5 = new float[512];
     for(int i=0;i<512;i++)
     {
     placeholder5[i]=6;
     }
+    float *g_ph5;
     cudaMalloc((void **)&g_ph5, sizeof(float) * 512);
     cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
