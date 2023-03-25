@@ -448,7 +448,7 @@ int main(int argc, char **argv) {
     CUstream kefirststream;
     cuStreamCreate(&kefirststream,0);
     CUstream kesecondstream;
-    cuStreamCreate(&kesecondstream,0);
+    cuStreamCreate(&kescondstream,0);
 
     CUfunction kernel;
     GPU_RETURN_STATUS(
