@@ -15,11 +15,11 @@
 #define ORI_BLOCKX 1
 #define LAUNCH_BLOCKY 1
 #define ORI_BLOCKY 1
-#define LAUNCH_BLOCKZ 512 * 3 // 5是额外部分，满足多层覆盖
+#define LAUNCH_BLOCKZ 512 * 5 // 5是额外部分，满足多层覆盖
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 8
+#define WORKER_NUM_PERSM 24
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
@@ -53,11 +53,11 @@ inline void __checkCudaErrors(cudaError_t err, const char *file, const int line)
 __device__ uint get_smid(void) {
 
     uint ret;
-  
+
     asm("mov.u32 %0, %smid;" : "=r"(ret) );
-  
+
     return ret;
-  
+
 }
 
 // #if defined(__CUDA_ARCH__) && (__CUDA_ARCH__ < 700)
@@ -82,13 +82,13 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        basicoffset=-1;
        smid = get_smid();
 
-       //judge whether sm id is right
+       //judge whther sm id is right
        if((smid < number*SM_NUM)&&(smid >= (number-1)*SM_NUM))
        {
             //judge whether worker is enough
             //get the basic offset for the block
             int blocknumber=atomicAdd(sm_flag + smid, 1);
-            if(blocknumber< WORKER_NUM_PERSM) 
+            if(blocknumber< WORKER_NUM_PERSM)
             {
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
                 atomicAdd(worker + smid, 1);
@@ -580,7 +580,7 @@ int main(int argc, char *argv[]) {
     }
     float *g_ph4;
     cudaMalloc((void **)&g_ph4, sizeof(float) * 512);
-    cudaMemcpy(g_ph4,placeholder4, sizeof(float) * 512, cudaMemcpyHostToDevice);
+    cudaMemcpy(g_ph4, placeholder4, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
     float *placeholder5 = new float[802816];
     for(int i=0;i<802816;i++)
@@ -624,7 +624,7 @@ int main(int argc, char *argv[]) {
     printf("hello?");
     // launch kernel
     fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_worker,1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(g_worker,2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
+    //fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[1]>>>(g_worker,2, g_flag_, g_ph0_, g_ph1_, g_ph2_, g_ph3_, g_ph4_, g_ph5_);
     cudaDeviceSynchronize();
     printf("hello2?");
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
