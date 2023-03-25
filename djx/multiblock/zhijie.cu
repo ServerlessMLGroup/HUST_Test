@@ -573,7 +573,7 @@ int main(int argc, char **argv) {
 
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
 
-
+    /*
     for(int j=0;j<784;j++)
     {
     if(j%10==0)
@@ -582,7 +582,8 @@ int main(int argc, char **argv) {
     }
     printf("%f  ",placeholder2[1024*j+j]);
     }
-
+    */
+    
     for(int j=0;j<784;j++)
     {
     if(j%10==0)
