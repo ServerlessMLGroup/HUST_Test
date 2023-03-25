@@ -2027,7 +2027,7 @@ int main(int argc, char *argv[]) {
 
     printf("hello?");
     // launch kernel
-    fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_worker,1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3);
+    fused_nn_conv2d_add_nn_relu_1_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_worker,1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3);
 
     cudaDeviceSynchronize();
 
