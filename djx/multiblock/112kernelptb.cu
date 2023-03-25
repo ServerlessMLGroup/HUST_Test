@@ -1187,8 +1187,9 @@ int main(int argc, char *argv[]) {
     fused_nn_conv2d_add_nn_relu_6_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_worker,1, g_flag, g_ph0, g_ph1, g_ph2, g_ph3);
 
     cudaDeviceSynchronize();
-
+    sleep(1);
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 6422528, cudaMemcpyDeviceToHost));
+
     printf("hello3?\n");
     for(int j=0;j<784;j++)
     {
