@@ -527,8 +527,8 @@ int main(int argc, char **argv) {
     {
     placeholder5[i]=6;
     }
-    cudaMalloc((void **)&g_ph5, sizeof(float) * 802816);
-    cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 802816, cudaMemcpyHostToDevice);
+    cudaMalloc((void **)&g_ph5, sizeof(float) * 512);
+    cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
     //cuLaunchPrepare
     GPU_RETURN_STATUS(cuMemAlloc((CUdeviceptr*)&deviceptr0, sizeof(float)*802816));
