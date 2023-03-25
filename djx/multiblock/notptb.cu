@@ -459,23 +459,6 @@ int main()
     }
 
 
-    // allocate flag
-    int *flag = new int[FLAG_LENGTH];
-    int *g_flag;
-    for (int i = 0; i < FLAG_LENGTH; ++i) {
-        flag[i] = 0;
-    }
-    checkCudaErrors(cudaMalloc((void **)&g_flag, sizeof(int) * FLAG_LENGTH));
-    checkCudaErrors(cudaMemcpy(g_flag, flag, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice));
-
-    int *flag_ = new int[FLAG_LENGTH];
-    int *g_flag_;
-    for (int i = 0; i < FLAG_LENGTH; ++i) {
-        flag_[i] = 0;
-    }
-    checkCudaErrors(cudaMalloc((void **)&g_flag_, sizeof(int) * FLAG_LENGTH));
-    checkCudaErrors(cudaMemcpy(g_flag_, flag_, sizeof(int) * FLAG_LENGTH, cudaMemcpyHostToDevice));
-
     float *placeholder0 = new float[802816];
     for(int i=0;i<802816;i++)
     {
