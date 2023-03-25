@@ -13,7 +13,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 using namespace std;
-
+#define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
 // #include <glog/logging.h>
 //Notice
 // To make some experiments, i(yy) make some changes here. Before changing, i copied all the code
@@ -460,7 +460,7 @@ int main(int argc, char **argv) {
     cuStreamCreate(&iosecondstream,0);
     CUstream kefirststream;
     cuStreamCreate(&kefirststream,0);
-    CUstream kesecondstream;
+    CUstream kescondstream;
     cuStreamCreate(&kescondstream,0);
 
     CUfunction kernel;
