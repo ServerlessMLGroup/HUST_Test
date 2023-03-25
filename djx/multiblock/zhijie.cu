@@ -42,6 +42,19 @@ enum Status {
     }\
 }
 
+inline void __checkCudaErrors(cudaError_t err, const char *file, const int line) {
+  if (CUDA_SUCCESS != err) {
+    const char *errorStr = NULL;
+    errorStr = cudaGetErrorString(err);
+    fprintf(stderr,
+            "checkCudaErrors() Driver API error = %04d \"%s\" from file <%s>, "
+            "line %i.\n",
+            err, errorStr, file, line);
+    exit(EXIT_FAILURE);
+  }
+}
+
+
 extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(float* __restrict__ placeholder, float* __restrict__ placeholder1, float* __restrict__ T_relu, float* __restrict__ placeholder2, float* __restrict__ placeholder3, float* __restrict__ placeholder4) {
   float compute[56];
   __shared__ float pad_temp_shared[196];
