@@ -556,21 +556,6 @@ int main()
     dim3 Dim_block = dim3(1, 1, 512);
     dim3 Dim_thread = dim3(7, 1, 4);
 
-    printf("hello?");
-    // launch kernel
-    /*
-    if(i==1)
-    {
-    workend2.unlock();
-    workend1.lock();
-    }
-    else
-    {
-    workend2.lock();
-    workend1.unlock();
-    }
-    */
-
     fused_nn_conv2d_add_multiply_add_nn_relu_kernel0<<<Dim_block, Dim_thread, 0, streams[0]>>>(g_ph0, g_ph1, g_ph2, g_ph3, g_ph4, g_ph5);
     cudaDeviceSynchronize();
     checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
