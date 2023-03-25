@@ -1188,7 +1188,7 @@ int main(int argc, char *argv[]) {
 
     cudaDeviceSynchronize();
 
-    checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 802816, cudaMemcpyDeviceToHost));
+    checkCudaErrors(cudaMemcpy(placeholder2, g_ph2,sizeof(float) * 6422528, cudaMemcpyDeviceToHost));
     printf("hello3?\n");
     for(int j=0;j<784;j++)
     {
