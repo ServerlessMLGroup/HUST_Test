@@ -1908,7 +1908,7 @@ int main()
     float *placeholder1 = new float[1179648];
     for(int i=0;i<1179648;i++)
     {
-    placeholder1[i]=0;
+    placeholder1[i]=2;
     }
     float *g_ph1;
     checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 1179648));

@@ -19,7 +19,7 @@
 #define ORI_BLOCKZ 256
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 4
+#define WORKER_NUM_PERSM 1
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
@@ -1996,7 +1996,7 @@ int main(int argc, char *argv[]) {
     float *placeholder1 = new float[1179648];
     for(int i=0;i<1179648;i++)
     {
-    placeholder1[i]=0;
+    placeholder1[i]=2;
     }
     float *g_ph1;
     checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 1179648));
