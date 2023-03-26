@@ -1066,7 +1066,7 @@ int main()
     float *placeholder1 = new float[36864];
     for(int i=0;i<36864;i++)
     {
-    placeholder1[i]=0;
+    placeholder1[i]=2;
     }
     float *g_ph1;
     checkCudaErrors(cudaMalloc((void **)&g_ph1, sizeof(float) * 36864));
