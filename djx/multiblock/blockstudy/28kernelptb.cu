@@ -76,6 +76,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
     __shared__ int basicoffset;
     int offset;
     int smid;
+
     //judge whether to continue work,which work to fetch
     if(threadIdx.x+threadIdx.y+threadIdx.z == 0)
     {
@@ -98,7 +99,16 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        }
     }
     __syncthreads();
-    if (basicoffset < 0) return ;
+    if (basicoffset < 0)
+    {
+    for(int sleeptime=0;sleptime<800;sleep++)
+    {
+        __nanosleep(10);
+    }
+
+    return ;
+    }
+
     //every thread has its own offset
     offset = basicoffset;
     // if ((threadIdx.x + threadIdx.y + threadIdx.z) == 0 && (number == 1)) {
