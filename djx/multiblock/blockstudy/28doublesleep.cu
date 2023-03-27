@@ -86,7 +86,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        int blocknumber=atomicAdd(sm_flag + smid, 1);
        atomicAdd(worker + smid, 1);
 
-       if(smid>64)
+       if(smid>63)
        {
        for(int sleeptime=0;sleeptime<400;sleeptime++)
        {
