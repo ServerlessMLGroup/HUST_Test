@@ -110,7 +110,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        }
        else
        {
-       __nanosleep(4000);
+       __nanosleep(40000);
        return;
 
        }
