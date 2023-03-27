@@ -19,7 +19,7 @@
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 1
+#define WORKER_NUM_PERSM 16
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
@@ -82,16 +82,17 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        basicoffset=-1;
        smid = get_smid();
 
+       int blocknumber=atomicAdd(sm_flag + smid, 1);
+       atomicAdd(worker + smid, 1);
+
        //judge whther sm id is right
        if((smid < number*SM_NUM)&&(smid >= (number-1)*SM_NUM))
        {
             //judge whether worker is enough
             //get the basic offset for the block
-            int blocknumber=atomicAdd(sm_flag + smid, 1);
             if(blocknumber< WORKER_NUM_PERSM)
             {
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
-                atomicAdd(worker + smid, 1);
                 //printf("smid %d\n", smid);
             }
        }
