@@ -87,9 +87,9 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        /*
        if(smid>63)
        {
-       for(int sleeptime=0;sleeptime<200;sleeptime++)
+       for(int sleeptime=0;sleeptime<2000;sleeptime++)
        {
-        __nanosleep(100);
+        __nanosleep(1);
        }
        }
        */
