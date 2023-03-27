@@ -82,9 +82,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
     {
        basicoffset=-1;
        smid = get_smid();
-
        int blocknumber=atomicAdd(sm_flag + smid, 1);
-
 
        /*
        if(smid>63)
@@ -108,7 +106,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
                 //printf("smid %d\n", smid);
             }
        }
-       /*
+
        else
        {
        for(int sleeptime=0;sleeptime<2000;sleeptime++)
@@ -116,9 +114,8 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
         __nanosleep(1);
        }
        return;
-
        }
-       */
+
 
     }
     __syncthreads();
