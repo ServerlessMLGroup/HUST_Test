@@ -15,18 +15,18 @@
 #define ORI_BLOCKX 1
 #define LAUNCH_BLOCKY 1
 #define ORI_BLOCKY 1
-#define LAUNCH_BLOCKZ 512 * 3 // 5是额外部分，满足多层覆盖
+#define LAUNCH_BLOCKZ 512 * 10 // 5是额外部分，满足多层覆盖
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 24
+#define WORKER_NUM_PERSM 16
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
 #define FLAG_BLOCK_BASE 0
 #define FLAG_SM_BASE (FLAG_BLOCK_BASE + 1)
 #define checkCudaErrors(err) __checkCudaErrors(err, __FILE__, __LINE__)
-// nvcc -arch=native main.cu -o main
+// nvcc -arch=native yymain.cu -o yymain
 
 #define GPU_RETURN_STATUS(cmd) \
 { \
@@ -97,7 +97,8 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        }
     }
     __syncthreads();
-    if (basicoffset < 0) return ;
+    unsigned long long ns = 10;
+    while (basicoffset < 0) __nanosleep(ns);
     //every thread has its own offset
     offset = basicoffset;
     // if ((threadIdx.x + threadIdx.y + threadIdx.z) == 0 && (number == 1)) {

@@ -1,3072 +1,795 @@
-1 smid 47
-1 smid 10
-1 smid 35
-1 smid 79
-1 smid 59
-1 smid 22
-1 smid 46
-1 smid 11
-1 smid 35
-1 smid 79
-1 smid 59
-1 smid 58
-1 smid 47
-1 smid 78
-1 smid 34
-1 smid 23
-1 smid 79
-1 smid 10
-1 smid 59
-1 smid 46
-1 smid 23
-1 smid 45
-1 smid 22
-1 smid 56
-1 smid 34
-1 smid 21
-1 smid 78
-1 smid 75
-1 smid 58
-1 smid 33
-1 smid 11
-1 smid 9
-1 smid 47
-1 smid 44
-1 smid 23
-1 smid 57
-1 smid 10
-1 smid 20
-1 smid 34
-1 smid 75
-1 smid 79
-1 smid 32
-1 smid 58
-1 smid 9
-1 smid 46
-1 smid 45
-1 smid 23
-1 smid 56
-1 smid 11
-1 smid 74
-1 smid 35
-1 smid 21
-1 smid 78
-1 smid 33
-1 smid 47
-1 smid 8
-1 smid 58
-1 smid 44
-1 smid 22
-1 smid 57
-1 smid 10
-1 smid 75
-1 smid 46
-1 smid 20
-1 smid 79
-1 smid 9
-1 smid 34
-1 smid 74
-1 smid 47
-1 smid 45
-1 smid 22
-1 smid 32
-1 smid 59
-1 smid 56
-1 smid 11
-1 smid 8
-1 smid 78
-1 smid 33
-1 smid 47
-1 smid 21
-1 smid 34
-1 smid 74
-1 smid 22
-1 smid 8
-1 smid 58
-1 smid 44
-1 smid 11
-1 smid 57
-1 smid 79
-1 smid 32
-1 smid 47
-1 smid 75
-1 smid 35
-1 smid 20
-1 smid 23
-1 smid 45
-1 smid 58
-1 smid 9
-1 smid 10
-1 smid 56
-1 smid 79
-1 smid 74
-1 smid 46
-1 smid 33
-1 smid 34
-1 smid 44
-1 smid 23
-1 smid 45
-1 smid 58
-1 smid 21
-1 smid 11
-1 smid 9
-1 smid 78
-1 smid 57
-1 smid 74
-1 smid 47
-1 smid 44
-1 smid 34
-1 smid 32
-1 smid 22
-1 smid 21
-1 smid 58
-1 smid 50
-1 smid 10
-1 smid 9
-1 smid 3
-1 smid 79
-1 smid 57
-1 smid 73
-1 smid 38
-1 smid 60
-1 smid 46
-1 smid 75
-1 smid 64
-1 smid 70
-1 smid 69
-1 smid 35
-1 smid 45
-1 smid 52
-1 smid 62
-1 smid 36
-1 smid 59
-1 smid 32
-1 smid 41
-1 smid 14
-1 smid 49
-1 smid 35
-1 smid 21
-1 smid 73
-1 smid 3
-1 smid 24
-1 smid 78
-1 smid 8
-1 smid 64
-1 smid 50
-1 smid 60
-1 smid 22
-1 smid 42
-1 smid 57
-1 smid 52
-1 smid 70
-1 smid 69
-1 smid 10
-1 smid 55
-1 smid 74
-1 smid 73
-1 smid 38
-1 smid 36
-1 smid 46
-1 smid 76
-1 smid 44
-1 smid 41
-1 smid 62
-1 smid 49
-1 smid 11
-1 smid 67
-1 smid 33
-1 smid 65
-1 smid 15
-1 smid 68
-1 smid 59
-1 smid 6
-1 smid 56
-1 smid 28
-1 smid 3
-1 smid 37
-1 smid 34
-1 smid 43
-1 smid 9
-1 smid 51
-1 smid 40
-1 smid 78
-1 smid 68
-1 smid 20
-1 smid 54
-1 smid 14
-1 smid 72
-1 smid 69
-1 smid 76
-1 smid 65
-1 smid 56
-1 smid 69
-1 smid 15
-1 smid 67
-1 smid 73
-1 smid 75
-1 smid 37
-1 smid 50
-1 smid 47
-1 smid 43
-1 smid 45
-1 smid 65
-1 smid 2
-1 smid 60
-1 smid 59
-1 smid 55
-1 smid 8
-1 smid 64
-1 smid 39
-1 smid 68
-1 smid 78
-1 smid 66
-1 smid 74
-1 smid 65
-1 smid 51
-1 smid 48
-1 smid 42
-1 smid 56
-1 smid 72
-1 smid 3
-1 smid 61
-1 smid 78
-1 smid 54
-1 smid 33
-1 smid 40
-1 smid 38
-1 smid 68
-1 smid 23
-1 smid 7
-1 smid 20
-1 smid 73
-1 smid 50
-1 smid 36
-1 smid 47
-1 smid 43
-1 smid 75
-1 smid 64
-1 smid 70
-1 smid 37
-1 smid 58
-1 smid 54
-1 smid 44
-1 smid 52
-1 smid 26
-1 smid 0
-1 smid 78
-1 smid 55
-1 smid 9
-1 smid 72
-1 smid 62
-1 smid 24
-1 smid 46
-1 smid 54
-1 smid 57
-1 smid 40
-1 smid 27
-1 smid 61
-1 smid 66
-1 smid 32
-1 smid 41
-1 smid 71
-1 smid 60
-1 smid 18
-1 smid 74
-1 smid 28
-1 smid 15
-1 smid 25
-1 smid 46
-1 smid 77
-1 smid 45
-1 smid 40
-1 smid 2
-1 smid 12
-1 smid 79
-1 smid 6
-1 smid 8
-1 smid 53
-1 smid 39
-1 smid 34
-1 smid 30
-1 smid 56
-1 smid 4
-1 smid 46
-1 smid 77
-1 smid 33
-1 smid 4
-1 smid 18
-1 smid 58
-1 smid 21
-1 smid 79
-1 smid 44
-1 smid 35
-1 smid 74
-1 smid 47
-1 smid 8
-1 smid 10
-1 smid 56
-1 smid 78
-1 smid 20
-1 smid 35
-1 smid 45
-1 smid 46
-1 smid 74
-1 smid 79
-1 smid 9
-1 smid 47
-1 smid 57
-1 smid 46
-1 smid 21
-1 smid 78
-1 smid 44
-1 smid 59
-1 smid 75
-1 smid 79
-1 smid 8
-1 smid 34
-1 smid 56
-1 smid 10
-1 smid 8
-1 smid 58
-1 smid 32
-1 smid 59
-1 smid 21
-1 smid 11
-1 smid 10
-1 smid 45
-1 smid 11
-1 smid 74
-1 smid 22
-1 smid 9
-1 smid 22
-1 smid 57
-1 smid 22
-1 smid 33
-1 smid 35
-1 smid 11
-1 smid 44
-1 smid 10
-1 smid 75
-1 smid 58
-1 smid 57
-1 smid 59
-1 smid 34
-1 smid 59
-1 smid 23
-1 smid 11
-1 smid 35
-1 smid 44
-1 smid 35
-1 smid 74
-1 smid 10
-1 smid 56
-1 smid 23
-1 smid 34
-1 smid 22
-1 smid 44
-1 smid 59
-1 smid 75
-1 smid 45
-1 smid 11
-1 smid 23
-1 smid 57
-1 smid 20
-1 smid 75
-1 smid 8
-1 smid 22
-1 smid 45
-1 smid 35
-1 smid 56
-1 smid 23
-1 smid 32
-1 smid 23
-1 smid 75
-1 smid 9
-1 smid 33
-1 smid 8
-1 smid 9
-1 smid 32
-1 smid 21
-1 smid 57
-1 smid 33
-1 smid 32
-1 smid 20
-1 smid 8
-1 smid 32
-1 smid 33
-1 smid 20
-1 smid 20
-1 smid 33
-1 smid 21
-1 smid 32
-1 smid 20
-1 smid 21
-1 smid 20
-1 smid 42
-1 smid 49
-1 smid 43
-1 smid 52
-1 smid 55
-1 smid 73
-1 smid 14
-1 smid 65
-1 smid 68
-1 smid 38
-1 smid 7
-1 smid 63
-1 smid 37
-1 smid 66
-1 smid 67
-1 smid 76
-1 smid 69
-1 smid 29
-1 smid 24
-1 smid 41
-1 smid 6
-1 smid 51
-1 smid 18
-1 smid 48
-1 smid 27
-1 smid 28
-1 smid 62
-1 smid 64
-1 smid 3
-1 smid 25
-1 smid 0
-1 smid 72
-1 smid 30
-1 smid 77
-1 smid 36
-1 smid 50
-1 smid 71
-1 smid 17
-1 smid 54
-1 smid 12
-1 smid 26
-1 smid 61
-1 smid 5
-1 smid 42
-1 smid 7
-1 smid 2
-1 smid 70
-1 smid 53
-1 smid 49
-1 smid 15
-1 smid 40
-1 smid 69
-1 smid 48
-1 smid 27
-1 smid 60
-1 smid 14
-1 smid 5
-1 smid 63
-1 smid 12
-1 smid 0
-1 smid 39
-1 smid 4
-1 smid 37
-1 smid 51
-1 smid 38
-1 smid 17
-1 smid 24
-1 smid 29
-1 smid 65
-1 smid 3
-1 smid 16
-1 smid 52
-1 smid 26
-1 smid 68
-1 smid 73
-1 smid 66
-1 smid 12
-1 smid 30
-1 smid 25
-1 smid 17
-1 smid 19
-1 smid 60
-1 smid 71
-1 smid 43
-1 smid 61
-1 smid 2
-1 smid 28
-1 smid 69
-1 smid 38
-1 smid 18
-1 smid 62
-1 smid 76
-1 smid 36
-1 smid 55
-1 smid 72
-1 smid 50
-1 smid 67
-1 smid 70
-1 smid 39
-1 smid 27
-1 smid 1
-1 smid 49
-1 smid 68
-1 smid 41
-1 smid 64
-1 smid 7
-1 smid 77
-1 smid 53
-1 smid 5
-1 smid 15
-1 smid 4
-1 smid 3
-1 smid 13
-1 smid 52
-1 smid 40
-1 smid 63
-1 smid 66
-1 smid 48
-1 smid 73
-1 smid 71
-1 smid 29
-1 smid 51
-1 smid 17
-1 smid 6
-1 smid 65
-1 smid 60
-1 smid 26
-1 smid 37
-1 smid 14
-1 smid 19
-1 smid 16
-1 smid 54
-1 smid 25
-1 smid 0
-1 smid 72
-1 smid 24
-1 smid 50
-1 smid 31
-1 smid 54
-1 smid 12
-1 smid 5
-1 smid 30
-1 smid 62
-1 smid 64
-1 smid 53
-1 smid 55
-1 smid 70
-1 smid 42
-1 smid 1
-1 smid 63
-1 smid 28
-1 smid 18
-1 smid 6
-1 smid 61
-1 smid 43
-1 smid 48
-1 smid 40
-1 smid 36
-1 smid 69
-1 smid 76
-1 smid 18
-1 smid 72
-1 smid 55
-1 smid 13
-1 smid 43
-1 smid 2
-1 smid 0
-1 smid 15
-1 smid 41
-1 smid 66
-1 smid 42
-1 smid 37
-1 smid 38
-1 smid 49
-1 smid 3
-1 smid 51
-1 smid 14
-1 smid 65
-1 smid 17
-1 smid 68
-1 smid 29
-1 smid 27
-1 smid 39
-1 smid 25
-1 smid 50
-1 smid 36
-1 smid 64
-1 smid 60
-1 smid 2
-1 smid 72
-1 smid 16
-1 smid 70
-1 smid 41
-1 smid 62
-1 smid 39
-1 smid 24
-1 smid 38
-1 smid 49
-1 smid 73
-1 smid 69
-1 smid 61
-1 smid 64
-1 smid 12
-1 smid 71
-1 smid 4
-1 smid 37
-1 smid 14
-1 smid 52
-1 smid 3
-1 smid 5
-1 smid 15
-1 smid 40
-1 smid 68
-1 smid 26
-1 smid 60
-1 smid 51
-1 smid 73
-1 smid 25
-1 smid 13
-1 smid 24
-1 smid 1
-1 smid 52
-1 smid 2
-1 smid 65
-1 smid 62
-1 smid 63
-1 smid 17
-1 smid 71
-1 smid 16
-1 smid 70
-1 smid 66
-1 smid 64
-1 smid 36
-1 smid 28
-1 smid 54
-1 smid 61
-1 smid 50
-1 smid 53
-1 smid 54
-1 smid 69
-1 smid 39
-1 smid 72
-1 smid 48
-1 smid 43
-1 smid 68
-1 smid 15
-1 smid 36
-1 smid 62
-1 smid 41
-1 smid 1
-1 smid 27
-1 smid 28
-1 smid 55
-1 smid 48
-1 smid 51
-1 smid 76
-1 smid 3
-1 smid 53
-1 smid 73
-1 smid 42
-1 smid 29
-1 smid 41
-1 smid 43
-1 smid 37
-1 smid 50
-1 smid 4
-1 smid 18
-1 smid 14
-1 smid 25
-1 smid 27
-1 smid 40
-1 smid 54
-1 smid 13
-1 smid 63
-1 smid 4
-1 smid 30
-1 smid 49
-1 smid 53
-1 smid 39
-1 smid 5
-1 smid 19
-1 smid 24
-1 smid 71
-1 smid 29
-1 smid 7
-1 smid 69
-1 smid 71
-1 smid 28
-1 smid 18
-1 smid 61
-1 smid 2
-1 smid 65
-1 smid 67
-1 smid 0
-1 smid 15
-1 smid 53
-1 smid 42
-1 smid 49
-1 smid 14
-1 smid 5
-1 smid 55
-1 smid 6
-1 smid 27
-1 smid 41
-1 smid 31
-1 smid 38
-1 smid 72
-1 smid 67
-1 smid 70
-1 smid 17
-1 smid 77
-1 smid 67
-1 smid 16
-1 smid 66
-1 smid 51
-1 smid 64
-1 smid 30
-1 smid 60
-1 smid 38
-1 smid 6
-1 smid 36
-1 smid 30
-1 smid 67
-1 smid 52
-1 smid 43
-1 smid 77
-1 smid 70
-1 smid 31
-1 smid 17
-1 smid 77
-1 smid 62
-1 smid 7
-1 smid 72
-1 smid 31
-1 smid 4
-1 smid 42
-1 smid 55
-1 smid 24
-1 smid 3
-1 smid 19
-1 smid 6
-1 smid 40
-1 smid 19
-1 smid 68
-1 smid 63
-1 smid 29
-1 smid 7
-1 smid 48
-1 smid 50
-1 smid 52
-1 smid 19
-1 smid 4
-1 smid 65
-1 smid 61
-1 smid 39
-1 smid 76
-1 smid 49
-1 smid 31
-1 smid 28
-1 smid 66
-1 smid 2
-1 smid 76
-1 smid 54
-1 smid 15
-1 smid 64
-1 smid 76
-1 smid 69
-1 smid 27
-1 smid 16
-1 smid 40
-1 smid 6
-1 smid 48
-1 smid 38
-1 smid 73
-1 smid 42
-1 smid 37
-1 smid 14
-1 smid 67
-1 smid 60
-1 smid 51
-1 smid 7
-1 smid 25
-1 smid 43
-1 smid 26
-1 smid 5
-1 smid 29
-1 smid 30
-1 smid 61
-1 smid 28
-1 smid 55
-1 smid 16
-1 smid 36
-1 smid 41
-1 smid 66
-1 smid 53
-1 smid 0
-1 smid 3
-1 smid 52
-1 smid 18
-1 smid 68
-1 smid 71
-1 smid 24
-1 smid 26
-1 smid 1
-1 smid 2
-1 smid 72
-1 smid 54
-1 smid 25
-1 smid 62
-1 smid 65
-1 smid 30
-1 smid 60
-1 smid 39
-1 smid 19
-1 smid 37
-1 smid 50
-1 smid 13
-1 smid 70
-1 smid 12
-1 smid 63
-1 smid 76
-1 smid 49
-1 smid 51
-1 smid 63
-1 smid 4
-1 smid 13
-1 smid 39
-1 smid 76
-1 smid 27
-1 smid 29
-1 smid 77
-1 smid 15
-1 smid 5
-1 smid 6
-1 smid 16
-1 smid 18
-1 smid 36
-1 smid 17
-1 smid 43
-1 smid 48
-1 smid 71
-1 smid 41
-1 smid 42
-1 smid 66
-1 smid 61
-1 smid 14
-1 smid 28
-1 smid 31
-1 smid 53
-1 smid 7
-1 smid 30
-1 smid 29
-1 smid 77
-1 smid 18
-1 smid 26
-1 smid 52
-1 smid 19
-1 smid 1
-1 smid 17
-1 smid 12
-1 smid 53
-1 smid 55
-1 smid 24
-1 smid 2
-1 smid 40
-1 smid 77
-1 smid 0
-1 smid 5
-1 smid 6
-1 smid 49
-1 smid 67
-1 smid 37
-1 smid 71
-1 smid 7
-1 smid 12
-1 smid 70
-1 smid 38
-1 smid 63
-1 smid 76
-1 smid 13
-1 smid 51
-1 smid 61
-1 smid 15
-1 smid 16
-1 smid 39
-1 smid 31
-1 smid 62
-1 smid 67
-1 smid 28
-1 smid 25
-1 smid 29
-1 smid 67
-1 smid 25
-1 smid 4
-1 smid 42
-1 smid 27
-1 smid 17
-1 smid 30
-1 smid 1
-1 smid 19
-1 smid 66
-1 smid 2
-1 smid 77
-1 smid 26
-1 smid 6
-1 smid 63
-1 smid 48
-1 smid 19
-1 smid 4
-1 smid 26
-1 smid 24
-1 smid 7
-1 smid 16
-1 smid 14
-1 smid 12
-1 smid 31
-1 smid 53
-1 smid 26
-1 smid 0
-1 smid 5
-1 smid 48
-1 smid 31
-1 smid 71
-1 smid 16
-1 smid 25
-1 smid 5
-1 smid 77
-1 smid 1
-1 smid 29
-1 smid 7
-1 smid 13
-1 smid 27
-1 smid 19
-1 smid 0
-1 smid 63
-1 smid 18
-1 smid 0
-1 smid 26
-1 smid 30
-1 smid 12
-1 smid 31
-1 smid 12
-1 smid 13
-1 smid 16
-1 smid 1
-1 smid 13
-1 smid 19
-1 smid 31
-1 smid 17
-1 smid 1
-1 smid 13
-1 smid 0
-1 smid 13
-1 smid 1
-1 smid 1
-1 smid 31
-1 smid 49
-1 smid 36
-1 smid 61
-1 smid 40
-1 smid 43
-1 smid 41
-1 smid 41
-1 smid 41
-1 smid 41
-1 smid 41
-1 smid 41
-1 smid 41
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 55
-1 smid 74
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 36
-1 smid 40
-1 smid 40
-1 smid 40
-1 smid 40
-1 smid 40
-1 smid 40
-1 smid 40
-1 smid 40
-1 smid 41
-1 smid 41
-1 smid 41
-1 smid 41
-1 smid 74
-1 smid 74
-1 smid 74
-1 smid 74
-1 smid 74
-1 smid 74
-1 smid 54
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 74
-1 smid 74
-1 smid 43
-1 smid 43
-1 smid 43
-1 smid 43
-1 smid 43
-1 smid 43
-1 smid 40
-1 smid 40
-1 smid 40
-1 smid 44
-1 smid 44
-1 smid 41
-1 smid 67
-1 smid 67
-1 smid 66
-1 smid 66
-1 smid 66
-1 smid 66
-1 smid 66
-1 smid 66
-1 smid 66
-1 smid 54
-1 smid 54
-1 smid 54
-1 smid 54
-1 smid 54
-1 smid 54
-1 smid 54
-1 smid 54
-1 smid 54
-1 smid 49
-1 smid 49
-1 smid 49
-1 smid 49
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 75
-1 smid 75
-1 smid 44
-1 smid 74
-1 smid 74
-1 smid 74
-1 smid 49
-1 smid 49
-1 smid 49
-1 smid 49
-1 smid 49
-1 smid 49
-1 smid 49
-1 smid 37
-1 smid 37
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 58
-1 smid 72
-1 smid 72
-1 smid 72
-1 smid 72
-1 smid 72
-1 smid 43
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 68
-1 smid 75
-1 smid 75
-1 smid 75
-1 smid 44
-1 smid 44
-1 smid 44
-1 smid 44
-1 smid 44
-1 smid 44
-1 smid 44
-1 smid 44
-1 smid 36
-1 smid 36
-1 smid 36
-1 smid 36
-1 smid 36
-1 smid 66
-1 smid 33
-1 smid 33
-1 smid 66
-1 smid 48
-1 smid 48
-1 smid 48
-1 smid 48
-1 smid 52
-1 smid 65
-1 smid 65
-1 smid 65
-1 smid 65
-1 smid 65
-1 smid 65
-1 smid 73
-1 smid 73
-1 smid 73
-1 smid 73
-1 smid 73
-1 smid 73
-1 smid 73
-1 smid 70
-1 smid 70
-1 smid 70
-1 smid 70
-1 smid 70
-1 smid 70
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 32
-1 smid 37
-1 smid 37
-1 smid 37
-1 smid 37
-1 smid 37
-1 smid 37
-1 smid 37
-1 smid 70
-1 smid 70
-1 smid 70
-1 smid 70
-1 smid 44
-1 smid 43
-1 smid 43
-1 smid 43
-1 smid 43
-1 smid 36
-1 smid 33
-1 smid 33
-1 smid 33
-1 smid 33
-1 smid 33
-1 smid 33
-1 smid 33
-1 smid 65
-1 smid 65
-1 smid 65
-1 smid 73
-1 smid 73
-1 smid 49
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 48
-1 smid 78
-1 smid 79
-1 smid 79
-1 smid 79
-1 smid 79
-1 smid 64
-1 smid 64
-1 smid 64
-1 smid 64
-1 smid 64
-1 smid 64
-1 smid 61
-1 smid 61
-1 smid 61
-1 smid 61
-1 smid 61
-1 smid 61
-1 smid 45
-1 smid 65
-1 smid 75
-1 smid 75
-1 smid 75
-1 smid 75
-1 smid 75
-1 smid 75
-1 smid 75
-1 smid 73
-1 smid 73
-1 smid 73
-1 smid 79
-1 smid 79
-1 smid 79
-1 smid 79
-1 smid 42
-1 smid 42
-1 smid 42
-1 smid 42
-1 smid 42
-1 smid 70
-1 smid 70
-1 smid 66
-1 smid 66
-1 smid 66
-1 smid 52
-1 smid 52
-1 smid 52
-1 smid 52
-1 smid 52
-1 smid 52
-1 smid 52
-1 smid 52
-1 smid 54
-1 smid 54
-1 smid 33
-1 smid 33
-1 smid 33
-1 smid 48
-1 smid 48
-1 smid 48
-1 smid 48
-1 smid 48
-1 smid 48
-1 smid 48
-1 smid 65
-1 smid 65
-1 smid 45
-1 smid 45
-1 smid 45
-1 smid 45
-1 smid 45
-1 smid 79
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 53
-1 smid 58
-1 smid 37
-1 smid 37
-1 smid 37
-1 smid 61
-1 smid 61
-1 smid 61
-1 smid 61
-1 smid 61
-1 smid 52
-1 smid 52
-1 smid 72
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 42
-1 smid 42
-1 smid 42
-1 smid 42
-1 smid 36
-1 smid 36
-1 smid 55
-1 smid 46
-1 smid 51
-1 smid 46
-1 smid 46
-1 smid 46
-1 smid 46
-1 smid 56
-1 smid 56
-1 smid 56
-1 smid 56
-1 smid 53
-1 smid 79
-1 smid 56
-1 smid 56
-1 smid 56
-1 smid 56
-1 smid 58
-1 smid 52
-1 smid 56
-1 smid 56
-1 smid 56
-1 smid 56
-1 smid 43
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 69
-1 smid 46
-1 smid 35
-1 smid 35
-1 smid 42
-1 smid 42
-1 smid 42
-1 smid 45
-1 smid 45
-1 smid 45
-1 smid 79
-1 smid 79
-1 smid 58
-1 smid 58
-1 smid 58
-1 smid 58
-1 smid 58
-1 smid 58
-1 smid 58
-1 smid 58
-1 smid 45
-1 smid 45
-1 smid 45
-1 smid 36
-1 smid 36
-1 smid 40
-1 smid 72
-1 smid 72
-1 smid 72
-1 smid 58
-1 smid 34
-1 smid 34
-1 smid 34
-1 smid 34
-1 smid 34
-1 smid 34
-1 smid 67
-1 smid 77
-1 smid 77
-1 smid 77
-1 smid 77
-1 smid 77
-1 smid 77
-1 smid 77
-1 smid 77
-1 smid 77
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 46
-1 smid 46
-1 smid 46
-1 smid 67
-1 smid 67
-1 smid 67
-1 smid 67
-1 smid 67
-1 smid 67
-1 smid 47
-1 smid 47
-1 smid 47
-1 smid 47
-1 smid 47
-1 smid 47
-1 smid 47
-1 smid 77
-1 smid 57
-1 smid 34
-1 smid 34
-1 smid 46
-1 smid 46
-1 smid 46
-1 smid 59
-1 smid 59
-1 smid 59
-1 smid 59
-1 smid 59
-1 smid 59
-1 smid 59
-1 smid 59
-1 smid 47
-1 smid 47
-1 smid 47
-1 smid 40
-1 smid 40
-1 smid 67
-1 smid 67
-1 smid 67
-1 smid 71
-1 smid 71
-1 smid 71
-1 smid 71
-1 smid 58
-1 smid 77
-1 smid 77
-1 smid 71
-1 smid 34
-1 smid 34
-1 smid 34
-1 smid 34
-1 smid 72
-1 smid 72
-1 smid 72
-1 smid 54
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 55
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 60
-1 smid 36
-1 smid 57
-1 smid 57
-1 smid 57
-1 smid 57
-1 smid 57
-1 smid 50
-1 smid 50
-1 smid 50
-1 smid 50
-1 smid 50
-1 smid 50
-1 smid 50
-1 smid 50
-1 smid 50
-1 smid 57
-1 smid 57
-1 smid 51
-1 smid 51
-1 smid 51
-1 smid 51
-1 smid 51
-1 smid 51
-1 smid 76
-1 smid 76
-1 smid 76
-1 smid 47
-1 smid 35
-1 smid 35
-1 smid 35
-1 smid 35
-1 smid 71
-1 smid 71
-1 smid 71
-1 smid 71
-1 smid 71
-1 smid 71
-1 smid 71
-1 smid 67
-1 smid 67
-1 smid 76
-1 smid 76
-1 smid 61
-2 smid 54
-2 smid 54
-2 smid 54
-2 smid 54
-2 smid 54
-2 smid 54
-2 smid 54
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-2 smid 39
-1 smid 51
-1 smid 51
-1 smid 47
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 57
-1 smid 57
-2 smid 68
-1 smid 57
-1 smid 57
-1 smid 50
-1 smid 50
-1 smid 50
-2 smid 43
-2 smid 43
-2 smid 43
-2 smid 43
-1 smid 64
-1 smid 51
-1 smid 51
-1 smid 51
-1 smid 64
-1 smid 76
-1 smid 76
-1 smid 76
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 79
-2 smid 79
-1 smid 64
-1 smid 59
-1 smid 59
-1 smid 59
-2 smid 52
-2 smid 49
-2 smid 40
-2 smid 40
-2 smid 40
-2 smid 40
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-1 smid 78
-2 smid 78
-2 smid 78
-2 smid 66
-2 smid 66
-1 smid 64
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 41
-2 smid 74
-2 smid 74
-1 smid 64
-1 smid 64
-2 smid 79
-2 smid 79
-1 smid 35
-2 smid 79
-1 smid 35
-1 smid 35
-2 smid 79
-1 smid 35
-2 smid 60
-2 smid 60
-2 smid 60
-2 smid 36
-1 smid 78
-2 smid 40
-2 smid 40
-2 smid 40
-2 smid 32
-2 smid 32
-2 smid 32
-2 smid 32
-2 smid 59
-2 smid 40
-2 smid 40
-2 smid 33
-2 smid 33
-1 smid 35
-1 smid 35
-2 smid 60
-2 smid 60
-2 smid 60
-2 smid 60
-2 smid 60
-2 smid 68
-2 smid 42
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 63
-2 smid 63
-2 smid 63
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 43
-2 smid 43
-2 smid 43
-2 smid 43
-2 smid 43
-2 smid 43
-2 smid 43
-2 smid 32
-2 smid 32
-2 smid 32
-2 smid 32
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 48
-2 smid 48
-2 smid 48
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 49
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 38
-2 smid 62
-2 smid 62
-2 smid 62
-2 smid 63
-2 smid 63
-2 smid 63
-2 smid 63
-2 smid 63
-2 smid 63
-2 smid 63
-2 smid 42
-2 smid 42
-2 smid 42
-2 smid 42
-2 smid 42
-2 smid 42
-2 smid 42
-2 smid 58
-2 smid 58
-2 smid 42
-2 smid 58
-2 smid 58
-2 smid 58
-2 smid 58
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 43
-2 smid 76
-2 smid 76
-2 smid 70
-2 smid 33
-2 smid 33
-2 smid 33
-2 smid 33
-2 smid 33
-2 smid 33
-2 smid 33
-2 smid 33
-2 smid 32
-2 smid 32
-2 smid 32
-2 smid 32
-2 smid 62
-2 smid 62
-2 smid 62
-2 smid 62
-2 smid 63
-2 smid 49
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 51
-2 smid 74
-2 smid 74
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 44
-2 smid 44
-2 smid 44
-2 smid 44
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 46
-2 smid 46
-2 smid 46
-2 smid 61
-2 smid 61
-2 smid 61
-2 smid 61
-2 smid 61
-2 smid 72
-2 smid 73
-2 smid 40
-2 smid 62
-2 smid 62
-2 smid 62
-2 smid 62
-2 smid 44
-2 smid 44
-2 smid 44
-2 smid 44
-2 smid 33
-2 smid 33
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 63
-2 smid 52
-2 smid 52
-2 smid 52
-2 smid 52
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 37
-2 smid 46
-2 smid 46
-2 smid 46
-2 smid 42
-2 smid 42
-2 smid 44
-2 smid 44
-2 smid 44
-2 smid 44
-2 smid 58
-2 smid 58
-2 smid 58
-2 smid 58
-2 smid 42
-2 smid 58
-2 smid 58
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 70
-2 smid 70
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 48
-2 smid 48
-2 smid 48
-2 smid 48
-2 smid 73
-2 smid 53
-2 smid 53
-2 smid 53
-2 smid 53
-2 smid 53
-2 smid 53
-2 smid 61
-2 smid 62
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 56
-2 smid 48
-2 smid 76
-2 smid 36
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 76
-2 smid 40
-2 smid 40
-2 smid 46
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 71
-2 smid 71
-2 smid 73
-2 smid 73
-2 smid 50
-2 smid 54
-2 smid 54
-2 smid 52
-2 smid 52
-2 smid 52
-2 smid 52
-2 smid 52
-2 smid 52
-2 smid 52
-2 smid 53
-2 smid 53
-2 smid 53
-2 smid 46
-2 smid 46
-2 smid 46
-2 smid 46
-2 smid 46
-2 smid 65
-2 smid 65
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 45
-2 smid 69
-2 smid 79
-2 smid 79
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 54
-2 smid 54
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 53
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 74
-2 smid 74
-2 smid 36
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 35
-2 smid 35
-2 smid 35
-2 smid 35
-2 smid 35
-2 smid 35
-2 smid 59
-2 smid 59
-2 smid 59
-2 smid 59
-2 smid 72
-2 smid 53
-2 smid 53
-2 smid 55
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 47
-2 smid 47
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 47
-2 smid 47
-2 smid 47
-2 smid 69
-2 smid 67
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 68
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 34
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 60
-2 smid 60
-2 smid 60
-2 smid 60
-2 smid 48
-2 smid 48
-2 smid 48
-2 smid 48
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 57
-2 smid 50
-2 smid 50
-2 smid 50
-2 smid 50
-2 smid 50
-2 smid 50
-2 smid 50
-2 smid 50
-2 smid 59
-2 smid 59
-2 smid 59
-2 smid 59
-2 smid 59
-2 smid 59
-2 smid 77
-2 smid 35
-2 smid 35
-2 smid 35
-2 smid 47
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 76
-2 smid 67
-2 smid 59
-2 smid 76
-2 smid 76
-2 smid 36
-2 smid 36
-2 smid 35
-2 smid 36
-2 smid 36
-2 smid 35
-2 smid 35
-2 smid 50
-2 smid 50
-2 smid 50
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 54
-2 smid 65
-2 smid 67
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 47
-2 smid 47
-2 smid 47
-2 smid 47
-2 smid 47
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 36
-2 smid 65
-2 smid 65
-2 smid 61
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 70
-2 smid 61
-2 smid 61
-2 smid 47
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 51
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 76
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 36
-2 smid 36
-2 smid 36
-2 smid 36
-2 smid 61
-2 smid 61
-2 smid 78
-2 smid 78
-2 smid 79
-2 smid 79
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 74
-2 smid 74
-2 smid 51
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 73
-2 smid 73
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 70
-2 smid 79
-2 smid 73
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 76
-2 smid 55
-2 smid 55
-2 smid 55
-2 smid 55
-2 smid 55
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 71
-2 smid 71
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 73
-2 smid 73
-2 smid 76
-2 smid 55
-2 smid 55
-2 smid 55
-2 smid 55
-2 smid 55
-2 smid 55
-2 smid 66
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 66
-2 smid 66
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 72
-2 smid 69
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 65
-2 smid 65
-2 smid 61
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 68
-2 smid 68
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 65
-2 smid 65
-2 smid 76
-2 smid 76
-2 smid 68
-2 smid 65
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 67
-2 smid 74
-2 smid 74
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 75
-2 smid 75
-2 smid 79
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 79
-2 smid 75
-2 smid 75
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 66
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 70
-2 smid 70
-2 smid 76
-2 smid 76
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 64
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 71
-2 smid 71
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 79
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 74
-2 smid 74
-2 smid 71
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 76
-2 smid 76
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 75
-2 smid 75
-2 smid 64
-2 smid 68
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 79
-2 smid 76
-2 smid 66
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 67
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 75
-2 smid 75
-2 smid 72
-2 smid 72
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 74
-2 smid 65
-2 smid 65
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 71
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 66
-2 smid 66
-2 smid 79
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 74
-2 smid 74
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 79
-2 smid 79
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 79
-2 smid 73
-2 smid 73
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 78
-2 smid 78
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 79
-2 smid 75
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 75
-2 smid 69
-2 smid 64
-2 smid 72
-2 smid 66
-2 smid 76
-2 smid 76
-2 smid 72
-2 smid 71
-2 smid 71
-2 smid 65
-2 smid 65
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 79
-2 smid 72
-2 smid 79
-2 smid 72
-2 smid 72
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 71
-2 smid 72
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 79
-2 smid 79
-2 smid 70
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 79
-2 smid 79
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 71
-2 smid 71
-2 smid 73
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 74
-2 smid 74
-2 smid 79
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 75
-2 smid 67
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 79
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 77
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 65
-2 smid 65
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 76
-2 smid 76
-2 smid 71
-2 smid 66
-2 smid 69
-2 smid 73
-2 smid 71
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 74
-2 smid 73
-2 smid 73
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 79
-2 smid 79
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 73
-2 smid 71
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 65
-2 smid 65
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 75
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 70
-2 smid 67
-2 smid 64
-2 smid 64
-2 smid 64
-2 smid 66
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 76
-2 smid 76
-2 smid 65
-2 smid 65
-2 smid 65
-2 smid 72
-2 smid 72
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 71
-2 smid 68
-2 smid 68
-2 smid 67
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 78
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 72
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 67
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 68
-2 smid 71
-2 smid 67
-2 smid 67
-2 smid 77
-2 smid 66
-2 smid 69
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 76
-2 smid 76
-2 smid 76
-2 smid 73
-2 smid 73
-2 smid 73
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 79
-2 smid 69
-2 smid 69
-2 smid 69
-2 smid 74
-2 smid 66
-2 smid 66
-2 smid 66
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
-2 smid 77
+smid 10
+smid 23
+smid 11
+smid 22
+smid 10
+smid 13
+smid 23
+smid 25
+smid 11
+smid 1
+smid 22
+smid 12
+smid 10
+smid 24
+smid 23
+smid 1
+smid 11
+smid 13
+smid 22
+smid 25
+smid 3
+smid 10
+smid 0
+smid 14
+smid 23
+smid 12
+smid 29
+smid 8
+smid 6
+smid 26
+smid 11
+smid 24
+smid 5
+smid 20
+smid 19
+smid 2
+smid 22
+smid 1
+smid 16
+smid 9
+smid 30
+smid 15
+smid 10
+smid 13
+smid 28
+smid 21
+smid 7
+smid 27
+smid 23
+smid 25
+smid 4
+smid 8
+smid 18
+smid 3
+smid 11
+smid 0
+smid 16
+smid 20
+smid 31
+smid 14
+smid 22
+smid 12
+smid 29
+smid 9
+smid 6
+smid 26
+smid 10
+smid 24
+smid 4
+smid 20
+smid 19
+smid 2
+smid 23
+smid 1
+smid 17
+smid 8
+smid 30
+smid 15
+smid 11
+smid 13
+smid 28
+smid 21
+smid 7
+smid 27
+smid 22
+smid 25
+smid 5
+smid 9
+smid 18
+smid 3
+smid 10
+smid 0
+smid 16
+smid 20
+smid 31
+smid 14
+smid 23
+smid 12
+smid 29
+smid 8
+smid 6
+smid 26
+smid 11
+smid 24
+smid 4
+smid 21
+smid 19
+smid 2
+smid 22
+smid 0
+smid 17
+smid 9
+smid 30
+smid 15
+smid 10
+smid 13
+smid 28
+smid 21
+smid 7
+smid 27
+smid 23
+smid 25
+smid 4
+smid 8
+smid 18
+smid 3
+smid 11
+smid 1
+smid 16
+smid 21
+smid 31
+smid 14
+smid 22
+smid 12
+smid 29
+smid 9
+smid 6
+smid 26
+smid 10
+smid 24
+smid 5
+smid 20
+smid 19
+smid 2
+smid 23
+smid 0
+smid 17
+smid 8
+smid 30
+smid 15
+smid 11
+smid 13
+smid 28
+smid 21
+smid 7
+smid 27
+smid 22
+smid 25
+smid 5
+smid 9
+smid 18
+smid 3
+smid 10
+smid 1
+smid 17
+smid 20
+smid 31
+smid 14
+smid 23
+smid 12
+smid 29
+smid 8
+smid 6
+smid 26
+smid 11
+smid 24
+smid 5
+smid 21
+smid 19
+smid 2
+smid 22
+smid 1
+smid 16
+smid 9
+smid 30
+smid 15
+smid 10
+smid 13
+smid 28
+smid 20
+smid 7
+smid 27
+smid 23
+smid 25
+smid 5
+smid 8
+smid 18
+smid 3
+smid 11
+smid 0
+smid 17
+smid 20
+smid 31
+smid 14
+smid 22
+smid 12
+smid 29
+smid 9
+smid 6
+smid 26
+smid 10
+smid 24
+smid 4
+smid 21
+smid 19
+smid 2
+smid 23
+smid 1
+smid 16
+smid 8
+smid 30
+smid 15
+smid 11
+smid 13
+smid 28
+smid 20
+smid 7
+smid 27
+smid 22
+smid 25
+smid 5
+smid 9
+smid 18
+smid 3
+smid 0
+smid 17
+smid 21
+smid 31
+smid 14
+smid 12
+smid 29
+smid 8
+smid 6
+smid 26
+smid 24
+smid 4
+smid 20
+smid 19
+smid 2
+smid 1
+smid 16
+smid 9
+smid 30
+smid 15
+smid 13
+smid 28
+smid 21
+smid 7
+smid 27
+smid 25
+smid 4
+smid 8
+smid 18
+smid 3
+smid 0
+smid 16
+smid 20
+smid 31
+smid 14
+smid 12
+smid 29
+smid 9
+smid 6
+smid 26
+smid 24
+smid 5
+smid 21
+smid 19
+smid 2
+smid 1
+smid 17
+smid 8
+smid 30
+smid 15
+smid 13
+smid 28
+smid 20
+smid 7
+smid 27
+smid 25
+smid 4
+smid 9
+smid 18
+smid 3
+smid 0
+smid 16
+smid 21
+smid 31
+smid 14
+smid 12
+smid 29
+smid 6
+smid 26
+smid 24
+smid 5
+smid 19
+smid 2
+smid 1
+smid 17
+smid 30
+smid 15
+smid 13
+smid 28
+smid 7
+smid 27
+smid 25
+smid 4
+smid 18
+smid 3
+smid 0
+smid 16
+smid 31
+smid 14
+smid 12
+smid 29
+smid 6
+smid 26
+smid 24
+smid 5
+smid 19
+smid 2
+smid 1
+smid 17
+smid 30
+smid 15
+smid 13
+smid 28
+smid 7
+smid 27
+smid 25
+smid 4
+smid 18
+smid 3
+smid 0
+smid 16
+smid 31
+smid 14
+smid 12
+smid 29
+smid 6
+smid 26
+smid 24
+smid 5
+smid 19
+smid 2
+smid 0
+smid 17
+smid 30
+smid 15
+smid 28
+smid 7
+smid 27
+smid 4
+smid 18
+smid 3
+smid 16
+smid 31
+smid 14
+smid 29
+smid 6
+smid 26
+smid 5
+smid 19
+smid 2
+smid 17
+smid 30
+smid 15
+smid 28
+smid 7
+smid 27
+smid 4
+smid 18
+smid 17
+smid 31
+smid 52
+smid 52
+smid 53
+smid 52
+smid 41
+smid 53
+smid 41
+smid 41
+smid 41
+smid 40
+smid 40
+smid 41
+smid 53
+smid 40
+smid 40
+smid 41
+smid 41
+smid 40
+smid 52
+smid 41
+smid 52
+smid 53
+smid 41
+smid 40
+smid 41
+smid 40
+smid 52
+smid 40
+smid 40
+smid 40
+smid 41
+smid 53
+smid 40
+smid 41
+smid 40
+smid 53
+smid 52
+smid 53
+smid 52
+smid 53
+smid 52
+smid 52
+smid 52
+smid 52
+smid 53
+smid 50
+smid 50
+smid 53
+smid 51
+smid 50
+smid 53
+smid 53
+smid 50
+smid 50
+smid 50
+smid 50
+smid 51
+smid 50
+smid 51
+smid 51
+smid 51
+smid 51
+smid 51
+smid 51
+smid 51
+smid 50
+smid 50
+smid 50
+smid 51
+smid 51
+smid 39
+smid 46
+smid 50
+smid 51
+smid 60
+smid 61
+smid 60
+smid 56
+smid 57
+smid 44
+smid 60
+smid 45
+smid 60
+smid 61
+smid 57
+smid 44
+smid 60
+smid 46
+smid 45
+smid 57
+smid 48
+smid 45
+smid 38
+smid 49
+smid 48
+smid 48
+smid 56
+smid 38
+smid 44
+smid 46
+smid 48
+smid 39
+smid 39
+smid 48
+smid 39
+smid 48
+smid 38
+smid 49
+smid 49
+smid 57
+smid 39
+smid 61
+smid 38
+smid 38
+smid 39
+smid 44
+smid 38
+smid 46
+smid 56
+smid 39
+smid 61
+smid 45
+smid 38
+smid 47
+smid 56
+smid 39
+smid 44
+smid 39
+smid 44
+smid 38
+smid 45
+smid 49
+smid 39
+smid 39
+smid 44
+smid 49
+smid 38
+smid 45
+smid 60
+smid 39
+smid 44
+smid 61
+smid 38
+smid 44
+smid 47
+smid 44
+smid 45
+smid 45
+smid 44
+smid 38
+smid 45
+smid 57
+smid 45
+smid 49
+smid 45
+smid 47
+smid 38
+smid 44
+smid 56
+smid 47
+smid 56
+smid 45
+smid 46
+smid 32
+smid 47
+smid 48
+smid 49
+smid 47
+smid 49
+smid 57
+smid 32
+smid 46
+smid 48
+smid 56
+smid 47
+smid 63
+smid 33
+smid 47
+smid 48
+smid 57
+smid 46
+smid 33
+smid 63
+smid 48
+smid 46
+smid 56
+smid 47
+smid 62
+smid 46
+smid 33
+smid 47
+smid 63
+smid 32
+smid 62
+smid 57
+smid 46
+smid 33
+smid 46
+smid 49
+smid 56
+smid 46
+smid 32
+smid 63
+smid 32
+smid 47
+smid 63
+smid 57
+smid 33
+smid 56
+smid 47
+smid 62
+smid 32
+smid 62
+smid 63
+smid 62
+smid 33
+smid 63
+smid 56
+smid 57
+smid 62
+smid 32
+smid 63
+smid 57
+smid 62
+smid 32
+smid 62
+smid 56
+smid 63
+smid 57
+smid 62
+smid 62
+smid 32
+smid 62
+smid 32
+smid 62
+smid 32
+smid 59
+smid 63
+smid 58
+smid 32
+smid 59
+smid 33
+smid 33
+smid 33
+smid 59
+smid 33
+smid 63
+smid 58
+smid 58
+smid 59
+smid 33
+smid 58
+smid 63
+smid 33
+smid 35
+smid 58
+smid 35
+smid 58
+smid 34
+smid 34
+smid 34
+smid 58
+smid 58
+smid 35
+smid 58
+smid 58
+smid 35
+smid 58
+smid 34
+smid 58
+smid 59
+smid 34
+smid 35
+smid 59
+smid 35
+smid 34
+smid 35
+smid 59
+smid 34
+smid 35
+smid 59
+smid 34
+smid 59
+smid 34
+smid 35
+smid 34
+smid 35
+smid 59
+smid 59
+smid 34
+smid 35
+smid 34
+smid 59
+smid 35
+smid 36
+smid 48
+smid 49
+smid 49
+smid 48
+smid 49
+smid 37
+smid 37
+smid 36
+smid 61
+smid 61
+smid 42
+smid 43
+smid 42
+smid 43
+smid 42
+smid 42
+smid 42
+smid 43
+smid 42
+smid 43
+smid 42
+smid 43
+smid 42
+smid 43
+smid 42
+smid 43
+smid 42
+smid 43
+smid 43
+smid 43
+smid 42
+smid 42
+smid 43
+smid 43
+smid 37
+smid 37
+smid 36
+smid 54
+smid 55
+smid 55
+smid 55
+smid 36
+smid 37
+smid 61
+smid 54
+smid 55
+smid 54
+smid 54
+smid 54
+smid 54
+smid 55
+smid 54
+smid 55
+smid 54
+smid 54
+smid 55
+smid 54
+smid 55
+smid 54
+smid 55
+smid 54
+smid 55
+smid 55
+smid 55
+smid 36
+smid 37
+smid 36
+smid 60
+smid 37
+smid 36
+smid 61
+smid 60
+smid 36
+smid 37
+smid 36
+smid 37
+smid 36
+smid 37
+smid 36
+smid 37
+smid 37
+smid 36
+smid 60
+smid 61
+smid 60
+smid 60
+smid 61
+smid 60
+smid 61
+smid 49
+smid 59
+smid 59
+smid 41
+smid 40
+smid 59
+smid 59
+smid 40
+smid 40
+smid 40
+smid 41
+smid 41
+smid 52
+smid 52
+smid 52
+smid 57
+smid 41
+smid 52
+smid 34
+smid 34
+smid 34
+smid 44
+smid 34
+smid 33
+smid 42
+smid 42
+smid 53
