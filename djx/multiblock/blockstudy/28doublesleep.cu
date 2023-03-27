@@ -613,56 +613,31 @@ int main(int argc, char *argv[]) {
     cudaMemcpy(g_ph5, placeholder5, sizeof(float) * 802816, cudaMemcpyHostToDevice);
 
     //prepare parm for kernel 2
-    float *placeholder0 = new float[802816];
-    for(int i=0;i<802816;i++)
-    {
-    placeholder0[i]=1;
-    }
     float *g_ph0_;
     checkCudaErrors(cudaMalloc((void **)&g_ph0_, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph0_, placeholder0, sizeof(float) * 802816, cudaMemcpyHostToDevice));
 
-    float *placeholder1 = new float[2359296];
-    for(int i=0;i<2359296;i++)
-    {
-    placeholder1[i]=2;
-    }
+
     float *g_ph1_;
     checkCudaErrors(cudaMalloc((void **)&g_ph1_, sizeof(float) * 2359296));
     //checkCudaErrors(cudaMemcpy(g_ph1_, placeholder1, sizeof(float) * 2359296, cudaMemcpyHostToDevice));
 
-    float *placeholder2 = new float[802816];
-    for(int i=0;i<802816;i++)
-    {
-    placeholder2[i]=3;
-    }
+
     float *g_ph2_;
     checkCudaErrors(cudaMalloc((void **)&g_ph2_, sizeof(float) * 802816));
     checkCudaErrors(cudaMemcpy(g_ph2_, placeholder2, sizeof(float) * 802816, cudaMemcpyHostToDevice));
 
-    float *placeholder3 = new float[802816];
-    for(int i=0;i<802816;i++)
-    {
-    placeholder3[i]=4;
-    }
+
     float *g_ph3_;
     cudaMalloc((void **)&g_ph3_, sizeof(float) * 802816);
     cudaMemcpy(g_ph3_, placeholder3, sizeof(float) * 802816, cudaMemcpyHostToDevice);
 
-    float *placeholder4 = new float[512];
-    for(int i=0;i<512;i++)
-    {
-    placeholder4[i]=5;
-    }
+
     float *g_ph4_;
     cudaMalloc((void **)&g_ph4_, sizeof(float) * 512);
     cudaMemcpy(g_ph4_, placeholder4, sizeof(float) * 512, cudaMemcpyHostToDevice);
 
-    float *placeholder5 = new float[802816];
-    for(int i=0;i<802816;i++)
-    {
-    placeholder5[i]=6;
-    }
+   
     float *g_ph5_;
     cudaMalloc((void **)&g_ph5_, sizeof(float) * 802816);
     cudaMemcpy(g_ph5_, placeholder5, sizeof(float) * 802816, cudaMemcpyHostToDevice);
