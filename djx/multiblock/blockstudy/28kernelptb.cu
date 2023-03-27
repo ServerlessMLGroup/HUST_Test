@@ -97,14 +97,19 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
                 //printf("smid %d\n", smid);
             }
        }
+       else
+       {
+       for(int sleeptime=0;sleptime<800;sleep++)
+    {
+        __nanosleep(10);
+    }
+       }
+
     }
     __syncthreads();
     if (basicoffset < 0)
     {
-    for(int sleeptime=0;sleptime<800;sleep++)
-    {
-        __nanosleep(10);
-    }
+
 
     return ;
     }
