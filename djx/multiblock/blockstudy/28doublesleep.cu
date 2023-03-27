@@ -19,7 +19,7 @@
 #define ORI_BLOCKZ 512
 
 #define SM_NUM 32
-#define WORKER_NUM_PERSM 16
+#define WORKER_NUM_PERSM 12
 
 #define BLOCK_NUM LAUNCH_BLOCKZ * LAUNCH_BLOCKY * LAUNCH_BLOCKX
 #define FLAG_LENGTH 65535
@@ -99,8 +99,6 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        //judge whther sm id is right
        if((smid < number*SM_NUM)&&(smid >= (number-1)*SM_NUM))
        {
-
-
             //judge whether worker is enough
             //get the basic offset for the block
             if(blocknumber< WORKER_NUM_PERSM)
@@ -110,6 +108,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
                 //printf("smid %d\n", smid);
             }
        }
+       /*
        else
        {
        for(int sleeptime=0;sleeptime<2000;sleeptime++)
@@ -119,13 +118,12 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        return;
 
        }
+       */
 
     }
     __syncthreads();
     if (basicoffset < 0)
     {
-
-
     return ;
     }
 
