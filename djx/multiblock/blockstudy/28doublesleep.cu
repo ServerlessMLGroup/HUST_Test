@@ -554,7 +554,7 @@ int main(int argc, char *argv[]) {
     checkCudaErrors(cudaMemcpy( g_worker,workers, sizeof(int) * 80, cudaMemcpyHostToDevice));
 
     int *g_worker2;
-    checkCudaErrors(cudaMalloc((void **)&g_worker, sizeof(int) * 80));
+    checkCudaErrors(cudaMalloc((void **)&g_worker2, sizeof(int) * 80));
     checkCudaErrors(cudaMemcpy( g_worker2,workers, sizeof(int) * 80, cudaMemcpyHostToDevice));
 
 
