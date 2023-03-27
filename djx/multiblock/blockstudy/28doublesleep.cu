@@ -100,12 +100,12 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        if((smid < number*SM_NUM)&&(smid >= (number-1)*SM_NUM))
        {
 
-            atomicAdd(worker + smid, 1);
+
             //judge whether worker is enough
             //get the basic offset for the block
             if(blocknumber< WORKER_NUM_PERSM)
             {
-
+                atomicAdd(worker + smid, 1);
                 basicoffset = WORKER_NUM_PERSM*(smid-(number-1)*SM_NUM) + blocknumber;
                 //printf("smid %d\n", smid);
             }
