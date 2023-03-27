@@ -555,7 +555,7 @@ int main(int argc, char *argv[]) {
 
     int *g_worker2;
     checkCudaErrors(cudaMalloc((void **)&g_worker, sizeof(int) * 80));
-    checkCudaErrors(cudaMemcpy( g_worker,workers, sizeof(int) * 80, cudaMemcpyHostToDevice));
+    checkCudaErrors(cudaMemcpy( g_worker2,workers, sizeof(int) * 80, cudaMemcpyHostToDevice));
 
 
     float *placeholder0 = new float[802816];
