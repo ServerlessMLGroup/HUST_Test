@@ -111,7 +111,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        {
        for(int sleeptime=0;sleeptime<2000;sleeptime++)
        {
-        __nanosleep(1);
+        __nanosleep(10);
        }
        return;
        }
