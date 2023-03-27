@@ -84,7 +84,7 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        smid = get_smid();
 
        int blocknumber=atomicAdd(sm_flag + smid, 1);
-       atomicAdd(worker + smid, 1);
+
 
        /*
        if(smid>63)
@@ -99,6 +99,8 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        //judge whther sm id is right
        if((smid < number*SM_NUM)&&(smid >= (number-1)*SM_NUM))
        {
+
+            atomicAdd(worker + smid, 1);
             //judge whether worker is enough
             //get the basic offset for the block
             if(blocknumber< WORKER_NUM_PERSM)
