@@ -108,9 +108,9 @@ extern "C" __global__ void fused_nn_conv2d_add_multiply_add_nn_relu_kernel0(int 
        }
        else
        {
-       for(int sleeptime=0;sleeptime<80000;sleeptime++)
+       for(int sleeptime=0;sleeptime<100;sleeptime++)
        {
-        __nanosleep(1);
+        __nanosleep(100);
        }
        return;
        }
