@@ -168,7 +168,7 @@ if __name__ == "__main__":
     schedule = generate_final_schedule(source_code_lines, schedule_raw, graph)
 
     #file_path = os.path.dirname(os.path.abspath(__file__)) + '/reef'
-    file_path = os.path.dirname(os.path.abspath(__file__)) + '/yytry'
+    file_path = os.path.dirname(os.path.abspath(__file__)) + '/resnet18s4'
     if not os.path.exists(file_path):
         os.mkdir(file_path)
     #with open("reef/resnet18-final.json", "w") as f:

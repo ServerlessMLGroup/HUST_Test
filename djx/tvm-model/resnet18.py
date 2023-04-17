@@ -23,15 +23,15 @@ if len(sys.argv) != 5:
     print("Usage: device_source_file_name raw_schedule_file graph_json_file param_file")
     exit(0)
 
-file_path_dir = os.path.dirname(os.path.abspath(__file__)) + '/resnet18'
+file_path_dir = os.path.dirname(os.path.abspath(__file__)) + '/resnet18s16'
 if not os.path.exists(file_path_dir):
     os.mkdir(file_path_dir)
-device_source_file = open("resnet18/"+sys.argv[1], "w")  # cu
-raw_schedule_file = open("resnet18/"+sys.argv[2], "w")  # json
-graph_json_file = open("resnet18/"+sys.argv[3], "w")  # json
-param_file = open("resnet18/"+sys.argv[4], "w+b")  # params
+device_source_file = open("resnet18s16/"+sys.argv[1], "w")  # cu
+raw_schedule_file = open("resnet18s16/"+sys.argv[2], "w")  # json
+graph_json_file = open("resnet18s16/"+sys.argv[3], "w")  # json
+param_file = open("resnet18s16/"+sys.argv[4], "w+b")  # params
 
-batch_size = 32
+batch_size = 16
 num_class = 1000
 image_shape = (3, 224, 224)
 data_shape = (batch_size,) + image_shape
