@@ -1,0 +1,24 @@
+kernel name,param1,size,param2,size,param3,size,param4,size,param5,size,param6,size
+fused_nn_conv2d_add_nn_relu_8_kernel0,0,9633792,1,6912,3,205520896,2,256,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_7_kernel0,3,205520896,4,147456,6,205520896,5,256,-1,-1,-1,-1
+fused_nn_max_pool2d_4_kernel0,6,205520896,7,51380224,-1,-1,-1,-1,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_6_kernel0,7,51380224,8,294912,10,102760448,9,512,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_5_kernel0,10,102760448,11,589824,13,102760448,12,512,-1,-1,-1,-1
+fused_nn_max_pool2d_3_kernel0,13,102760448,14,25690112,-1,-1,-1,-1,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_4_kernel0,14,25690112,15,1179648,17,51380224,16,1024,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_3_kernel0,17,51380224,18,2359296,20,51380224,19,1024,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_3_kernel0,20,51380224,21,2359296,23,51380224,22,1024,-1,-1,-1,-1
+fused_nn_max_pool2d_2_kernel0,23,51380224,24,12845056,-1,-1,-1,-1,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_2_kernel0,24,12845056,25,4718592,27,25690112,26,2048,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_1_kernel0,27,25690112,28,9437184,30,25690112,29,2048,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_1_kernel0,30,25690112,31,9437184,33,25690112,32,2048,-1,-1,-1,-1
+fused_nn_max_pool2d_1_kernel0,33,25690112,34,6422528,-1,-1,-1,-1,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_kernel0,34,6422528,35,9437184,37,6422528,36,2048,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_kernel0,37,6422528,38,9437184,40,6422528,39,2048,-1,-1,-1,-1
+fused_nn_conv2d_add_nn_relu_kernel0,40,6422528,41,9437184,43,6422528,42,2048,-1,-1,-1,-1
+fused_nn_max_pool2d_kernel0,43,6422528,44,1605632,-1,-1,-1,-1,-1,-1,-1,-1
+fused_nn_batch_flatten_kernel0,45,1605632,44,1605632,-1,-1,-1,-1,-1,-1,-1,-1
+fused_nn_dense_add_nn_relu_1_kernel0,45,1605632,46,411041792,48,262144,47,16384,-1,-1,-1,-1
+fused_nn_dense_add_nn_relu_kernel0,48,262144,49,67108864,51,262144,50,16384,-1,-1,-1,-1
+fused_nn_dense_add_kernel0,51,262144,52,16384000,54,64000,53,4000,-1,-1,-1,-1
+fused_nn_softmax_kernel0,54,64000,55,64000,-1,-1,-1,-1,-1,-1,-1,-1
